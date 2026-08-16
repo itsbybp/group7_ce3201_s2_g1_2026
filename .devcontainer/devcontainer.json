@@ -1,0 +1,13 @@
+{
+  "name": "Digital Design Lab",
+  "build": {
+    "dockerfile": "../Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "mshr-h.VerilogHDL"
+      ]
+    }
+  }
+}

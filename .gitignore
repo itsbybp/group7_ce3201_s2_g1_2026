@@ -1,0 +1,58 @@
+# Toolchain / editor noise
+.vscode/
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Python test and cache artefacts
+__pycache__/
+.pytest_cache/
+*.py[cod]
+*.log
+.coverage
+coverage/
+
+# Verilator / cocotb generated files
+obj_dir/
+sim_build/
+results.xml
+
+# Questa / vsim,vlog simulation artefacts (supports nested sprint directories)
+**/work/
+**/transcript*
+**/*.wlf
+**/*.mti
+**/*.dat
+**/*.dbs
+**/*.psm
+**/*.vstf
+**/*.ucdb
+**/cov*/
+**/sc_dpiheader.h
+**/vsim.dbg
+!sprint*/tests/sv/questa_test_summary.log
+
+# Quartus / FPGA tooling artefacts (supports nested sprint directories)
+**/quartus/*
+!**/quartus/*.qpf
+!**/quartus/*.qsf
+!**/quartus/*.sv
+!**/quartus/*.svh
+!**/quartus/*.v
+!**/quartus/*.tcl
+**/quartus/db/
+**/quartus/incremental_db/
+**/quartus/output_files/
+**/quartus/*.qws
+**/quartus/*.rpt
+**/quartus/*.sof
+**/quartus/*.pof
+**/quartus/*.bak
+**/quartus/*.orig
+**/quartus/*.rej
+
+# Keep intentional local synthesis reports and repo marker (per sprint)
+sprint*/output_files/*
+!sprint*/output_files/.gitkeep
+!sprint*/output_files/*.rpt
