@@ -6,9 +6,16 @@ module parity_checker_structural (
     output logic       error_odd,
     output logic       valid
 );
-    // TODO: Implemente el chequeo de paridad utilizando ÚNICAMENTE 
-    // compuertas primitivas (and, or, not, xor).
-    
-    // TODO: Asegúrese de utilizar una única sentencia por línea.
-    
+
+    logic odd_check;
+    logic any_error;
+
+    xor (error_even, data[0], data[2], p_even);
+
+    xor (odd_check, data[1], data[3], p_odd);
+    not (error_odd, odd_check);
+
+    or (any_error, error_even, error_odd);
+    not (valid, any_error);
+
 endmodule
