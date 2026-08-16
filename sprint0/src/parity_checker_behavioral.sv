@@ -6,8 +6,7 @@ module parity_checker_behavioral (
     output logic       error_odd,
     output logic       valid
 );
-    // TODO: Implemente el chequeo de paridad utilizando operadores lógicos.
-    
-    // TODO: Asegúrese de utilizar una única sentencia por línea.
-    
+    assign error_even = ^{data[0], data[2], p_even};
+    assign error_odd = ~^{data[1], data[3], p_odd};
+    assign valid = ~error_even & ~error_odd;
 endmodule
