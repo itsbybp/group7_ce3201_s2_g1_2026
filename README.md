@@ -30,6 +30,11 @@ Repositorio base para los sprints del curso CE-3201 Taller de Diseño Digital. E
 ### 3. Integración Continua (Gatekeeper)
 * Al abrir un *Pull Request* hacia la rama principal, el pipeline de GitHub Actions actúa como *Gatekeeper* verificando la ausencia de *latches* no intencionales, comprobando la ausencia de violaciones de temporización mediante el margen de retraso (*Slack*) y ejecutando la regresión funcional en la nube con Verilator.
 
+## Integrantes
+
+- Byron Josué Bolaños Porras 1 - 2025078620
+- Esteban Andres Campos Abarca 2 - 2022207705
+
 ## Referencias
 
 [1] Harris, S., & Harris, D. (2015). Digital Design and Computer Architecture: ARM Edition. Morgan Kaufmann.
