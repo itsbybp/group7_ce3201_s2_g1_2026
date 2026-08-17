@@ -55,4 +55,7 @@ results.xml
 # Keep intentional local synthesis reports and repo marker (per sprint)
 sprint*/output_files/*
 !sprint*/output_files/.gitkeep
-!sprint*/output_files/*.rpt
+!sprint*/output_files/*.rptsprint0/tests/cocotb/sim_build_behavioral/
+sprint0/tests/cocotb/sim_build_structural/
+sprint0/tests/cocotb/results_behavioral.xml
+sprint0/tests/cocotb/results_structural.xml
