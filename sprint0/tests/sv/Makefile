@@ -13,6 +13,7 @@ simulate_questa:
 	$(QUESTA_BIN)/vlib.exe work
 	$(QUESTA_BIN)/vlog.exe -sv $(SRC_FILES) $(TB_NAME).sv -l $(LOG_FILE)
 	$(QUESTA_BIN)/vsim.exe -c -do "run -all; quit" work.$(TB_NAME) -l $(LOG_FILE) -appendlog
+	python3 parse_logs.py $(LOG_FILE)
 
 clean:
 	rm -rf work
