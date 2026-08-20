@@ -62,7 +62,7 @@ Se capturó con el osciloscopio el valor de CD estático de las mismas dos seña
 
 *Figura 6. Resultado del osciloscopio de las tensiones en ambas compuertas. El canal 1 (en amarillo) muestra la tensión de salida de la NAND TTL; y el canal 2 (en celeste), la de la NAND CMOS.*
 
-<!-- 
+
 ## User Story 1.2 — Simulación de carga (Fan-Out)
 
 ### 1. Objetivo
@@ -83,6 +83,19 @@ provoca el fallo lógico en la compuerta TTL.
 ### 3. Parámetros eléctricos
 - Vcc = 5 V.
 - La resistencia del potenciómetro varió de 100 Ω a 40 Ω.
+
+<!-- ### 4. Esquema del circuito
+
+![circuito de la user story 1.1 en LTspice](no_buffer_circuit_schematic_LTspice.png)
+*Figura 1. Circuito de interfaz CMOS a TTL sin buffer en LTspice.* -->
+
+<!-- ### 5. Montaje físico
+
+![Foto del circuito de la user story 1.1 en protoboard](no_buffer_cmos-ttl_interface_0.jpg)
+*Figura 2. Fotografía del circuito de interfaz CMOS a TTL sin buffer.*
+
+![Foto cenital del circuito de la user story 1.1 en protoboard](no_buffer_cmos-ttl_interface_1.jpg)
+*Figura 3. Fotografía cenital del circuito de interfaz CMOS a TTL sin buffer.* -->
 
 
 ### 4. Resultados de la simulación
@@ -118,7 +131,7 @@ y el valor de resistencia del potenciómetro que producen la ruptura de la seña
 - Se encontró que la resistencia del potenciómetro en este mismo punto fue de 42,3 Ω.
 
 
-### 7. Conclusiones de User Story 1.1
+### 7. Conclusiones de User Story 1.2
 La tensión y resistencia encontradas en la simulación y la medición se comparan en la siguiente tabla
 | Componente | Simulado | Medido |Error  |
 |-----------|-------|------|----|
@@ -127,4 +140,74 @@ La tensión y resistencia encontradas en la simulación y la medición se compar
 
 La principal fuente de discrepancia es el comportamiento altamente ideal de la compuerta 74LS00 (NAND TTL) en LTspice, 
 mientras que la compuerta medida muestra un comportamiento más irregular en la zona prohibida.
+
+<!-- ## User Story 1.3 — Análisis matemático y Root Cause -->
+
+
+<!-- 
+### 16. Datos del datasheet
+
+
+
+### 17. Ley de Ohm
+
+
+
+### 18. Corriente de carga
+
+
+
+### 19. Relación entre IOL y VOL
+
+
+
+### 20. Umbral VIL del TTL
+
+
+
+### 21. Cálculo de compuertas equivalentes
+
+
+
+### 22. Root Cause
+
+
+
+---
+
+
+
+## User Story 1.4 — Mitigación
+
+
+
+### 23. Circuito de adaptación
+
+
+
+### 24. Procedimiento
+
+
+
+### 25. Resultados
+
+
+
+### 26. Comparación antes/después
+
+
+
+---
+
+
+
+## 27. Conclusiones del Epic 1
+
+
+
+## 28. Evidencias
+
+
+
+## 29. Referencias
  -->
