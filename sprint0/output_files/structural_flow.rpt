@@ -1,6 +1,6 @@
 Flow report for parity_checker_top
-Mon Aug 10 22:07:17 2026
-Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
+Thu Aug 20 23:21:02 2026
+Quartus Prime Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
 
 
 ---------------------
@@ -41,24 +41,24 @@ on the Quartus Prime software download page.
 +-----------------------------------------------------------------------------------+
 ; Flow Summary                                                                      ;
 +---------------------------------+-------------------------------------------------+
-; Flow Status                     ; Successful - Mon Aug 10 22:07:14 2026           ;
-; Quartus Prime Version           ; 24.1std.0 Build 1077 03/04/2025 SC Lite Edition ;
+; Flow Status                     ; Successful - Thu Aug 20 23:20:58 2026           ;
+; Quartus Prime Version           ; 25.1std.0 Build 1129 10/21/2025 SC Lite Edition ;
 ; Revision Name                   ; parity_checker_top                              ;
 ; Top-level Entity Name           ; parity_checker_top                              ;
 ; Family                          ; Cyclone V                                       ;
-; Device                          ; 5CSEMA5F31C6                                    ;
+; Device                          ; 5CSXFC6D6F31C6                                  ;
 ; Timing Models                   ; Final                                           ;
-; Logic utilization (in ALMs)     ; 1 / 32,070 ( < 1 % )                            ;
+; Logic utilization (in ALMs)     ; 3 / 41,910 ( < 1 % )                            ;
 ; Total registers                 ; 0                                               ;
-; Total pins                      ; 9 / 457 ( 2 % )                                 ;
+; Total pins                      ; 9 / 499 ( 2 % )                                 ;
 ; Total virtual pins              ; 0                                               ;
-; Total block memory bits         ; 0 / 4,065,280 ( 0 % )                           ;
-; Total DSP Blocks                ; 0 / 87 ( 0 % )                                  ;
-; Total HSSI RX PCSs              ; 0                                               ;
-; Total HSSI PMA RX Deserializers ; 0                                               ;
-; Total HSSI TX PCSs              ; 0                                               ;
-; Total HSSI PMA TX Serializers   ; 0                                               ;
-; Total PLLs                      ; 0 / 6 ( 0 % )                                   ;
+; Total block memory bits         ; 0 / 5,662,720 ( 0 % )                           ;
+; Total DSP Blocks                ; 0 / 112 ( 0 % )                                 ;
+; Total HSSI RX PCSs              ; 0 / 9 ( 0 % )                                   ;
+; Total HSSI PMA RX Deserializers ; 0 / 9 ( 0 % )                                   ;
+; Total HSSI TX PCSs              ; 0 / 9 ( 0 % )                                   ;
+; Total HSSI PMA TX Serializers   ; 0 / 9 ( 0 % )                                   ;
+; Total PLLs                      ; 0 / 15 ( 0 % )                                  ;
 ; Total DLLs                      ; 0 / 4 ( 0 % )                                   ;
 +---------------------------------+-------------------------------------------------+
 
@@ -68,7 +68,7 @@ on the Quartus Prime software download page.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 08/10/2026 22:06:52 ;
+; Start date & time ; 08/20/2026 23:20:18 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; parity_checker_top  ;
 +-------------------+---------------------+
@@ -79,7 +79,7 @@ on the Quartus Prime software download page.
 +-------------------------------------+----------------------------------------+---------------+-------------+------------+
 ; Assignment Name                     ; Value                                  ; Default Value ; Entity Name ; Section Id ;
 +-------------------------------------+----------------------------------------+---------------+-------------+------------+
-; COMPILER_SIGNATURE_ID               ; 228999274511546.178639241254856        ; --            ; --          ; --         ;
+; COMPILER_SIGNATURE_ID               ; 1096471446967.178728961802608          ; --            ; --          ; --         ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                                     ; --            ; --          ; --         ;
 ; MIN_CORE_JUNCTION_TEMP              ; 0                                      ; --            ; --          ; --         ;
 ; PARTITION_COLOR                     ; -- (Not supported for targeted family) ; --            ; --          ; Top        ;
@@ -100,24 +100,24 @@ on the Quartus Prime software download page.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:04     ; 1.0                     ; 415 MB              ; 00:00:13                           ;
-; Fitter               ; 00:00:13     ; 1.0                     ; 2673 MB             ; 00:00:39                           ;
-; Assembler            ; 00:00:03     ; 1.0                     ; 507 MB              ; 00:00:03                           ;
-; Timing Analyzer      ; 00:00:02     ; 1.0                     ; 958 MB              ; 00:00:02                           ;
-; Total                ; 00:00:22     ; --                      ; --                  ; 00:00:57                           ;
+; Analysis & Synthesis ; 00:00:06     ; 1.0                     ; 4889 MB             ; 00:00:13                           ;
+; Fitter               ; 00:00:29     ; 1.0                     ; 7947 MB             ; 00:02:46                           ;
+; Assembler            ; 00:00:04     ; 1.0                     ; 5227 MB             ; 00:00:03                           ;
+; Timing Analyzer      ; 00:00:03     ; 1.1                     ; 5385 MB             ; 00:00:03                           ;
+; Total                ; 00:00:42     ; --                      ; --                  ; 00:03:05                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
-+---------------------------------------------------------------------------------+
-; Flow OS Summary                                                                 ;
-+----------------------+------------------+---------+------------+----------------+
-; Module Name          ; Machine Hostname ; OS Name ; OS Version ; Processor type ;
-+----------------------+------------------+---------+------------+----------------+
-; Analysis & Synthesis ; NEROPC01         ; Ubuntu  ; 24         ; x86_64         ;
-; Fitter               ; NEROPC01         ; Ubuntu  ; 24         ; x86_64         ;
-; Assembler            ; NEROPC01         ; Ubuntu  ; 24         ; x86_64         ;
-; Timing Analyzer      ; NEROPC01         ; Ubuntu  ; 24         ; x86_64         ;
-+----------------------+------------------+---------+------------+----------------+
++------------------------------------------------------------------------------------+
+; Flow OS Summary                                                                    ;
++----------------------+------------------+------------+------------+----------------+
+; Module Name          ; Machine Hostname ; OS Name    ; OS Version ; Processor type ;
++----------------------+------------------+------------+------------+----------------+
+; Analysis & Synthesis ; AlienwareByron   ; Windows 10 ; 10.0       ; x86_64         ;
+; Fitter               ; AlienwareByron   ; Windows 10 ; 10.0       ; x86_64         ;
+; Assembler            ; AlienwareByron   ; Windows 10 ; 10.0       ; x86_64         ;
+; Timing Analyzer      ; AlienwareByron   ; Windows 10 ; 10.0       ; x86_64         ;
++----------------------+------------------+------------+------------+----------------+
 
 
 ------------

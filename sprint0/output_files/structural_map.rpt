@@ -1,6 +1,6 @@
 Analysis & Synthesis report for parity_checker_top
-Mon Aug 10 22:06:56 2026
-Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
+Thu Aug 20 23:20:23 2026
+Quartus Prime Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
 
 
 ---------------------
@@ -43,8 +43,8 @@ on the Quartus Prime software download page.
 +-----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                      ;
 +---------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Mon Aug 10 22:06:56 2026           ;
-; Quartus Prime Version           ; 24.1std.0 Build 1077 03/04/2025 SC Lite Edition ;
+; Analysis & Synthesis Status     ; Successful - Thu Aug 20 23:20:23 2026           ;
+; Quartus Prime Version           ; 25.1std.0 Build 1129 10/21/2025 SC Lite Edition ;
 ; Revision Name                   ; parity_checker_top                              ;
 ; Top-level Entity Name           ; parity_checker_top                              ;
 ; Family                          ; Cyclone V                                       ;
@@ -68,7 +68,7 @@ on the Quartus Prime software download page.
 +---------------------------------------------------------------------------------+--------------------+--------------------+
 ; Option                                                                          ; Setting            ; Default Value      ;
 +---------------------------------------------------------------------------------+--------------------+--------------------+
-; Device                                                                          ; 5CSEMA5F31C6       ;                    ;
+; Device                                                                          ; 5CSXFC6D6F31C6     ;                    ;
 ; Top-level entity name                                                           ; parity_checker_top ; parity_checker_top ;
 ; Family name                                                                     ; Cyclone V          ; Cyclone V          ;
 ; Verilog Show LMF Mapping Messages                                               ; Off                ;                    ;
@@ -160,57 +160,59 @@ on the Quartus Prime software download page.
 ; Maximum allowed            ; 16          ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
-; Maximum used               ; 1           ;
+; Maximum used               ; 16          ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
+;     Processors 2-16        ;   0.0%      ;
 +----------------------------+-------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                                              ;
-+-------------------------------------+-----------------+------------------------------+----------------------------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path    ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                                       ; Library ;
-+-------------------------------------+-----------------+------------------------------+----------------------------------------------------------------------------------------------------+---------+
-; ../src/parity_checker_structural.sv ; yes             ; User SystemVerilog HDL File  ; /home/rongar01/ce3201/ce3201_s2_2026/repos/ce3201_s2_2026/sprint0/src/parity_checker_structural.sv ;         ;
-; ../src/parity_checker_top.sv        ; yes             ; User SystemVerilog HDL File  ; /home/rongar01/ce3201/ce3201_s2_2026/repos/ce3201_s2_2026/sprint0/src/parity_checker_top.sv        ;         ;
-+-------------------------------------+-----------------+------------------------------+----------------------------------------------------------------------------------------------------+---------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                                 ;
++-------------------------------------+-----------------+------------------------------+-------------------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path    ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                                          ; Library ;
++-------------------------------------+-----------------+------------------------------+-------------------------------------------------------------------------------------------------------+---------+
+; ../src/parity_checker_structural.sv ; yes             ; User SystemVerilog HDL File  ; C:/ByronBP/SemAct/Proyecto - Taller/group7_ce3201_s2_g1_2026/sprint0/src/parity_checker_structural.sv ;         ;
+; ../src/parity_checker_top.sv        ; yes             ; User SystemVerilog HDL File  ; C:/ByronBP/SemAct/Proyecto - Taller/group7_ce3201_s2_g1_2026/sprint0/src/parity_checker_top.sv        ;         ;
++-------------------------------------+-----------------+------------------------------+-------------------------------------------------------------------------------------------------------+---------+
 
 
-+-------------------------------------------------------+
-; Analysis & Synthesis Resource Usage Summary           ;
-+---------------------------------------------+---------+
-; Resource                                    ; Usage   ;
-+---------------------------------------------+---------+
-; Estimate of Logic utilization (ALMs needed) ; 0       ;
-;                                             ;         ;
-; Combinational ALUT usage for logic          ; 0       ;
-;     -- 7 input functions                    ; 0       ;
-;     -- 6 input functions                    ; 0       ;
-;     -- 5 input functions                    ; 0       ;
-;     -- 4 input functions                    ; 0       ;
-;     -- <=3 input functions                  ; 0       ;
-;                                             ;         ;
-; Dedicated logic registers                   ; 0       ;
-;                                             ;         ;
-; I/O pins                                    ; 9       ;
-;                                             ;         ;
-; Total DSP Blocks                            ; 0       ;
-;                                             ;         ;
-; Maximum fan-out node                        ; data[0] ;
-; Maximum fan-out                             ; 1       ;
-; Total fan-out                               ; 9       ;
-; Average fan-out                             ; 0.50    ;
-+---------------------------------------------+---------+
++-------------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary                 ;
++---------------------------------------------+---------------+
+; Resource                                    ; Usage         ;
++---------------------------------------------+---------------+
+; Estimate of Logic utilization (ALMs needed) ; 2             ;
+;                                             ;               ;
+; Combinational ALUT usage for logic          ; 3             ;
+;     -- 7 input functions                    ; 0             ;
+;     -- 6 input functions                    ; 1             ;
+;     -- 5 input functions                    ; 0             ;
+;     -- 4 input functions                    ; 0             ;
+;     -- <=3 input functions                  ; 2             ;
+;                                             ;               ;
+; Dedicated logic registers                   ; 0             ;
+;                                             ;               ;
+; I/O pins                                    ; 9             ;
+;                                             ;               ;
+; Total DSP Blocks                            ; 0             ;
+;                                             ;               ;
+; Maximum fan-out node                        ; data[0]~input ;
+; Maximum fan-out                             ; 2             ;
+; Total fan-out                               ; 24            ;
+; Average fan-out                             ; 1.14          ;
++---------------------------------------------+---------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                           ;
-+----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+--------------------+--------------+
-; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name ; Entity Name        ; Library Name ;
-+----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+--------------------+--------------+
-; |parity_checker_top        ; 0 (0)               ; 0 (0)                     ; 0                 ; 0          ; 9    ; 0            ; |parity_checker_top ; parity_checker_top ; work         ;
-+----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+--------------------+--------------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                  ;
++-------------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+----------------------------------------------------------------+---------------------------+--------------+
+; Compilation Hierarchy Node                      ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                            ; Entity Name               ; Library Name ;
++-------------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+----------------------------------------------------------------+---------------------------+--------------+
+; |parity_checker_top                             ; 3 (0)               ; 0 (0)                     ; 0                 ; 0          ; 9    ; 0            ; |parity_checker_top                                            ; parity_checker_top        ; work         ;
+;    |parity_checker_structural:u_parity_checker| ; 3 (3)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |parity_checker_top|parity_checker_structural:u_parity_checker ; parity_checker_structural ; work         ;
++-------------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+----------------------------------------------------------------+---------------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
@@ -234,13 +236,15 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; arriav_lcell_comb     ; 1                           ;
-;     normal            ; 1                           ;
-;         0 data inputs ; 1                           ;
+; arriav_lcell_comb     ; 5                           ;
+;     normal            ; 5                           ;
+;         1 data inputs ; 2                           ;
+;         3 data inputs ; 2                           ;
+;         6 data inputs ; 1                           ;
 ; boundary_port         ; 9                           ;
 ;                       ;                             ;
-; Max LUT depth         ; 0.00                        ;
-; Average LUT depth     ; 0.00                        ;
+; Max LUT depth         ; 2.00                        ;
+; Average LUT depth     ; 1.91                        ;
 +-----------------------+-----------------------------+
 
 
@@ -258,42 +262,30 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +-------------------------------+
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
-    Info: Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
-    Info: Processing started: Mon Aug 10 22:06:52 2026
+    Info: Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
+    Info: Processing started: Thu Aug 20 23:20:17 2026
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off parity_checker_top -c parity_checker_top
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
-Info (20030): Parallel compilation is enabled and will use 16 of the 16 processors detected
-Info (12021): Found 1 design units, including 1 entities, in source file /home/rongar01/ce3201/ce3201_s2_2026/repos/ce3201_s2_2026/sprint0/src/parity_checker_structural.sv
-    Info (12023): Found entity 1: parity_checker_structural File: /home/rongar01/ce3201/ce3201_s2_2026/repos/ce3201_s2_2026/sprint0/src/parity_checker_structural.sv Line: 1
-Info (12021): Found 1 design units, including 1 entities, in source file /home/rongar01/ce3201/ce3201_s2_2026/repos/ce3201_s2_2026/sprint0/src/parity_checker_behavioral.sv
-    Info (12023): Found entity 1: parity_checker_behavioral File: /home/rongar01/ce3201/ce3201_s2_2026/repos/ce3201_s2_2026/sprint0/src/parity_checker_behavioral.sv Line: 1
-Info (12021): Found 1 design units, including 1 entities, in source file /home/rongar01/ce3201/ce3201_s2_2026/repos/ce3201_s2_2026/sprint0/src/parity_checker_top.sv
-    Info (12023): Found entity 1: parity_checker_top File: /home/rongar01/ce3201/ce3201_s2_2026/repos/ce3201_s2_2026/sprint0/src/parity_checker_top.sv Line: 1
+Info (20030): Parallel compilation is enabled and will use 16 of the 24 processors detected
+Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto - taller/group7_ce3201_s2_g1_2026/sprint0/src/parity_checker_structural.sv
+    Info (12023): Found entity 1: parity_checker_structural File: C:/ByronBP/SemAct/Proyecto - Taller/group7_ce3201_s2_g1_2026/sprint0/src/parity_checker_structural.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto - taller/group7_ce3201_s2_g1_2026/sprint0/src/parity_checker_behavioral.sv
+    Info (12023): Found entity 1: parity_checker_behavioral File: C:/ByronBP/SemAct/Proyecto - Taller/group7_ce3201_s2_g1_2026/sprint0/src/parity_checker_behavioral.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto - taller/group7_ce3201_s2_g1_2026/sprint0/src/parity_checker_top.sv
+    Info (12023): Found entity 1: parity_checker_top File: C:/ByronBP/SemAct/Proyecto - Taller/group7_ce3201_s2_g1_2026/sprint0/src/parity_checker_top.sv Line: 1
 Info (12127): Elaborating entity "parity_checker_top" for the top level hierarchy
-Info (12128): Elaborating entity "parity_checker_structural" for hierarchy "parity_checker_structural:u_parity_checker" File: /home/rongar01/ce3201/ce3201_s2_2026/repos/ce3201_s2_2026/sprint0/src/parity_checker_top.sv Line: 18
-Warning (10034): Output port "error_even" at parity_checker_structural.sv(5) has no driver File: /home/rongar01/ce3201/ce3201_s2_2026/repos/ce3201_s2_2026/sprint0/src/parity_checker_structural.sv Line: 5
-Warning (10034): Output port "error_odd" at parity_checker_structural.sv(6) has no driver File: /home/rongar01/ce3201/ce3201_s2_2026/repos/ce3201_s2_2026/sprint0/src/parity_checker_structural.sv Line: 6
-Warning (10034): Output port "valid" at parity_checker_structural.sv(8) has no driver File: /home/rongar01/ce3201/ce3201_s2_2026/repos/ce3201_s2_2026/sprint0/src/parity_checker_structural.sv Line: 8
-Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "error_even" is stuck at GND File: /home/rongar01/ce3201/ce3201_s2_2026/repos/ce3201_s2_2026/sprint0/src/parity_checker_top.sv Line: 5
-    Warning (13410): Pin "error_odd" is stuck at GND File: /home/rongar01/ce3201/ce3201_s2_2026/repos/ce3201_s2_2026/sprint0/src/parity_checker_top.sv Line: 6
-    Warning (13410): Pin "valid" is stuck at GND File: /home/rongar01/ce3201/ce3201_s2_2026/repos/ce3201_s2_2026/sprint0/src/parity_checker_top.sv Line: 8
+Info (12128): Elaborating entity "parity_checker_structural" for hierarchy "parity_checker_structural:u_parity_checker" File: C:/ByronBP/SemAct/Proyecto - Taller/group7_ce3201_s2_g1_2026/sprint0/src/parity_checker_top.sv Line: 18
+Info (286030): Timing-Driven Synthesis is running
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Warning (21074): Design contains 6 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "data[0]" File: /home/rongar01/ce3201/ce3201_s2_2026/repos/ce3201_s2_2026/sprint0/src/parity_checker_top.sv Line: 2
-    Warning (15610): No output dependent on input pin "data[1]" File: /home/rongar01/ce3201/ce3201_s2_2026/repos/ce3201_s2_2026/sprint0/src/parity_checker_top.sv Line: 2
-    Warning (15610): No output dependent on input pin "data[2]" File: /home/rongar01/ce3201/ce3201_s2_2026/repos/ce3201_s2_2026/sprint0/src/parity_checker_top.sv Line: 2
-    Warning (15610): No output dependent on input pin "data[3]" File: /home/rongar01/ce3201/ce3201_s2_2026/repos/ce3201_s2_2026/sprint0/src/parity_checker_top.sv Line: 2
-    Warning (15610): No output dependent on input pin "p_even" File: /home/rongar01/ce3201/ce3201_s2_2026/repos/ce3201_s2_2026/sprint0/src/parity_checker_top.sv Line: 3
-    Warning (15610): No output dependent on input pin "p_odd" File: /home/rongar01/ce3201/ce3201_s2_2026/repos/ce3201_s2_2026/sprint0/src/parity_checker_top.sv Line: 4
-Info (21057): Implemented 9 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 12 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 6 input pins
     Info (21059): Implemented 3 output pins
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 15 warnings
-    Info: Peak virtual memory: 428 megabytes
-    Info: Processing ended: Mon Aug 10 22:06:56 2026
-    Info: Elapsed time: 00:00:04
+    Info (21061): Implemented 3 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 1 warning
+    Info: Peak virtual memory: 4889 megabytes
+    Info: Processing ended: Thu Aug 20 23:20:23 2026
+    Info: Elapsed time: 00:00:06
     Info: Total CPU time (on all processors): 00:00:13
 
 
