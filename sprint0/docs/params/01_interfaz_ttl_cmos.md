@@ -58,7 +58,7 @@ y en la salida de la NAND TTL con una resistencia de carga en la interfaz de 1 k
 ### 7. Medición con el osciloscopio
 Se capturó con el osciloscopio el valor de CD estático de las mismas dos señales.
 
-![Gráfica del multímetro us 1.1](no_buffer_osciloscope_stable.png)
+![Gráfica del osciloscopio us 1.1](no_buffer_osciloscope_stable.png)
 
 *Figura 6. Resultado del osciloscopio de las tensiones en ambas compuertas. El canal 1 (en amarillo) muestra la tensión de salida de la NAND TTL; y el canal 2 (en celeste), la de la NAND CMOS.*
 
@@ -117,11 +117,11 @@ y seguidmante, una escala de 200ms/división para capturar la degradación de la
 Además del osciloscopio se utilizó un multímetro digital para precisar la tensión de la NAND CMOS 
 y el valor de resistencia del potenciómetro que producen la ruptura de la señal.
 
-![Gráfica del multímetro us 1.1](no_buffer_ttl_logic_failure_2s_per_div.png)
+![Gráfica del osciloscopio us 1.1](no_buffer_ttl_logic_failure_2s_per_div.png)
 
 *Figura 8. Resultado del osciloscopio con 2s/división.*
 
-![Gráfica del multímetro us 1.1](no_buffer_ttl_logic_failure_close_up.png)
+![Gráfica del osciloscopio us 1.1](no_buffer_ttl_logic_failure_close_up.png)
 
 *Figura 9. Resultado del osciloscopio con 200ms/división.*
 
@@ -234,45 +234,113 @@ que se comporta similar a una resistencia. Debido a esto, al aumentar 𝐼<sub>O
 más corriente atraviesa el transistor de pull down a la salida de la NAND y la tensión de salida aumenta, V<sub>O𝐿</sub>.
 
 
-<!-- 
-
-
-
-
 ---
 
 
 
 ## User Story 1.4 — Mitigación
 
+### 1. Objetivo
+Intercalar un circuito de adaptación como el
+74LS244 entre la salida CMOS y la carga simulada (potenciómetro) para demostrar cómo
+un componente de mayor capacidad de corriente absorbe la carga y recupera la integridad
+de la señal.
+
+### 2. Materiales y equipo
+- Protoboard y cables de conexión.
+- Batería de 9 V.
+- NAND CMOS 74HC00.
+- NAND TTL 74LS00.
+- Buffer TTL 47LS244.
+- Potenciómetro de precisión de 100 Ω W101.
+- Regulador de tensión de 5 V LM7805.
+- Multímetro digital.
+- Osciloscopio Fnirsi-1013D.
+- Resistencias de 66 kΩ y 100 kΩ.
+
+### 3. Parámetros eléctricos
+- Vcc = 5 V.
+- Resistencia del potenciómetro en 15.1 Ω.
 
 
-### 23. Circuito de adaptación
+### 4. Esquema del circuito
+
+![circuito de la user story 1.4 en LTspice](with_buffer_circuit_schematic_LTspice.png)
+
+*Figura 10. Circuito de interfaz CMOS a TTL con buffer en LTspice.*
+
+### 5. Montaje físico
+
+![Foto cenital del circuito de la user story 1.4 en protoboard](with_buffer_cmos-ttl_interface_1.jpg)
+
+*Figura 11. Fotografía cenital del circuito de interfaz CMOS a TTL con buffer.*
+
+![Foto del circuito de la user story 1.4 junto al osciloscopio](with_buffer_cmos-ttl_interface_with_oscilloscope.jpg)
+
+*Figura 12. Fotografía del circuito de interfaz CMOS a TTL junto al osciloscopio.*
 
 
 
-### 24. Procedimiento
+
+
+### 6. Recuperación de la integridad de la señal
+Como se justificó teóricamente en la user story anterior, el aumento de 𝐼<sub>O𝐿</sub> causa la indirectamente la degradación de la señal.
+Para evitar esto se añadió el buffer TTL 74LS244 entre la salida de la compuerta CMOS y el potenciómetro.
+El objetivo de esto es que la corriente que atraviesa al potenciómetro dé a tierra a través del buffer y no de la CMOS
+porque este tiene una mayor capacidad de corriente.
+La conexión del buffer en este circuito mantiene la señal de control permanentemente conectada a tierra, la cual es active low,
+y conecta la salida de la NAND CMOS con la entrada del buffer. La salida del buffer se conecta a la carga simulada (el potenciómetro).
 
 
 
-### 25. Resultados
+
+### 7. Resultados de la simulación
+La simulación realiza un barrido en el valor de la resistencia de 1 kΩ a 0 Ω
+mientras muestra los valores de la tensión a la salida del buffer (Vin) y a la de la compuerta TTL (Vout74ls00).
 
 
+![Gráfica de LTspice de us 1.4](with_buffer_circuit_simulation_plot_LTspice.png)
 
-### 26. Comparación antes/después
+*Figura 13. Gráfica de tensión contra tiempo de la tensión de salida del buffer y de la tensión de la salida del circuito (NAND TTL) en LTspice.*
+
+La gráfica de esta simulación muestra una degradación de la señal en 17.2 Ω.
 
 
+### 8. Medición con el osciloscopio
+Se capturó con el osciloscopio las mismas dos señales mencionadas en la simulación.
+El canal 1 corresponde a la salida de la NAND TTL; y el canal 2, a la salida del buffer.
+Se capturaron las señales mientras se varió el potenciómetro desde aproximadamente 80 Ω hasta 15.1 Ω.
+El valor final de resistencia es menor que el valor de ruptura encontrado en la user story 1.2, de 42.3 Ω.
+Se usó una escala de 2s/división el proceso y durante este se observó una caída muy baja de la tensión de salida del buffer.
+Seguidamente se utilizó el multímetro digital para medir la resistencia en el potenciómetro al final del proceso.
+No se llegó al límite inferior de la resistencia (aproximadamente 1 Ω) para evitar crear un cortocircuito en la salida del buffer. 
+
+![Gráfica del osciloscopio us 1.4](with_buffer_ttl_logic_failure_2s_per_div.png)
+
+*Figura 14. Resultado del osciloscopio con 2s/división.*
+
+![Medición de la resistencia en el multímetro us 1.4](potentiometer_measurement.jpg)
+
+*Figura 15. Resultado de la medición de la resistencia del potenciómetro en el multímetro*
+
+### 9. Resultados de la medición
+- Se comprobó que la añadir un buffer entre la salida de la compuerta CMOS y la carga aumentó la capacidad de drenado de corriente.
+
+
+### 10. Conclusiones de User Story 1.4
+Tanto la simulación como la medición con el osciloscopio muestran una mayor capacidad de carga (esta es inversamente proporcional a la resistencia de carga).
+La simulación y el circuito real presentan comportamientos muy similares, si bien no se ajustó el valor del potenciómetro hasta el mínimo en el circuito físico
+para evitar un corriente muy alta.
 
 ---
 
 
 
-## 27. Conclusiones del Epic 1
 
 
 
-## 28. Evidencias
--->
+
+
 
 
 ## References
