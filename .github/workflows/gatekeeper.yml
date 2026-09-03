@@ -58,9 +58,9 @@ jobs:
           runCmd: |
             for sprint in $CHANGED_SPRINTS
             do
-              if [ -d "${sprint}/tests/cocotb" ]
+              if [ -d "${sprint}/test/cocotb" ]
               then
-                make -C "${sprint}/tests/cocotb"
+                make -C "${sprint}/test/cocotb"
               fi
             done
 
@@ -81,9 +81,9 @@ jobs:
           
           for sprint in $CHANGED_SPRINTS
           do
-            if [ -d "${sprint}/tests/sv" ]
+            if [ -d "${sprint}/test/sv" ]
             then
-              summary="${sprint}/tests/sv/questa_test_summary.log"
+              summary="${sprint}/test/sv/questa_test_summary.log"
               
               if [ ! -f "$summary" ]
               then
