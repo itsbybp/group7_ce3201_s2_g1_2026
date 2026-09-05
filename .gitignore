@@ -1,64 +1,167 @@
-# Toolchain / editor noise
-.vscode/
-.DS_Store
-*.swp
-*.swo
-*~
+name: Verification Gatekeeper
 
-# Python test and cache artefacts
-__pycache__/
-.pytest_cache/
-*.py[cod]
-*.log
-.coverage
-coverage/
+on:
+  pull_request:
 
-# Verilator / cocotb generated files
-obj_dir/
-sim_build/
-results.xml
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      sprints: ${{ steps.filter.outputs.sprints }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-# Questa / vsim,vlog simulation artefacts (supports nested sprint directories)
-**/work/
-**/transcript*
-**/*.wlf
-**/*.mti
-**/*.dat
-**/*.dbs
-**/*.psm
-**/*.vstf
-**/*.ucdb
-**/cov*/
-**/sc_dpiheader.h
-**/vsim.dbg
-!sprint*/tests/sv/questa_test_summary.log
+      - name: Identify changed and dependent sprint directories
+        id: filter
+        run: |
+          changed=$(git diff --name-only origin/${{ github.base_ref }} HEAD | grep '^sprint' | cut -d/ -f1 | sort -u)
+          
+          all_sprints=""
+          
+          for sprint in $changed
+          do
+            all_sprints="${all_sprints} ${sprint}"
+            
+            for potential_dependent in sprint*/
+            do
+              dependent_name=${potential_dependent%/}
+              
+              if grep -q -R -l "$sprint" "$dependent_name"
+              then
+                all_sprints="${all_sprints} ${dependent_name}"
+              fi
+            done
+          done
+          
+          final_sprints=$(echo "$all_sprints" | tr ' ' '\n' | sort -u | xargs)
+          
+          echo "sprints=${final_sprints}" >> "$GITHUB_OUTPUT"
 
-# Quartus / FPGA tooling artefacts (supports nested sprint directories)
-**/quartus/*
-!**/quartus/*.sdc
-!**/quartus/*.qpf
-!**/quartus/*.qsf
-!**/quartus/*.sv
-!**/quartus/*.svh
-!**/quartus/*.v
-!**/quartus/*.tcl
-!**/quartus/output_files/
-**/quartus/db/
-**/quartus/incremental_db/
-**/quartus/output_files/*
-!**/quartus/output_files/*.flow.rpt
-**/quartus/*.qws
-**/quartus/*.rpt
-**/quartus/*.sof
-**/quartus/*.pof
-**/quartus/*.bak
-**/quartus/*.orig
-**/quartus/*.rej
+  open-source-verification:
+    runs-on: ubuntu-latest
+    needs: detect-changes
+    if: ${{ needs.detect-changes.outputs.sprints != '' }}
+    env:
+      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: "true"
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-# Keep intentional local synthesis reports and repo marker (per sprint)
-sprint*/output_files/*
-!sprint*/output_files/.gitkeep
-!sprint*/output_files/*.rptsprint0/tests/cocotb/sim_build_behavioral/
-sprint0/tests/cocotb/sim_build_structural/
-sprint0/tests/cocotb/results_behavioral.xml
-sprint0/tests/cocotb/results_structural.xml
+      - name: Execute Open-Source SV and Cocotb Simulations
+        uses: devcontainers/ci@v0.3
+        env:
+          CHANGED_SPRINTS: ${{ needs.detect-changes.outputs.sprints }}
+        with:
+          runCmd: |
+            for sprint in $CHANGED_SPRINTS
+            do
+              if [ -d "${sprint}/test/cocotb" ]
+              then
+                make -C "${sprint}/test/cocotb"
+              fi
+            done
+
+  repo-artifact-validation:
+    runs-on: ubuntu-latest
+    # Removed open-source-verification from needs to allow parallel execution
+    needs: detect-changes
+    if: ${{ needs.detect-changes.outputs.sprints != '' }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Validate Quartus and Questa artefacts for changed sprints
+        env:
+          CHANGED_SPRINTS: ${{ needs.detect-changes.outputs.sprints }}
+        run: |
+          shopt -s nullglob
+          
+          for sprint in $CHANGED_SPRINTS
+          do
+            if [ -d "${sprint}/test/sv" ]
+            then
+              summary="${sprint}/test/sv/questa_test_summary.log"
+              
+              if [ ! -f "$summary" ]
+              then
+                echo "Error: Local Questa summary missing (${summary})."
+                exit 1
+              fi
+              
+              if ! grep -q "ERRORS=0" "$summary"
+              then
+                echo "Error: Questa summary does not show ERRORS=0 in ${sprint}."
+                exit 1
+              fi
+              
+              if ! grep -q "WARNINGS=0" "$summary"
+              then
+                echo "Error: Questa summary does not show WARNINGS=0 in ${sprint}."
+                exit 1
+              fi
+              
+              if ! grep -q "ALL_TESTS_PASSED" "$summary"
+              then
+                echo "Error: Questa summary does not show ALL_TESTS_PASSED in ${sprint}."
+                exit 1
+              fi
+              
+              echo "Questa summary verified for ${sprint}."
+            fi
+
+            reports=("${sprint}/quartus/output_files"/*.flow.rpt)
+            
+            if [ ${#reports[@]} -eq 0 ]
+            then
+              echo "Error: Local synthesis artefact missing in ${sprint}/quartus/output_files"
+              exit 1
+            fi
+            
+            for report in "${reports[@]}"
+            do
+              if grep -q "Successful" "$report"
+              then
+                echo "Local synthesis verified for ${report}."
+              else
+                echo "Error: Local synthesis was not successful in ${report}."
+                exit 1
+              fi
+            done
+          done
+
+  style-check:
+    runs-on: ubuntu-latest
+    needs: detect-changes
+    if: ${{ needs.detect-changes.outputs.sprints != '' }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Detect multiple statements per line in changed sprints
+        env:
+          CHANGED_SPRINTS: ${{ needs.detect-changes.outputs.sprints }}
+        run: |
+          violations=0
+
+          for sprint in $CHANGED_SPRINTS
+          do
+            if [ -d "${sprint}/src" ]
+            then
+              hits=$(grep -RnE '\;[[:space:]]*[^[:space:]/].*\;' --include="*.sv" "${sprint}/src" || true)
+
+              if [ -n "$hits" ]
+              then
+                echo "Error: Multiples sentencias por linea detectadas en ${sprint}/src:"
+                echo "$hits"
+                violations=1
+              fi
+            fi
+          done
+
+          if [ "$violations" -eq 1 ]
+          then
+            exit 1
+          fi
