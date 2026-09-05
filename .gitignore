@@ -42,9 +42,11 @@ results.xml
 !**/quartus/*.svh
 !**/quartus/*.v
 !**/quartus/*.tcl
+!**/quartus/output_files/
 **/quartus/db/
 **/quartus/incremental_db/
-**/quartus/output_files/
+**/quartus/output_files/*
+!**/quartus/output_files/*.flow.rpt
 **/quartus/*.qws
 **/quartus/*.rpt
 **/quartus/*.sof
