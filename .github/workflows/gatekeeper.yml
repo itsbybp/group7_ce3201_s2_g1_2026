@@ -112,11 +112,11 @@ jobs:
               echo "Questa summary verified for ${sprint}."
             fi
 
-            reports=("${sprint}/output_files"/*_flow.rpt)
+            reports=("${sprint}/quartus/output_files"/*.flow.rpt)
             
             if [ ${#reports[@]} -eq 0 ]
             then
-              echo "Error: Local synthesis artefact missing in ${sprint}/output_files"
+              echo "Error: Local synthesis artefact missing in ${sprint}/quartus/output_files"
               exit 1
             fi
             
@@ -131,3 +131,37 @@ jobs:
               fi
             done
           done
+
+  style-check:
+    runs-on: ubuntu-latest
+    needs: detect-changes
+    if: ${{ needs.detect-changes.outputs.sprints != '' }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Detect multiple statements per line in changed sprints
+        env:
+          CHANGED_SPRINTS: ${{ needs.detect-changes.outputs.sprints }}
+        run: |
+          violations=0
+
+          for sprint in $CHANGED_SPRINTS
+          do
+            if [ -d "${sprint}/src" ]
+            then
+              hits=$(grep -RnE '\;[[:space:]]*[^[:space:]/].*\;' --include="*.sv" "${sprint}/src" || true)
+
+              if [ -n "$hits" ]
+              then
+                echo "Error: Multiples sentencias por linea detectadas en ${sprint}/src:"
+                echo "$hits"
+                violations=1
+              fi
+            fi
+          done
+
+          if [ "$violations" -eq 1 ]
+          then
+            exit 1
+          fi
