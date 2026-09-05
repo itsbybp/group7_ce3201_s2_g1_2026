@@ -19,7 +19,7 @@ module alu_param  #(parameter WIDTH = 8)
     full_res = '0;
     flags = '0;
 
-    case (code)
+    unique case (code)
 
       ADD, SUB: begin
         b_mod = (code == ADD) ? b : ~b;

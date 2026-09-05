@@ -6,7 +6,7 @@ module n_bit_absolute_value #(
   output logic [N-1:0] out
 );
 always_comb begin
-  case (in[N-1])
+  unique case (in[N-1])
     1'b0: out = in;
     1'b1: out = ~in + 1'b1;
     default: out = '0;

@@ -65,7 +65,7 @@ end
     
     // operand_a_is_negative multiplexed flag.
     always_comb begin
-    case (control[3])
+    unique case (control[3])
         1'b0: operand_a_is_negative = src0[2];
         1'b1: operand_a_is_negative = alu_b_concatenated_operand[7]; // alu_b_concatenated_operand[7] == src1[2]
         default: operand_a_is_negative = 1'b0;
@@ -73,7 +73,7 @@ end
 end
     // operand_b_is_negative multiplexed flag.
     always_comb begin
-    case (control[3])
+    unique case (control[3])
         1'b0: operand_b_is_negative = src1[2];
         1'b1: operand_b_is_negative = alu_b_multiplexed_operand[7];
         default: operand_b_is_negative = 1'b0;
@@ -81,7 +81,7 @@ end
 end
     // result_is_negative multiplexed flag.
     always_comb begin
-    case (control[3])
+    unique case (control[3])
         1'b0: result_is_negative = alu_a_result[2];
         1'b1: result_is_negative = alu_b_result[7];
         default: result_is_negative = 1'b0;

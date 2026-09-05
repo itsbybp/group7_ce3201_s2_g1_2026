@@ -76,7 +76,7 @@ module control_logic (
     logic [1:0] displays_selection;
     assign displays_selection = {mode_select, display_toggle_button};
     always_comb begin
-    case (displays_selection)
+    unique case (displays_selection)
         2'b00: begin
             seven_segment_display_one = mode_a_src0_segments_abcdefg;
             seven_segment_display_two = mode_a_src1_segments_abcdefg;
