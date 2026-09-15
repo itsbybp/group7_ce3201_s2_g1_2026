@@ -44,3 +44,16 @@ results*.xml
 
 **/test_pkg.qpf
 **/test_pkg.qws
+
+**/quartus/output_files/*.done
+**/quartus/output_files/*.smsg
+**/quartus/output_files/*.summary
+**/quartus/output_files/*.sld
+**/quartus/output_files/*.jditmp
+**/quartus/output_files/*.jdi
+**/quartus/output_files/*.asm.rpt
+**/quartus/output_files/*.cdf
+**/quartus/*.qdf
+
+**/db/
+**/incremental_db/
