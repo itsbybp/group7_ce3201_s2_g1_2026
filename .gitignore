@@ -40,6 +40,9 @@ results*.xml
 **/quartus/output_files/*.jdi
 **/quartus/output_files/*.pin
 
+**/test/sv/modelsim.ini
+**/test/sv/vsim.wlf
+
 **/*.qws
 
 **/test_pkg.qpf
