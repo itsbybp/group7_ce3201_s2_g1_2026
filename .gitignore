@@ -57,3 +57,9 @@ results*.xml
 
 **/db/
 **/incremental_db/
+
+**/*.vcd
+
+**/modelsim.ini
+**/vsim.wlf
+**/incremental_db/

@@ -5,7 +5,7 @@ package require ::quartus::report
 set flow_name [lindex $quartus(args) 0]
 set project_name [lindex $quartus(args) 1]
 set revision_name [lindex $quartus(args) 2]
-set dst_dir "../output_files"
+set dst_dir "output_files"
 
 if {[catch {project_open $project_name -revision $revision_name} err]} {
     post_message -type error "Failed to open project: $err"
@@ -30,8 +30,8 @@ file mkdir $dst_dir
 
 foreach ext {flow map sta} {
     set src "output_files/${revision_name}.${ext}.rpt"
-    set dst "$dst_dir/${prefix}_${ext}.rpt"
-    
+    set dst "$dst_dir/${prefix}.${ext}.rpt"
+
     if {[file exists $src]} {
         file copy -force $src $dst
         post_message -type info "post_flow.tcl: copied $src -> $dst"
