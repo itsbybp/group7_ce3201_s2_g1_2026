@@ -1,0 +1,24 @@
+%!PS-Adobe-3.0
+%%Creator: Questa Altera Starter FPGA Edition-64 vsim 2025.2 Simulator 2025.05 May 31 2025
+
+%%Title: register_bank.wlf
+%%CreationDate: 2026-09-17 06:36:40 pm
+%%DocumentData: Clean8Bit
+%%DocumentNeededResources: font Helvetica
+%%Orientation: Landscape
+%%PageOrder: ascend
+%%Pages: 1
+%%EndComments
+%%BeginSetup
+%%BeginFeature: *PageSize 8.5x11.0
+<< /PageSize [612.0 792.0]
+/ImagingBBox null
+>> setpagedevice
+%%EndFeature
+%%EndSetup
+%%Page: 1 1
+gsave
+90 rotate 0.12 dup neg scale
+grestore
+showpage
+%%EOF
