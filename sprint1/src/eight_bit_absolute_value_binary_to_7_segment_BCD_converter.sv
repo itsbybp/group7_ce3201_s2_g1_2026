@@ -21,7 +21,8 @@ integer i;
 
 always_comb begin
     shift_reg = {12'b0, absolute_value_of_in};
-    for (i = 0; i < 8; i = i + 1) begin
+    i = 0;
+    while (i < 8) begin
         if (shift_reg[19:16] >= 5)
             shift_reg[19:16] = shift_reg[19:16] + 3'd3;
         if (shift_reg[15:12] >= 5)
@@ -29,6 +30,7 @@ always_comb begin
         if (shift_reg[11:8] >= 5)
             shift_reg[11:8] = shift_reg[11:8] + 3'd3;
         shift_reg = shift_reg << 1;
+        i = i + 1;
     end
 end
 
