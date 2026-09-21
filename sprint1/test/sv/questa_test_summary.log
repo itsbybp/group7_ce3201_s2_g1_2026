@@ -1,0 +1,11 @@
+Questa Test Summary
+============================================================
+top_level_transcript.log:
+  errors=0
+  warnings=0
+  passed=True
+
+============================================================
+ERRORS=0
+WARNINGS=0
+ALL_TESTS_PASSED

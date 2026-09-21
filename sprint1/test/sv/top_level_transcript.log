@@ -1,0 +1,134 @@
+# do run_top_level.do
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work work 
+# Modifying modelsim.ini
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:06:52 on Sep 21,2026
+# vlog -sv ../../src/alu_types_pkg.sv 
+# -- Compiling package alu_types_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 02:06:52 on Sep 21,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:06:52 on Sep 21,2026
+# vlog -sv ../../src/alu_param.sv 
+# -- Compiling module alu_param
+# -- Importing package alu_types_pkg
+# 
+# Top level modules:
+# 	alu_param
+# End time: 02:06:52 on Sep 21,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:06:52 on Sep 21,2026
+# vlog -sv ../../src/n_bit_absolute_value.sv 
+# -- Compiling module n_bit_absolute_value
+# 
+# Top level modules:
+# 	n_bit_absolute_value
+# End time: 02:06:52 on Sep 21,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:06:52 on Sep 21,2026
+# vlog -sv ../../src/decoder_4x16.sv 
+# -- Compiling module decoder_4x16
+# 
+# Top level modules:
+# 	decoder_4x16
+# End time: 02:06:52 on Sep 21,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:06:52 on Sep 21,2026
+# vlog -sv ../../src/seven_segment_adapter.sv 
+# -- Compiling module seven_segment_adapter
+# 
+# Top level modules:
+# 	seven_segment_adapter
+# End time: 02:06:52 on Sep 21,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:06:52 on Sep 21,2026
+# vlog -sv ../../src/three_bit_absolute_value_binary_to_7_segment_converter.sv 
+# -- Compiling module three_bit_absolute_value_binary_to_7_segment_converter
+# 
+# Top level modules:
+# 	three_bit_absolute_value_binary_to_7_segment_converter
+# End time: 02:06:52 on Sep 21,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:06:52 on Sep 21,2026
+# vlog -sv ../../src/eight_bit_absolute_value_binary_to_7_segment_BCD_converter.sv 
+# -- Compiling module eight_bit_absolute_value_binary_to_7_segment_BCD_converter
+# 
+# Top level modules:
+# 	eight_bit_absolute_value_binary_to_7_segment_BCD_converter
+# End time: 02:06:52 on Sep 21,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:06:53 on Sep 21,2026
+# vlog -sv ../../src/mode_b_constants.sv 
+# -- Compiling module mode_b_constants
+# -- Importing package alu_types_pkg
+# 
+# Top level modules:
+# 	mode_b_constants
+# End time: 02:06:53 on Sep 21,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:06:53 on Sep 21,2026
+# vlog -sv ../../src/control_logic.sv 
+# -- Compiling module control_logic
+# 
+# Top level modules:
+# 	control_logic
+# End time: 02:06:53 on Sep 21,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:06:53 on Sep 21,2026
+# vlog -sv ../../src/top_level.sv 
+# -- Compiling module top_level
+# -- Importing package alu_types_pkg
+# 
+# Top level modules:
+# 	top_level
+# End time: 02:06:53 on Sep 21,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:06:53 on Sep 21,2026
+# vlog -sv tb_top_level.sv 
+# -- Compiling module tb_top_level
+# -- Importing package alu_types_pkg
+# 
+# Top level modules:
+# 	tb_top_level
+# End time: 02:06:53 on Sep 21,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim -voptargs="+acc" work.tb_top_level 
+# Start time: 02:06:53 on Sep 21,2026
+# Loading sv_std.std
+# Loading work.alu_types_pkg
+# Loading work.tb_top_level
+# Loading work.top_level
+# Loading work.control_logic
+# Loading work.three_bit_absolute_value_binary_to_7_segment_converter
+# Loading work.n_bit_absolute_value
+# Loading work.seven_segment_adapter
+# Loading work.decoder_4x16
+# Loading work.eight_bit_absolute_value_binary_to_7_segment_BCD_converter
+# Loading work.alu_param
+# Loading work.mode_b_constants
+# configure wave not supported in batch mode
+# configure wave not supported in batch mode
+# configure wave not supported in batch mode
+# ----------------------------------------
+# TOTAL_CHECKS=7168
+# ERRORS=0
+# WARNINGS=0
+# ALL_TESTS_PASSED
+# ----------------------------------------
+# ** Note: $finish    : tb_top_level.sv(178)
+#    Time: 1024 ps  Iteration: 0  Instance: /tb_top_level
+# End time: 02:06:53 on Sep 21,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
