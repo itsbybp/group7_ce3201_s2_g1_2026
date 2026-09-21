@@ -1,5 +1,5 @@
 Analysis & Synthesis report for top_level
-Tue Sep  8 13:55:25 2026
+Mon Sep 21 02:27:58 2026
 Quartus Prime Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
 
 
@@ -23,23 +23,12 @@ Quartus Prime Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
  15. Parameter Settings for User Entity Instance: control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|n_bit_absolute_value:abs8
  16. Parameter Settings for User Entity Instance: alu_param:alu_a
  17. Parameter Settings for User Entity Instance: alu_param:alu_b
- 18. Parameter Settings for Inferred Entity Instance: control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Mod0
- 19. Parameter Settings for Inferred Entity Instance: control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|lpm_divide:Mod0
- 20. Parameter Settings for Inferred Entity Instance: control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Div0
- 21. Parameter Settings for Inferred Entity Instance: control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Mod1
- 22. Parameter Settings for Inferred Entity Instance: control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|lpm_divide:Div0
- 23. Parameter Settings for Inferred Entity Instance: control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|lpm_divide:Mod1
- 24. Parameter Settings for Inferred Entity Instance: control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Div1
- 25. Parameter Settings for Inferred Entity Instance: control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|lpm_divide:Div1
- 26. Parameter Settings for Inferred Entity Instance: control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Mod0
- 27. Parameter Settings for Inferred Entity Instance: control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Div0
- 28. Parameter Settings for Inferred Entity Instance: control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Mod1
- 29. Parameter Settings for Inferred Entity Instance: control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Div1
- 30. Port Connectivity Checks: "control_logic:ctrl_logic|three_bit_absolute_value_binary_to_7_segment_converter:mode_a_src0_adapter|seven_segment_adapter:adapter"
- 31. Port Connectivity Checks: "control_logic:ctrl_logic"
- 32. Post-Synthesis Netlist Statistics for Top Partition
- 33. Elapsed Time Per Partition
- 34. Analysis & Synthesis Messages
+ 18. Port Connectivity Checks: "control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|seven_segment_adapter:hundreds_adapter"
+ 19. Port Connectivity Checks: "control_logic:ctrl_logic|three_bit_absolute_value_binary_to_7_segment_converter:mode_a_src0_adapter|seven_segment_adapter:adapter"
+ 20. Port Connectivity Checks: "control_logic:ctrl_logic"
+ 21. Post-Synthesis Netlist Statistics for Top Partition
+ 22. Elapsed Time Per Partition
+ 23. Analysis & Synthesis Messages
 
 
 
@@ -66,7 +55,7 @@ on the Quartus Prime software download page.
 +-----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                      ;
 +---------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Tue Sep  8 13:55:25 2026           ;
+; Analysis & Synthesis Status     ; Successful - Mon Sep 21 02:27:58 2026           ;
 ; Quartus Prime Version           ; 25.1std.0 Build 1129 10/21/2025 SC Lite Edition ;
 ; Revision Name                   ; top_level                                       ;
 ; Top-level Entity Name           ; top_level                                       ;
@@ -91,7 +80,7 @@ on the Quartus Prime software download page.
 +---------------------------------------------------------------------------------+--------------------+--------------------+
 ; Option                                                                          ; Setting            ; Default Value      ;
 +---------------------------------------------------------------------------------+--------------------+--------------------+
-; Device                                                                          ; 5CSXFC6D6F31C6     ;                    ;
+; Device                                                                          ; 5CSEBA6U19C6       ;                    ;
 ; Top-level entity name                                                           ; top_level          ; top_level          ;
 ; Family name                                                                     ; Cyclone V          ; Cyclone V          ;
 ; Use smart compilation                                                           ; Off                ; Off                ;
@@ -186,14 +175,7 @@ on the Quartus Prime software download page.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   0.0%      ;
-;     Processor 3            ;   0.0%      ;
-;     Processor 4            ;   0.0%      ;
-;     Processor 5            ;   0.0%      ;
-;     Processor 6            ;   0.0%      ;
-;     Processor 7            ;   0.0%      ;
-;     Processor 8            ;   0.0%      ;
-;     Processors 9-16        ;   0.0%      ;
+;     Processors 2-16        ;   0.0%      ;
 +----------------------------+-------------+
 
 
@@ -212,17 +194,6 @@ on the Quartus Prime software download page.
 ; ../src/control_logic.sv                                              ; yes             ; User SystemVerilog HDL File  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/control_logic.sv                                              ;         ;
 ; ../src/alu_types_pkg.sv                                              ; yes             ; User SystemVerilog HDL File  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/alu_types_pkg.sv                                              ;         ;
 ; ../src/alu_param.sv                                                  ; yes             ; User SystemVerilog HDL File  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/alu_param.sv                                                  ;         ;
-; lpm_divide.tdf                                                       ; yes             ; Megafunction                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/lpm_divide.tdf                                                                ;         ;
-; abs_divider.inc                                                      ; yes             ; Megafunction                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/abs_divider.inc                                                               ;         ;
-; sign_div_unsign.inc                                                  ; yes             ; Megafunction                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sign_div_unsign.inc                                                           ;         ;
-; aglobal251.inc                                                       ; yes             ; Megafunction                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/aglobal251.inc                                                                ;         ;
-; db/lpm_divide_82m.tdf                                                ; yes             ; Auto-Generated Megafunction  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/quartus/db/lpm_divide_82m.tdf                                     ;         ;
-; db/sign_div_unsign_bkh.tdf                                           ; yes             ; Auto-Generated Megafunction  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/quartus/db/sign_div_unsign_bkh.tdf                                ;         ;
-; db/alt_u_div_sse.tdf                                                 ; yes             ; Auto-Generated Megafunction  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/quartus/db/alt_u_div_sse.tdf                                      ;         ;
-; db/lpm_divide_5am.tdf                                                ; yes             ; Auto-Generated Megafunction  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/quartus/db/lpm_divide_5am.tdf                                     ;         ;
-; db/lpm_divide_8am.tdf                                                ; yes             ; Auto-Generated Megafunction  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/quartus/db/lpm_divide_8am.tdf                                     ;         ;
-; db/sign_div_unsign_ekh.tdf                                           ; yes             ; Auto-Generated Megafunction  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/quartus/db/sign_div_unsign_ekh.tdf                                ;         ;
-; db/alt_u_div_2te.tdf                                                 ; yes             ; Auto-Generated Megafunction  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/quartus/db/alt_u_div_2te.tdf                                      ;         ;
 +----------------------------------------------------------------------+-----------------+------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+---------+
 
 
@@ -231,14 +202,14 @@ on the Quartus Prime software download page.
 +---------------------------------------------+------------------+
 ; Resource                                    ; Usage            ;
 +---------------------------------------------+------------------+
-; Estimate of Logic utilization (ALMs needed) ; 337              ;
+; Estimate of Logic utilization (ALMs needed) ; 148              ;
 ;                                             ;                  ;
-; Combinational ALUT usage for logic          ; 638              ;
+; Combinational ALUT usage for logic          ; 238              ;
 ;     -- 7 input functions                    ; 8                ;
-;     -- 6 input functions                    ; 27               ;
-;     -- 5 input functions                    ; 68               ;
-;     -- 4 input functions                    ; 89               ;
-;     -- <=3 input functions                  ; 446              ;
+;     -- 6 input functions                    ; 50               ;
+;     -- 5 input functions                    ; 60               ;
+;     -- 4 input functions                    ; 52               ;
+;     -- <=3 input functions                  ; 68               ;
 ;                                             ;                  ;
 ; Dedicated logic registers                   ; 0                ;
 ;                                             ;                  ;
@@ -247,79 +218,28 @@ on the Quartus Prime software download page.
 ; Total DSP Blocks                            ; 0                ;
 ;                                             ;                  ;
 ; Maximum fan-out node                        ; control[1]~input ;
-; Maximum fan-out                             ; 60               ;
-; Total fan-out                               ; 2131             ;
-; Average fan-out                             ; 2.81             ;
+; Maximum fan-out                             ; 53               ;
+; Total fan-out                               ; 1169             ;
+; Average fan-out                             ; 3.27             ;
 +---------------------------------------------+------------------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ;
-+--------------------------------------------------------------------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+--------------+
-; Compilation Hierarchy Node                                                                             ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                                                                                                                                ; Entity Name                                                ; Library Name ;
-+--------------------------------------------------------------------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+--------------+
-; |top_level                                                                                             ; 638 (12)            ; 0 (0)                     ; 0                 ; 0          ; 60   ; 0            ; |top_level                                                                                                                                                                                                                         ; top_level                                                  ; work         ;
-;    |alu_param:alu_a|                                                                                   ; 17 (17)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|alu_param:alu_a                                                                                                                                                                                                         ; alu_param                                                  ; work         ;
-;    |alu_param:alu_b|                                                                                   ; 30 (30)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|alu_param:alu_b                                                                                                                                                                                                         ; alu_param                                                  ; work         ;
-;    |control_logic:ctrl_logic|                                                                          ; 571 (76)            ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic                                                                                                                                                                                                ; control_logic                                              ; work         ;
-;       |eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter| ; 162 (0)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter                                                                                                 ; eight_bit_absolute_value_binary_to_7_segment_BCD_converter ; work         ;
-;          |lpm_divide:Div0|                                                                             ; 46 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Div0                                                                                 ; lpm_divide                                                 ; work         ;
-;             |lpm_divide_5am:auto_generated|                                                            ; 46 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Div0|lpm_divide_5am:auto_generated                                                   ; lpm_divide_5am                                             ; work         ;
-;                |sign_div_unsign_bkh:divider|                                                           ; 46 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Div0|lpm_divide_5am:auto_generated|sign_div_unsign_bkh:divider                       ; sign_div_unsign_bkh                                        ; work         ;
-;                   |alt_u_div_sse:divider|                                                              ; 46 (46)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Div0|lpm_divide_5am:auto_generated|sign_div_unsign_bkh:divider|alt_u_div_sse:divider ; alt_u_div_sse                                              ; work         ;
-;          |lpm_divide:Div1|                                                                             ; 21 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Div1                                                                                 ; lpm_divide                                                 ; work         ;
-;             |lpm_divide_8am:auto_generated|                                                            ; 21 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Div1|lpm_divide_8am:auto_generated                                                   ; lpm_divide_8am                                             ; work         ;
-;                |sign_div_unsign_ekh:divider|                                                           ; 21 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Div1|lpm_divide_8am:auto_generated|sign_div_unsign_ekh:divider                       ; sign_div_unsign_ekh                                        ; work         ;
-;                   |alt_u_div_2te:divider|                                                              ; 21 (21)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Div1|lpm_divide_8am:auto_generated|sign_div_unsign_ekh:divider|alt_u_div_2te:divider ; alt_u_div_2te                                              ; work         ;
-;          |lpm_divide:Mod0|                                                                             ; 50 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Mod0                                                                                 ; lpm_divide                                                 ; work         ;
-;             |lpm_divide_82m:auto_generated|                                                            ; 50 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Mod0|lpm_divide_82m:auto_generated                                                   ; lpm_divide_82m                                             ; work         ;
-;                |sign_div_unsign_bkh:divider|                                                           ; 50 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Mod0|lpm_divide_82m:auto_generated|sign_div_unsign_bkh:divider                       ; sign_div_unsign_bkh                                        ; work         ;
-;                   |alt_u_div_sse:divider|                                                              ; 50 (50)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Mod0|lpm_divide_82m:auto_generated|sign_div_unsign_bkh:divider|alt_u_div_sse:divider ; alt_u_div_sse                                              ; work         ;
-;          |lpm_divide:Mod1|                                                                             ; 38 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Mod1                                                                                 ; lpm_divide                                                 ; work         ;
-;             |lpm_divide_82m:auto_generated|                                                            ; 38 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Mod1|lpm_divide_82m:auto_generated                                                   ; lpm_divide_82m                                             ; work         ;
-;                |sign_div_unsign_bkh:divider|                                                           ; 38 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Mod1|lpm_divide_82m:auto_generated|sign_div_unsign_bkh:divider                       ; sign_div_unsign_bkh                                        ; work         ;
-;                   |alt_u_div_sse:divider|                                                              ; 38 (38)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Mod1|lpm_divide_82m:auto_generated|sign_div_unsign_bkh:divider|alt_u_div_sse:divider ; alt_u_div_sse                                              ; work         ;
-;          |n_bit_absolute_value:abs8|                                                                   ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|n_bit_absolute_value:abs8                                                                       ; n_bit_absolute_value                                       ; work         ;
-;       |eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|  ; 160 (0)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter                                                                                                  ; eight_bit_absolute_value_binary_to_7_segment_BCD_converter ; work         ;
-;          |lpm_divide:Div0|                                                                             ; 46 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Div0                                                                                  ; lpm_divide                                                 ; work         ;
-;             |lpm_divide_5am:auto_generated|                                                            ; 46 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Div0|lpm_divide_5am:auto_generated                                                    ; lpm_divide_5am                                             ; work         ;
-;                |sign_div_unsign_bkh:divider|                                                           ; 46 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Div0|lpm_divide_5am:auto_generated|sign_div_unsign_bkh:divider                        ; sign_div_unsign_bkh                                        ; work         ;
-;                   |alt_u_div_sse:divider|                                                              ; 46 (46)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Div0|lpm_divide_5am:auto_generated|sign_div_unsign_bkh:divider|alt_u_div_sse:divider  ; alt_u_div_sse                                              ; work         ;
-;          |lpm_divide:Div1|                                                                             ; 21 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Div1                                                                                  ; lpm_divide                                                 ; work         ;
-;             |lpm_divide_8am:auto_generated|                                                            ; 21 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Div1|lpm_divide_8am:auto_generated                                                    ; lpm_divide_8am                                             ; work         ;
-;                |sign_div_unsign_ekh:divider|                                                           ; 21 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Div1|lpm_divide_8am:auto_generated|sign_div_unsign_ekh:divider                        ; sign_div_unsign_ekh                                        ; work         ;
-;                   |alt_u_div_2te:divider|                                                              ; 21 (21)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Div1|lpm_divide_8am:auto_generated|sign_div_unsign_ekh:divider|alt_u_div_2te:divider  ; alt_u_div_2te                                              ; work         ;
-;          |lpm_divide:Mod0|                                                                             ; 50 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Mod0                                                                                  ; lpm_divide                                                 ; work         ;
-;             |lpm_divide_82m:auto_generated|                                                            ; 50 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Mod0|lpm_divide_82m:auto_generated                                                    ; lpm_divide_82m                                             ; work         ;
-;                |sign_div_unsign_bkh:divider|                                                           ; 50 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Mod0|lpm_divide_82m:auto_generated|sign_div_unsign_bkh:divider                        ; sign_div_unsign_bkh                                        ; work         ;
-;                   |alt_u_div_sse:divider|                                                              ; 50 (50)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Mod0|lpm_divide_82m:auto_generated|sign_div_unsign_bkh:divider|alt_u_div_sse:divider  ; alt_u_div_sse                                              ; work         ;
-;          |lpm_divide:Mod1|                                                                             ; 38 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Mod1                                                                                  ; lpm_divide                                                 ; work         ;
-;             |lpm_divide_82m:auto_generated|                                                            ; 38 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Mod1|lpm_divide_82m:auto_generated                                                    ; lpm_divide_82m                                             ; work         ;
-;                |sign_div_unsign_bkh:divider|                                                           ; 38 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Mod1|lpm_divide_82m:auto_generated|sign_div_unsign_bkh:divider                        ; sign_div_unsign_bkh                                        ; work         ;
-;                   |alt_u_div_sse:divider|                                                              ; 38 (38)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Mod1|lpm_divide_82m:auto_generated|sign_div_unsign_bkh:divider|alt_u_div_sse:divider  ; alt_u_div_sse                                              ; work         ;
-;          |n_bit_absolute_value:abs8|                                                                   ; 5 (5)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|n_bit_absolute_value:abs8                                                                        ; n_bit_absolute_value                                       ; work         ;
-;       |eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|               ; 172 (0)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter                                                                                                               ; eight_bit_absolute_value_binary_to_7_segment_BCD_converter ; work         ;
-;          |lpm_divide:Div0|                                                                             ; 49 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|lpm_divide:Div0                                                                                               ; lpm_divide                                                 ; work         ;
-;             |lpm_divide_5am:auto_generated|                                                            ; 49 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|lpm_divide:Div0|lpm_divide_5am:auto_generated                                                                 ; lpm_divide_5am                                             ; work         ;
-;                |sign_div_unsign_bkh:divider|                                                           ; 49 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|lpm_divide:Div0|lpm_divide_5am:auto_generated|sign_div_unsign_bkh:divider                                     ; sign_div_unsign_bkh                                        ; work         ;
-;                   |alt_u_div_sse:divider|                                                              ; 49 (49)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|lpm_divide:Div0|lpm_divide_5am:auto_generated|sign_div_unsign_bkh:divider|alt_u_div_sse:divider               ; alt_u_div_sse                                              ; work         ;
-;          |lpm_divide:Div1|                                                                             ; 24 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|lpm_divide:Div1                                                                                               ; lpm_divide                                                 ; work         ;
-;             |lpm_divide_8am:auto_generated|                                                            ; 24 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|lpm_divide:Div1|lpm_divide_8am:auto_generated                                                                 ; lpm_divide_8am                                             ; work         ;
-;                |sign_div_unsign_ekh:divider|                                                           ; 24 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|lpm_divide:Div1|lpm_divide_8am:auto_generated|sign_div_unsign_ekh:divider                                     ; sign_div_unsign_ekh                                        ; work         ;
-;                   |alt_u_div_2te:divider|                                                              ; 24 (24)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|lpm_divide:Div1|lpm_divide_8am:auto_generated|sign_div_unsign_ekh:divider|alt_u_div_2te:divider               ; alt_u_div_2te                                              ; work         ;
-;          |lpm_divide:Mod0|                                                                             ; 53 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|lpm_divide:Mod0                                                                                               ; lpm_divide                                                 ; work         ;
-;             |lpm_divide_82m:auto_generated|                                                            ; 53 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|lpm_divide:Mod0|lpm_divide_82m:auto_generated                                                                 ; lpm_divide_82m                                             ; work         ;
-;                |sign_div_unsign_bkh:divider|                                                           ; 53 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|lpm_divide:Mod0|lpm_divide_82m:auto_generated|sign_div_unsign_bkh:divider                                     ; sign_div_unsign_bkh                                        ; work         ;
-;                   |alt_u_div_sse:divider|                                                              ; 53 (53)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|lpm_divide:Mod0|lpm_divide_82m:auto_generated|sign_div_unsign_bkh:divider|alt_u_div_sse:divider               ; alt_u_div_sse                                              ; work         ;
-;          |lpm_divide:Mod1|                                                                             ; 38 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|lpm_divide:Mod1                                                                                               ; lpm_divide                                                 ; work         ;
-;             |lpm_divide_82m:auto_generated|                                                            ; 38 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|lpm_divide:Mod1|lpm_divide_82m:auto_generated                                                                 ; lpm_divide_82m                                             ; work         ;
-;                |sign_div_unsign_bkh:divider|                                                           ; 38 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|lpm_divide:Mod1|lpm_divide_82m:auto_generated|sign_div_unsign_bkh:divider                                     ; sign_div_unsign_bkh                                        ; work         ;
-;                   |alt_u_div_sse:divider|                                                              ; 38 (38)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|lpm_divide:Mod1|lpm_divide_82m:auto_generated|sign_div_unsign_bkh:divider|alt_u_div_sse:divider               ; alt_u_div_sse                                              ; work         ;
-;          |n_bit_absolute_value:abs8|                                                                   ; 8 (8)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|n_bit_absolute_value:abs8                                                                                     ; n_bit_absolute_value                                       ; work         ;
-;       |three_bit_absolute_value_binary_to_7_segment_converter:mode_a_result_adapter|                   ; 1 (0)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|three_bit_absolute_value_binary_to_7_segment_converter:mode_a_result_adapter                                                                                                                   ; three_bit_absolute_value_binary_to_7_segment_converter     ; work         ;
-;          |n_bit_absolute_value:abs3|                                                                   ; 1 (1)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|three_bit_absolute_value_binary_to_7_segment_converter:mode_a_result_adapter|n_bit_absolute_value:abs3                                                                                         ; n_bit_absolute_value                                       ; work         ;
-;    |mode_b_constants:constants_bank|                                                                   ; 8 (8)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|mode_b_constants:constants_bank                                                                                                                                                                                         ; mode_b_constants                                           ; work         ;
-+--------------------------------------------------------------------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+--------------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                                                                                                                                                                                        ;
++--------------------------------------------------------------------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+--------------+
+; Compilation Hierarchy Node                                                                             ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                                                          ; Entity Name                                                ; Library Name ;
++--------------------------------------------------------------------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+--------------+
+; |top_level                                                                                             ; 238 (12)            ; 0 (0)                     ; 0                 ; 0          ; 60   ; 0            ; |top_level                                                                                                                                                   ; top_level                                                  ; work         ;
+;    |alu_param:alu_a|                                                                                   ; 17 (17)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|alu_param:alu_a                                                                                                                                   ; alu_param                                                  ; work         ;
+;    |alu_param:alu_b|                                                                                   ; 30 (30)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|alu_param:alu_b                                                                                                                                   ; alu_param                                                  ; work         ;
+;    |control_logic:ctrl_logic|                                                                          ; 172 (59)            ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic                                                                                                                          ; control_logic                                              ; work         ;
+;       |eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter| ; 47 (37)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter                           ; eight_bit_absolute_value_binary_to_7_segment_BCD_converter ; work         ;
+;          |n_bit_absolute_value:abs8|                                                                   ; 10 (10)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|n_bit_absolute_value:abs8 ; n_bit_absolute_value                                       ; work         ;
+;       |eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|  ; 22 (22)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter                            ; eight_bit_absolute_value_binary_to_7_segment_BCD_converter ; work         ;
+;       |eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|               ; 44 (36)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter                                         ; eight_bit_absolute_value_binary_to_7_segment_BCD_converter ; work         ;
+;          |n_bit_absolute_value:abs8|                                                                   ; 8 (8)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|n_bit_absolute_value:abs8               ; n_bit_absolute_value                                       ; work         ;
+;    |mode_b_constants:constants_bank|                                                                   ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|mode_b_constants:constants_bank                                                                                                                   ; mode_b_constants                                           ; work         ;
++--------------------------------------------------------------------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
@@ -338,13 +258,13 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                          ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------+
-; 4:1                ; 18 bits   ; 36 LEs        ; 36 LEs               ; 0 LEs                  ; No         ; |top_level|control_logic:ctrl_logic|Mux15 ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                         ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output               ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------+
+; 4:1                ; 13 bits   ; 26 LEs        ; 26 LEs               ; 0 LEs                  ; No         ; |top_level|control_logic:ctrl_logic|Mux2 ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------+
 
 
 +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -427,280 +347,13 @@ Note: In order to hide this table in the UI and the text report file, please set
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Parameter Settings for Inferred Entity Instance: control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Mod0 ;
-+------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------+
-; Parameter Name         ; Value          ; Type                                                                                                                                           ;
-+------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------+
-; LPM_WIDTHN             ; 8              ; Untyped                                                                                                                                        ;
-; LPM_WIDTHD             ; 4              ; Untyped                                                                                                                                        ;
-; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                                                                                                                        ;
-; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                                                                                                                        ;
-; LPM_PIPELINE           ; 0              ; Untyped                                                                                                                                        ;
-; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                                                                                                                        ;
-; MAXIMIZE_SPEED         ; 5              ; Untyped                                                                                                                                        ;
-; CBXI_PARAMETER         ; lpm_divide_82m ; Untyped                                                                                                                                        ;
-; CARRY_CHAIN            ; MANUAL         ; Untyped                                                                                                                                        ;
-; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                                                                                                                        ;
-; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                                                                                                                     ;
-; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                                                                                                                   ;
-; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                                                                                                                   ;
-; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                                                                                                                 ;
-+------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------+
-Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
-
-
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Parameter Settings for Inferred Entity Instance: control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|lpm_divide:Mod0 ;
-+------------------------+----------------+----------------------------------------------------------------------------------------------------------------------------------+
-; Parameter Name         ; Value          ; Type                                                                                                                             ;
-+------------------------+----------------+----------------------------------------------------------------------------------------------------------------------------------+
-; LPM_WIDTHN             ; 8              ; Untyped                                                                                                                          ;
-; LPM_WIDTHD             ; 4              ; Untyped                                                                                                                          ;
-; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                                                                                                          ;
-; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                                                                                                          ;
-; LPM_PIPELINE           ; 0              ; Untyped                                                                                                                          ;
-; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                                                                                                          ;
-; MAXIMIZE_SPEED         ; 5              ; Untyped                                                                                                                          ;
-; CBXI_PARAMETER         ; lpm_divide_82m ; Untyped                                                                                                                          ;
-; CARRY_CHAIN            ; MANUAL         ; Untyped                                                                                                                          ;
-; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                                                                                                          ;
-; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                                                                                                       ;
-; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                                                                                                     ;
-; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                                                                                                     ;
-; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                                                                                                   ;
-+------------------------+----------------+----------------------------------------------------------------------------------------------------------------------------------+
-Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
-
-
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Parameter Settings for Inferred Entity Instance: control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Div0 ;
-+------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------+
-; Parameter Name         ; Value          ; Type                                                                                                                                           ;
-+------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------+
-; LPM_WIDTHN             ; 8              ; Untyped                                                                                                                                        ;
-; LPM_WIDTHD             ; 4              ; Untyped                                                                                                                                        ;
-; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                                                                                                                        ;
-; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                                                                                                                        ;
-; LPM_PIPELINE           ; 0              ; Untyped                                                                                                                                        ;
-; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                                                                                                                        ;
-; MAXIMIZE_SPEED         ; 5              ; Untyped                                                                                                                                        ;
-; CBXI_PARAMETER         ; lpm_divide_5am ; Untyped                                                                                                                                        ;
-; CARRY_CHAIN            ; MANUAL         ; Untyped                                                                                                                                        ;
-; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                                                                                                                        ;
-; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                                                                                                                     ;
-; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                                                                                                                   ;
-; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                                                                                                                   ;
-; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                                                                                                                 ;
-+------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------+
-Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
-
-
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Parameter Settings for Inferred Entity Instance: control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Mod1 ;
-+------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------+
-; Parameter Name         ; Value          ; Type                                                                                                                                           ;
-+------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------+
-; LPM_WIDTHN             ; 8              ; Untyped                                                                                                                                        ;
-; LPM_WIDTHD             ; 4              ; Untyped                                                                                                                                        ;
-; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                                                                                                                        ;
-; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                                                                                                                        ;
-; LPM_PIPELINE           ; 0              ; Untyped                                                                                                                                        ;
-; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                                                                                                                        ;
-; MAXIMIZE_SPEED         ; 5              ; Untyped                                                                                                                                        ;
-; CBXI_PARAMETER         ; lpm_divide_82m ; Untyped                                                                                                                                        ;
-; CARRY_CHAIN            ; MANUAL         ; Untyped                                                                                                                                        ;
-; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                                                                                                                        ;
-; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                                                                                                                     ;
-; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                                                                                                                   ;
-; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                                                                                                                   ;
-; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                                                                                                                 ;
-+------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------+
-Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
-
-
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Parameter Settings for Inferred Entity Instance: control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|lpm_divide:Div0 ;
-+------------------------+----------------+----------------------------------------------------------------------------------------------------------------------------------+
-; Parameter Name         ; Value          ; Type                                                                                                                             ;
-+------------------------+----------------+----------------------------------------------------------------------------------------------------------------------------------+
-; LPM_WIDTHN             ; 8              ; Untyped                                                                                                                          ;
-; LPM_WIDTHD             ; 4              ; Untyped                                                                                                                          ;
-; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                                                                                                          ;
-; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                                                                                                          ;
-; LPM_PIPELINE           ; 0              ; Untyped                                                                                                                          ;
-; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                                                                                                          ;
-; MAXIMIZE_SPEED         ; 5              ; Untyped                                                                                                                          ;
-; CBXI_PARAMETER         ; lpm_divide_5am ; Untyped                                                                                                                          ;
-; CARRY_CHAIN            ; MANUAL         ; Untyped                                                                                                                          ;
-; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                                                                                                          ;
-; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                                                                                                       ;
-; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                                                                                                     ;
-; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                                                                                                     ;
-; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                                                                                                   ;
-+------------------------+----------------+----------------------------------------------------------------------------------------------------------------------------------+
-Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
-
-
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Parameter Settings for Inferred Entity Instance: control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|lpm_divide:Mod1 ;
-+------------------------+----------------+----------------------------------------------------------------------------------------------------------------------------------+
-; Parameter Name         ; Value          ; Type                                                                                                                             ;
-+------------------------+----------------+----------------------------------------------------------------------------------------------------------------------------------+
-; LPM_WIDTHN             ; 8              ; Untyped                                                                                                                          ;
-; LPM_WIDTHD             ; 4              ; Untyped                                                                                                                          ;
-; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                                                                                                          ;
-; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                                                                                                          ;
-; LPM_PIPELINE           ; 0              ; Untyped                                                                                                                          ;
-; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                                                                                                          ;
-; MAXIMIZE_SPEED         ; 5              ; Untyped                                                                                                                          ;
-; CBXI_PARAMETER         ; lpm_divide_82m ; Untyped                                                                                                                          ;
-; CARRY_CHAIN            ; MANUAL         ; Untyped                                                                                                                          ;
-; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                                                                                                          ;
-; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                                                                                                       ;
-; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                                                                                                     ;
-; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                                                                                                     ;
-; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                                                                                                   ;
-+------------------------+----------------+----------------------------------------------------------------------------------------------------------------------------------+
-Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
-
-
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Parameter Settings for Inferred Entity Instance: control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Div1 ;
-+------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------+
-; Parameter Name         ; Value          ; Type                                                                                                                                           ;
-+------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------+
-; LPM_WIDTHN             ; 8              ; Untyped                                                                                                                                        ;
-; LPM_WIDTHD             ; 7              ; Untyped                                                                                                                                        ;
-; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                                                                                                                        ;
-; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                                                                                                                        ;
-; LPM_PIPELINE           ; 0              ; Untyped                                                                                                                                        ;
-; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                                                                                                                        ;
-; MAXIMIZE_SPEED         ; 5              ; Untyped                                                                                                                                        ;
-; CBXI_PARAMETER         ; lpm_divide_8am ; Untyped                                                                                                                                        ;
-; CARRY_CHAIN            ; MANUAL         ; Untyped                                                                                                                                        ;
-; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                                                                                                                        ;
-; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                                                                                                                     ;
-; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                                                                                                                   ;
-; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                                                                                                                   ;
-; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                                                                                                                 ;
-+------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------+
-Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
-
-
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Parameter Settings for Inferred Entity Instance: control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|lpm_divide:Div1 ;
-+------------------------+----------------+----------------------------------------------------------------------------------------------------------------------------------+
-; Parameter Name         ; Value          ; Type                                                                                                                             ;
-+------------------------+----------------+----------------------------------------------------------------------------------------------------------------------------------+
-; LPM_WIDTHN             ; 8              ; Untyped                                                                                                                          ;
-; LPM_WIDTHD             ; 7              ; Untyped                                                                                                                          ;
-; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                                                                                                          ;
-; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                                                                                                          ;
-; LPM_PIPELINE           ; 0              ; Untyped                                                                                                                          ;
-; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                                                                                                          ;
-; MAXIMIZE_SPEED         ; 5              ; Untyped                                                                                                                          ;
-; CBXI_PARAMETER         ; lpm_divide_8am ; Untyped                                                                                                                          ;
-; CARRY_CHAIN            ; MANUAL         ; Untyped                                                                                                                          ;
-; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                                                                                                          ;
-; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                                                                                                       ;
-; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                                                                                                     ;
-; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                                                                                                     ;
-; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                                                                                                   ;
-+------------------------+----------------+----------------------------------------------------------------------------------------------------------------------------------+
-Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
-
-
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Parameter Settings for Inferred Entity Instance: control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Mod0 ;
-+------------------------+----------------+-----------------------------------------------------------------------------------------------------------------------------------------------+
-; Parameter Name         ; Value          ; Type                                                                                                                                          ;
-+------------------------+----------------+-----------------------------------------------------------------------------------------------------------------------------------------------+
-; LPM_WIDTHN             ; 8              ; Untyped                                                                                                                                       ;
-; LPM_WIDTHD             ; 4              ; Untyped                                                                                                                                       ;
-; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                                                                                                                       ;
-; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                                                                                                                       ;
-; LPM_PIPELINE           ; 0              ; Untyped                                                                                                                                       ;
-; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                                                                                                                       ;
-; MAXIMIZE_SPEED         ; 5              ; Untyped                                                                                                                                       ;
-; CBXI_PARAMETER         ; lpm_divide_82m ; Untyped                                                                                                                                       ;
-; CARRY_CHAIN            ; MANUAL         ; Untyped                                                                                                                                       ;
-; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                                                                                                                       ;
-; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                                                                                                                    ;
-; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                                                                                                                  ;
-; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                                                                                                                  ;
-; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                                                                                                                ;
-+------------------------+----------------+-----------------------------------------------------------------------------------------------------------------------------------------------+
-Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
-
-
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Parameter Settings for Inferred Entity Instance: control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Div0 ;
-+------------------------+----------------+-----------------------------------------------------------------------------------------------------------------------------------------------+
-; Parameter Name         ; Value          ; Type                                                                                                                                          ;
-+------------------------+----------------+-----------------------------------------------------------------------------------------------------------------------------------------------+
-; LPM_WIDTHN             ; 8              ; Untyped                                                                                                                                       ;
-; LPM_WIDTHD             ; 4              ; Untyped                                                                                                                                       ;
-; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                                                                                                                       ;
-; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                                                                                                                       ;
-; LPM_PIPELINE           ; 0              ; Untyped                                                                                                                                       ;
-; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                                                                                                                       ;
-; MAXIMIZE_SPEED         ; 5              ; Untyped                                                                                                                                       ;
-; CBXI_PARAMETER         ; lpm_divide_5am ; Untyped                                                                                                                                       ;
-; CARRY_CHAIN            ; MANUAL         ; Untyped                                                                                                                                       ;
-; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                                                                                                                       ;
-; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                                                                                                                    ;
-; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                                                                                                                  ;
-; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                                                                                                                  ;
-; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                                                                                                                ;
-+------------------------+----------------+-----------------------------------------------------------------------------------------------------------------------------------------------+
-Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
-
-
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Parameter Settings for Inferred Entity Instance: control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Mod1 ;
-+------------------------+----------------+-----------------------------------------------------------------------------------------------------------------------------------------------+
-; Parameter Name         ; Value          ; Type                                                                                                                                          ;
-+------------------------+----------------+-----------------------------------------------------------------------------------------------------------------------------------------------+
-; LPM_WIDTHN             ; 8              ; Untyped                                                                                                                                       ;
-; LPM_WIDTHD             ; 4              ; Untyped                                                                                                                                       ;
-; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                                                                                                                       ;
-; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                                                                                                                       ;
-; LPM_PIPELINE           ; 0              ; Untyped                                                                                                                                       ;
-; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                                                                                                                       ;
-; MAXIMIZE_SPEED         ; 5              ; Untyped                                                                                                                                       ;
-; CBXI_PARAMETER         ; lpm_divide_82m ; Untyped                                                                                                                                       ;
-; CARRY_CHAIN            ; MANUAL         ; Untyped                                                                                                                                       ;
-; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                                                                                                                       ;
-; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                                                                                                                    ;
-; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                                                                                                                  ;
-; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                                                                                                                  ;
-; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                                                                                                                ;
-+------------------------+----------------+-----------------------------------------------------------------------------------------------------------------------------------------------+
-Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
-
-
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Parameter Settings for Inferred Entity Instance: control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Div1 ;
-+------------------------+----------------+-----------------------------------------------------------------------------------------------------------------------------------------------+
-; Parameter Name         ; Value          ; Type                                                                                                                                          ;
-+------------------------+----------------+-----------------------------------------------------------------------------------------------------------------------------------------------+
-; LPM_WIDTHN             ; 8              ; Untyped                                                                                                                                       ;
-; LPM_WIDTHD             ; 7              ; Untyped                                                                                                                                       ;
-; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                                                                                                                       ;
-; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                                                                                                                       ;
-; LPM_PIPELINE           ; 0              ; Untyped                                                                                                                                       ;
-; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                                                                                                                       ;
-; MAXIMIZE_SPEED         ; 5              ; Untyped                                                                                                                                       ;
-; CBXI_PARAMETER         ; lpm_divide_8am ; Untyped                                                                                                                                       ;
-; CARRY_CHAIN            ; MANUAL         ; Untyped                                                                                                                                       ;
-; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                                                                                                                       ;
-; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                                                                                                                    ;
-; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                                                                                                                  ;
-; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                                                                                                                  ;
-; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                                                                                                                ;
-+------------------------+----------------+-----------------------------------------------------------------------------------------------------------------------------------------------+
-Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|seven_segment_adapter:hundreds_adapter" ;
++----------+-------+----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port     ; Type  ; Severity ; Details                                                                                                                                                      ;
++----------+-------+----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; in[3..2] ; Input ; Info     ; Stuck at GND                                                                                                                                                 ;
++----------+-------+----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 
 +---------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -726,32 +379,31 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; arriav_lcell_comb     ; 654                         ;
-;     arith             ; 311                         ;
-;         0 data inputs ; 91                          ;
-;         1 data inputs ; 33                          ;
-;         2 data inputs ; 31                          ;
-;         3 data inputs ; 103                         ;
-;         4 data inputs ; 53                          ;
+; arriav_lcell_comb     ; 253                         ;
+;     arith             ; 52                          ;
+;         0 data inputs ; 7                           ;
+;         1 data inputs ; 8                           ;
+;         2 data inputs ; 3                           ;
+;         3 data inputs ; 8                           ;
+;         4 data inputs ; 26                          ;
 ;     extend            ; 8                           ;
 ;         7 data inputs ; 8                           ;
-;     normal            ; 289                         ;
-;         0 data inputs ; 1                           ;
-;         1 data inputs ; 15                          ;
-;         2 data inputs ; 81                          ;
-;         3 data inputs ; 69                          ;
-;         4 data inputs ; 28                          ;
-;         5 data inputs ; 68                          ;
-;         6 data inputs ; 27                          ;
-;     shared            ; 46                          ;
-;         0 data inputs ; 14                          ;
-;         1 data inputs ; 21                          ;
+;     normal            ; 180                         ;
+;         0 data inputs ; 2                           ;
+;         1 data inputs ; 13                          ;
+;         2 data inputs ; 14                          ;
+;         3 data inputs ; 23                          ;
+;         4 data inputs ; 18                          ;
+;         5 data inputs ; 60                          ;
+;         6 data inputs ; 50                          ;
+;     shared            ; 13                          ;
+;         0 data inputs ; 2                           ;
 ;         3 data inputs ; 3                           ;
 ;         4 data inputs ; 8                           ;
 ; boundary_port         ; 60                          ;
 ;                       ;                             ;
-; Max LUT depth         ; 19.30                       ;
-; Average LUT depth     ; 12.76                       ;
+; Max LUT depth         ; 12.50                       ;
+; Average LUT depth     ; 9.41                        ;
 +-----------------------+-----------------------------+
 
 
@@ -770,7 +422,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
-    Info: Processing started: Tue Sep  8 13:55:18 2026
+    Info: Processing started: Mon Sep 21 02:27:51 2026
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off top_level -c top_level
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 16 of the 24 processors detected
@@ -785,7 +437,7 @@ Info (12021): Found 1 design units, including 1 entities, in source file /byronb
 Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint1/src/mode_b_constants.sv
     Info (12023): Found entity 1: mode_b_constants File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/mode_b_constants.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint1/src/eight_bit_absolute_value_binary_to_7_segment_bcd_converter.sv
-    Info (12023): Found entity 1: eight_bit_absolute_value_binary_to_7_segment_BCD_converter File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/eight_bit_absolute_value_binary_to_7_segment_BCD_converter.sv Line: 4
+    Info (12023): Found entity 1: eight_bit_absolute_value_binary_to_7_segment_BCD_converter File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/eight_bit_absolute_value_binary_to_7_segment_BCD_converter.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint1/src/decoder_4x16.sv
     Info (12023): Found entity 1: decoder_4x16 File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/decoder_4x16.sv Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint1/src/control_logic.sv
@@ -801,86 +453,24 @@ Info (12128): Elaborating entity "n_bit_absolute_value" for hierarchy "control_l
 Info (12128): Elaborating entity "seven_segment_adapter" for hierarchy "control_logic:ctrl_logic|three_bit_absolute_value_binary_to_7_segment_converter:mode_a_src0_adapter|seven_segment_adapter:adapter" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/three_bit_absolute_value_binary_to_7_segment_converter.sv Line: 22
 Info (12128): Elaborating entity "decoder_4x16" for hierarchy "control_logic:ctrl_logic|three_bit_absolute_value_binary_to_7_segment_converter:mode_a_src0_adapter|seven_segment_adapter:adapter|decoder_4x16:u_decoder" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/seven_segment_adapter.sv Line: 11
 Info (12128): Elaborating entity "eight_bit_absolute_value_binary_to_7_segment_BCD_converter" for hierarchy "control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/control_logic.sv Line: 57
-Info (12128): Elaborating entity "n_bit_absolute_value" for hierarchy "control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|n_bit_absolute_value:abs8" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/eight_bit_absolute_value_binary_to_7_segment_BCD_converter.sv Line: 18
+Info (12128): Elaborating entity "n_bit_absolute_value" for hierarchy "control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|n_bit_absolute_value:abs8" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/eight_bit_absolute_value_binary_to_7_segment_BCD_converter.sv Line: 13
 Info (12128): Elaborating entity "alu_param" for hierarchy "alu_param:alu_a" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/top_level.sv Line: 122
 Info (12128): Elaborating entity "alu_param" for hierarchy "alu_param:alu_b" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/top_level.sv Line: 133
 Info (12128): Elaborating entity "mode_b_constants" for hierarchy "mode_b_constants:constants_bank" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/top_level.sv Line: 141
-Info (278001): Inferred 12 megafunctions from design logic
-    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|Mod0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/eight_bit_absolute_value_binary_to_7_segment_BCD_converter.sv Line: 29
-    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|Mod0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/eight_bit_absolute_value_binary_to_7_segment_BCD_converter.sv Line: 29
-    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|Div0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/eight_bit_absolute_value_binary_to_7_segment_BCD_converter.sv Line: 30
-    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|Mod1" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/eight_bit_absolute_value_binary_to_7_segment_BCD_converter.sv Line: 30
-    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|Div0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/eight_bit_absolute_value_binary_to_7_segment_BCD_converter.sv Line: 30
-    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|Mod1" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/eight_bit_absolute_value_binary_to_7_segment_BCD_converter.sv Line: 30
-    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|Div1" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/eight_bit_absolute_value_binary_to_7_segment_BCD_converter.sv Line: 31
-    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_result_adapter|Div1" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/eight_bit_absolute_value_binary_to_7_segment_BCD_converter.sv Line: 31
-    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|Mod0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/eight_bit_absolute_value_binary_to_7_segment_BCD_converter.sv Line: 29
-    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|Div0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/eight_bit_absolute_value_binary_to_7_segment_BCD_converter.sv Line: 30
-    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|Mod1" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/eight_bit_absolute_value_binary_to_7_segment_BCD_converter.sv Line: 30
-    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|Div1" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/eight_bit_absolute_value_binary_to_7_segment_BCD_converter.sv Line: 31
-Info (12130): Elaborated megafunction instantiation "control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Mod0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/eight_bit_absolute_value_binary_to_7_segment_BCD_converter.sv Line: 29
-Info (12133): Instantiated megafunction "control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Mod0" with the following parameter: File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/eight_bit_absolute_value_binary_to_7_segment_BCD_converter.sv Line: 29
-    Info (12134): Parameter "LPM_WIDTHN" = "8"
-    Info (12134): Parameter "LPM_WIDTHD" = "4"
-    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
-    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
-Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_82m.tdf
-    Info (12023): Found entity 1: lpm_divide_82m File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/quartus/db/lpm_divide_82m.tdf Line: 25
-Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_bkh.tdf
-    Info (12023): Found entity 1: sign_div_unsign_bkh File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/quartus/db/sign_div_unsign_bkh.tdf Line: 25
-Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_sse.tdf
-    Info (12023): Found entity 1: alt_u_div_sse File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/quartus/db/alt_u_div_sse.tdf Line: 23
-Info (12130): Elaborated megafunction instantiation "control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Div0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/eight_bit_absolute_value_binary_to_7_segment_BCD_converter.sv Line: 30
-Info (12133): Instantiated megafunction "control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Div0" with the following parameter: File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/eight_bit_absolute_value_binary_to_7_segment_BCD_converter.sv Line: 30
-    Info (12134): Parameter "LPM_WIDTHN" = "8"
-    Info (12134): Parameter "LPM_WIDTHD" = "4"
-    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
-    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
-Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_5am.tdf
-    Info (12023): Found entity 1: lpm_divide_5am File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/quartus/db/lpm_divide_5am.tdf Line: 25
-Info (12130): Elaborated megafunction instantiation "control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Div1" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/eight_bit_absolute_value_binary_to_7_segment_BCD_converter.sv Line: 31
-Info (12133): Instantiated megafunction "control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_concatenated_operand_adapter|lpm_divide:Div1" with the following parameter: File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/eight_bit_absolute_value_binary_to_7_segment_BCD_converter.sv Line: 31
-    Info (12134): Parameter "LPM_WIDTHN" = "8"
-    Info (12134): Parameter "LPM_WIDTHD" = "7"
-    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
-    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
-Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_8am.tdf
-    Info (12023): Found entity 1: lpm_divide_8am File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/quartus/db/lpm_divide_8am.tdf Line: 25
-Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_ekh.tdf
-    Info (12023): Found entity 1: sign_div_unsign_ekh File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/quartus/db/sign_div_unsign_ekh.tdf Line: 25
-Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_2te.tdf
-    Info (12023): Found entity 1: alt_u_div_2te File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/quartus/db/alt_u_div_2te.tdf Line: 23
-Info (12130): Elaborated megafunction instantiation "control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Mod0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/eight_bit_absolute_value_binary_to_7_segment_BCD_converter.sv Line: 29
-Info (12133): Instantiated megafunction "control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Mod0" with the following parameter: File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/eight_bit_absolute_value_binary_to_7_segment_BCD_converter.sv Line: 29
-    Info (12134): Parameter "LPM_WIDTHN" = "8"
-    Info (12134): Parameter "LPM_WIDTHD" = "4"
-    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
-    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
-Info (12130): Elaborated megafunction instantiation "control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Div0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/eight_bit_absolute_value_binary_to_7_segment_BCD_converter.sv Line: 30
-Info (12133): Instantiated megafunction "control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Div0" with the following parameter: File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/eight_bit_absolute_value_binary_to_7_segment_BCD_converter.sv Line: 30
-    Info (12134): Parameter "LPM_WIDTHN" = "8"
-    Info (12134): Parameter "LPM_WIDTHD" = "4"
-    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
-    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
-Info (12130): Elaborated megafunction instantiation "control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Div1" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/eight_bit_absolute_value_binary_to_7_segment_BCD_converter.sv Line: 31
-Info (12133): Instantiated megafunction "control_logic:ctrl_logic|eight_bit_absolute_value_binary_to_7_segment_BCD_converter:mode_b_multiplexed_operand_adapter|lpm_divide:Div1" with the following parameter: File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/eight_bit_absolute_value_binary_to_7_segment_BCD_converter.sv Line: 31
-    Info (12134): Parameter "LPM_WIDTHN" = "8"
-    Info (12134): Parameter "LPM_WIDTHD" = "7"
-    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
-    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
 Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "seven_segment_display_three[5]" is stuck at GND File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/top_level.sv Line: 13
+    Warning (13410): Pin "seven_segment_display_six[0]" is stuck at VCC File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/top_level.sv Line: 16
 Info (286030): Timing-Driven Synthesis is running
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 698 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 298 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 11 input pins
     Info (21059): Implemented 49 output pins
-    Info (21061): Implemented 638 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 3 warnings
-    Info: Peak virtual memory: 4908 megabytes
-    Info: Processing ended: Tue Sep  8 13:55:25 2026
+    Info (21061): Implemented 238 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 4 warnings
+    Info: Peak virtual memory: 4889 megabytes
+    Info: Processing ended: Mon Sep 21 02:27:58 2026
     Info: Elapsed time: 00:00:07
-    Info: Total CPU time (on all processors): 00:00:13
+    Info: Total CPU time (on all processors): 00:00:14
 
 
