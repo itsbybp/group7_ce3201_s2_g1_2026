@@ -1,11 +1,21 @@
 Questa Test Summary
 ============================================================
-/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/sv/register_bank_transcript.log:
+C:\Users\esteb\OneDrive\Documents\D_temp\D\TEC\2026\Semestre_2\Taller_de_Diseno_Digital\sprint_0\repository\group7_ce3201_s2_g1_2026\sprint2\test\sv\register_bank_transcript.log:
   errors=0
   warnings=0
   passed=True
 
-/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/sv/key_sync_transcript.log:
+C:\Users\esteb\OneDrive\Documents\D_temp\D\TEC\2026\Semestre_2\Taller_de_Diseno_Digital\sprint_0\repository\group7_ce3201_s2_g1_2026\sprint2\test\sv\key_sync_transcript.log:
+  errors=0
+  warnings=0
+  passed=True
+
+C:\Users\esteb\OneDrive\Documents\D_temp\D\TEC\2026\Semestre_2\Taller_de_Diseno_Digital\sprint_0\repository\group7_ce3201_s2_g1_2026\sprint2\test\sv\input_fsm_transcript.log:
+  errors=0
+  warnings=0
+  passed=True
+
+C:\Users\esteb\OneDrive\Documents\D_temp\D\TEC\2026\Semestre_2\Taller_de_Diseno_Digital\sprint_0\repository\group7_ce3201_s2_g1_2026\sprint2\test\sv\exec_fsm_transcript.log:
   errors=0
   warnings=0
   passed=True

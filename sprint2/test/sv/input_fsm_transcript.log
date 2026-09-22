@@ -1,0 +1,67 @@
+# Questa Altera Starter FPGA Edition-64 vmap 2025.2 Lib Mapping Utility 2025.05 May 31 2025
+# vmap work work 
+# ** Note: (vmap-220) 'modelsim.ini' is used as the ini file.
+# Modifying modelsim.ini
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 16:48:44 on Sep 21,2026
+# vlog -reportprogress 300 -sv ../../src/input_fsm.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling module input_fsm
+# 
+# Top level modules:
+# 	input_fsm
+# End time: 16:48:44 on Sep 21,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 16:48:44 on Sep 21,2026
+# vlog -reportprogress 300 -sv tb_input_fsm.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling module tb_input_fsm
+# 
+# Top level modules:
+# 	tb_input_fsm
+# End time: 16:48:44 on Sep 21,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# ** Note: (vsim-220) 'modelsim.ini' is used as the ini file.
+# vsim -voptargs="+acc" work.tb_input_fsm 
+# Start time: 16:48:45 on Sep 21,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: (vopt-10908) Some optimizations are turned off because the +acc switch is in effect.
+# ** Note: (vopt-220) 'modelsim.ini' is used as the ini file.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.tb_input_fsm(fast)
+# Loading work.input_fsm(fast)
+# ========================================
+#         INPUT_FSM TEST START
+# ========================================
+# PASS: reset_current_state
+# PASS: reset_out
+# PASS: step_zero_state
+# PASS: step_zero_out
+# PASS: first_nibble
+# PASS: first_nibble_state
+# PASS: second_nibble
+# PASS: second_nibble_state
+# PASS: third_nibble
+# PASS: third_nibble_state
+# PASS: fourth_nibble
+# PASS: final_state
+# PASS: final_output
+# PASS: additional_nibble_ignored
+# PASS: additional_nibble_state
+# PASS: reset_before_continuous_stepping
+# PASS: continuous_stepping
+# ========================================
+#          INPUT_FSM TEST END
+# ========================================
+# ----------------------------------------
+# TOTAL_CHECKS=17
+# ERRORS=0
+# WARNINGS=0
+# ALL_TESTS_PASSED
+# ----------------------------------------
+# ** Note: $finish    : tb_input_fsm.sv(377)
+#    Time: 96 ns  Iteration: 0  Instance: /tb_input_fsm
+# End time: 16:48:56 on Sep 21,2026, Elapsed time: 0:00:11
+# Errors: 0, Warnings: 1
