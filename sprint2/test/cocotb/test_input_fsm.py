@@ -18,20 +18,20 @@ async def reset_dut(dut):
 
     # Reset is asynchronous
     # Wait 1 ns for propagation.
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.current_state.value == STATE_3
     assert dut.out.value == 0
 
     dut.reset.value = 1
 
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
 
 @cocotb.test()
 async def test_reset(dut):
 
-    clock = Clock(dut.clk, 20, units="ns")
+    clock = Clock(dut.clk, 20, unit="ns")
     cocotb.start_soon(clock.start())
 
     await reset_dut(dut)
@@ -43,7 +43,7 @@ async def test_reset(dut):
 @cocotb.test()
 async def test_single_nibble(dut):
 
-    clock = Clock(dut.clk, 20, units="ns")
+    clock = Clock(dut.clk, 20, unit="ns")
     cocotb.start_soon(clock.start())
 
     await reset_dut(dut)
@@ -53,7 +53,7 @@ async def test_single_nibble(dut):
     dut.step.value = 1
 
     await RisingEdge(dut.clk)
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.out.value == 0x000A
     assert dut.current_state.value == STATE_2
@@ -62,7 +62,7 @@ async def test_single_nibble(dut):
 @cocotb.test()
 async def test_four_nibble_assembly(dut):
 
-    clock = Clock(dut.clk, 20, units="ns")
+    clock = Clock(dut.clk, 20, unit="ns")
     cocotb.start_soon(clock.start())
 
     await reset_dut(dut)
@@ -73,7 +73,7 @@ async def test_four_nibble_assembly(dut):
     dut.nibble_input.value = 0xA
 
     await RisingEdge(dut.clk)
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.out.value == 0x000A # This is the concatenation of the four nibbles, so the A is at the LSB here.
     assert dut.current_state.value == STATE_2
@@ -82,7 +82,7 @@ async def test_four_nibble_assembly(dut):
     dut.nibble_input.value = 0xB
 
     await RisingEdge(dut.clk)
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.out.value == 0x00BA
     assert dut.current_state.value == STATE_1
@@ -91,7 +91,7 @@ async def test_four_nibble_assembly(dut):
     dut.nibble_input.value = 0xC
 
     await RisingEdge(dut.clk)
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.out.value == 0x0CBA
     assert dut.current_state.value == STATE_0
@@ -100,7 +100,7 @@ async def test_four_nibble_assembly(dut):
     dut.nibble_input.value = 0xD
 
     await RisingEdge(dut.clk)
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.out.value == 0xDCBA
     assert dut.current_state.value == STATE_0
@@ -109,7 +109,7 @@ async def test_four_nibble_assembly(dut):
 @cocotb.test()
 async def test_step_disabled(dut):
 
-    clock = Clock(dut.clk, 20, units="ns")
+    clock = Clock(dut.clk, 20, unit="ns")
     cocotb.start_soon(clock.start())
 
     await reset_dut(dut)
@@ -120,7 +120,7 @@ async def test_step_disabled(dut):
     # Several clock cycles should have no effect.
     for _ in range(3):
         await RisingEdge(dut.clk)
-        await Timer(1, units="ns")
+        await Timer(1, unit="ns")
 
         assert dut.out.value == 0
         assert dut.current_state.value == STATE_3
@@ -129,7 +129,7 @@ async def test_step_disabled(dut):
 @cocotb.test()
 async def test_step_controls_one_nibble_per_cycle(dut):
 
-    clock = Clock(dut.clk, 20, units="ns")
+    clock = Clock(dut.clk, 20, unit="ns")
     cocotb.start_soon(clock.start())
 
     await reset_dut(dut)
@@ -138,7 +138,7 @@ async def test_step_controls_one_nibble_per_cycle(dut):
     dut.step.value = 0
 
     await RisingEdge(dut.clk)
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.out.value == 0
     assert dut.current_state.value == STATE_3
@@ -146,7 +146,7 @@ async def test_step_controls_one_nibble_per_cycle(dut):
     dut.step.value = 1
 
     await RisingEdge(dut.clk)
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.out.value == 0x0001
     assert dut.current_state.value == STATE_2
@@ -155,7 +155,7 @@ async def test_step_controls_one_nibble_per_cycle(dut):
     dut.nibble_input.value = 0x2
 
     await RisingEdge(dut.clk)
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.out.value == 0x0001  # The word was not added a new nibble (hex2)
     assert dut.current_state.value == STATE_2
@@ -164,7 +164,7 @@ async def test_step_controls_one_nibble_per_cycle(dut):
 @cocotb.test()
 async def test_does_not_accept_input_after_finished(dut):
 
-    clock = Clock(dut.clk, 20, units="ns")
+    clock = Clock(dut.clk, 20, unit="ns")
     cocotb.start_soon(clock.start())
 
     await reset_dut(dut)
@@ -176,7 +176,7 @@ async def test_does_not_accept_input_after_finished(dut):
         dut.nibble_input.value = nibble
 
         await RisingEdge(dut.clk)
-        await Timer(1, units="ns")
+        await Timer(1, unit="ns")
 
     assert dut.out.value == 0x1234
     assert dut.current_state.value == STATE_0
@@ -185,7 +185,7 @@ async def test_does_not_accept_input_after_finished(dut):
     dut.nibble_input.value = 0xF
 
     await RisingEdge(dut.clk)
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.out.value == 0x1234
     assert dut.current_state.value == STATE_0
@@ -194,7 +194,7 @@ async def test_does_not_accept_input_after_finished(dut):
 @cocotb.test()
 async def test_async_reset(dut):
 
-    clock = Clock(dut.clk, 20, units="ns")
+    clock = Clock(dut.clk, 20, unit="ns")
     cocotb.start_soon(clock.start())
 
     await reset_dut(dut)
@@ -204,7 +204,7 @@ async def test_async_reset(dut):
     dut.nibble_input.value = 0xA
 
     await RisingEdge(dut.clk)
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.out.value == 0x000A
     assert dut.current_state.value == STATE_2
@@ -212,7 +212,7 @@ async def test_async_reset(dut):
     # The current time is 1 ns after a positive edge.
     dut.reset.value = 0
 
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     # The current time is 2 ns after a positive edge, so it's still 8 ns for the negedge and 18 for the next posedge.
     assert dut.out.value == 0
@@ -221,7 +221,7 @@ async def test_async_reset(dut):
     # Release reset.
     dut.reset.value = 1
 
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.out.value == 0
     assert dut.current_state.value == STATE_3

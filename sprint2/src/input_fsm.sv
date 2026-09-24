@@ -2,7 +2,7 @@ module input_fsm (
     input logic clk,
     input logic reset,
 
-    input logic [7:0] nibble_input,
+    input logic [3:0] nibble_input,
     input logic step,   // This signals the FSM to advance a single step. A step is taken each cycle if this signal is on.
 
     output logic [15:0] out,

@@ -11,11 +11,16 @@ set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 256
 set_global_assignment -name SDC_FILE ../sdc/timing_constraints.sdc
 set_global_assignment -name SYSTEMVERILOG_FILE ../../sprint1/src/alu_types_pkg.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../../sprint1/src/alu_param.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../sprint1/src/seven_segment_adapter.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../../sprint1/src/n_bit_absolute_value.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../sprint1/src/decoder_4x16.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../src/toggle.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../src/binary_to_bcd_converter.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../src/exec_fsm.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../src/input_fsm.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../src/key_sync.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../src/register_bank.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../src/display_logic.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../src/top_level.sv
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"

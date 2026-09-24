@@ -4,7 +4,7 @@ from cocotb.triggers import RisingEdge
 
 
 async def start_clock(dut):
-    cocotb.start_soon(Clock(dut.clk, 20, units="ns").start())
+    cocotb.start_soon(Clock(dut.clk, 20, unit="ns").start())
 
 
 async def reset_dut(dut):
