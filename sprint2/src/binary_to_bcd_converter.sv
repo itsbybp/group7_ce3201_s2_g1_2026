@@ -10,7 +10,9 @@ module binary_to_bcd_converter (
     always_comb begin
         bcd = 20'd0;
 
-        for (i = 15; i >= 0; i = i - 1) begin
+        for (i = 15;
+        i >= 0;
+        i = i - 1) begin
 
             // Add 3 to any BCD digit >= 5
             if (bcd[3:0]   >= 5)
