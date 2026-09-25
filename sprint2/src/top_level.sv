@@ -40,8 +40,10 @@ module top_level
     logic stepping_mode_is_on;
     assign LEDR[9] = stepping_mode_is_on;
 
-    logic aux;   // ??? "Puerto libre para depuración o indicadores auxiliares del sistema."
-    assign LEDR[8] = aux;
+    // logic aux;   // ??? "Puerto libre para depuración o indicadores auxiliares del sistema."
+    // assign LEDR[8] = aux;
+    assign LEDR[8] = 0;
+
     
     logic negative;  // These should be displayed in this order: negative, zero, carry, overflow
     assign LEDR[7] = negative;
@@ -103,7 +105,7 @@ module top_level
         .out    (stepping_mode_is_on)
     );
 
-
+    logic execute_FSM_write_enable;
 
     // Local menu behaviour.
     // Menu 00 Enter immediate
@@ -174,7 +176,6 @@ module top_level
     logic [1:0] execute_FSM_current_state;
     assign exec_FSM_show_state = ~execute_FSM_current_state;
     
-    logic execute_FSM_write_enable;
 
     // start_execute_fsm may need to stay on for several cycles to wait for the user to hit step.
     // start_execute_fsm is reset by execute_FSM_write_enable because at the moment that signal appears,

@@ -363,16 +363,12 @@ async def test_use_case(dut):
     await set_key_step_button_tap(dut)
     await wait_x_cycles(dut, 10)
 
-    # await Timer(1, unit="ns") #vcxflgfg!!!
     assert dut.LEDR.value[3:2] == 0b1
     await set_key_step_button_tap(dut)
-    # await Timer(1, unit="ns") #vcxflgfg!!!
     assert dut.LEDR.value[3:2] == 0b10
     await set_key_step_button_tap(dut)
-    # await Timer(1, unit="ns") #vcxflgfg!!!
     assert dut.LEDR.value[3:2] == 0b11
     await set_key_step_button_tap(dut)
-    # await Timer(1, unit="ns") #vcxflgfg!!!
     assert dut.LEDR.value[3:2] == 0b0
 
 
