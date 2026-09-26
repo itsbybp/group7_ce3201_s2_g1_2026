@@ -61,56 +61,75 @@ temporización en las 4 esquinas de operación analizadas.
 
 ## Epic 2 / Epic 3 — input_fsm.sv, exec_fsm.sv, toggle.sv, binary_to_bcd_converter.sv, display_logic.sv, top_level.sv completo
 
-El código fuente y las suites de prueba (Cocotb y Questa) para estos
-módulos ya están implementados:
+### Cocotb (Icarus Verilog)
 
-- `input_fsm.sv` / `test_input_fsm.py` / `tb_input_fsm.sv`
-- `exec_fsm.sv` / `test_exec_fsm.py` / `tb_exec_fsm.sv`
-- `display_logic.sv` / `test_display_logic.py`
-- `top_level.sv` (integrado) / `test_top_level.py` / `tb_top_level.sv`
+Ejecutado con `make input_fsm`, `make exec_fsm`, `make display_logic` y
+`make top_level` en `sprint2/test/cocotb/`.
 
-**Estado:** esta sección está pendiente de completarse con la evidencia
-real de una corrida local, ya que las transcripciones de estas ejecuciones
-específicas (Cocotb y Questa para estos módulos, y la síntesis en Quartus
-del `top_level.sv` con ambas FSMs integradas) todavía no se han generado en
-este entorno. No se reportan números aquí para evitar registrar resultados
-no verificados.
-
-Para completar esta sección, ejecutar localmente y pegar la salida real:
-
-```bash
-# Cocotb (Icarus Verilog)
-cd sprint2/test/cocotb
-make input_fsm
-make exec_fsm
-make display_logic
-make top_level
-
-# Questa (SystemVerilog)
-cd sprint2/test/sv
-vsim -c -do run_input_fsm.do -l input_fsm_transcript.log
-vsim -c -do run_exec_fsm.do -l exec_fsm_transcript.log
-vsim -c -do run_top_level.do -l top_level_transcript.log
-python parse_logs.py
-
-# Síntesis en Quartus del top_level completo (con ambas FSMs)
-# Abrir sprint2/quartus/top_level.qpf y ejecutar Compilación Completa,
-# o desde línea de comandos:
-quartus_sh --flow compile top_level
+```
+input_fsm:      TESTS=7 PASS=7 FAIL=0 SKIP=0
+exec_fsm:       TESTS=6 PASS=6 FAIL=0 SKIP=0
+display_logic:  TESTS=4 PASS=4 FAIL=0 SKIP=0
+top_level:      TESTS=1 PASS=1 FAIL=0 SKIP=0
 ```
 
-Una vez generados `questa_test_summary.log` (con `ERRORS=0`, `WARNINGS=0`,
-`ALL_TESTS_PASSED`) y los reportes `*.flow.rpt`/`*.map.rpt`/`*.sta.rpt` con
-`Successful`, reemplazar este apartado con:
+18/18 pruebas pasando (el caso de `top_level` es un escenario de uso
+completo end-to-end que ejercita ambas FSMs, la ALU, el banco de
+registros y los displays en una sola corrida).
 
-- Los conteos `TESTS=N PASS=N FAIL=0 SKIP=0` de cada módulo Cocotb.
-- El resumen `ERRORS=0 WARNINGS=0 ALL_TESTS_PASSED` de Questa.
-- Los recursos de síntesis (ALMs, registros, pines) del `top_level.fit.rpt`.
-- Los slacks de *setup*/*hold* del `top_level.sta.rpt` para las 4 esquinas
-  de operación, usando el mismo `timing_constraints.sdc`.
+### Questa (SystemVerilog)
+
+Ejecutado con los scripts `.do` en `sprint2/test/sv/`
+(`run_input_fsm.do`, `run_exec_fsm.do`, `run_top_level.do`, además de
+`run_key_sync.do` y `run_register_bank.do`), generando
+`questa_test_summary.log`:
+
+```
+key_sync:       errors=0 warnings=0 passed=True
+register_bank:  errors=0 warnings=0 passed=True
+input_fsm:      errors=0 warnings=0 passed=True
+exec_fsm:       errors=0 warnings=0 passed=True
+top_level:      errors=0 warnings=0 passed=True
+------------------------------------------------
+ERRORS=0
+WARNINGS=0
+ALL_TESTS_PASSED
+```
+
+`top_level` corrió 24/24 checks (`TOTAL_CHECKS=24`), cubriendo entrada
+serial de nibbles, selección de registros/opcode, ejecución automática y
+paso a paso, y las tres pruebas de escritura descritas en `tb_top_level.sv`.
+
+### Síntesis (Quartus Prime) — top_level.sv completo (ambas FSMs integradas)
+
+**Dispositivo:** Cyclone V, `5CSXFC6D6F31C6` (DE10-Standard)
+
+**Flow Status:** `Successful`
+
+| Métrica | Valor |
+|---|---|
+| Logic utilization (ALMs) | 373 / 41,910 (< 1%) |
+| Total registros | 112 |
+| Total pines | 67 / 499 (13%) |
+| Total bloques de memoria | 0 |
+| Total bloques DSP | 0 |
+
+### Timing (Quartus Timing Analyzer) — top_level.sv completo
+
+Restricción de reloj: `CLOCK_50` a 20.000 ns (50 MHz), definida en
+`sprint2/quartus/sdc/timing_constraints.sdc`.
+
+| Modelo | Worst-case setup slack | Worst-case hold slack |
+|---|---|---|
+| Slow 1100mV 85C | 10.855 ns | 0.374 ns |
+| Slow 1100mV 0C | 10.921 ns | 0.373 ns |
+| Fast 1100mV 85C | 14.466 ns | 0.181 ns |
+| Fast 1100mV 0C | 14.993 ns | 0.171 ns |
+
+Todos los slacks son positivos — el diseño completo (input_fsm, exec_fsm,
+ALU, banco de registros y display_logic integrados) cumple con sus
+requisitos de temporización en las 4 esquinas de operación analizadas.
 
 Estos artefactos (`questa_test_summary.log`, `*.wlf`, `*.flow.rpt`,
 `*.map.rpt`, `*.sta.rpt`) son además los que el Gatekeeper exige en cada
-Pull Request que modifique `sprint2/`, por lo que deben generarse de todas
-formas antes de abrir el PR de Epic 2/Epic 3, independientemente de esta
-documentación.
+Pull Request que modifique `sprint2/`.

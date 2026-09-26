@@ -49,15 +49,8 @@ def absolute_value_16b(value):
 
 # Assert number in the BCD displays for modes 00 and 11 that display 16 bit numbers.
 def assert_displayed_value(dut, value):
-    # cocotb.log.info("Enter assert_displayed_value")
     abs_value = absolute_value_16b(value)
     digits = get_as_5_digits(abs_value)
-    # cocotb.log.info(f"value = {value:0X}")
-    # cocotb.log.info(f"dut.HEX0.value = {dut.HEX0.value}; SEG[digits[0]] = {SEG[digits[0]]:07b}")
-    # cocotb.log.info(f"dut.HEX1.value = {dut.HEX1.value}; SEG[digits[1]] = {SEG[digits[1]]:07b}")
-    # cocotb.log.info(f"dut.HEX2.value = {dut.HEX2.value}; SEG[digits[2]] = {SEG[digits[2]]:07b}")
-    # cocotb.log.info(f"dut.HEX3.value = {dut.HEX3.value}; SEG[digits[3]] = {SEG[digits[3]]:07b}")
-    # cocotb.log.info(f"dut.HEX4.value = {dut.HEX4.value}; SEG[digits[4]] = {SEG[digits[4]]:07b}")
     assert dut.HEX0.value == SEG[digits[0]]
     assert dut.HEX1.value == SEG[digits[1]]
     assert dut.HEX2.value == SEG[digits[2]]
@@ -93,7 +86,6 @@ def set_menu(dut, sw7_6):
 def set_registers(dut, sw5_0):
     if (sw5_0 > 0b111111):
         cocotb.log.info(f"At set_SW input out of range (0b111111). sw5_0 = {sw5_0}")
-    # cocotb.log.info(f"At set_SW sw5_0 = {sw5_0:06b}")
     dut.SW.value = (int(dut.SW.value) & 0b1111000000) | sw5_0
 
 def set_alu_control_or_nibble(dut, sw3_0):
@@ -135,7 +127,7 @@ async def set_key_load_button_tap(dut):
     await set_key_load_and_wait(dut, 0)
     await set_key_load_and_wait(dut, 1)
     await Timer(1, unit="ns")
-  
+
 
 
 def set_key_stepping_mode(dut, key3):
@@ -151,32 +143,6 @@ async def set_key_stepping_mode_button_tap(dut):
     await Timer(1, unit="ns")
 
 
-# Debug functions
-# def show_inputs(dut):
-#     cocotb.log.info(f"---Debug show_inputs()---")
-#     cocotb.log.info(f"SW: config_aux = {int(dut.SW.value[9:8]):02b}; local_menu = {int(dut.SW.value[7:6]):02b}; data = {int(dut.SW.value[5:0]):06b};")
-#     cocotb.log.info(f"KEY: step_mode = {int(dut.KEY.value[3])}; load = {int(dut.KEY.value[2])}; step = {int(dut.KEY.value[1])}; reset = {int(dut.KEY.value[0])}; ")
-#     cocotb.log.info(f"---Debug show_inputs()---")
-    
-# def show_regs(dut):
-#     cocotb.log.info(f"---Debug show_regs()---")
-#     cocotb.log.info(f"rd = {dut.rd.value}")
-#     cocotb.log.info(f"rs1 = {dut.rs1.value}; rs1_data = {dut.rs1_data.value}")
-#     cocotb.log.info(f"rs2 = {dut.rs2.value}; rs2_data = {dut.rs2_data.value}")
-
-# def show_write(dut):
-#     cocotb.log.info(f"---Debug show_write()---")
-#     cocotb.log.info(f"write_enable = {dut.execute_FSM_write_enable.value}")
-#     cocotb.log.info(f"execute_FSM_current_state = {dut.execute_FSM_current_state.value}")
-#     cocotb.log.info(f"alu_result_freeze = {dut.alu_result_freeze.value}")
-
-# def show_alu(dut):
-#     cocotb.log.info(f"---Debug show_alu()---")
-#     cocotb.log.info(f"operand_a = {dut.operand_a.value}")
-#     cocotb.log.info(f"operand_b = {dut.operand_b.value}")
-#     cocotb.log.info(f"alu_result = {dut.alu_result.value}")
-
-
 
 # Simulate a test scenario while asserting all outputs.
 # Simulate continuously to retain the data inside reg file.
@@ -187,13 +153,20 @@ async def test_use_case(dut):
         Clock(dut.CLOCK_50, 20, unit="ns").start()
     )
 
+    # Initialize SW/KEY to a defined value before any apply_defaults()
+    # reads them back with int(), since Icarus starts nets as X.
+    # A Timer is needed so the write propagates before it's read back.
+    dut.SW.value = 0
+    dut.KEY.value = 0b1111
+    await Timer(1, unit="ns")
+
     # First Test
 
     apply_defaults(dut) # This sets the local menu to "enter immediate" and the output of input_fsm to 16'b0
     await set_key_reset_and_wait(dut, 0)
 
     assert dut.LEDR.value == 0b0001000000   # All off except the zero flag.
-    
+
     assert_displayed_value(dut, 0)  # Assert the immediate shown is 0.
 
     await set_key_reset_and_wait(dut, 1)
@@ -247,9 +220,8 @@ async def test_use_case(dut):
 
     # Menu 01 Enter destination and source registers
     await wait_past_rising_edge(dut)
-    # show_inputs(dut)
     await wait_past_rising_edge(dut)
-    
+
     set_registers(dut, 0b100100) # rd = 10; rs1 = 01; rs2 = 00
     await Timer(1, unit="ns")
     set_menu(dut, 0b01)
@@ -298,9 +270,8 @@ async def test_use_case(dut):
     assert dut.LEDR.value[9] == 0   # stepping_mode_is_on
     assert dut.LEDR.value[3:2] == 0   # exec_FSM_show_state
     await set_key_load_and_wait(dut, 0)    # Launch exec_fsm
-    
+
     assert dut.LEDR.value[3:2] == 0b0
-    # show_write(dut)
     await wait_past_rising_edge(dut)
     assert dut.LEDR.value[3:2] == 0b1
     await wait_past_rising_edge(dut)
@@ -316,12 +287,12 @@ async def test_use_case(dut):
     # Second Test
     # Use manual stepping mode.
     # Assert alu result using reg10 as an operand.
-    # This test will also write to a source register. 
+    # This test will also write to a source register.
     # For this, execute reg10 = reg10 + reg10
     # == 0x2346 + 0x2346
     # == 0x468C
     # Skip menu 00 because no immediate will be used.
-    
+
     # Menu 01 Enter destination and source registers
     apply_defaults(dut)
     await Timer(1, unit="ns")
@@ -331,9 +302,6 @@ async def test_use_case(dut):
     await Timer(1, unit="ns")
     await wait_past_rising_edge(dut)
     await set_key_load_button_tap(dut)
-    # cocotb.log.info(f"rd = {dut.rd.value}")
-    # cocotb.log.info(f"rs1 = {dut.rs1.value}; rs1_data = {dut.rs1_data.value}")
-    # cocotb.log.info(f"rs2 = {dut.rs2.value}; rs2_data = {dut.rs2_data.value}")
 
     # Menu 10 Enter ALU opcode
     apply_defaults(dut)
@@ -421,11 +389,10 @@ async def test_use_case(dut):
     await wait_past_rising_edge(dut)
     await set_key_load_button_tap(dut)
     await wait_past_rising_edge(dut)
-    
+
 
     set_config_aux(dut, 0b00)   # 00 sets the operands a and b to rs1 and the immediate, respectively.
     await wait_past_rising_edge(dut)
-    # show_alu(dut)
 
     # Menu 11 Start execution. Use manual stepping.
     apply_defaults(dut)
@@ -510,7 +477,7 @@ async def test_use_case(dut):
     await wait_past_rising_edge(dut)
     assert dut.LEDR.value[3:2] == 0b0
     await wait_past_rising_edge(dut)
-    
+
     # Fifth Test
     # Assert reg0 == 0
     # For this, set alu as reg00 = reg00 + reg00
@@ -545,5 +512,4 @@ async def test_use_case(dut):
     await Timer(1, unit="ns")
     set_menu(dut, 0b11)
     await Timer(1, unit="ns")
-    assert_displayed_value(dut, 0) # This confirms that the value of reg0 is still 0 after a writing attempt. 
-    
+    assert_displayed_value(dut, 0) # This confirms that the value of reg0 is still 0 after a writing attempt.
