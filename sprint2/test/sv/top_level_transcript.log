@@ -1,0 +1,221 @@
+# //  Questa Altera Starter FPGA Edition-64
+# //  Version 2025.2 win64 May 31 2025
+# //
+# // Unpublished work. Copyright 2025 Siemens
+# //
+# // This material contains trade secrets or otherwise confidential information
+# // owned by Siemens Industry Software Inc. or its affiliates (collectively,
+# // "SISW"), or its licensors. Access to and use of this information is strictly
+# // limited as set forth in the Customer's applicable agreements with SISW.
+# //
+# // This material may not be copied, distributed, or otherwise disclosed outside
+# // of the Customer's facilities without the express written permission of SISW,
+# // and may not be used in any way not expressly authorized by SISW.
+# //
+# do run_top_level.do
+# Questa Altera Starter FPGA Edition-64 vmap 2025.2 Lib Mapping Utility 2025.05 May 31 2025
+# vmap work work 
+# ** Note: (vmap-220) 'modelsim.ini' is used as the ini file.
+# Modifying modelsim.ini
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 14:01:37 on Sep 25,2026
+# vlog -reportprogress 300 -sv ../../../sprint1/src/alu_types_pkg.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling package alu_types_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 14:01:37 on Sep 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 14:01:38 on Sep 25,2026
+# vlog -reportprogress 300 -sv ../../../sprint1/src/alu_param.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling module alu_param
+# -- Importing package alu_types_pkg
+# 
+# Top level modules:
+# 	alu_param
+# End time: 14:01:38 on Sep 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 14:01:38 on Sep 25,2026
+# vlog -reportprogress 300 -sv ../../../sprint1/src/seven_segment_adapter.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling module seven_segment_adapter
+# 
+# Top level modules:
+# 	seven_segment_adapter
+# End time: 14:01:38 on Sep 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 14:01:38 on Sep 25,2026
+# vlog -reportprogress 300 -sv ../../../sprint1/src/n_bit_absolute_value.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling module n_bit_absolute_value
+# 
+# Top level modules:
+# 	n_bit_absolute_value
+# End time: 14:01:38 on Sep 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 14:01:39 on Sep 25,2026
+# vlog -reportprogress 300 -sv ../../../sprint1/src/decoder_4x16.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling module decoder_4x16
+# 
+# Top level modules:
+# 	decoder_4x16
+# End time: 14:01:39 on Sep 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 14:01:39 on Sep 25,2026
+# vlog -reportprogress 300 -sv ../../src/toggle.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling module toggle
+# 
+# Top level modules:
+# 	toggle
+# End time: 14:01:39 on Sep 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 14:01:39 on Sep 25,2026
+# vlog -reportprogress 300 -sv ../../src/binary_to_bcd_converter.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling module binary_to_bcd_converter
+# 
+# Top level modules:
+# 	binary_to_bcd_converter
+# End time: 14:01:39 on Sep 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 14:01:40 on Sep 25,2026
+# vlog -reportprogress 300 -sv ../../src/exec_fsm.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling module exec_fsm
+# 
+# Top level modules:
+# 	exec_fsm
+# End time: 14:01:40 on Sep 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 14:01:40 on Sep 25,2026
+# vlog -reportprogress 300 -sv ../../src/input_fsm.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling module input_fsm
+# 
+# Top level modules:
+# 	input_fsm
+# End time: 14:01:40 on Sep 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 14:01:40 on Sep 25,2026
+# vlog -reportprogress 300 -sv ../../src/key_sync.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling module key_sync
+# 
+# Top level modules:
+# 	key_sync
+# End time: 14:01:40 on Sep 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 14:01:40 on Sep 25,2026
+# vlog -reportprogress 300 -sv ../../src/register_bank.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling module register_bank
+# 
+# Top level modules:
+# 	register_bank
+# End time: 14:01:41 on Sep 25,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 14:01:41 on Sep 25,2026
+# vlog -reportprogress 300 -sv ../../src/display_logic.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling module display_logic
+# 
+# Top level modules:
+# 	display_logic
+# End time: 14:01:41 on Sep 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 14:01:41 on Sep 25,2026
+# vlog -reportprogress 300 -sv ../../src/top_level.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling module top_level
+# -- Importing package alu_types_pkg
+# 
+# Top level modules:
+# 	top_level
+# End time: 14:01:41 on Sep 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 14:01:41 on Sep 25,2026
+# vlog -reportprogress 300 -sv tb_top_level.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling module tb_top_level
+# 
+# Top level modules:
+# 	tb_top_level
+# End time: 14:01:41 on Sep 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# ** Note: (vsim-220) 'modelsim.ini' is used as the ini file.
+# vsim -voptargs="+acc" work.tb_top_level 
+# Start time: 14:01:42 on Sep 25,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: (vopt-10908) Some optimizations are turned off because the +acc switch is in effect.
+# ** Note: (vopt-220) 'modelsim.ini' is used as the ini file.
+# ** Note: (vopt-143) Recognized 1 FSM in module "exec_fsm(fast)".
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.tb_top_level(fast)
+# Loading work.alu_types_pkg(fast)
+# Loading work.top_level(fast)
+# Loading work.key_sync(fast)
+# Loading work.toggle(fast)
+# Loading work.input_fsm(fast)
+# Loading work.exec_fsm(fast)
+# Loading work.alu_param(fast)
+# Loading work.register_bank(fast)
+# Loading work.display_logic(fast)
+# Loading work.n_bit_absolute_value(fast)
+# Loading work.binary_to_bcd_converter(fast)
+# Loading work.seven_segment_adapter(fast)
+# Loading work.decoder_4x16(fast)
+# ---First Test---
+# PASS: LEDR == 10'b0001000000
+# PASS: With local_menu==00, HEX == DCBA | displayed value=dcba
+# PASS: Register configuration display
+# PASS: negative == 0
+# PASS: zero == 0
+# PASS: carry == 0
+# PASS: overflow == 0
+# PASS: With local_menu==11, HEX == 16'h2346 | displayed value=2346
+# PASS: stepping_mode_is_on == 0
+# PASS: exec_FSM_show_state == 00
+# ---Second Test---
+# PASS: With local_menu==11, HEX == 16'h468C | displayed value=468c
+# PASS: stepping_mode_is_on == 1
+# PASS: exec_FSM_show_state == 00
+# PASS: exec_FSM_show_state == 00
+# PASS: exec_FSM_show_state == 01
+# PASS: exec_FSM_show_state == 10
+# PASS: exec_FSM_show_state == 11
+# PASS: exec_FSM_show_state == 00
+# PASS: exec_FSM_show_state == 00
+# ---Third Test---
+# PASS: With local_menu==00, HEX == XXXX | displayed value=xxxx
+# PASS: Register configuration display
+# PASS: With local_menu==11, HEX == 16'hXXXX | displayed value=xxxx
+# PASS: stepping_mode_is_on == 0
+# PASS: exec_FSM_show_state == 00
+# ----------------------------------------
+# TOTAL_CHECKS=24
+# ERRORS=0
+# WARNINGS=0
+# ALL_TESTS_PASSED
+# ----------------------------------------
+# ** Note: $finish    : tb_top_level.sv(580)
+#    Time: 5830 ns  Iteration: 1  Instance: /tb_top_level
+# End time: 14:01:55 on Sep 25,2026, Elapsed time: 0:00:13
+# Errors: 0, Warnings: 1

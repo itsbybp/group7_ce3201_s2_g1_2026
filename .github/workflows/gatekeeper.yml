@@ -130,6 +130,26 @@ jobs:
                 exit 1
               fi
             done
+
+            map_reports=("${sprint}/quartus/output_files"/*.map.rpt)
+
+            if [ ${#map_reports[@]} -eq 0 ]
+            then
+              echo "Error: Local map (synthesis) report missing in ${sprint}/quartus/output_files"
+              exit 1
+            fi
+
+            echo "Map report(s) present for ${sprint}: ${map_reports[*]}"
+
+            sta_reports=("${sprint}/quartus/output_files"/*.sta.rpt)
+
+            if [ ${#sta_reports[@]} -eq 0 ]
+            then
+              echo "Error: Local timing (sta) report missing in ${sprint}/quartus/output_files"
+              exit 1
+            fi
+
+            echo "Timing report(s) present for ${sprint}: ${sta_reports[*]}"
           done
 
   style-check:

@@ -1,0 +1,53 @@
+do run_key_sync.do
+# Questa Altera Starter FPGA Edition-64 vmap 2025.2 Lib Mapping Utility 2025.05 May 31 2025
+# vmap work work 
+# ** Note: (vmap-220) 'modelsim.ini' is used as the ini file.
+# Modifying modelsim.ini
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 18:40:00 on Sep 17,2026
+# vlog -reportprogress 300 -sv ../../src/key_sync.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling module key_sync
+# 
+# Top level modules:
+# 	key_sync
+# End time: 18:40:01 on Sep 17,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 18:40:01 on Sep 17,2026
+# vlog -reportprogress 300 -sv tb_key_sync.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling module tb_key_sync
+# 
+# Top level modules:
+# 	tb_key_sync
+# End time: 18:40:01 on Sep 17,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# ** Note: (vsim-220) 'modelsim.ini' is used as the ini file.
+# vsim -voptargs="+acc" work.tb_key_sync 
+# Start time: 18:40:01 on Sep 17,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: (vopt-10908) Some optimizations are turned off because the +acc switch is in effect.
+# ** Note: (vopt-220) 'modelsim.ini' is used as the ini file.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.tb_key_sync(fast)
+# Loading work.key_sync(fast)
+# PASS: reset_asserted_while_key0_low
+# PASS: reset_released_after_key0_high
+# PASS: key_pulse_single_cycle
+# PASS: key_pulse_not_repeated_while_held
+# PASS: key_pulse_fires_again_on_second_press
+# ----------------------------------------
+# TOTAL_CHECKS=5
+# ERRORS=0
+# WARNINGS=0
+# ALL_TESTS_PASSED
+# ----------------------------------------
+# ** Note: $finish    : tb_key_sync.sv(117)
+#    Time: 970 ns  Iteration: 1  Instance: /tb_key_sync
+# 1
+# Break in Module tb_key_sync at tb_key_sync.sv line 117
+# printing wave to file key_sync.wlf
+# End time: 18:40:15 on Sep 17,2026, Elapsed time: 0:00:14
+# Errors: 0, Warnings: 1

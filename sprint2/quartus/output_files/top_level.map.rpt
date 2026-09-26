@@ -1,0 +1,468 @@
+Analysis & Synthesis report for top_level
+Sat Sep 26 01:20:31 2026
+Quartus Prime Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. General Register Statistics
+  9. Inverted Register Statistics
+ 10. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 11. Parameter Settings for User Entity Instance: alu_param:alu_a
+ 12. Parameter Settings for User Entity Instance: register_bank:u_register_bank
+ 13. Parameter Settings for User Entity Instance: display_logic:display_logic_using_local_menu|n_bit_absolute_value:abs
+ 14. Port Connectivity Checks: "key_sync:stepping_mode_key_sync"
+ 15. Port Connectivity Checks: "key_sync:load_key_sync"
+ 16. Post-Synthesis Netlist Statistics for Top Partition
+ 17. Elapsed Time Per Partition
+ 18. Analysis & Synthesis Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2025  Altera Corporation. All rights reserved.
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and any partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, the Altera Quartus Prime License Agreement,
+the Altera IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Altera and sold by Altera or its authorized distributors.  Please
+refer to the Altera Software License Subscription Agreements 
+on the Quartus Prime software download page.
+
+
+
++-----------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                      ;
++---------------------------------+-------------------------------------------------+
+; Analysis & Synthesis Status     ; Successful - Sat Sep 26 01:20:31 2026           ;
+; Quartus Prime Version           ; 25.1std.0 Build 1129 10/21/2025 SC Lite Edition ;
+; Revision Name                   ; top_level                                       ;
+; Top-level Entity Name           ; top_level                                       ;
+; Family                          ; Cyclone V                                       ;
+; Logic utilization (in ALMs)     ; N/A                                             ;
+; Total registers                 ; 110                                             ;
+; Total pins                      ; 67                                              ;
+; Total virtual pins              ; 0                                               ;
+; Total block memory bits         ; 0                                               ;
+; Total DSP Blocks                ; 0                                               ;
+; Total HSSI RX PCSs              ; 0                                               ;
+; Total HSSI PMA RX Deserializers ; 0                                               ;
+; Total HSSI TX PCSs              ; 0                                               ;
+; Total HSSI PMA TX Serializers   ; 0                                               ;
+; Total PLLs                      ; 0                                               ;
+; Total DLLs                      ; 0                                               ;
++---------------------------------+-------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                                             ;
++---------------------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                                          ; Setting            ; Default Value      ;
++---------------------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                                          ; 5CSXFC6D6F31C6     ;                    ;
+; Top-level entity name                                                           ; top_level          ; top_level          ;
+; Family name                                                                     ; Cyclone V          ; Cyclone V          ;
+; Use smart compilation                                                           ; Off                ; Off                ;
+; Enable parallel Assembler and Timing Analyzer during compilation                ; On                 ; On                 ;
+; Enable compact report table                                                     ; Off                ; Off                ;
+; Restructure Multiplexers                                                        ; Auto               ; Auto               ;
+; MLAB Add Timing Constraints For Mixed-Port Feed-Through Mode Setting Don't Care ; Off                ; Off                ;
+; Create Debugging Nodes for IP Cores                                             ; Off                ; Off                ;
+; Preserve fewer node names                                                       ; On                 ; On                 ;
+; Intel FPGA IP Evaluation Mode                                                   ; Enable             ; Enable             ;
+; Verilog Version                                                                 ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                                    ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                                        ; Auto               ; Auto               ;
+; Safe State Machine                                                              ; Off                ; Off                ;
+; Extract Verilog State Machines                                                  ; On                 ; On                 ;
+; Extract VHDL State Machines                                                     ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                               ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                                      ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                                  ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                                         ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                                       ; On                 ; On                 ;
+; Parallel Synthesis                                                              ; On                 ; On                 ;
+; DSP Block Balancing                                                             ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                                              ; On                 ; On                 ;
+; Power-Up Don't Care                                                             ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                                    ; Off                ; Off                ;
+; Remove Duplicate Registers                                                      ; On                 ; On                 ;
+; Ignore CARRY Buffers                                                            ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                                          ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                                           ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                                       ; Off                ; Off                ;
+; Ignore LCELL Buffers                                                            ; Off                ; Off                ;
+; Ignore SOFT Buffers                                                             ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                                  ; Off                ; Off                ;
+; Optimization Technique                                                          ; Balanced           ; Balanced           ;
+; Carry Chain Length                                                              ; 70                 ; 70                 ;
+; Auto Carry Chains                                                               ; On                 ; On                 ;
+; Auto Open-Drain Pins                                                            ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                                           ; Off                ; Off                ;
+; Auto ROM Replacement                                                            ; On                 ; On                 ;
+; Auto RAM Replacement                                                            ; On                 ; On                 ;
+; Auto DSP Block Replacement                                                      ; On                 ; On                 ;
+; Auto Shift Register Replacement                                                 ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                                 ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                                   ; On                 ; On                 ;
+; Strict RAM Replacement                                                          ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                               ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                                          ; Off                ; Off                ;
+; Auto Resource Sharing                                                           ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                                              ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                                              ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                                   ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing                             ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                               ; Off                ; Off                ;
+; Timing-Driven Synthesis                                                         ; On                 ; On                 ;
+; Report Parameter Settings                                                       ; On                 ; On                 ;
+; Report Source Assignments                                                       ; On                 ; On                 ;
+; Report Connectivity Checks                                                      ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                                              ; Off                ; Off                ;
+; Synchronization Register Chain Length                                           ; 3                  ; 3                  ;
+; Power Optimization During Synthesis                                             ; Normal compilation ; Normal compilation ;
+; HDL message level                                                               ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                                 ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report                        ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report                              ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report                       ; 100                ; 100                ;
+; Clock MUX Protection                                                            ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                                     ; Off                ; Off                ;
+; Block Design Naming                                                             ; Auto               ; Auto               ;
+; SDC constraint protection                                                       ; Off                ; Off                ;
+; Synthesis Effort                                                                ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal                    ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                                            ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                                              ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                                     ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                                          ; On                 ; On                 ;
+; Automatic Parallel Synthesis                                                    ; On                 ; On                 ;
+; Partial Reconfiguration Bitstream ID                                            ; Off                ; Off                ;
++---------------------------------------------------------------------------------+--------------------+--------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 24          ;
+; Maximum allowed            ; 16          ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 16          ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
+;     Processors 2-16        ;   0.0%      ;
++----------------------------+-------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                                    ;
++--------------------------------------------+-----------------+------------------------------+---------------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path           ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                                      ; Library ;
++--------------------------------------------+-----------------+------------------------------+---------------------------------------------------------------------------------------------------+---------+
+; ../../sprint1/src/alu_types_pkg.sv         ; yes             ; User SystemVerilog HDL File  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/alu_types_pkg.sv           ;         ;
+; ../../sprint1/src/alu_param.sv             ; yes             ; User SystemVerilog HDL File  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/alu_param.sv               ;         ;
+; ../../sprint1/src/seven_segment_adapter.sv ; yes             ; User SystemVerilog HDL File  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/seven_segment_adapter.sv   ;         ;
+; ../../sprint1/src/n_bit_absolute_value.sv  ; yes             ; User SystemVerilog HDL File  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/n_bit_absolute_value.sv    ;         ;
+; ../../sprint1/src/decoder_4x16.sv          ; yes             ; User SystemVerilog HDL File  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/decoder_4x16.sv            ;         ;
+; ../src/toggle.sv                           ; yes             ; User SystemVerilog HDL File  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/toggle.sv                  ;         ;
+; ../src/binary_to_bcd_converter.sv          ; yes             ; User SystemVerilog HDL File  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/binary_to_bcd_converter.sv ;         ;
+; ../src/exec_fsm.sv                         ; yes             ; User SystemVerilog HDL File  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/exec_fsm.sv                ;         ;
+; ../src/input_fsm.sv                        ; yes             ; User SystemVerilog HDL File  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/input_fsm.sv               ;         ;
+; ../src/key_sync.sv                         ; yes             ; User SystemVerilog HDL File  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/key_sync.sv                ;         ;
+; ../src/register_bank.sv                    ; yes             ; User SystemVerilog HDL File  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/register_bank.sv           ;         ;
+; ../src/display_logic.sv                    ; yes             ; User SystemVerilog HDL File  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/display_logic.sv           ;         ;
+; ../src/top_level.sv                        ; yes             ; User SystemVerilog HDL File  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/top_level.sv               ;         ;
++--------------------------------------------+-----------------+------------------------------+---------------------------------------------------------------------------------------------------+---------+
+
+
++--------------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary                  ;
++---------------------------------------------+----------------+
+; Resource                                    ; Usage          ;
++---------------------------------------------+----------------+
+; Estimate of Logic utilization (ALMs needed) ; 382            ;
+;                                             ;                ;
+; Combinational ALUT usage for logic          ; 539            ;
+;     -- 7 input functions                    ; 13             ;
+;     -- 6 input functions                    ; 202            ;
+;     -- 5 input functions                    ; 116            ;
+;     -- 4 input functions                    ; 82             ;
+;     -- <=3 input functions                  ; 126            ;
+;                                             ;                ;
+; Dedicated logic registers                   ; 110            ;
+;                                             ;                ;
+; I/O pins                                    ; 67             ;
+;                                             ;                ;
+; Total DSP Blocks                            ; 0              ;
+;                                             ;                ;
+; Maximum fan-out node                        ; CLOCK_50~input ;
+; Maximum fan-out                             ; 110            ;
+; Total fan-out                               ; 3076           ;
+; Average fan-out                             ; 3.93           ;
++---------------------------------------------+----------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                                       ;
++----------------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+----------------------------------------------------------------------------------------------------+-------------------------+--------------+
+; Compilation Hierarchy Node                         ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                ; Entity Name             ; Library Name ;
++----------------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+----------------------------------------------------------------------------------------------------+-------------------------+--------------+
+; |top_level                                         ; 539 (63)            ; 110 (27)                  ; 0                 ; 0          ; 67   ; 0            ; |top_level                                                                                         ; top_level               ; work         ;
+;    |alu_param:alu_a|                               ; 164 (164)           ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|alu_param:alu_a                                                                         ; alu_param               ; work         ;
+;    |display_logic:display_logic_using_local_menu|  ; 278 (54)            ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|display_logic:display_logic_using_local_menu                                            ; display_logic           ; work         ;
+;       |binary_to_bcd_converter:binary_to_bcd|      ; 194 (194)           ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|display_logic:display_logic_using_local_menu|binary_to_bcd_converter:binary_to_bcd      ; binary_to_bcd_converter ; work         ;
+;       |n_bit_absolute_value:abs|                   ; 16 (16)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|display_logic:display_logic_using_local_menu|n_bit_absolute_value:abs                   ; n_bit_absolute_value    ; work         ;
+;       |seven_segment_adapter:hex_0_nibble_adapter| ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|display_logic:display_logic_using_local_menu|seven_segment_adapter:hex_0_nibble_adapter ; seven_segment_adapter   ; work         ;
+;       |seven_segment_adapter:hex_1_nibble_adapter| ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|display_logic:display_logic_using_local_menu|seven_segment_adapter:hex_1_nibble_adapter ; seven_segment_adapter   ; work         ;
+;    |exec_fsm:execute_fsm|                          ; 3 (3)               ; 4 (4)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|exec_fsm:execute_fsm                                                                    ; exec_fsm                ; work         ;
+;    |input_fsm:serial_assembly_FSM|                 ; 8 (8)               ; 19 (19)                   ; 0                 ; 0          ; 0    ; 0            ; |top_level|input_fsm:serial_assembly_FSM                                                           ; input_fsm               ; work         ;
+;    |key_sync:load_key_sync|                        ; 1 (1)               ; 3 (3)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|key_sync:load_key_sync                                                                  ; key_sync                ; work         ;
+;    |key_sync:step_key_sync|                        ; 1 (1)               ; 5 (5)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|key_sync:step_key_sync                                                                  ; key_sync                ; work         ;
+;    |key_sync:stepping_mode_key_sync|               ; 1 (1)               ; 3 (3)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|key_sync:stepping_mode_key_sync                                                         ; key_sync                ; work         ;
+;    |register_bank:u_register_bank|                 ; 19 (19)             ; 48 (48)                   ; 0                 ; 0          ; 0    ; 0            ; |top_level|register_bank:u_register_bank                                                           ; register_bank           ; work         ;
+;    |toggle:stepping_mode_toggle|                   ; 1 (1)               ; 1 (1)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|toggle:stepping_mode_toggle                                                             ; toggle                  ; work         ;
++----------------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+----------------------------------------------------------------------------------------------------+-------------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 110   ;
+; Number of registers using Synchronous Clear  ; 0     ;
+; Number of registers using Synchronous Load   ; 0     ;
+; Number of registers using Asynchronous Clear ; 101   ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 90    ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++----------------------------------------------------------+
+; Inverted Register Statistics                             ;
++------------------------------------------------+---------+
+; Inverted Register                              ; Fan out ;
++------------------------------------------------+---------+
+; input_fsm:serial_assembly_FSM|current_state[0] ; 7       ;
+; input_fsm:serial_assembly_FSM|current_state[1] ; 7       ;
+; exec_fsm:execute_fsm|current_state[0]          ; 10      ;
+; exec_fsm:execute_fsm|current_state[1]          ; 10      ;
+; exec_fsm:execute_fsm|current_state_delayed[0]  ; 5       ;
+; exec_fsm:execute_fsm|current_state_delayed[1]  ; 5       ;
+; Total number of inverted registers = 6         ;         ;
++------------------------------------------------+---------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                                        ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                              ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------+
+; 4:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; No         ; |top_level|register_bank:u_register_bank|Mux15                          ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |top_level|alu_param:alu_a|ShiftLeft0                                   ;
+; 4:1                ; 17 bits   ; 34 LEs        ; 34 LEs               ; 0 LEs                  ; No         ; |top_level|alu_param:alu_a|ShiftRight1                                  ;
+; 4:1                ; 12 bits   ; 24 LEs        ; 24 LEs               ; 0 LEs                  ; No         ; |top_level|display_logic:display_logic_using_local_menu|Mux2            ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |top_level|display_logic:display_logic_using_local_menu|Mux13           ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |top_level|display_logic:display_logic_using_local_menu|hex_0_nibble[3] ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |top_level|display_logic:display_logic_using_local_menu|hex_1_nibble[0] ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |top_level|display_logic:display_logic_using_local_menu|hex_1_nibble[3] ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |top_level|display_logic:display_logic_using_local_menu|hex_1_nibble[1] ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |top_level|display_logic:display_logic_using_local_menu|hex_2_nibble[2] ;
+; 5:1                ; 16 bits   ; 48 LEs        ; 48 LEs               ; 0 LEs                  ; No         ; |top_level|Mux15                                                        ;
+; 19:1               ; 2 bits    ; 24 LEs        ; 22 LEs               ; 2 LEs                  ; No         ; |top_level|alu_param:alu_a|Selector2                                    ;
+; 18:1               ; 2 bits    ; 24 LEs        ; 20 LEs               ; 4 LEs                  ; No         ; |top_level|alu_param:alu_a|Selector6                                    ;
+; 20:1               ; 2 bits    ; 26 LEs        ; 20 LEs               ; 6 LEs                  ; No         ; |top_level|alu_param:alu_a|Selector10                                   ;
+; 20:1               ; 2 bits    ; 26 LEs        ; 22 LEs               ; 4 LEs                  ; No         ; |top_level|alu_param:alu_a|Selector13                                   ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------+
+
+
++--------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: alu_param:alu_a ;
++----------------+-------+-------------------------------------+
+; Parameter Name ; Value ; Type                                ;
++----------------+-------+-------------------------------------+
+; WIDTH          ; 16    ; Signed Integer                      ;
++----------------+-------+-------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: register_bank:u_register_bank ;
++----------------+-------+---------------------------------------------------+
+; Parameter Name ; Value ; Type                                              ;
++----------------+-------+---------------------------------------------------+
+; WIDTH          ; 16    ; Signed Integer                                    ;
++----------------+-------+---------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: display_logic:display_logic_using_local_menu|n_bit_absolute_value:abs ;
++----------------+-------+-------------------------------------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                                                      ;
++----------------+-------+-------------------------------------------------------------------------------------------+
+; N              ; 16    ; Signed Integer                                                                            ;
++----------------+-------+-------------------------------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------+
+; Port Connectivity Checks: "key_sync:stepping_mode_key_sync" ;
++---------+--------+----------+-------------------------------+
+; Port    ; Type   ; Severity ; Details                       ;
++---------+--------+----------+-------------------------------+
+; reset_n ; Output ; Info     ; Explicitly unconnected        ;
++---------+--------+----------+-------------------------------+
+
+
++------------------------------------------------------+
+; Port Connectivity Checks: "key_sync:load_key_sync"   ;
++---------+--------+----------+------------------------+
+; Port    ; Type   ; Severity ; Details                ;
++---------+--------+----------+------------------------+
+; reset_n ; Output ; Info     ; Explicitly unconnected ;
++---------+--------+----------+------------------------+
+
+
++-----------------------------------------------------+
+; Post-Synthesis Netlist Statistics for Top Partition ;
++-----------------------+-----------------------------+
+; Type                  ; Count                       ;
++-----------------------+-----------------------------+
+; arriav_ff             ; 110                         ;
+;     CLR               ; 11                          ;
+;     ENA CLR           ; 90                          ;
+;     plain             ; 9                           ;
+; arriav_lcell_comb     ; 555                         ;
+;     arith             ; 94                          ;
+;         0 data inputs ; 6                           ;
+;         1 data inputs ; 43                          ;
+;         4 data inputs ; 45                          ;
+;     extend            ; 13                          ;
+;         7 data inputs ; 13                          ;
+;     normal            ; 431                         ;
+;         0 data inputs ; 2                           ;
+;         1 data inputs ; 17                          ;
+;         2 data inputs ; 20                          ;
+;         3 data inputs ; 38                          ;
+;         4 data inputs ; 36                          ;
+;         5 data inputs ; 116                         ;
+;         6 data inputs ; 202                         ;
+;     shared            ; 17                          ;
+;         0 data inputs ; 1                           ;
+;         3 data inputs ; 15                          ;
+;         4 data inputs ; 1                           ;
+; boundary_port         ; 67                          ;
+;                       ;                             ;
+; Max LUT depth         ; 21.60                       ;
+; Average LUT depth     ; 13.29                       ;
++-----------------------+-----------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:02     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
+    Info: Processing started: Sat Sep 26 01:20:23 2026
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off top_level -c top_level
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info (20030): Parallel compilation is enabled and will use 16 of the 24 processors detected
+Info (12021): Found 1 design units, including 0 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint1/src/alu_types_pkg.sv
+    Info (12022): Found design unit 1: alu_types_pkg (SystemVerilog) File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/alu_types_pkg.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint1/src/alu_param.sv
+    Info (12023): Found entity 1: alu_param File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/alu_param.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint1/src/seven_segment_adapter.sv
+    Info (12023): Found entity 1: seven_segment_adapter File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/seven_segment_adapter.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint1/src/n_bit_absolute_value.sv
+    Info (12023): Found entity 1: n_bit_absolute_value File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/n_bit_absolute_value.sv Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint1/src/decoder_4x16.sv
+    Info (12023): Found entity 1: decoder_4x16 File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/decoder_4x16.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint2/src/toggle.sv
+    Info (12023): Found entity 1: toggle File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/toggle.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint2/src/binary_to_bcd_converter.sv
+    Info (12023): Found entity 1: binary_to_bcd_converter File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/binary_to_bcd_converter.sv Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint2/src/exec_fsm.sv
+    Info (12023): Found entity 1: exec_fsm File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/exec_fsm.sv Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint2/src/input_fsm.sv
+    Info (12023): Found entity 1: input_fsm File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/input_fsm.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint2/src/key_sync.sv
+    Info (12023): Found entity 1: key_sync File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/key_sync.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint2/src/register_bank.sv
+    Info (12023): Found entity 1: register_bank File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/register_bank.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint2/src/display_logic.sv
+    Info (12023): Found entity 1: display_logic File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/display_logic.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint2/src/top_level.sv
+    Info (12023): Found entity 1: top_level File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/top_level.sv Line: 1
+Info (12127): Elaborating entity "top_level" for the top level hierarchy
+Warning (10036): Verilog HDL or VHDL warning at top_level.sv(27): object "reset" assigned a value but never read File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/top_level.sv Line: 27
+Info (12128): Elaborating entity "key_sync" for hierarchy "key_sync:step_key_sync" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/top_level.sv Line: 83
+Info (12128): Elaborating entity "toggle" for hierarchy "toggle:stepping_mode_toggle" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/top_level.sv Line: 106
+Info (12128): Elaborating entity "input_fsm" for hierarchy "input_fsm:serial_assembly_FSM" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/top_level.sv Line: 128
+Info (12128): Elaborating entity "exec_fsm" for hierarchy "exec_fsm:execute_fsm" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/top_level.sv Line: 204
+Info (12128): Elaborating entity "alu_param" for hierarchy "alu_param:alu_a" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/top_level.sv Line: 275
+Info (12128): Elaborating entity "register_bank" for hierarchy "register_bank:u_register_bank" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/top_level.sv Line: 292
+Info (12128): Elaborating entity "display_logic" for hierarchy "display_logic:display_logic_using_local_menu" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/top_level.sv Line: 311
+Info (12128): Elaborating entity "n_bit_absolute_value" for hierarchy "display_logic:display_logic_using_local_menu|n_bit_absolute_value:abs" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/display_logic.sv Line: 51
+Info (12128): Elaborating entity "binary_to_bcd_converter" for hierarchy "display_logic:display_logic_using_local_menu|binary_to_bcd_converter:binary_to_bcd" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/display_logic.sv Line: 55
+Warning (10230): Verilog HDL assignment warning at binary_to_bcd_converter.sv(19): truncated value with size 32 to match size of target (4) File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/binary_to_bcd_converter.sv Line: 19
+Warning (10230): Verilog HDL assignment warning at binary_to_bcd_converter.sv(22): truncated value with size 32 to match size of target (4) File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/binary_to_bcd_converter.sv Line: 22
+Warning (10230): Verilog HDL assignment warning at binary_to_bcd_converter.sv(25): truncated value with size 32 to match size of target (4) File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/binary_to_bcd_converter.sv Line: 25
+Warning (10230): Verilog HDL assignment warning at binary_to_bcd_converter.sv(28): truncated value with size 32 to match size of target (4) File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/binary_to_bcd_converter.sv Line: 28
+Warning (10230): Verilog HDL assignment warning at binary_to_bcd_converter.sv(31): truncated value with size 32 to match size of target (4) File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/binary_to_bcd_converter.sv Line: 31
+Info (12128): Elaborating entity "seven_segment_adapter" for hierarchy "display_logic:display_logic_using_local_menu|seven_segment_adapter:hex_0_nibble_adapter" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/display_logic.sv Line: 93
+Info (12128): Elaborating entity "decoder_4x16" for hierarchy "display_logic:display_logic_using_local_menu|seven_segment_adapter:hex_0_nibble_adapter|decoder_4x16:u_decoder" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/seven_segment_adapter.sv Line: 11
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "LEDR[8]" is stuck at GND File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/top_level.sv Line: 7
+    Warning (13410): Pin "HEX5[0]" is stuck at VCC File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/top_level.sv Line: 14
+    Warning (13410): Pin "HEX5[1]" is stuck at VCC File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/top_level.sv Line: 14
+    Warning (13410): Pin "HEX5[2]" is stuck at VCC File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/top_level.sv Line: 14
+    Warning (13410): Pin "HEX5[3]" is stuck at VCC File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/top_level.sv Line: 14
+    Warning (13410): Pin "HEX5[4]" is stuck at VCC File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/top_level.sv Line: 14
+    Warning (13410): Pin "HEX5[5]" is stuck at VCC File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/top_level.sv Line: 14
+Info (286030): Timing-Driven Synthesis is running
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Info (21057): Implemented 706 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 15 input pins
+    Info (21059): Implemented 52 output pins
+    Info (21061): Implemented 639 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 15 warnings
+    Info: Peak virtual memory: 4922 megabytes
+    Info: Processing ended: Sat Sep 26 01:20:31 2026
+    Info: Elapsed time: 00:00:08
+    Info: Total CPU time (on all processors): 00:00:15
+
+
