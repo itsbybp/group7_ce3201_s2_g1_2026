@@ -7,6 +7,7 @@ LOG_FILES = [
     "key_sync_transcript.log",
     "input_fsm_transcript.log",
     "exec_fsm_transcript.log",
+    "top_level_transcript.log"
 ]
 
 OUTPUT_FILE = "questa_test_summary.log"

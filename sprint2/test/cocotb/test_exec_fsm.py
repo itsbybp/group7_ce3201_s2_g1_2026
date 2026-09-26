@@ -16,20 +16,20 @@ async def reset_dut(dut):
     dut.step.value = 0
     dut.stepping_mode.value = 0
 
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.current_state.value == IDLE
     assert dut.write_enable.value == 0
 
     dut.reset.value = 1
 
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
 
 @cocotb.test()
 async def test_reset(dut):
 
-    clock = Clock(dut.clk, 20, units="ns")
+    clock = Clock(dut.clk, 20, unit="ns")
     cocotb.start_soon(clock.start())
 
     await reset_dut(dut)
@@ -41,7 +41,7 @@ async def test_reset(dut):
 @cocotb.test()
 async def test_normal_execution(dut):
 
-    clock = Clock(dut.clk, 20, units="ns")
+    clock = Clock(dut.clk, 20, unit="ns")
     cocotb.start_soon(clock.start())
 
     await reset_dut(dut)
@@ -51,7 +51,7 @@ async def test_normal_execution(dut):
 
     # IDLE -> WAIT_1
     await RisingEdge(dut.clk)
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.current_state.value == WAIT_1
     assert dut.write_enable.value == 0
@@ -61,14 +61,14 @@ async def test_normal_execution(dut):
 
     # WAIT_1 -> WRITE
     await RisingEdge(dut.clk)
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.current_state.value == WRITE
     assert dut.write_enable.value == 1
 
     # WRITE -> WAIT_2
     await RisingEdge(dut.clk)
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.current_state.value == WAIT_2
     assert dut.write_enable.value == 0
@@ -76,7 +76,7 @@ async def test_normal_execution(dut):
     # complete the full cycle back to IDLE (2'b11)
     # WAIT_2 -> IDLE
     await RisingEdge(dut.clk)
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.current_state.value == IDLE
     assert dut.write_enable.value == 0
@@ -85,7 +85,7 @@ async def test_normal_execution(dut):
 @cocotb.test()
 async def test_write_enable_pulse(dut):
     
-    clock = Clock(dut.clk, 20, units="ns")
+    clock = Clock(dut.clk, 20, unit="ns")
     cocotb.start_soon(clock.start())
 
     await reset_dut(dut)
@@ -94,7 +94,7 @@ async def test_write_enable_pulse(dut):
 
     # IDLE -> WAIT_1
     await RisingEdge(dut.clk)
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.current_state.value == WAIT_1
     assert dut.write_enable.value == 0
@@ -103,14 +103,14 @@ async def test_write_enable_pulse(dut):
 
     # WAIT_1 -> WRITE
     await RisingEdge(dut.clk)
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.current_state.value == WRITE
     assert dut.write_enable.value == 1
 
     # WRITE -> WAIT_2
     await RisingEdge(dut.clk)
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.current_state.value == WAIT_2
     assert dut.write_enable.value == 0
@@ -119,7 +119,7 @@ async def test_write_enable_pulse(dut):
 @cocotb.test()
 async def test_stepping_mode_pauses(dut):
 
-    clock = Clock(dut.clk, 20, units="ns")
+    clock = Clock(dut.clk, 20, unit="ns")
     cocotb.start_soon(clock.start())
 
     await reset_dut(dut)
@@ -131,7 +131,7 @@ async def test_stepping_mode_pauses(dut):
     dut.step.value = 1
 
     await RisingEdge(dut.clk)
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.current_state.value == WAIT_1
 
@@ -140,14 +140,14 @@ async def test_stepping_mode_pauses(dut):
     dut.start_execute.value = 0
 
     await RisingEdge(dut.clk)
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.current_state.value == WAIT_1
     assert dut.write_enable.value == 0
 
     # Still paused.
     await RisingEdge(dut.clk)
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.current_state.value == WAIT_1
     assert dut.write_enable.value == 0
@@ -156,7 +156,7 @@ async def test_stepping_mode_pauses(dut):
     dut.step.value = 1
 
     await RisingEdge(dut.clk)
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.current_state.value == WRITE
     assert dut.write_enable.value == 1
@@ -167,7 +167,7 @@ async def test_stepping_mode_pauses(dut):
 async def test_write_state_holds_in_stepping_mode(dut):
 
 
-    clock = Clock(dut.clk, 20, units="ns")
+    clock = Clock(dut.clk, 20, unit="ns")
     cocotb.start_soon(clock.start())
 
     await reset_dut(dut)
@@ -178,13 +178,13 @@ async def test_write_state_holds_in_stepping_mode(dut):
 
     # IDLE -> WAIT_1
     await RisingEdge(dut.clk)
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     dut.start_execute.value = 0
 
     # WAIT_1 -> WRITE
     await RisingEdge(dut.clk)
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.current_state.value == WRITE
     assert dut.write_enable.value == 1
@@ -194,7 +194,7 @@ async def test_write_state_holds_in_stepping_mode(dut):
 
     # WRITE should remain WRITE.
     await RisingEdge(dut.clk)
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.current_state.value == WRITE
 
@@ -203,7 +203,7 @@ async def test_write_state_holds_in_stepping_mode(dut):
 
     # Remain in WRITE for another cycle.
     await RisingEdge(dut.clk)
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.current_state.value == WRITE
     assert dut.write_enable.value == 0
@@ -212,7 +212,7 @@ async def test_write_state_holds_in_stepping_mode(dut):
     dut.step.value = 1
 
     await RisingEdge(dut.clk)
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.current_state.value == WAIT_2
     assert dut.write_enable.value == 0
@@ -221,7 +221,7 @@ async def test_write_state_holds_in_stepping_mode(dut):
 @cocotb.test()
 async def test_async_reset(dut):
 
-    clock = Clock(dut.clk, 20, units="ns")
+    clock = Clock(dut.clk, 20, unit="ns")
     cocotb.start_soon(clock.start())
 
     await reset_dut(dut)
@@ -231,14 +231,14 @@ async def test_async_reset(dut):
 
     # WAIT_1.
     await RisingEdge(dut.clk)
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.current_state.value == WAIT_1
 
     # Assert reset between clock edges.
     dut.reset.value = 0
 
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     # Immediate assertion.
     assert dut.current_state.value == IDLE
@@ -247,6 +247,6 @@ async def test_async_reset(dut):
     # Release reset.
     dut.reset.value = 1
 
-    await Timer(1, units="ns")
+    await Timer(1, unit="ns")
 
     assert dut.current_state.value == IDLE

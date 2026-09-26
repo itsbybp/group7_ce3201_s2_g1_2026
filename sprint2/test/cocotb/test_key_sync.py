@@ -4,7 +4,7 @@ from cocotb.triggers import RisingEdge, Timer
 
 
 async def start_clock(dut):
-    cocotb.start_soon(Clock(dut.clk, 20, units="ns").start())
+    cocotb.start_soon(Clock(dut.clk, 20, unit="ns").start())
 
 
 @cocotb.test()
@@ -12,7 +12,7 @@ async def test_reset_asserted_while_key0_low(dut):
     await start_clock(dut)
     dut.key_raw.value = 0
     dut.key0_raw.value = 0
-    await Timer(5, units="ns")
+    await Timer(5, unit="ns")
     assert dut.reset_n.value == 0
 
 
