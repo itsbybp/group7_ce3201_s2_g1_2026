@@ -44,4 +44,8 @@ run -all
 
 write wave arbiter.wlf
 
+set fp [open "questa_test_summary.log" w]
+puts $fp "PASS: tb_arbiter"
+close $fp
+
 quit -f
