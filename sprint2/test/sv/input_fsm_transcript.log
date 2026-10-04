@@ -1,37 +1,34 @@
-# Questa Altera Starter FPGA Edition-64 vmap 2025.2 Lib Mapping Utility 2025.05 May 31 2025
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
 # vmap work work 
-# ** Note: (vmap-220) 'modelsim.ini' is used as the ini file.
 # Modifying modelsim.ini
-# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
-# Start time: 16:48:44 on Sep 21,2026
-# vlog -reportprogress 300 -sv ../../src/input_fsm.sv 
-# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:32:33 on Sep 29,2026
+# vlog -sv ../../src/input_fsm.sv 
 # -- Compiling module input_fsm
 # 
 # Top level modules:
 # 	input_fsm
-# End time: 16:48:44 on Sep 21,2026, Elapsed time: 0:00:00
+# End time: 02:32:33 on Sep 29,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
-# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
-# Start time: 16:48:44 on Sep 21,2026
-# vlog -reportprogress 300 -sv tb_input_fsm.sv 
-# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 02:32:33 on Sep 29,2026
+# vlog -sv tb_input_fsm.sv 
 # -- Compiling module tb_input_fsm
 # 
 # Top level modules:
 # 	tb_input_fsm
-# End time: 16:48:44 on Sep 21,2026, Elapsed time: 0:00:00
+# End time: 02:32:33 on Sep 29,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
-# ** Note: (vsim-220) 'modelsim.ini' is used as the ini file.
 # vsim -voptargs="+acc" work.tb_input_fsm 
-# Start time: 16:48:45 on Sep 21,2026
-# ** Note: (vsim-3812) Design is being optimized...
-# ** Warning: (vopt-10908) Some optimizations are turned off because the +acc switch is in effect.
-# ** Note: (vopt-220) 'modelsim.ini' is used as the ini file.
-# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Start time: 02:32:33 on Sep 29,2026
 # Loading sv_std.std
-# Loading work.tb_input_fsm(fast)
-# Loading work.input_fsm(fast)
+# Loading work.tb_input_fsm
+# Loading work.input_fsm
+# ** Warning: (vsim-3015) [PCDPC] - Port size (4) does not match connection size (8) for port 'nibble_input'. The port definition is at: ../../src/input_fsm.sv(5).
+#    Time: 0 ps  Iteration: 0  Instance: /tb_input_fsm/dut File: tb_input_fsm.sv Line: 26
+# configure wave not supported in batch mode
+# configure wave not supported in batch mode
+# configure wave not supported in batch mode
 # ========================================
 #         INPUT_FSM TEST START
 # ========================================
@@ -63,5 +60,5 @@
 # ----------------------------------------
 # ** Note: $finish    : tb_input_fsm.sv(377)
 #    Time: 96 ns  Iteration: 0  Instance: /tb_input_fsm
-# End time: 16:48:56 on Sep 21,2026, Elapsed time: 0:00:11
+# End time: 02:32:34 on Sep 29,2026, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 1
