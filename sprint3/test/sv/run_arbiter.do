@@ -1,5 +1,7 @@
 quit -sim
 
+transcript file arbiter_transcript.log
+
 if {[file exists work]} {
     vdel -all
 }
