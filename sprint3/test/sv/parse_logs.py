@@ -3,7 +3,9 @@ import sys
 from pathlib import Path
 
 LOG_FILES = [
-    "arbiter_transcript.log"
+    "arbiter_transcript.log",
+    "ram_transcript.log",
+    "mmio_decoder_transcript.log"
 ]
 
 OUTPUT_FILE = "questa_test_summary.log"
