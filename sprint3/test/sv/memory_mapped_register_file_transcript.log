@@ -1,0 +1,111 @@
+# Questa Altera Starter FPGA Edition-64 vmap 2025.2 Lib Mapping Utility 2025.05 May 31 2025
+# vmap work work 
+# ** Note: (vmap-220) 'modelsim.ini' is used as the ini file.
+# Modifying modelsim.ini
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 03:30:03 on Oct 10,2026
+# vlog -reportprogress 300 -sv ../../src/memory_mapped_register_file.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling module memory_mapped_register_file
+# 
+# Top level modules:
+# 	memory_mapped_register_file
+# End time: 03:30:03 on Oct 10,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 03:30:04 on Oct 10,2026
+# vlog -reportprogress 300 -sv tb_memory_mapped_register_file.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling module tb_memory_mapped_register_file
+# 
+# Top level modules:
+# 	tb_memory_mapped_register_file
+# End time: 03:30:04 on Oct 10,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# ** Note: (vsim-220) 'modelsim.ini' is used as the ini file.
+# vsim -voptargs="+acc" work.tb_memory_mapped_register_file 
+# Start time: 03:30:04 on Oct 10,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: (vopt-10908) Some optimizations are turned off because the +acc switch is in effect.
+# ** Note: (vopt-220) 'modelsim.ini' is used as the ini file.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.tb_memory_mapped_register_file(fast)
+# Loading work.memory_mapped_register_file(fast)
+# ----------------------------------------
+# Memory Mapped Register File Testbench
+# ----------------------------------------
+# 
+# --- Test 1: x0 Always Zero ---
+# PASS: x0 write returns 0
+# 
+# --- Test 2: x1 Register ---
+# PASS: x1 write/read
+# 
+# --- Test 3: x2 Register ---
+# PASS: x2 write/read
+# 
+# --- Test 4: x5 Register ---
+# PASS: x5 write/read
+# 
+# --- Test 5: x31 Register (Max Address) ---
+# PASS: x31 write/read
+# 
+# --- Test 6: Sequential Write/Read ---
+# PASS: x1 sequential
+# PASS: x2 sequential
+# PASS: x3 sequential
+# PASS: x4 sequential
+# 
+# --- Test 7: Async Reset ---
+# PASS: Register x1 reset
+# PASS: Register x2 reset
+# PASS: Register x3 reset
+# PASS: Register x4 reset
+# PASS: Register x5 reset
+# PASS: Register x6 reset
+# PASS: Register x7 reset
+# PASS: Register x8 reset
+# PASS: Register x9 reset
+# PASS: Register x10 reset
+# PASS: Register x11 reset
+# PASS: Register x12 reset
+# PASS: Register x13 reset
+# PASS: Register x14 reset
+# PASS: Register x15 reset
+# PASS: Register x16 reset
+# PASS: Register x17 reset
+# PASS: Register x18 reset
+# PASS: Register x19 reset
+# PASS: Register x20 reset
+# PASS: Register x21 reset
+# PASS: Register x22 reset
+# PASS: Register x23 reset
+# PASS: Register x24 reset
+# PASS: Register x25 reset
+# PASS: Register x26 reset
+# PASS: Register x27 reset
+# PASS: Register x28 reset
+# PASS: Register x29 reset
+# PASS: Register x30 reset
+# PASS: Register x31 reset
+# 
+# --- Test 8: Read Without Write ---
+# PASS: No overwrite without write_en
+# 
+# --- Test 9: Overwrite Register ---
+# PASS: Overwrite value
+# 
+# --- Test 10: x0 Remains Zero After Attempted Write ---
+# PASS: x0 protected from write
+# 
+# ----------------------------------------
+# TOTAL_CHECKS=43
+# ERRORS=0
+# WARNINGS=0
+# ALL_TESTS_PASSED
+# ----------------------------------------
+# ** Note: $finish    : tb_memory_mapped_register_file.sv(218)
+#    Time: 2851 ns  Iteration: 0  Instance: /tb_memory_mapped_register_file
+# End time: 03:40:00 on Oct 10,2026, Elapsed time: 0:09:56
+# Errors: 0, Warnings: 1

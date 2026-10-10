@@ -9,6 +9,8 @@ set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 256
 set_global_assignment -name SDC_FILE ../sdc/timing_constraints.sdc
 set_global_assignment -name SYSTEMVERILOG_FILE ../src/arbiter.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../src/memory_mapped_register_file.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../src/control_registers.sv
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top

@@ -6,25 +6,25 @@ vmap work work
 vlog -sv ../../src/mmio_decoder.sv
 vlog -sv tb_mmio_decoder.sv
 
-vsim -t 1ns work.tb_mmio_decoder
+vsim -t 1ns -voptargs=+acc work.tb_mmio_decoder
 
 add wave -divider "Manager"
-add wave -hex /tb_mmio_decoder/dut/addr
-add wave -hex /tb_mmio_decoder/dut/valid
-add wave -hex /tb_mmio_decoder/dut/ready
-add wave -hex /tb_mmio_decoder/dut/rdata
+add wave -hex /tb_mmio_decoder/addr
+add wave -logic /tb_mmio_decoder/valid
+add wave -logic /tb_mmio_decoder/ready
+add wave -hex /tb_mmio_decoder/rdata
 
 add wave -divider "Chip-selects"
-add wave -logic /tb_mmio_decoder/dut/cs_ram
-add wave -logic /tb_mmio_decoder/dut/cs_rb
-add wave -logic /tb_mmio_decoder/dut/cs_ledr
-add wave -logic /tb_mmio_decoder/dut/cs_hex
-add wave -logic /tb_mmio_decoder/dut/cs_cr
+add wave -logic /tb_mmio_decoder/cs_ram
+add wave -logic /tb_mmio_decoder/cs_rb
+add wave -logic /tb_mmio_decoder/cs_ledr
+add wave -logic /tb_mmio_decoder/cs_hex
+add wave -logic /tb_mmio_decoder/cs_cr
 
 add wave -divider "rdata subordinates"
-add wave -hex /tb_mmio_decoder/dut/ram_rdata
-add wave -hex /tb_mmio_decoder/dut/rb_rdata
-add wave -hex /tb_mmio_decoder/dut/cr_rdata
+add wave -hex /tb_mmio_decoder/ram_rdata
+add wave -hex /tb_mmio_decoder/rb_rdata
+add wave -hex /tb_mmio_decoder/cr_rdata
 
 add wave -divider "Interno"
 add wave /tb_mmio_decoder/dut/sel
@@ -33,5 +33,5 @@ add wave /tb_mmio_decoder/dut/sel_q
 run -all
 
 transcript file ""
-echo "Pruebas completadas exitosamente"
+echo "Simulacion finalizada. Revise mmio_decoder_transcript.log para los resultados."
 quit -sim

@@ -5,7 +5,9 @@ from pathlib import Path
 LOG_FILES = [
     "arbiter_transcript.log",
     "ram_transcript.log",
-    "mmio_decoder_transcript.log"
+    "mmio_decoder_transcript.log",
+    "control_registers_transcript.log",
+    "memory_mapped_register_file_transcript.log"
 ]
 
 OUTPUT_FILE = "questa_test_summary.log"

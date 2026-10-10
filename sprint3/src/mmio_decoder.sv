@@ -11,11 +11,12 @@ module mmio_decoder (
     output logic [31:0]      rdata,
 
     // Chip-selects
+    // Chip selects are targeted valid signals. 
     output logic             cs_ram,
     output logic             cs_rb,
     output logic             cs_ledr,
     output logic             cs_hex,
-    output logic             cs_cr,
+    output logic             cs_cr, // CR refers to the control_registers module.
 
     // rdata de subordinates
     input  wire logic [31:0] ram_rdata,

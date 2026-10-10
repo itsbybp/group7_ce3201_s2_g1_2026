@@ -18,7 +18,23 @@ module tb_mmio_decoder;
     logic [31:0] rb_rdata;
     logic [31:0] cr_rdata;
 
-    mmio_decoder dut (.*);
+    mmio_decoder dut (
+    .clk       (clk),
+    .rst_n     (rst_n),
+    .addr      (addr),
+    .valid     (valid),
+    .ready     (ready),
+    .rdata     (rdata),
+    .cs_ram    (cs_ram),
+    .cs_rb     (cs_rb),
+    .cs_ledr   (cs_ledr),
+    .cs_hex    (cs_hex),
+    .cs_cr     (cs_cr),
+    .ram_rdata (ram_rdata),
+    .rb_rdata  (rb_rdata),
+    .cr_rdata  (cr_rdata)
+);
+    // mmio_decoder dut (.*);
 
     always #10 clk = ~clk;
 
