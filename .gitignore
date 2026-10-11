@@ -1,65 +1,61 @@
+# IDEs
 .vscode/
 .DS_Store
 *.swp
 *.swo
 *~
 
-__pycache__/
+# Python
+pycache/
 .pytest_cache/
 *.py[cod]
 .coverage
 coverage/
 
+# Verilator / Cocotb
 obj_dir/
 sim_build*/
 results*.xml
 
-**/work/
-**/transcript*
-**/*.mti
-**/*.dat
-**/*.dbs
-**/*.psm
-**/*.vstf
-**/*.ucdb
-**/cov*/
-**/sc_dpiheader.h
-**/vsim.dbg
+# Questa / ModelSim
+/work/
+/transcript*
+/*.mti
+/*.dat
+/*.dbs
+/*.psm
+/*.vstf
+/*.ucdb
+/cov*/
+/sc_dpiheader.h
+/vsim.dbg
+/modelsim.ini
+/vsim.wlf
 
-**/quartus/db/
-**/quartus/incremental_db/
-**/quartus/*.qws
-**/quartus/c5_pin_model_dump.txt
-**/quartus/*.done
-**/quartus/*.smsg
-**/quartus/*.summary
-**/quartus/*.qarlog
-**/quartus/output_files/*.sof
-**/quartus/output_files/*.pof
-**/quartus/output_files/*.rbf
-**/quartus/output_files/*.jdi
-**/quartus/output_files/*.pin
+# Quartus synthesis
+/quartus/db/
+/quartus/incremental_db/
+/quartus/*.qws
+/quartus/c5_pin_model_dump.txt
+/quartus/*.done
+/quartus/*.smsg
+/quartus/*.summary
+/quartus/*.qarlog
+/quartus/output_files/*.sof
+/quartus/output_files/*.pof
+/quartus/output_files/*.rbf
+/quartus/output_files/*.jdi
+/quartus/output_files/*.pin
+/quartus/output_files/*.cdf
+/quartus/*.qdf
 
-**/*.qws
+# Waveforms
+*.vcd
+*.wlf
 
-**/test_pkg.qpf
-**/test_pkg.qws
-
-**/quartus/output_files/*.done
-**/quartus/output_files/*.smsg
-**/quartus/output_files/*.summary
-**/quartus/output_files/*.sld
-**/quartus/output_files/*.jditmp
-**/quartus/output_files/*.jdi
-**/quartus/output_files/*.asm.rpt
-**/quartus/output_files/*.cdf
-**/quartus/*.qdf
-
-**/db/
-**/incremental_db/
-
-**/*.vcd
-
-**/modelsim.ini
-**/vsim.wlf
-**/incremental_db/
+# Misc
+/*.qws
+/test_pkg.qpf
+/test_pkg.qws
+/incremental_db/
+/db/
