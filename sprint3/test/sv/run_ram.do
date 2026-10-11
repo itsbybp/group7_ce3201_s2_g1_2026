@@ -11,7 +11,8 @@ vmap work work
 vlog -sv ../../src/ram.sv
 vlog -sv tb_ram.sv
 
-vsim -voptargs=+acc work.tb_ram
+vsim -wlf "run_ram.wlf" -voptargs=+acc work.tb_ram
+log -r /*
 
 add wave -divider "Puerto A"
 add wave -radix binary   /tb_ram/clk

@@ -11,7 +11,8 @@ vmap work work
 vlog -sv ../../src/memory_mapped_register_file.sv
 vlog -sv tb_memory_mapped_register_file.sv
 
-vsim -voptargs=+acc work.tb_memory_mapped_register_file
+vsim -wlf "run_memory_mapped_register_file.wlf" -voptargs=+acc work.tb_memory_mapped_register_file
+log -r /*
 
 add wave -divider "Clock & Reset"
 add wave -radix binary  /tb_memory_mapped_register_file/clk

@@ -3,28 +3,28 @@
 # ** Note: (vmap-220) 'modelsim.ini' is used as the ini file.
 # Modifying modelsim.ini
 # Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
-# Start time: 03:30:03 on Oct 10,2026
+# Start time: 02:11:32 on Oct 11,2026
 # vlog -reportprogress 300 -sv ../../src/memory_mapped_register_file.sv 
 # ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
 # -- Compiling module memory_mapped_register_file
 # 
 # Top level modules:
 # 	memory_mapped_register_file
-# End time: 03:30:03 on Oct 10,2026, Elapsed time: 0:00:00
+# End time: 02:11:32 on Oct 11,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
-# Start time: 03:30:04 on Oct 10,2026
+# Start time: 02:11:32 on Oct 11,2026
 # vlog -reportprogress 300 -sv tb_memory_mapped_register_file.sv 
 # ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
 # -- Compiling module tb_memory_mapped_register_file
 # 
 # Top level modules:
 # 	tb_memory_mapped_register_file
-# End time: 03:30:04 on Oct 10,2026, Elapsed time: 0:00:00
+# End time: 02:11:32 on Oct 11,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # ** Note: (vsim-220) 'modelsim.ini' is used as the ini file.
-# vsim -voptargs="+acc" work.tb_memory_mapped_register_file 
-# Start time: 03:30:04 on Oct 10,2026
+# vsim -wlf run_memory_mapped_register_file.wlf -voptargs="+acc" work.tb_memory_mapped_register_file 
+# Start time: 02:11:32 on Oct 11,2026
 # ** Note: (vsim-3812) Design is being optimized...
 # ** Warning: (vopt-10908) Some optimizations are turned off because the +acc switch is in effect.
 # ** Note: (vopt-220) 'modelsim.ini' is used as the ini file.
@@ -107,5 +107,5 @@
 # ----------------------------------------
 # ** Note: $finish    : tb_memory_mapped_register_file.sv(218)
 #    Time: 2851 ns  Iteration: 0  Instance: /tb_memory_mapped_register_file
-# End time: 03:40:00 on Oct 10,2026, Elapsed time: 0:09:56
+# End time: 02:11:44 on Oct 11,2026, Elapsed time: 0:00:12
 # Errors: 0, Warnings: 1

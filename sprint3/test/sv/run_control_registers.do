@@ -11,7 +11,8 @@ vmap work work
 vlog -sv ../../src/control_registers.sv
 vlog -sv tb_control_registers.sv
 
-vsim -voptargs=+acc work.tb_control_registers
+vsim -wlf "run_control_registers.wlf" -voptargs=+acc work.tb_control_registers
+log -r /*
 
 add wave -divider "Clock & Reset"
 add wave -radix binary  /tb_control_registers/clk

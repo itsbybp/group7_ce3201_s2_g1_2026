@@ -6,7 +6,8 @@ vmap work work
 vlog -sv ../../src/mmio_decoder.sv
 vlog -sv tb_mmio_decoder.sv
 
-vsim -t 1ns -voptargs=+acc work.tb_mmio_decoder
+vsim -wlf "run_mmio_decoder.wlf" -t 1ns -voptargs=+acc work.tb_mmio_decoder
+log -r /*
 
 add wave -divider "Manager"
 add wave -hex /tb_mmio_decoder/addr
