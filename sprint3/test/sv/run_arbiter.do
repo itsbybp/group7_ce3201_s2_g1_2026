@@ -11,7 +11,8 @@ vmap work work
 vlog -sv ../../src/arbiter.sv
 vlog -sv tb_arbiter.sv
 
-vsim -voptargs=+acc work.tb_arbiter
+vsim -wlf "run_arbiter.wlf" -voptargs=+acc work.tb_arbiter
+log -r /*
 
 add wave -divider "Entradas vJTAG"
 add wave -radix binary  /tb_arbiter/clk
