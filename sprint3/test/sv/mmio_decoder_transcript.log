@@ -3,28 +3,28 @@
 # ** Note: (vmap-220) 'modelsim.ini' is used as the ini file.
 # Modifying modelsim.ini
 # Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
-# Start time: 02:12:12 on Oct 11,2026
+# Start time: 04:42:49 on Oct 11,2026
 # vlog -reportprogress 300 -sv ../../src/mmio_decoder.sv 
 # ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
 # -- Compiling module mmio_decoder
 # 
 # Top level modules:
 # 	mmio_decoder
-# End time: 02:12:12 on Oct 11,2026, Elapsed time: 0:00:00
+# End time: 04:42:49 on Oct 11,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
-# Start time: 02:12:12 on Oct 11,2026
+# Start time: 04:42:49 on Oct 11,2026
 # vlog -reportprogress 300 -sv tb_mmio_decoder.sv 
 # ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
 # -- Compiling module tb_mmio_decoder
 # 
 # Top level modules:
 # 	tb_mmio_decoder
-# End time: 02:12:12 on Oct 11,2026, Elapsed time: 0:00:00
+# End time: 04:42:50 on Oct 11,2026, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
 # ** Note: (vsim-220) 'modelsim.ini' is used as the ini file.
 # vsim -wlf run_mmio_decoder.wlf -t 1ns -voptargs="+acc" work.tb_mmio_decoder 
-# Start time: 02:12:13 on Oct 11,2026
+# Start time: 04:42:50 on Oct 11,2026
 # ** Note: (vsim-3812) Design is being optimized...
 # ** Warning: (vopt-10908) Some optimizations are turned off because the +acc switch is in effect.
 # ** Note: (vopt-220) 'modelsim.ini' is used as the ini file.
@@ -32,8 +32,8 @@
 # Loading sv_std.std
 # Loading work.tb_mmio_decoder(fast)
 # Loading work.mmio_decoder(fast)
-# Errors: 0, Warnings: 0
+# Pruebas completadas exitosamente
 # ** Note: $finish    : tb_mmio_decoder.sv(121)
 #    Time: 310 ns  Iteration: 1  Instance: /tb_mmio_decoder
-# End time: 02:12:20 on Oct 11,2026, Elapsed time: 0:00:07
+# End time: 04:43:00 on Oct 11,2026, Elapsed time: 0:00:10
 # Errors: 0, Warnings: 1

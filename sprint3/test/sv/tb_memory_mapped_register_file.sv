@@ -209,7 +209,7 @@ module tb_memory_mapped_register_file;
         $display("ERRORS=%0d", errors);
         $display("WARNINGS=0");
         if (errors == 0) begin
-            $display("ALL_TESTS_PASSED");
+            $display("Pruebas completadas exitosamente");
         end else begin
             $display("TESTS_FAILED");
         end

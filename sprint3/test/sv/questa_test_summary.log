@@ -13,19 +13,19 @@ C:\short_paths_wo_OneDrive\GitHub_repos\Taller_Digitales_repo\group7_ce3201_s2_g
 C:\short_paths_wo_OneDrive\GitHub_repos\Taller_Digitales_repo\group7_ce3201_s2_g1_2026\sprint3\test\sv\mmio_decoder_transcript.log:
   errors=0
   warnings=0
-  passed=False
+  passed=True
 
 C:\short_paths_wo_OneDrive\GitHub_repos\Taller_Digitales_repo\group7_ce3201_s2_g1_2026\sprint3\test\sv\control_registers_transcript.log:
   errors=0
   warnings=0
-  passed=False
+  passed=True
 
 C:\short_paths_wo_OneDrive\GitHub_repos\Taller_Digitales_repo\group7_ce3201_s2_g1_2026\sprint3\test\sv\memory_mapped_register_file_transcript.log:
   errors=0
   warnings=0
-  passed=False
+  passed=True
 
 ============================================================
 ERRORS=0
 WARNINGS=0
-TESTS_FAILED
+ALL_TESTS_PASSED

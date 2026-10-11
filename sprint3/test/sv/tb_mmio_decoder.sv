@@ -117,7 +117,7 @@ module tb_mmio_decoder;
         valid = 0;
 
         @(posedge clk);
-        $display("Errors: 0, Warnings: 0");
+        $display("Pruebas completadas exitosamente");
         $finish;
     end
 

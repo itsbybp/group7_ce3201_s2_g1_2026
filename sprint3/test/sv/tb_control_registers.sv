@@ -180,7 +180,7 @@ module tb_control_registers;
         $display("ERRORS=%0d", errors);
         $display("WARNINGS=0");
         if (errors == 0) begin
-            $display("ALL_TESTS_PASSED");
+            $display("Pruebas completadas exitosamente");
         end else begin
             $display("TESTS_FAILED");
         end

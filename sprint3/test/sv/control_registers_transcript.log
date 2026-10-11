@@ -3,28 +3,28 @@
 # ** Note: (vmap-220) 'modelsim.ini' is used as the ini file.
 # Modifying modelsim.ini
 # Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
-# Start time: 02:11:00 on Oct 11,2026
+# Start time: 04:40:48 on Oct 11,2026
 # vlog -reportprogress 300 -sv ../../src/control_registers.sv 
 # ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
 # -- Compiling module control_registers
 # 
 # Top level modules:
 # 	control_registers
-# End time: 02:11:00 on Oct 11,2026, Elapsed time: 0:00:00
+# End time: 04:40:48 on Oct 11,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
-# Start time: 02:11:00 on Oct 11,2026
+# Start time: 04:40:48 on Oct 11,2026
 # vlog -reportprogress 300 -sv tb_control_registers.sv 
 # ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
 # -- Compiling module tb_control_registers
 # 
 # Top level modules:
 # 	tb_control_registers
-# End time: 02:11:00 on Oct 11,2026, Elapsed time: 0:00:00
+# End time: 04:40:49 on Oct 11,2026, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
 # ** Note: (vsim-220) 'modelsim.ini' is used as the ini file.
 # vsim -wlf run_control_registers.wlf -voptargs="+acc" work.tb_control_registers 
-# Start time: 02:11:00 on Oct 11,2026
+# Start time: 04:40:49 on Oct 11,2026
 # ** Note: (vsim-3812) Design is being optimized...
 # ** Warning: (vopt-10908) Some optimizations are turned off because the +acc switch is in effect.
 # ** Note: (vopt-220) 'modelsim.ini' is used as the ini file.
@@ -70,9 +70,9 @@
 # TOTAL_CHECKS=14
 # ERRORS=0
 # WARNINGS=0
-# ALL_TESTS_PASSED
+# Pruebas completadas exitosamente
 # ----------------------------------------
 # ** Note: $finish    : tb_control_registers.sv(189)
 #    Time: 991 ns  Iteration: 0  Instance: /tb_control_registers
-# End time: 02:11:08 on Oct 11,2026, Elapsed time: 0:00:08
+# End time: 04:41:05 on Oct 11,2026, Elapsed time: 0:00:16
 # Errors: 0, Warnings: 1
