@@ -1,6 +1,0 @@
-
-State Machine - |arbiter|state
-Name state.IDLE state.FSM_ACCESS state.VJTAG_ACCESS 
-state.IDLE 0 0 0 
-state.VJTAG_ACCESS 1 0 1 
-state.FSM_ACCESS 1 1 0 
