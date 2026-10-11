@@ -1,5 +1,5 @@
 Analysis & Synthesis report for top_level
-Sun Oct  4 15:23:57 2026
+Fri Oct  9 22:10:47 2026
 Quartus Prime Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
 
 
@@ -45,7 +45,7 @@ on the Quartus Prime software download page.
 +-----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                      ;
 +---------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Sun Oct  4 15:23:57 2026           ;
+; Analysis & Synthesis Status     ; Successful - Fri Oct  9 22:10:47 2026           ;
 ; Quartus Prime Version           ; 25.1std.0 Build 1129 10/21/2025 SC Lite Edition ;
 ; Revision Name                   ; top_level                                       ;
 ; Top-level Entity Name           ; arbiter                                         ;
@@ -157,8 +157,8 @@ on the Quartus Prime software download page.
 +----------------------------+-------------+
 ; Processors                 ; Number      ;
 +----------------------------+-------------+
-; Number detected on machine ; 24          ;
-; Maximum allowed            ; 16          ;
+; Number detected on machine ; 12          ;
+; Maximum allowed            ; 12          ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
 ; Maximum used               ; 1           ;
@@ -168,13 +168,13 @@ on the Quartus Prime software download page.
 +----------------------------+-------------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                          ;
-+----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                      ; Library ;
-+----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------+---------+
-; ../src/arbiter.sv                ; yes             ; User SystemVerilog HDL File  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv ;         ;
-+----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------+---------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                                      ;
++----------------------------------+-----------------+------------------------------+---------------------------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                                                  ; Library ;
++----------------------------------+-----------------+------------------------------+---------------------------------------------------------------------------------------------------------------+---------+
+; ../src/arbiter.sv                ; yes             ; User SystemVerilog HDL File  ; C:/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv ;         ;
++----------------------------------+-----------------+------------------------------+---------------------------------------------------------------------------------------------------------------+---------+
 
 
 +------------------------------------------------------------------+
@@ -284,16 +284,20 @@ Encoding Type:  One-Hot
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
-    Info: Processing started: Sun Oct  4 15:23:51 2026
+    Info: Processing started: Fri Oct  9 22:10:40 2026
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off top_level -c top_level
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
-Info (20030): Parallel compilation is enabled and will use 16 of the 24 processors detected
-Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv
-    Info (12023): Found entity 1: arbiter File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 1
-Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint3/test/sv/tb_arbiter.sv
-    Info (12023): Found entity 1: tb_arbiter File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/test/sv/tb_arbiter.sv Line: 1
+Info (20030): Parallel compilation is enabled and will use 12 of the 12 processors detected
+Info (12021): Found 1 design units, including 1 entities, in source file /short_paths_wo_onedrive/github_repos/taller_digitales_repo/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv
+    Info (12023): Found entity 1: arbiter File: C:/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /short_paths_wo_onedrive/github_repos/taller_digitales_repo/group7_ce3201_s2_g1_2026/sprint3/src/memory_mapped_register_file.sv
+    Info (12023): Found entity 1: memory_mapped_register_file File: C:/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/group7_ce3201_s2_g1_2026/sprint3/src/memory_mapped_register_file.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /short_paths_wo_onedrive/github_repos/taller_digitales_repo/group7_ce3201_s2_g1_2026/sprint3/src/control_registers.sv
+    Info (12023): Found entity 1: control_registers File: C:/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/group7_ce3201_s2_g1_2026/sprint3/src/control_registers.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /short_paths_wo_onedrive/github_repos/taller_digitales_repo/group7_ce3201_s2_g1_2026/sprint3/test/sv/tb_arbiter.sv
+    Info (12023): Found entity 1: tb_arbiter File: C:/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/group7_ce3201_s2_g1_2026/sprint3/test/sv/tb_arbiter.sv Line: 1
 Info (12127): Elaborating entity "arbiter" for the top level hierarchy
-Info (10264): Verilog HDL Case Statement information at arbiter.sv(68): all case item expressions in this case statement are onehot File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 68
+Info (10264): Verilog HDL Case Statement information at arbiter.sv(68): all case item expressions in this case statement are onehot File: C:/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 68
 Info (286030): Timing-Driven Synthesis is running
 Info (17049): 1 registers lost all their fanouts during netlist optimizations.
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
@@ -303,9 +307,9 @@ Info (21057): Implemented 269 device resources after synthesis - the final resou
     Info (21059): Implemented 67 output pins
     Info (21061): Implemented 69 logic cells
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 1 warning
-    Info: Peak virtual memory: 4869 megabytes
-    Info: Processing ended: Sun Oct  4 15:23:57 2026
-    Info: Elapsed time: 00:00:06
-    Info: Total CPU time (on all processors): 00:00:11
+    Info: Peak virtual memory: 4867 megabytes
+    Info: Processing ended: Fri Oct  9 22:10:48 2026
+    Info: Elapsed time: 00:00:08
+    Info: Total CPU time (on all processors): 00:00:16
 
 
