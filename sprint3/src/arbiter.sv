@@ -6,18 +6,21 @@ module arbiter (
     input  logic        vjtag_valid,
     input  logic [31:0] vjtag_addr,
     input  logic [31:0] vjtag_data,
+    input  logic        vjtag_write_en,
     output logic        vjtag_ready,
 
     // FSM (manager)
     input  logic        fsm_valid,
     input  logic [31:0] fsm_addr,
     input  logic [31:0] fsm_data,
+    input  logic        fsm_write_en,
     output logic        fsm_ready,
 
     // Subordinate
     input  logic        subordinate_ready,
     output logic [31:0] mux_addr,
     output logic [31:0] mux_data,
+    output logic        mux_write_en,
     output logic        mux_valid
 );
 
@@ -59,24 +62,27 @@ module arbiter (
 
     // Salidas
     always_comb begin
-        mux_addr    = '0;
-        mux_data    = '0;
-        mux_valid   = 1'b0;
-        vjtag_ready = 1'b0;
-        fsm_ready   = 1'b0;
+        mux_addr     = '0;
+        mux_data     = '0;
+        mux_write_en = 1'b0;
+        mux_valid    = 1'b0;
+        vjtag_ready  = 1'b0;
+        fsm_ready    = 1'b0;
 
         case (state)
             VJTAG_ACCESS: begin
-                mux_addr    = vjtag_addr;
-                mux_data    = vjtag_data;
-                mux_valid   = vjtag_valid;
-                vjtag_ready = subordinate_ready;
+                mux_addr     = vjtag_addr;
+                mux_data     = vjtag_data;
+                mux_write_en = vjtag_write_en;
+                mux_valid    = vjtag_valid;
+                vjtag_ready  = subordinate_ready;
             end
             FSM_ACCESS: begin
-                mux_addr  = fsm_addr;
-                mux_data  = fsm_data;
-                mux_valid = fsm_valid;
-                fsm_ready = subordinate_ready;
+                mux_addr     = fsm_addr;
+                mux_data     = fsm_data;
+                mux_write_en = fsm_write_en;
+                mux_valid    = fsm_valid;
+                fsm_ready    = subordinate_ready;
             end
             default: ;
         endcase
