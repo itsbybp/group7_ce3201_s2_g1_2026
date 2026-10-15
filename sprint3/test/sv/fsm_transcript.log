@@ -1,0 +1,34 @@
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work work 
+# Modifying modelsim.ini
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 10:11:21 on Oct 15,2026
+# vlog -sv ../../src/fsm.sv 
+# -- Compiling module fsm
+# 
+# Top level modules:
+# 	fsm
+# End time: 10:11:21 on Oct 15,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 10:11:21 on Oct 15,2026
+# vlog -sv tb_fsm.sv 
+# -- Compiling module tb_fsm
+# 
+# Top level modules:
+# 	tb_fsm
+# End time: 10:11:21 on Oct 15,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim -voptargs="+acc" -wlf run_fsm.wlf work.tb_fsm 
+# Start time: 10:11:21 on Oct 15,2026
+# Loading sv_std.std
+# Loading work.tb_fsm
+# Loading work.fsm
+# configure wave not supported in batch mode
+# configure wave not supported in batch mode
+# configure wave not supported in batch mode
+# Pruebas completadas exitosamente
+# ** Note: $finish    : tb_fsm.sv(106)
+#    Time: 1630 ps  Iteration: 1  Instance: /tb_fsm
+# End time: 10:11:21 on Oct 15,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0

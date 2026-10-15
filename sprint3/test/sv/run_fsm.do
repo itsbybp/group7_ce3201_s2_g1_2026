@@ -11,7 +11,7 @@ vmap work work
 vlog -sv ../../src/fsm.sv
 vlog -sv tb_fsm.sv
 
-vsim -voptargs=+acc work.tb_fsm
+vsim -voptargs=+acc -wlf run_fsm.wlf work.tb_fsm
 
 add wave -divider "Bus FSM"
 add wave -radix binary  /tb_fsm/clk
@@ -38,8 +38,6 @@ configure wave -valuecolwidth 100
 configure wave -timelineunits ns
 
 run -all
-
-write wave fsm.wlf
 
 set fp [open "questa_test_summary.log" w]
 puts $fp "PASS: tb_fsm"
