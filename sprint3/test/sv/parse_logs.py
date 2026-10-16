@@ -5,6 +5,7 @@ from pathlib import Path
 LOG_FILES = [
     "arbiter_transcript.log",
     "fsm_transcript.log",
+    "counter_transcript.log",
 ]
 
 OUTPUT_FILE = "questa_test_summary.log"

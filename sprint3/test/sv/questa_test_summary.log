@@ -1,11 +1,21 @@
 Questa Test Summary
 ============================================================
-C:\ByronBP\SemAct\Proyecto-Taller\group7_ce3201_s2_g1_2026\sprint3\test\sv\arbiter_transcript.log:
+C:\short_paths_wo_OneDrive\GitHub_repos\Taller_Digitales_repo\group7_ce3201_s2_g1_2026\sprint3\test\sv\arbiter_transcript.log:
   errors=0
   warnings=0
   passed=True
 
+C:\short_paths_wo_OneDrive\GitHub_repos\Taller_Digitales_repo\group7_ce3201_s2_g1_2026\sprint3\test\sv\fsm_transcript.log:
+  errors=0
+  warnings=0
+  passed=True
+
+C:\short_paths_wo_OneDrive\GitHub_repos\Taller_Digitales_repo\group7_ce3201_s2_g1_2026\sprint3\test\sv\counter_transcript.log:
+  errors=0
+  warnings=0
+  passed=False
+
 ============================================================
 ERRORS=0
 WARNINGS=0
-ALL_TESTS_PASSED
+TESTS_FAILED
