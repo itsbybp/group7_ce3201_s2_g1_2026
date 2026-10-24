@@ -10,6 +10,7 @@ BASE_OUT       = 0x00010000
 
 NUM_PIXELS = 8
 THRESHOLD  = 100
+STATUS_DONE = 0x2  # bit1=done (igual que STATUS_DONE en fsm.sv)
 
 
 def read_mux(addr, mem_in, start_flag):
@@ -83,11 +84,11 @@ async def test_fsm(dut):
     start_flag_box[0] = 0
 
     for _ in range(5000):
-        if status[0] == 1:
+        if status[0] == STATUS_DONE:
             break
         await RisingEdge(dut.clk)
     else:
-        assert False, "La FSM nunca terminó (status nunca llegó a 1)"
+        assert False, "La FSM nunca terminó (status nunca llegó a done)"
 
     for i, pixel in enumerate(mem_in):
         expected = 0 if pixel < THRESHOLD else 255

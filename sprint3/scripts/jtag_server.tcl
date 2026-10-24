@@ -1,5 +1,5 @@
 # jtag_server.tcl
-set VJTAG_DATA_WIDTH 16
+set VJTAG_DATA_WIDTH 32
 set TARGET_DEVICE "@2"
 set write_count 0
 set write_batch_started 0

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="vjtag" kind="vjtag" version="1.0" fabric="QSYS">
  <!-- Format version 25.1 1129 (Future versions may contain additional information.) -->
- <!-- 2026.10.06.18:19:54 -->
+ <!-- 2026.10.20.23:49:15 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1791303594</value>
+  <value>1792561755</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -32,7 +32,7 @@
  </parameter>
  <parameter name="AUTO_DEVICE">
   <type>java.lang.String</type>
-  <value>5CGXFC7C7F23C8</value>
+  <value>5CSXFC6D6F31C6</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -41,7 +41,7 @@
  </parameter>
  <parameter name="AUTO_DEVICE_SPEEDGRADE">
   <type>java.lang.String</type>
-  <value>8_H7</value>
+  <value>6_H6</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -83,7 +83,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="gui_use_auto_index">
    <type>boolean</type>
-   <value>true</value>
+   <value>false</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -91,7 +91,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="sld_auto_instance_index">
    <type>java.lang.String</type>
-   <value>YES</value>
+   <value>NO</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -101,7 +101,7 @@ the requested settings for a module instance. -->
    <type>int</type>
    <value>0</value>
    <derived>false</derived>
-   <enabled>false</enabled>
+   <enabled>true</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>

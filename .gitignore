@@ -63,3 +63,7 @@ results*.xml
 **/modelsim.ini
 **/vsim.wlf
 **/incremental_db/
+
+sprint3/quartus/.qsys_edit/
+sprint3/quartus/simulation/
+sprint3/scripts/venv/

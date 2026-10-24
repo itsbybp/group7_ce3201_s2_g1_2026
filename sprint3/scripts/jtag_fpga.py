@@ -74,12 +74,22 @@ def write_value_to_fpga(conn, address, int_value_to_write, strict=False):
         if strict:
             raise ConnectionError("No connection to JTAG server.")
         return
+    # Valida el rango SIEMPRE, sin importar quien llame la funcion
+    # (antes solo se validaba en main_loop, dejando pasar valores
+    # fuera de rango cuando se llama desde otro script como
+    # pixel_image_app.py).
+    if not (0 <= int_value_to_write <= MAX_VAL):
+        msg = f"Value to write ({int_value_to_write}) out of {DATA_WIDTH}-bit range (0-{MAX_VAL})."
+        logging.error(msg)
+        if strict:
+            raise ValueError(msg)
+        return
     try:
         ADDR_WIDTH = 32
         bin_addr = format(address, f'0{ADDR_WIDTH}b')
         bin_data = format(int_value_to_write, f'0{DATA_WIDTH}b')
         request = f"WRITE {bin_addr} {bin_data}\n"
-        
+
         logging.debug(f"Python sending write request: {request.strip()}")
         conn.sendall(request.encode())
         response = read_response_line(conn, "write acknowledgment")
@@ -104,7 +114,7 @@ def read_value_from_fpga(conn, address, strict=False):
         ADDR_WIDTH = 32
         bin_addr = format(address, f'0{ADDR_WIDTH}b')
         request = f"READ {bin_addr}\n"
-        
+
         logging.debug(f"Python sending read request: {request.strip()}")
         conn.sendall(request.encode())
         response_hex = read_response_line(conn, "read response")
@@ -138,7 +148,7 @@ def parse_integer_argument(arg_str, arg_name="argument"):
     if arg_str is None:
         return None
     try:
-        return int(arg_str, 0) 
+        return int(arg_str, 0)
     except ValueError:
         logging.error(f"Invalid format for {arg_name}: '{arg_str}'. Must be an integer.")
         return None
@@ -178,61 +188,61 @@ def main_loop(conn):
 
             if command == 'exit':
                 break
-                
+
             elif command == 'verbose':
                 if len(parts) == 2:
                     set_verbosity(parts[1].lower())
                 else:
                     current_level = logging.getLevelName(logging.getLogger().getEffectiveLevel())
                     logging.info(f"Current verbosity: {current_level}. Usage: verbose <quiet|normal|debug>")
-                    
+
             elif command == 'write':
                 if len(parts) != 3:
                     logging.error("Usage: write <address> <value>")
                     continue
-                    
+
                 address = parse_integer_argument(parts[1], "address")
                 value_to_write = parse_integer_argument(parts[2], "value")
-                
+
                 if address is None or value_to_write is None:
                     continue
-                    
+
                 if not (0 <= value_to_write <= MAX_VAL):
                     logging.error(f"Value to write ({value_to_write}) out of {DATA_WIDTH}-bit range (0-{MAX_VAL}).")
                     continue
-                    
+
                 logging.info(f"Executing WRITE: Address=0x{address:X}, Value={value_to_write} (0x{value_to_write:0{HEX_PADDING}x})")
                 write_value_to_fpga(conn, address, value_to_write)
-            
+
             elif command == 'read':
                 if len(parts) != 3:
                     logging.error("Usage: read <address> <expected_value>")
                     continue
-                    
+
                 address = parse_integer_argument(parts[1], "address")
                 expected_value = parse_integer_argument(parts[2], "expected_value")
-                
+
                 if address is None or expected_value is None:
                     continue
-                    
+
                 if not (0 <= expected_value <= MAX_VAL):
                     logging.error(f"Expected value ({expected_value}) out of {DATA_WIDTH}-bit range (0-{MAX_VAL}).")
                     continue
-                    
+
                 logging.info(f"Executing READ: Address=0x{address:X}, Expecting=0x{expected_value:0{HEX_PADDING}x}")
                 actual_value = read_value_from_fpga(conn, address)
-                
+
                 if actual_value is None:
                     logging.error("Failed to get actual value from FPGA.")
                     continue
-                    
+
                 logging.info(f"Value actually read from FPGA: {actual_value} (0x{actual_value:0{HEX_PADDING}x})")
-                
+
                 if actual_value == expected_value:
                     logging.info("MATCH: Read value matches expected value.")
                 else:
                     logging.warning(f"MISMATCH: Expected 0x{expected_value:0{HEX_PADDING}x}, Got 0x{actual_value:0{HEX_PADDING}x}.")
-                    
+
             elif command == 'history':
                 if readline is not None and hasattr(readline, "get_current_history_length"):
                     logging.info("Command History:")
@@ -242,10 +252,10 @@ def main_loop(conn):
                            logging.info(f"  {i}: {item}")
                 else:
                     logging.info("Readline history not fully available.")
-                    
+
             else:
                 logging.error(f"Unknown command: '{command}'. Type 'exit' to quit.")
-                
+
     except KeyboardInterrupt:
         pass
     finally:
@@ -256,9 +266,9 @@ def main_loop(conn):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="JTAG Client for FPGA communication.")
     parser.add_argument(
-        "-dw", "--data_width", 
-        type=int, 
-        default=16, 
+        "-dw", "--data_width",
+        type=int,
+        default=16,
         choices=[8, 16, 32, 64],
         help="Specify the data width in bits for JTAG operations (default: 16)."
     )
@@ -272,25 +282,33 @@ if __name__ == "__main__":
         action="store_const", const=logging.DEBUG, dest="verbosity",
         help="Set verbosity to debug (all messages)."
     )
-    parser.set_defaults(verbosity=logging.INFO) 
+    parser.add_argument(
+        "--host", default=HOST,
+        help=f"JTAG server host (default: {HOST})."
+    )
+    parser.add_argument(
+        "--port", type=int, default=PORT,
+        help=f"JTAG server port (default: {PORT})."
+    )
+    parser.set_defaults(verbosity=logging.INFO)
 
     args = parser.parse_args()
 
     DATA_WIDTH = args.data_width
     MAX_VAL = (1 << DATA_WIDTH) - 1
     HEX_PADDING = DATA_WIDTH // 4
-    
+
     logging.basicConfig(level=args.verbosity, format='|%(levelname)s| %(message)s')
-    
+
     logging.info(f"Script configured for {DATA_WIDTH}-bit data width.")
 
     if readline is not None:
         logging.debug("Attempting to load readline history.")
         load_history()
 
-    conn = open_connection(HOST, PORT)
+    conn = open_connection(args.host, args.port)
     if conn is None:
         logging.error("Exiting due to connection failure.")
-        exit(1) 
-    
+        exit(1)
+
     main_loop(conn)

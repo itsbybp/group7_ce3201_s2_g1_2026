@@ -1,21 +1,33 @@
 Questa Test Summary
 ============================================================
-C:\short_paths_wo_OneDrive\GitHub_repos\Taller_Digitales_repo\group7_ce3201_s2_g1_2026\sprint3\test\sv\arbiter_transcript.log:
+C:\ByronBP\SemAct\Proyecto-Taller\group7_ce3201_s2_g1_2026\sprint3\test\sv\arbiter_transcript.log:
   errors=0
   warnings=0
   passed=True
 
-C:\short_paths_wo_OneDrive\GitHub_repos\Taller_Digitales_repo\group7_ce3201_s2_g1_2026\sprint3\test\sv\fsm_transcript.log:
+C:\ByronBP\SemAct\Proyecto-Taller\group7_ce3201_s2_g1_2026\sprint3\test\sv\fsm_transcript.log:
   errors=0
   warnings=0
   passed=True
 
-C:\short_paths_wo_OneDrive\GitHub_repos\Taller_Digitales_repo\group7_ce3201_s2_g1_2026\sprint3\test\sv\counter_transcript.log:
+C:\ByronBP\SemAct\Proyecto-Taller\group7_ce3201_s2_g1_2026\sprint3\test\sv\counter_transcript.log:
   errors=0
   warnings=0
-  passed=False
+  passed=True
+
+C:\ByronBP\SemAct\Proyecto-Taller\group7_ce3201_s2_g1_2026\sprint3\test\sv\top_level_transcript.log:
+  errors=0
+  warnings=0
+  passed=True
+
+cocotb Test Summary
+============================================================
+C:\ByronBP\SemAct\Proyecto-Taller\group7_ce3201_s2_g1_2026\sprint3\test\sv\..\cocotb\results_top_level.xml:
+  tests=8
+  failed=0
+  passed=True
 
 ============================================================
 ERRORS=0
 WARNINGS=0
-TESTS_FAILED
+ALL_TESTS_PASSED

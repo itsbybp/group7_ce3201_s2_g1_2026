@@ -8,6 +8,10 @@ module tb_fsm;
     logic [31:0] alu_a, alu_b;
     logic        alu_start, alu_done, alu_n;
     logic        timer_start, timer_clear, timer_timeout;
+    logic        fsm_busy, clear_on_start;
+    logic [13:0] pixel_count;
+    logic [7:0]  last_pixel, last_result;
+    logic [3:0]  fsm_state_num;
 
     fsm #(.NUM_PIXELS(8)) dut (.*);
 
@@ -92,7 +96,7 @@ module tb_fsm;
         repeat (2) @(posedge clk);
         start_flag = 0;
 
-        wait (status_q == 32'h1);
+        wait (status_q == 32'h2);  // bit1 = done (STATUS_DONE en fsm.sv)
         @(posedge clk);
 
         for (int i = 0; i < NUM_PIXELS_TB; i++) begin

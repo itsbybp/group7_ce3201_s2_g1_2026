@@ -1,0 +1,148 @@
+# // DO NOT ADD THIS FILE TO THE .qsf file.
+# 
+# 
+# module vjtag_sim_stub (
+#     output logic       tdi,
+#     input  logic       tdo,
+#     output logic [1:0] ir_in,
+#     input  logic [1:0] ir_out,
+#     output logic       virtual_state_cdr,
+#     output logic       virtual_state_sdr,
+#     output logic       virtual_state_e1dr,
+#     output logic       virtual_state_pdr,
+#     output logic       virtual_state_e2dr,
+#     output logic       virtual_state_udr,
+#     output logic       virtual_state_cir,
+#     output logic       virtual_state_uir,
+#     output logic       tck
+# );
+# 
+#     logic       sim_tck   /* verilator public */;
+#     logic       sim_tdi   /* verilator public */;
+#     logic [1:0] sim_ir_in /* verilator public */;
+#     logic       sim_v_cdr /* verilator public */;
+#     logic       sim_v_sdr /* verilator public */;
+#     logic       sim_v_udr /* verilator public */;
+# 
+#     assign tck               = sim_tck;
+#     assign tdi               = sim_tdi;
+#     assign ir_in             = sim_ir_in;
+#     assign virtual_state_cdr = sim_v_cdr;
+#     assign virtual_state_sdr = sim_v_sdr;
+#     assign virtual_state_udr = sim_v_udr;
+# 
+#     assign virtual_state_e1dr = 1'b0;
+#     assign virtual_state_pdr  = 1'b0;
+#     assign virtual_state_e2dr = 1'b0;
+#     assign virtual_state_cir  = 1'b0;
+#     assign virtual_state_uir  = 1'b0;
+# 
+# endmodule
+# 
+# // DO NOT ADD THIS FILE TO THE .qsf file.
+# 
+# 
+# module vjtag (
+#     output logic       tdi,
+#     input  logic       tdo,
+#     output logic [1:0] ir_in,
+#     input  logic [1:0] ir_out,
+#     output logic       virtual_state_cdr,
+#     output logic       virtual_state_sdr,
+#     output logic       virtual_state_e1dr,
+#     output logic       virtual_state_pdr,
+#     output logic       virtual_state_e2dr,
+#     output logic       virtual_state_udr,
+#     output logic       virtual_state_cir,
+#     output logic       virtual_state_uir,
+#     output logic       tck
+# );
+# 
+#     logic       sim_tck   /* verilator public */;
+#     logic       sim_tdi   /* verilator public */;
+#     logic [1:0] sim_ir_in /* verilator public */;
+#     logic       sim_v_cdr /* verilator public */;
+#     logic       sim_v_sdr /* verilator public */;
+#     logic       sim_v_udr /* verilator public */;
+# 
+#     assign tck               = sim_tck;
+#     assign tdi               = sim_tdi;
+#     assign ir_in             = sim_ir_in;
+#     assign virtual_state_cdr = sim_v_cdr;
+#     assign virtual_state_sdr = sim_v_sdr;
+#     assign virtual_state_udr = sim_v_udr;
+# 
+#     assign virtual_state_e1dr = 1'b0;
+#     assign virtual_state_pdr  = 1'b0;
+#     assign virtual_state_e2dr = 1'b0;
+#     assign virtual_state_cir  = 1'b0;
+#     assign virtual_state_uir  = 1'b0;
+# 
+# endmodule
+# 
+# filefd8e888
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work work 
+# Modifying modelsim.ini
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 17:24:13 on Oct 22,2026
+# vlog -sv -timescale 1ns/1ps -work work ../../../sprint1/src/alu_types_pkg.sv ../../../sprint1/src/alu_param.sv ../../../sprint1/src/decoder_4x16.sv ../../../sprint1/src/seven_segment_adapter.sv ../../../sprint2/src/binary_to_bcd_converter.sv ../../../sprint2/src/key_sync.sv ../../src/vjtag_interface.sv ../../src/arbiter.sv ../../src/fsm.sv ../../src/counter.sv ../../src/mmio_decoder.sv ../../src/control_registers.sv ../../src/memory_mapped_register_file.sv ../../src/ram.sv top_level_sim.sv vjtag.sv tb_top_level.sv 
+# -- Compiling package alu_types_pkg
+# -- Compiling module alu_param
+# -- Importing package alu_types_pkg
+# -- Compiling module decoder_4x16
+# -- Compiling module seven_segment_adapter
+# -- Compiling module binary_to_bcd_converter
+# -- Compiling module key_sync
+# -- Compiling module vjtag_interface
+# -- Compiling module arbiter
+# -- Compiling module fsm
+# -- Compiling module counter
+# -- Compiling module mmio_decoder
+# -- Compiling module control_registers
+# -- Compiling module memory_mapped_register_file
+# -- Compiling module ram
+# -- Compiling module top_level
+# -- Compiling module vjtag
+# -- Compiling module tb_top_level
+# 
+# Top level modules:
+# 	tb_top_level
+# End time: 17:24:13 on Oct 22,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim -wlf run_top_level.wlf -voptargs="+acc" work.tb_top_level 
+# Start time: 17:24:13 on Oct 22,2026
+# Loading sv_std.std
+# Loading work.tb_top_level
+# Loading work.alu_types_pkg
+# Loading work.top_level
+# Loading work.key_sync
+# Loading work.vjtag
+# Loading work.vjtag_interface
+# Loading work.fsm
+# Loading work.alu_param
+# Loading work.counter
+# Loading work.arbiter
+# Loading work.mmio_decoder
+# Loading work.ram
+# Loading work.memory_mapped_register_file
+# Loading work.control_registers
+# Loading work.binary_to_bcd_converter
+# Loading work.seven_segment_adapter
+# Loading work.decoder_4x16
+# configure wave not supported in batch mode
+# configure wave not supported in batch mode
+# configure wave not supported in batch mode
+# [TB] reset y arranque no espurio
+# [TB] interfaz vJTAG
+# [TB] mapa MMIO (RAM, regfile, CTRL/STATUS/TLIM/THR, RAZ/WI)
+# [TB] LEDR/HEX y modos de display
+# [TB] flujo de pixeles + arbitraje bajo carga
+# [TB] timeout
+# [TB] soft_reset
+# [TB] reset por KEY[0]
+# Pruebas completadas exitosamente
+# ** Note: $finish    : tb_top_level.sv(432)
+#    Time: 3526770 ns  Iteration: 0  Instance: /tb_top_level
+# End time: 17:24:18 on Oct 22,2026, Elapsed time: 0:00:05
+# Errors: 0, Warnings: 0

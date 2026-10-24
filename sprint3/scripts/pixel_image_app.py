@@ -8,36 +8,30 @@ from PIL import Image
 
 import jtag_fpga
 
-IMAGE_WIDTH = 64
-IMAGE_HEIGHT = 64
-PIXEL_COUNT = IMAGE_WIDTH * IMAGE_HEIGHT
-PIXEL_SOURCE_ADDR_REG = 0x0C
-PIXEL_SOURCE_DATA_REG = 0x10
-PIXEL_COUNT_REG = 0x14
-PIXEL_START_REG = 0x18
-PIXEL_STATUS_REG = 0x1C
-PIXEL_OUTPUT_ADDR_REG = 0x20
-PIXEL_OUTPUT_DATA_REG = 0x24
-TRANSFER_TIMEOUT = 30.0
+# Este diseno usa un bus MMIO de 32 bits, aunque jtag_fpga.py por
+# default arranca en 16. Lo forzamos aqui porque pixel_image_app.py
+# importa jtag_fpga como modulo (no pasa por su bloque __main__,
+# que es el unico lugar donde normalmente se fija -dw).
+jtag_fpga.DATA_WIDTH = 32
+jtag_fpga.MAX_VAL = (1 << 32) - 1
+jtag_fpga.HEX_PADDING = 8
+
+IMAGE_WIDTH = 128
+IMAGE_HEIGHT = 128
+PIXEL_COUNT = IMAGE_WIDTH * IMAGE_HEIGHT  # 16384
+
+# Mapa MMIO real (ver architecture.md / fsm.sv)
+BASE_IN         = 0x00000  # buffer de entrada, 1 pixel por palabra de 32 bits
+BASE_OUT        = 0x10000  # buffer de salida
+ADDR_CTRL       = 0x40000  # bit0 = start, bit1 = soft_reset
+ADDR_STATUS     = 0x40004  # bit0 = busy, bit1 = done, bit2 = timeout
+ADDR_TIMER_LIM  = 0x40008  # ciclos de reloj (@50MHz) antes de timeout
+ADDR_THRESHOLD  = 0x4000C  # umbral de binarizacion
+
+DEFAULT_THRESHOLD   = 128
+DEFAULT_TIMER_LIMIT = 0xFFFFFFFF  # practicamente sin timeout salvo que se pida uno
+TRANSFER_TIMEOUT = 60.0  # segundos de espera del lado del host (no confundir con TIMER_LIMIT del hw)
 POLL_INTERVAL = 0.05
-
-
-def pack_pixels(pixels):
-    if len(pixels) != PIXEL_COUNT:
-        raise ValueError(f"Expected {PIXEL_COUNT} grayscale pixels.")
-    return [
-        pixels[index] | (pixels[index + 1] << 8)
-        for index in range(0, PIXEL_COUNT, 2)
-    ]
-
-
-def unpack_words(words):
-    if len(words) != PIXEL_COUNT // 2:
-        raise ValueError(f"Expected {PIXEL_COUNT // 2} output words.")
-    pixels = []
-    for word in words:
-        pixels.extend((word & 0xFF, (word >> 8) & 0xFF))
-    return pixels
 
 
 def load_grayscale_image(image_path):
@@ -47,82 +41,54 @@ def load_grayscale_image(image_path):
         )
 
 
-def send_image(connection, image):
-    words = pack_pixels(np.asarray(image).reshape(-1).tolist())
-    upload_started = time.perf_counter()
-    address_write_seconds = 0.0
-    data_write_seconds = 0.0
-    for address, word in enumerate(words):
-        operation_started = time.perf_counter()
-        jtag_fpga.write_value_to_fpga(
-            connection, PIXEL_SOURCE_ADDR_REG, address, strict=True
-        )
-        address_write_seconds += time.perf_counter() - operation_started
+def send_image(connection, pixels, threshold, timer_limit):
+    if len(pixels) != PIXEL_COUNT:
+        raise ValueError(f"Expected {PIXEL_COUNT} grayscale pixels.")
 
-        operation_started = time.perf_counter()
+    upload_started = time.perf_counter()
+    for index, value in enumerate(pixels):
         jtag_fpga.write_value_to_fpga(
-            connection, PIXEL_SOURCE_DATA_REG, word, strict=True
+            connection, BASE_IN + index * 4, int(value), strict=True
         )
-        data_write_seconds += time.perf_counter() - operation_started
-        if (address + 1) % 128 == 0:
-            completed_words = address + 1
+        if (index + 1) % 512 == 0:
             elapsed = time.perf_counter() - upload_started
-            address_average = address_write_seconds / completed_words
-            data_average = data_write_seconds / completed_words
             print(
-                f"\rUploaded {completed_words}/{len(words)} words "
-                f"in {elapsed:.1f}s "
-                f"(address {address_average:.3f}s/write, "
-                f"data {data_average:.3f}s/write)",
+                f"\rUploaded {index + 1}/{PIXEL_COUNT} pixeles en {elapsed:.1f}s",
                 end="",
                 flush=True,
             )
-
     print()
-    print(
-        f"Upload writes took {time.perf_counter() - upload_started:.1f}s total "
-        f"({address_write_seconds / len(words):.3f}s/address write, "
-        f"{data_write_seconds / len(words):.3f}s/data write average)."
-    )
-    jtag_fpga.write_value_to_fpga(
-        connection, PIXEL_COUNT_REG, PIXEL_COUNT, strict=True
-    )
-    jtag_fpga.write_value_to_fpga(
-        connection, PIXEL_START_REG, 1, strict=True
-    )
+    print(f"Carga de imagen tomo {time.perf_counter() - upload_started:.1f}s total.")
+
+    # soft_reset antes de arrancar, para limpiar STATUS/timer de una corrida previa
+    jtag_fpga.write_value_to_fpga(connection, ADDR_CTRL, 0x2, strict=True)
+    jtag_fpga.write_value_to_fpga(connection, ADDR_TIMER_LIM, timer_limit, strict=True)
+    jtag_fpga.write_value_to_fpga(connection, ADDR_THRESHOLD, threshold, strict=True)
+    jtag_fpga.write_value_to_fpga(connection, ADDR_CTRL, 0x1, strict=True)  # start
 
 
 def read_image(connection, timeout):
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
-        status = jtag_fpga.read_value_from_fpga(
-            connection, PIXEL_STATUS_REG, strict=True
-        )
-        if status & 0x8:
-            raise ValueError("FPGA rejected the configured pixel count.")
+        status = jtag_fpga.read_value_from_fpga(connection, ADDR_STATUS, strict=True)
         if status & 0x4:
-            raise RuntimeError("FPGA rejected a source-memory write.")
+            raise RuntimeError("La FPGA reporto timeout (STATUS bit2) antes de terminar.")
         if status & 0x2:
             break
         time.sleep(POLL_INTERVAL)
     else:
-        raise TimeoutError("Timed out waiting for the FPGA image processing.")
+        raise TimeoutError("Se agoto el tiempo de espera del host para el procesamiento.")
 
-    words = []
-    word_count = PIXEL_COUNT // 2
-    for address in range(word_count):
-        jtag_fpga.write_value_to_fpga(
-            connection, PIXEL_OUTPUT_ADDR_REG, address, strict=True
+    pixels = []
+    for index in range(PIXEL_COUNT):
+        value = jtag_fpga.read_value_from_fpga(
+            connection, BASE_OUT + index * 4, strict=True
         )
-        words.append(
-            jtag_fpga.read_value_from_fpga(
-                connection, PIXEL_OUTPUT_DATA_REG, strict=True
-            )
-        )
-        if (address + 1) % 128 == 0:
-            print(f"\rRead {address + 1}/{word_count} output words", end="", flush=True)
+        pixels.append(value & 0xFF)
+        if (index + 1) % 512 == 0:
+            print(f"\rLeidos {index + 1}/{PIXEL_COUNT} pixeles", end="", flush=True)
     print()
-    return unpack_words(words)
+    return pixels
 
 
 def save_images(source_image, output_pixels, input_path):
@@ -147,18 +113,11 @@ def display_images(source_image, output_pixels):
 
     figure, axes = plt.subplots(1, 2, figsize=(12, 6))
     for axis, image, title in (
-        (axes[0], source_image, "Input image sent to FPGA"),
-        (axes[1], output_image, "Inverted image read back from FPGA"),
+        (axes[0], source_image, "Imagen enviada a la FPGA"),
+        (axes[1], output_image, "Imagen binarizada leida de la FPGA"),
     ):
-        axis.imshow(
-            np.asarray(image),
-            cmap="gray",
-            vmin=0,
-            vmax=255,
-            interpolation="nearest",
-        )
+        axis.imshow(np.asarray(image), cmap="gray", vmin=0, vmax=255, interpolation="nearest")
         axis.set_title(title)
-        axis.set_xlabel("FPGA stores 8-bit grayscale pixels")
         axis.set_xticks([])
         axis.set_yticks([])
 
@@ -169,74 +128,70 @@ def display_images(source_image, output_pixels):
 def main(argv=None):
     parser = argparse.ArgumentParser(
         description=(
-            "Send a 64x64 grayscale image to the FPGA, invert it in 20-pixel "
-            "batches, read the output image back, and display both images."
+            "Envia una imagen 128x128 en escala de grises a la FPGA, la binariza "
+            "con un umbral configurable, lee el resultado y lo muestra/guarda."
         )
     )
-    parser.add_argument("image", type=Path, help="input image file")
-    parser.add_argument("--host", default=jtag_fpga.HOST, help="JTAG server host")
-    parser.add_argument(
-        "--port", type=int, default=jtag_fpga.PORT, help="JTAG server TCP port"
-    )
-    parser.add_argument(
-        "--timeout",
-        type=float,
-        default=TRANSFER_TIMEOUT,
-        help=f"seconds to wait for FPGA processing (default: {TRANSFER_TIMEOUT})",
-    )
-    parser.add_argument(
-        "-c",
-        "--no-display",
-        action="store_true",
-        help="verify the readback without opening an image display",
-    )
-    parser.add_argument(
-        "--save-images",
-        action="store_true",
-        help="save the resized input and FPGA output as PNGs beside the input image",
-    )
+    parser.add_argument("image", type=Path, help="archivo de imagen de entrada")
+    parser.add_argument("--host", default=jtag_fpga.HOST, help="host del servidor JTAG")
+    parser.add_argument("--port", type=int, default=jtag_fpga.PORT, help="puerto TCP del servidor JTAG")
+    parser.add_argument("--threshold", type=int, default=DEFAULT_THRESHOLD,
+                         help=f"umbral de binarizacion 0-255 (default: {DEFAULT_THRESHOLD})")
+    parser.add_argument("--timer-limit", type=lambda v: int(v, 0), default=DEFAULT_TIMER_LIMIT,
+                         help="ciclos @50MHz antes de timeout del hardware (default: sin limite practico)")
+    parser.add_argument("--timeout", type=float, default=TRANSFER_TIMEOUT,
+                         help=f"segundos que espera el host (default: {TRANSFER_TIMEOUT})")
+    parser.add_argument("-c", "--no-display", action="store_true",
+                         help="verificar sin abrir ventana de imagenes")
+    parser.add_argument("--save-images", action="store_true",
+                         help="guardar la entrada y salida como PNG junto a la imagen original")
     args = parser.parse_args(argv)
 
-    if jtag_fpga.DATA_WIDTH != 16:
-        parser.error("The pixel MMIO design requires a 16-bit JTAG data width.")
+    if jtag_fpga.DATA_WIDTH != 32:
+        parser.error("Este diseno usa un bus MMIO de 32 bits; correr jtag_fpga con -dw 32.")
+    if not 0 <= args.threshold <= 255:
+        parser.error("--threshold debe estar entre 0 y 255.")
+    if not 0 <= args.timer_limit <= 0xFFFFFFFF:
+        parser.error("--timer-limit debe caber en 32 bits (0-4294967295).")
     if not 1 <= args.port <= 65535:
-        parser.error("port must be between 1 and 65535.")
+        parser.error("port debe estar entre 1 y 65535.")
     if args.timeout <= 0:
-        parser.error("timeout must be greater than zero.")
+        parser.error("timeout debe ser mayor que cero.")
 
     try:
         image = load_grayscale_image(args.image)
     except (OSError, ValueError) as exc:
-        parser.error(f"could not load image {args.image}: {exc}")
+        parser.error(f"no se pudo cargar la imagen {args.image}: {exc}")
 
     connection = jtag_fpga.open_connection(args.host, args.port)
     if connection is None:
-        logging.error("Could not connect to JTAG server at %s:%s.", args.host, args.port)
+        logging.error("No se pudo conectar al servidor JTAG en %s:%s.", args.host, args.port)
         return 1
 
     try:
-        print(f"Sending {args.image} as a {IMAGE_WIDTH}x{IMAGE_HEIGHT} grayscale image...")
-        send_image(connection, image)
-        print("Uploaded 4096 pixels in 2048 words; started batch processing.")
-        print("Waiting for the FPGA to invert all batches...")
+        pixels = np.asarray(image).reshape(-1).tolist()
+        print(f"Enviando {args.image} como imagen {IMAGE_WIDTH}x{IMAGE_HEIGHT} (umbral={args.threshold})...")
+        send_image(connection, pixels, args.threshold, args.timer_limit)
+        print("Imagen cargada y procesamiento iniciado. Esperando a que la FPGA termine...")
         output_pixels = read_image(connection, args.timeout)
-        expected_pixels = [255 - value for value in np.asarray(image).reshape(-1)]
+
+        expected_pixels = [255 if value >= args.threshold else 0 for value in pixels]
         if output_pixels != expected_pixels:
-            raise RuntimeError("FPGA output did not match the expected inverted image.")
-        print("Readback matches the inverted image.")
+            mismatches = sum(1 for a, b in zip(output_pixels, expected_pixels) if a != b)
+            raise RuntimeError(f"La salida de la FPGA no coincide con lo esperado ({mismatches} pixeles distintos).")
+        print("La lectura coincide con la binarizacion esperada.")
+
         if args.save_images:
-            input_output_path, processed_output_path = save_images(
-                image, output_pixels, args.image
-            )
-            print(f"Saved resized input image: {input_output_path}")
-            print(f"Saved FPGA output image: {processed_output_path}")
+            input_path, output_path = save_images(image, output_pixels, args.image)
+            print(f"Imagen de entrada guardada: {input_path}")
+            print(f"Imagen de salida guardada: {output_path}")
+
         if args.no_display:
-            print("Image display skipped.")
+            print("Visualizacion omitida.")
         else:
-            print("Displaying input and output images.")
             display_images(image, output_pixels)
     except (ConnectionError, OSError, RuntimeError, TimeoutError, ValueError) as exc:
-        logging.error("Image transfer failed: %s", exc)
+        logging.error("Fallo la transferencia de imagen: %s", exc)
         return 1
     finally:
         connection.close()

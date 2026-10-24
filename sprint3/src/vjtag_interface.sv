@@ -15,7 +15,8 @@ module vjtag_interface #(
     output logic            tdo,
     output logic [(DW-1):0] debug_dr2,
     output logic [(DW-1):0] debug_dr1,
-    output logic            jtag_write_toggle
+    output logic            jtag_write_toggle,
+    output logic            jtag_addr_toggle     // <-- NUEVO
 );
 
 typedef enum logic [1:0] {
@@ -35,12 +36,12 @@ logic [(AW-1):0]      DR_ADDR;
 always_ff @(posedge tck or negedge aclr) begin
     if (~aclr) begin
         DR0_bypass_reg <= 1'b0;
-    end 
+    end
     else begin
         if (v_cdr && (ir_state == BYPASS)) begin
             DR0_bypass_reg <= 1'b0;
-        end 
-        else begin 
+        end
+        else begin
             if (v_sdr && (ir_state == BYPASS)) begin
                 DR0_bypass_reg <= tdi;
             end
@@ -51,7 +52,7 @@ end
 always_ff @(posedge tck or negedge aclr) begin
     if (~aclr) begin
         DR_ADDR <= '0;
-    end 
+    end
     else begin
         if (v_sdr && (ir_state == SET_ADDR)) begin
             DR_ADDR <= {tdi, DR_ADDR[(AW-1):1]};
@@ -62,7 +63,7 @@ end
 always_ff @(posedge tck or negedge aclr) begin
     if (~aclr) begin
         DR1 <= '0;
-    end 
+    end
     else begin
         if (v_sdr && (ir_state == WRITE)) begin
             DR1 <= {tdi, DR1[(DW-1):1]};
@@ -74,7 +75,7 @@ end
 always_ff @(posedge tck or negedge aclr) begin
     if (~aclr) begin
         DR2 <= '0;
-    end 
+    end
     else begin
         if (ir_state == READ) begin
             if (v_cdr) begin
@@ -103,9 +104,19 @@ end
 always_ff @(posedge tck or negedge aclr) begin
     if (~aclr) begin
         jtag_write_toggle <= 1'b0;
-    end 
+    end
     else if (udr && (ir_state == WRITE)) begin
         jtag_write_toggle <= ~jtag_write_toggle;
+    end
+end
+
+// NUEVO: mismo patron que jtag_write_toggle, pero para SET_ADDR
+always_ff @(posedge tck or negedge aclr) begin
+    if (~aclr) begin
+        jtag_addr_toggle <= 1'b0;
+    end
+    else if (udr && (ir_state == SET_ADDR)) begin
+        jtag_addr_toggle <= ~jtag_addr_toggle;
     end
 end
 
