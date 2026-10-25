@@ -1,3 +1,3 @@
-create_clock -name clk -period 20.000 [get_ports {clk}]
+create_clock -name clk -period 20.000 [get_ports {CLOCK_50}]
 
 derive_clock_uncertainty

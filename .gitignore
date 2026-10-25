@@ -53,9 +53,28 @@ results*.xml
 *.vcd
 vsim.wlf
 
-# Misc
-/*.qws
-/test_pkg.qpf
-/test_pkg.qws
-/incremental_db/
-/db/
+**/test_pkg.qpf
+**/test_pkg.qws
+
+**/quartus/output_files/*.done
+**/quartus/output_files/*.smsg
+**/quartus/output_files/*.summary
+**/quartus/output_files/*.sld
+**/quartus/output_files/*.jditmp
+**/quartus/output_files/*.jdi
+**/quartus/output_files/*.asm.rpt
+**/quartus/output_files/*.cdf
+**/quartus/*.qdf
+
+**/db/
+**/incremental_db/
+
+**/*.vcd
+
+**/modelsim.ini
+**/vsim.wlf
+**/incremental_db/
+
+sprint3/quartus/.qsys_edit/
+sprint3/quartus/simulation/
+sprint3/scripts/venv/

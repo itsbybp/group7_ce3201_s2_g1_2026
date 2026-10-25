@@ -3,11 +3,12 @@ module tb_arbiter;
     logic        clk, rst_n;
     logic        vjtag_valid, fsm_valid;
     logic [31:0] vjtag_addr, vjtag_data;
+    logic        vjtag_write_en, fsm_write_en;
     logic [31:0] fsm_addr, fsm_data;
     logic        subordinate_ready;
     logic        vjtag_ready, fsm_ready;
     logic [31:0] mux_addr, mux_data;
-    logic        mux_valid;
+    logic        mux_write_en, mux_valid;
 
     arbiter dut (.*);
 
@@ -16,6 +17,7 @@ module tb_arbiter;
     initial begin
         clk = 0; rst_n = 0;
         vjtag_valid = 0; fsm_valid = 0;
+        vjtag_write_en = 0; fsm_write_en = 0;
         subordinate_ready = 0;
         vjtag_addr = 0; vjtag_data = 0;
         fsm_addr = 0; fsm_data = 0;

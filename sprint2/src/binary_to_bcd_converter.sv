@@ -16,19 +16,19 @@ module binary_to_bcd_converter (
 
             // Add 3 to any BCD digit >= 5
             if (bcd[3:0]   >= 5)
-                bcd[3:0]   = bcd[3:0]   + 3;
+                bcd[3:0]   = bcd[3:0]   + 4'd3;
 
             if (bcd[7:4]   >= 5)
-                bcd[7:4]   = bcd[7:4]   + 3;
+                bcd[7:4]   = bcd[7:4]   + 4'd3;
 
             if (bcd[11:8]  >= 5)
-                bcd[11:8]  = bcd[11:8]  + 3;
+                bcd[11:8]  = bcd[11:8]  + 4'd3;
 
             if (bcd[15:12] >= 5)
-                bcd[15:12] = bcd[15:12] + 3;
+                bcd[15:12] = bcd[15:12] + 4'd3;
 
             if (bcd[19:16] >= 5)
-                bcd[19:16] = bcd[19:16] + 3;
+                bcd[19:16] = bcd[19:16] + 4'd3;
 
             // Shift left and insert next binary bit
             bcd = {bcd[18:0], bin[i]};

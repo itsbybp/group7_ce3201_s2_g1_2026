@@ -6,8 +6,10 @@ module control_registers
     input logic [31:0] write_data,
     input logic [31:0] mmio_address,
 
-    input logic write_en,   // This uses the chip select.
-    
+    input logic write_en,        // This uses the chip select.
+    input logic busy_in,         // bit0 de STATUS
+    input logic clear_on_start,  // limpia CTRL y STATUS
+
     output logic [31:0] selected_register
 );
 
@@ -22,7 +24,7 @@ module control_registers
     always_comb begin
         case (select)
             2'b00: selected_register = ctrl;
-            2'b01: selected_register = status;
+            2'b01: selected_register = {status[31:1], status[0] | busy_in};
             2'b10: selected_register = timer_limit;
             2'b11: selected_register = threshold;
             default: selected_register = '0;
@@ -35,6 +37,9 @@ module control_registers
             status <= '0;
             timer_limit <= '0;
             threshold <= '0;
+        end else if (clear_on_start) begin
+            ctrl   <= '0;
+            status <= '0;
         end else if (write_en) begin
             case (select)
                 2'b00: ctrl <= write_data;

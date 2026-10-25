@@ -1,13 +1,13 @@
-Analysis & Synthesis Status : Successful - Fri Oct  9 22:10:47 2026
+Analysis & Synthesis Status : Successful - Sun Oct 25 14:47:41 2026
 Quartus Prime Version : 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
 Revision Name : top_level
-Top-level Entity Name : arbiter
+Top-level Entity Name : top_level
 Family : Cyclone V
 Logic utilization (in ALMs) : N/A
-Total registers : 2
-Total pins : 200
+Total registers : 1678
+Total pins : 56
 Total virtual pins : 0
-Total block memory bits : 0
+Total block memory bits : 1,048,576
 Total DSP Blocks : 0
 Total HSSI RX PCSs : 0
 Total HSSI PMA RX Deserializers : 0

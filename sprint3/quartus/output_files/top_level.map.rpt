@@ -1,5 +1,5 @@
 Analysis & Synthesis report for top_level
-Fri Oct  9 22:10:47 2026
+Sun Oct 25 14:47:41 2026
 Quartus Prime Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
 
 
@@ -13,12 +13,39 @@ Quartus Prime Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
   5. Analysis & Synthesis Source Files Read
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
-  8. State Machine - |arbiter|state
-  9. Registers Removed During Synthesis
- 10. General Register Statistics
- 11. Post-Synthesis Netlist Statistics for Top Partition
- 12. Elapsed Time Per Partition
- 13. Analysis & Synthesis Messages
+  8. Analysis & Synthesis RAM Summary
+  9. Analysis & Synthesis IP Cores Summary
+ 10. State Machine - |top_level|vj_state
+ 11. State Machine - |top_level|mmio_decoder:u_mmio_decoder|sel_q
+ 12. State Machine - |top_level|arbiter:u_arbiter|state
+ 13. State Machine - |top_level|fsm:u_fsm|state
+ 14. Registers Removed During Synthesis
+ 15. General Register Statistics
+ 16. Inverted Register Statistics
+ 17. Registers Packed Into Inferred Megafunctions
+ 18. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 19. Source assignments for ram:u_ram|altsyncram:mem_in_rtl_0|altsyncram_scq1:auto_generated
+ 20. Source assignments for ram:u_ram|altsyncram:mem_out_rtl_0|altsyncram_scq1:auto_generated
+ 21. Parameter Settings for User Entity Instance: vjtag:vjtag_inst|sld_virtual_jtag:virtual_jtag_0
+ 22. Parameter Settings for User Entity Instance: vjtag_interface:u_vjtag_interface
+ 23. Parameter Settings for User Entity Instance: fsm:u_fsm
+ 24. Parameter Settings for User Entity Instance: alu_param:u_alu
+ 25. Parameter Settings for Inferred Entity Instance: ram:u_ram|altsyncram:mem_in_rtl_0
+ 26. Parameter Settings for Inferred Entity Instance: ram:u_ram|altsyncram:mem_out_rtl_0
+ 27. altsyncram Parameter Settings by Entity Instance
+ 28. Port Connectivity Checks: "binary_to_bcd_converter:u_bcd_result"
+ 29. Port Connectivity Checks: "binary_to_bcd_converter:u_bcd_pixel"
+ 30. Port Connectivity Checks: "binary_to_bcd_converter:u_bcd_threshold"
+ 31. Port Connectivity Checks: "binary_to_bcd_converter:u_bcd_count"
+ 32. Port Connectivity Checks: "alu_param:u_alu"
+ 33. Port Connectivity Checks: "vjtag_interface:u_vjtag_interface"
+ 34. Port Connectivity Checks: "vjtag:vjtag_inst|sld_virtual_jtag:virtual_jtag_0"
+ 35. Port Connectivity Checks: "vjtag:vjtag_inst"
+ 36. Port Connectivity Checks: "key_sync:u_key_sync"
+ 37. Virtual JTAG Settings
+ 38. Post-Synthesis Netlist Statistics for Top Partition
+ 39. Elapsed Time Per Partition
+ 40. Analysis & Synthesis Messages
 
 
 
@@ -45,16 +72,16 @@ on the Quartus Prime software download page.
 +-----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                      ;
 +---------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Fri Oct  9 22:10:47 2026           ;
+; Analysis & Synthesis Status     ; Successful - Sun Oct 25 14:47:41 2026           ;
 ; Quartus Prime Version           ; 25.1std.0 Build 1129 10/21/2025 SC Lite Edition ;
 ; Revision Name                   ; top_level                                       ;
-; Top-level Entity Name           ; arbiter                                         ;
+; Top-level Entity Name           ; top_level                                       ;
 ; Family                          ; Cyclone V                                       ;
 ; Logic utilization (in ALMs)     ; N/A                                             ;
-; Total registers                 ; 2                                               ;
-; Total pins                      ; 200                                             ;
+; Total registers                 ; 1678                                            ;
+; Total pins                      ; 56                                              ;
 ; Total virtual pins              ; 0                                               ;
-; Total block memory bits         ; 0                                               ;
+; Total block memory bits         ; 1,048,576                                       ;
 ; Total DSP Blocks                ; 0                                               ;
 ; Total HSSI RX PCSs              ; 0                                               ;
 ; Total HSSI PMA RX Deserializers ; 0                                               ;
@@ -71,8 +98,9 @@ on the Quartus Prime software download page.
 ; Option                                                                          ; Setting            ; Default Value      ;
 +---------------------------------------------------------------------------------+--------------------+--------------------+
 ; Device                                                                          ; 5CSXFC6D6F31C6     ;                    ;
-; Top-level entity name                                                           ; arbiter            ; top_level          ;
+; Top-level entity name                                                           ; top_level          ; top_level          ;
 ; Family name                                                                     ; Cyclone V          ; Cyclone V          ;
+; Maximum processors allowed for parallel compilation                             ; 24                 ;                    ;
 ; Use smart compilation                                                           ; Off                ; Off                ;
 ; Enable parallel Assembler and Timing Analyzer during compilation                ; On                 ; On                 ;
 ; Enable compact report table                                                     ; Off                ; Off                ;
@@ -157,66 +185,204 @@ on the Quartus Prime software download page.
 +----------------------------+-------------+
 ; Processors                 ; Number      ;
 +----------------------------+-------------+
-; Number detected on machine ; 12          ;
-; Maximum allowed            ; 12          ;
+; Number detected on machine ; 24          ;
+; Maximum allowed            ; 16          ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
-; Maximum used               ; 1           ;
+; Maximum used               ; 16          ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
+;     Processor 2            ;   0.0%      ;
+;     Processor 3            ;   0.0%      ;
+;     Processor 4            ;   0.0%      ;
+;     Processor 5            ;   0.0%      ;
+;     Processor 6            ;   0.0%      ;
+;     Processor 7            ;   0.0%      ;
+;     Processor 8            ;   0.0%      ;
+;     Processors 9-16        ;   0.0%      ;
 +----------------------------+-------------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                                                      ;
-+----------------------------------+-----------------+------------------------------+---------------------------------------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                                                  ; Library ;
-+----------------------------------+-----------------+------------------------------+---------------------------------------------------------------------------------------------------------------+---------+
-; ../src/arbiter.sv                ; yes             ; User SystemVerilog HDL File  ; C:/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv ;         ;
-+----------------------------------+-----------------+------------------------------+---------------------------------------------------------------------------------------------------------------+---------+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                                                                                                                            ;
++--------------------------------------------------------------------+-----------------+----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------+-------------+
+; File Name with User-Entered Path                                   ; Used in Netlist ; File Type                                    ; File Name with Absolute Path                                                                                                                  ; Library     ;
++--------------------------------------------------------------------+-----------------+----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------+-------------+
+; vjtag/synthesis/vjtag.v                                            ; yes             ; User Verilog HDL File                        ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/quartus/vjtag/synthesis/vjtag.v                                            ; vjtag       ;
+; ../../sprint1/src/alu_types_pkg.sv                                 ; yes             ; User SystemVerilog HDL File                  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/alu_types_pkg.sv                                                       ;             ;
+; ../../sprint1/src/alu_param.sv                                     ; yes             ; User SystemVerilog HDL File                  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/alu_param.sv                                                           ;             ;
+; ../../sprint1/src/decoder_4x16.sv                                  ; yes             ; User SystemVerilog HDL File                  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/decoder_4x16.sv                                                        ;             ;
+; ../../sprint1/src/seven_segment_adapter.sv                         ; yes             ; User SystemVerilog HDL File                  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/seven_segment_adapter.sv                                               ;             ;
+; ../../sprint2/src/binary_to_bcd_converter.sv                       ; yes             ; User SystemVerilog HDL File                  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/binary_to_bcd_converter.sv                                             ;             ;
+; ../../sprint2/src/key_sync.sv                                      ; yes             ; User SystemVerilog HDL File                  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/key_sync.sv                                                            ;             ;
+; ../src/vjtag_interface.sv                                          ; yes             ; User SystemVerilog HDL File                  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv                                                     ;             ;
+; ../src/arbiter.sv                                                  ; yes             ; User SystemVerilog HDL File                  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv                                                             ;             ;
+; ../src/fsm.sv                                                      ; yes             ; User SystemVerilog HDL File                  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/fsm.sv                                                                 ;             ;
+; ../src/counter.sv                                                  ; yes             ; User SystemVerilog HDL File                  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/counter.sv                                                             ;             ;
+; ../src/mmio_decoder.sv                                             ; yes             ; User SystemVerilog HDL File                  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/mmio_decoder.sv                                                        ;             ;
+; ../src/control_registers.sv                                        ; yes             ; User SystemVerilog HDL File                  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/control_registers.sv                                                   ;             ;
+; ../src/memory_mapped_register_file.sv                              ; yes             ; User SystemVerilog HDL File                  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/memory_mapped_register_file.sv                                         ;             ;
+; ../src/ram.sv                                                      ; yes             ; User SystemVerilog HDL File                  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/ram.sv                                                                 ;             ;
+; ../src/top_level.sv                                                ; yes             ; User SystemVerilog HDL File                  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/top_level.sv                                                           ;             ;
+; sld_virtual_jtag.v                                                 ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_virtual_jtag.v                                                                     ;             ;
+; sld_virtual_jtag_basic.v                                           ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_virtual_jtag_basic.v                                                               ;             ;
+; sld_jtag_endpoint_adapter.vhd                                      ; yes             ; Encrypted Megafunction                       ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_jtag_endpoint_adapter.vhd                                                          ;             ;
+; sld_jtag_endpoint_adapter_impl.sv                                  ; yes             ; Encrypted Megafunction                       ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_jtag_endpoint_adapter_impl.sv                                                      ;             ;
+; sld_hub.vhd                                                        ; yes             ; Encrypted Megafunction                       ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_hub.vhd                                                                            ; altera_sld  ;
+; db/ip/sld7717125d/alt_sld_fab.v                                    ; yes             ; Encrypted Auto-Found Verilog HDL File        ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/quartus/db/ip/sld7717125d/alt_sld_fab.v                                    ; alt_sld_fab ;
+; db/ip/sld7717125d/submodules/alt_sld_fab_alt_sld_fab.v             ; yes             ; Encrypted Auto-Found Verilog HDL File        ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/quartus/db/ip/sld7717125d/submodules/alt_sld_fab_alt_sld_fab.v             ; alt_sld_fab ;
+; db/ip/sld7717125d/submodules/alt_sld_fab_alt_sld_fab_ident.sv      ; yes             ; Auto-Found SystemVerilog HDL File            ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/quartus/db/ip/sld7717125d/submodules/alt_sld_fab_alt_sld_fab_ident.sv      ; alt_sld_fab ;
+; db/ip/sld7717125d/submodules/alt_sld_fab_alt_sld_fab_presplit.sv   ; yes             ; Encrypted Auto-Found SystemVerilog HDL File  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/quartus/db/ip/sld7717125d/submodules/alt_sld_fab_alt_sld_fab_presplit.sv   ; alt_sld_fab ;
+; db/ip/sld7717125d/submodules/alt_sld_fab_alt_sld_fab_sldfabric.vhd ; yes             ; Encrypted Auto-Found VHDL File               ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/quartus/db/ip/sld7717125d/submodules/alt_sld_fab_alt_sld_fab_sldfabric.vhd ; alt_sld_fab ;
+; db/ip/sld7717125d/submodules/alt_sld_fab_alt_sld_fab_splitter.sv   ; yes             ; Encrypted Auto-Found SystemVerilog HDL File  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/quartus/db/ip/sld7717125d/submodules/alt_sld_fab_alt_sld_fab_splitter.sv   ; alt_sld_fab ;
+; sld_jtag_hub.vhd                                                   ; yes             ; Encrypted Megafunction                       ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_jtag_hub.vhd                                                                       ;             ;
+; sld_rom_sr.vhd                                                     ; yes             ; Encrypted Megafunction                       ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_rom_sr.vhd                                                                         ;             ;
+; altsyncram.tdf                                                     ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/altsyncram.tdf                                                                         ;             ;
+; stratix_ram_block.inc                                              ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/stratix_ram_block.inc                                                                  ;             ;
+; lpm_mux.inc                                                        ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/lpm_mux.inc                                                                            ;             ;
+; lpm_decode.inc                                                     ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/lpm_decode.inc                                                                         ;             ;
+; aglobal251.inc                                                     ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/aglobal251.inc                                                                         ;             ;
+; a_rdenreg.inc                                                      ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/a_rdenreg.inc                                                                          ;             ;
+; altrom.inc                                                         ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/altrom.inc                                                                             ;             ;
+; altram.inc                                                         ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/altram.inc                                                                             ;             ;
+; altdpram.inc                                                       ; yes             ; Megafunction                                 ; c:/altera_lite/25.1std/quartus/libraries/megafunctions/altdpram.inc                                                                           ;             ;
+; db/altsyncram_scq1.tdf                                             ; yes             ; Auto-Generated Megafunction                  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/quartus/db/altsyncram_scq1.tdf                                             ;             ;
+; db/decode_5la.tdf                                                  ; yes             ; Auto-Generated Megafunction                  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/quartus/db/decode_5la.tdf                                                  ;             ;
+; db/mux_2hb.tdf                                                     ; yes             ; Auto-Generated Megafunction                  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/quartus/db/mux_2hb.tdf                                                     ;             ;
+; db/altsyncram_6dq1.tdf                                             ; yes             ; Auto-Generated Megafunction                  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/quartus/db/altsyncram_6dq1.tdf                                             ;             ;
+; db/decode_8la.tdf                                                  ; yes             ; Auto-Generated Megafunction                  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/quartus/db/decode_8la.tdf                                                  ;             ;
+; db/mux_5hb.tdf                                                     ; yes             ; Auto-Generated Megafunction                  ; C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/quartus/db/mux_5hb.tdf                                                     ;             ;
++--------------------------------------------------------------------+-----------------+----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------+-------------+
 
 
-+------------------------------------------------------------------+
-; Analysis & Synthesis Resource Usage Summary                      ;
-+---------------------------------------------+--------------------+
-; Resource                                    ; Usage              ;
-+---------------------------------------------+--------------------+
-; Estimate of Logic utilization (ALMs needed) ; 35                 ;
-;                                             ;                    ;
-; Combinational ALUT usage for logic          ; 68                 ;
-;     -- 7 input functions                    ; 0                  ;
-;     -- 6 input functions                    ; 0                  ;
-;     -- 5 input functions                    ; 0                  ;
-;     -- 4 input functions                    ; 65                 ;
-;     -- <=3 input functions                  ; 3                  ;
-;                                             ;                    ;
-; Dedicated logic registers                   ; 2                  ;
-;                                             ;                    ;
-; I/O pins                                    ; 200                ;
-;                                             ;                    ;
-; Total DSP Blocks                            ; 0                  ;
-;                                             ;                    ;
-; Maximum fan-out node                        ; state.VJTAG_ACCESS ;
-; Maximum fan-out                             ; 66                 ;
-; Total fan-out                               ; 539                ;
-; Average fan-out                             ; 1.15               ;
-+---------------------------------------------+--------------------+
++--------------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary                  ;
++---------------------------------------------+----------------+
+; Resource                                    ; Usage          ;
++---------------------------------------------+----------------+
+; Estimate of Logic utilization (ALMs needed) ; 1218           ;
+;                                             ;                ;
+; Combinational ALUT usage for logic          ; 1137           ;
+;     -- 7 input functions                    ; 3              ;
+;     -- 6 input functions                    ; 598            ;
+;     -- 5 input functions                    ; 204            ;
+;     -- 4 input functions                    ; 108            ;
+;     -- <=3 input functions                  ; 224            ;
+;                                             ;                ;
+; Dedicated logic registers                   ; 1678           ;
+;                                             ;                ;
+; I/O pins                                    ; 56             ;
+; Total MLAB memory bits                      ; 0              ;
+; Total block memory bits                     ; 1048576        ;
+;                                             ;                ;
+; Total DSP Blocks                            ; 0              ;
+;                                             ;                ;
+; Maximum fan-out node                        ; CLOCK_50~input ;
+; Maximum fan-out                             ; 1567           ;
+; Total fan-out                               ; 14527          ;
+; Average fan-out                             ; 4.74           ;
++---------------------------------------------+----------------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                    ;
-+----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+-------------+--------------+
-; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name ; Entity Name ; Library Name ;
-+----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+-------------+--------------+
-; |arbiter                   ; 68 (68)             ; 2 (2)                     ; 0                 ; 0          ; 200  ; 0            ; |arbiter            ; arbiter     ; work         ;
-+----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+-------------+--------------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
++-----------------------------------------------------------------------------------------------------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------+--------------+
+; Compilation Hierarchy Node                                                                                                              ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                                                                                                                                                                                                                                                   ; Entity Name                       ; Library Name ;
++-----------------------------------------------------------------------------------------------------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------+--------------+
+; |top_level                                                                                                                              ; 1137 (141)          ; 1678 (186)                ; 1048576           ; 0          ; 56   ; 0            ; |top_level                                                                                                                                                                                                                                                                                                                                            ; top_level                         ; work         ;
+;    |alu_param:u_alu|                                                                                                                    ; 32 (32)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|alu_param:u_alu                                                                                                                                                                                                                                                                                                                            ; alu_param                         ; work         ;
+;    |arbiter:u_arbiter|                                                                                                                  ; 70 (70)             ; 2 (2)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|arbiter:u_arbiter                                                                                                                                                                                                                                                                                                                          ; arbiter                           ; work         ;
+;    |binary_to_bcd_converter:u_bcd_count|                                                                                                ; 48 (48)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|binary_to_bcd_converter:u_bcd_count                                                                                                                                                                                                                                                                                                        ; binary_to_bcd_converter           ; work         ;
+;    |binary_to_bcd_converter:u_bcd_pixel|                                                                                                ; 14 (14)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|binary_to_bcd_converter:u_bcd_pixel                                                                                                                                                                                                                                                                                                        ; binary_to_bcd_converter           ; work         ;
+;    |binary_to_bcd_converter:u_bcd_result|                                                                                               ; 14 (14)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|binary_to_bcd_converter:u_bcd_result                                                                                                                                                                                                                                                                                                       ; binary_to_bcd_converter           ; work         ;
+;    |binary_to_bcd_converter:u_bcd_threshold|                                                                                            ; 12 (12)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|binary_to_bcd_converter:u_bcd_threshold                                                                                                                                                                                                                                                                                                    ; binary_to_bcd_converter           ; work         ;
+;    |control_registers:u_control_registers|                                                                                              ; 4 (4)               ; 128 (128)                 ; 0                 ; 0          ; 0    ; 0            ; |top_level|control_registers:u_control_registers                                                                                                                                                                                                                                                                                                      ; control_registers                 ; work         ;
+;    |counter:u_counter|                                                                                                                  ; 73 (73)             ; 32 (32)                   ; 0                 ; 0          ; 0    ; 0            ; |top_level|counter:u_counter                                                                                                                                                                                                                                                                                                                          ; counter                           ; work         ;
+;    |fsm:u_fsm|                                                                                                                          ; 46 (46)             ; 91 (91)                   ; 0                 ; 0          ; 0    ; 0            ; |top_level|fsm:u_fsm                                                                                                                                                                                                                                                                                                                                  ; fsm                               ; work         ;
+;    |key_sync:u_key_sync|                                                                                                                ; 0 (0)               ; 2 (2)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|key_sync:u_key_sync                                                                                                                                                                                                                                                                                                                        ; key_sync                          ; work         ;
+;    |memory_mapped_register_file:u_mmrf|                                                                                                 ; 42 (42)             ; 992 (992)                 ; 0                 ; 0          ; 0    ; 0            ; |top_level|memory_mapped_register_file:u_mmrf                                                                                                                                                                                                                                                                                                         ; memory_mapped_register_file       ; work         ;
+;    |mmio_decoder:u_mmio_decoder|                                                                                                        ; 512 (512)           ; 4 (4)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|mmio_decoder:u_mmio_decoder                                                                                                                                                                                                                                                                                                                ; mmio_decoder                      ; work         ;
+;    |ram:u_ram|                                                                                                                          ; 4 (0)               ; 2 (0)                     ; 1048576           ; 0          ; 0    ; 0            ; |top_level|ram:u_ram                                                                                                                                                                                                                                                                                                                                  ; ram                               ; work         ;
+;       |altsyncram:mem_in_rtl_0|                                                                                                         ; 2 (0)               ; 1 (0)                     ; 524288            ; 0          ; 0    ; 0            ; |top_level|ram:u_ram|altsyncram:mem_in_rtl_0                                                                                                                                                                                                                                                                                                          ; altsyncram                        ; work         ;
+;          |altsyncram_scq1:auto_generated|                                                                                               ; 2 (0)               ; 1 (1)                     ; 524288            ; 0          ; 0    ; 0            ; |top_level|ram:u_ram|altsyncram:mem_in_rtl_0|altsyncram_scq1:auto_generated                                                                                                                                                                                                                                                                           ; altsyncram_scq1                   ; work         ;
+;             |decode_5la:decode2|                                                                                                        ; 2 (2)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|ram:u_ram|altsyncram:mem_in_rtl_0|altsyncram_scq1:auto_generated|decode_5la:decode2                                                                                                                                                                                                                                                        ; decode_5la                        ; work         ;
+;       |altsyncram:mem_out_rtl_0|                                                                                                        ; 2 (0)               ; 1 (0)                     ; 524288            ; 0          ; 0    ; 0            ; |top_level|ram:u_ram|altsyncram:mem_out_rtl_0                                                                                                                                                                                                                                                                                                         ; altsyncram                        ; work         ;
+;          |altsyncram_scq1:auto_generated|                                                                                               ; 2 (0)               ; 1 (1)                     ; 524288            ; 0          ; 0    ; 0            ; |top_level|ram:u_ram|altsyncram:mem_out_rtl_0|altsyncram_scq1:auto_generated                                                                                                                                                                                                                                                                          ; altsyncram_scq1                   ; work         ;
+;             |decode_5la:decode2|                                                                                                        ; 2 (2)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|ram:u_ram|altsyncram:mem_out_rtl_0|altsyncram_scq1:auto_generated|decode_5la:decode2                                                                                                                                                                                                                                                       ; decode_5la                        ; work         ;
+;    |seven_segment_adapter:u_seg0|                                                                                                       ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|seven_segment_adapter:u_seg0                                                                                                                                                                                                                                                                                                               ; seven_segment_adapter             ; work         ;
+;    |seven_segment_adapter:u_seg1|                                                                                                       ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|seven_segment_adapter:u_seg1                                                                                                                                                                                                                                                                                                               ; seven_segment_adapter             ; work         ;
+;    |seven_segment_adapter:u_seg2|                                                                                                       ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|seven_segment_adapter:u_seg2                                                                                                                                                                                                                                                                                                               ; seven_segment_adapter             ; work         ;
+;    |sld_hub:auto_hub|                                                                                                                   ; 93 (1)              ; 76 (0)                    ; 0                 ; 0          ; 0    ; 0            ; |top_level|sld_hub:auto_hub                                                                                                                                                                                                                                                                                                                           ; sld_hub                           ; altera_sld   ;
+;       |alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric| ; 92 (0)              ; 76 (0)                    ; 0                 ; 0          ; 0    ; 0            ; |top_level|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric                                                                                                                                                                                           ; alt_sld_fab_with_jtag_input       ; altera_sld   ;
+;          |alt_sld_fab:instrumentation_fabric|                                                                                           ; 92 (0)              ; 76 (0)                    ; 0                 ; 0          ; 0    ; 0            ; |top_level|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric                                                                                                                                                        ; alt_sld_fab                       ; alt_sld_fab  ;
+;             |alt_sld_fab_alt_sld_fab:alt_sld_fab|                                                                                       ; 92 (1)              ; 76 (5)                    ; 0                 ; 0          ; 0    ; 0            ; |top_level|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab                                                                                                                    ; alt_sld_fab_alt_sld_fab           ; alt_sld_fab  ;
+;                |alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|                                                                            ; 91 (0)              ; 71 (0)                    ; 0                 ; 0          ; 0    ; 0            ; |top_level|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric                                                                        ; alt_sld_fab_alt_sld_fab_sldfabric ; alt_sld_fab  ;
+;                   |sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub|                                                                        ; 91 (57)             ; 71 (43)                   ; 0                 ; 0          ; 0    ; 0            ; |top_level|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub                           ; sld_jtag_hub                      ; work         ;
+;                      |sld_rom_sr:hub_info_reg|                                                                                          ; 15 (15)             ; 9 (9)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub|sld_rom_sr:hub_info_reg   ; sld_rom_sr                        ; work         ;
+;                      |sld_shadow_jsm:shadow_jsm|                                                                                        ; 19 (19)             ; 19 (19)                   ; 0                 ; 0          ; 0    ; 0            ; |top_level|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub|sld_shadow_jsm:shadow_jsm ; sld_shadow_jsm                    ; altera_sld   ;
+;    |vjtag:vjtag_inst|                                                                                                                   ; 1 (0)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|vjtag:vjtag_inst                                                                                                                                                                                                                                                                                                                           ; vjtag                             ; vjtag        ;
+;       |sld_virtual_jtag:virtual_jtag_0|                                                                                                 ; 1 (0)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|vjtag:vjtag_inst|sld_virtual_jtag:virtual_jtag_0                                                                                                                                                                                                                                                                                           ; sld_virtual_jtag                  ; work         ;
+;          |sld_virtual_jtag_basic:sld_virtual_jtag_basic_inst|                                                                           ; 1 (1)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |top_level|vjtag:vjtag_inst|sld_virtual_jtag:virtual_jtag_0|sld_virtual_jtag_basic:sld_virtual_jtag_basic_inst                                                                                                                                                                                                                                        ; sld_virtual_jtag_basic            ; work         ;
+;    |vjtag_interface:u_vjtag_interface|                                                                                                  ; 10 (10)             ; 163 (163)                 ; 0                 ; 0          ; 0    ; 0            ; |top_level|vjtag_interface:u_vjtag_interface                                                                                                                                                                                                                                                                                                          ; vjtag_interface                   ; work         ;
++-----------------------------------------------------------------------------------------------------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis RAM Summary                                                                                                                                                   ;
++------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+--------+------+
+; Name                                                                         ; Type ; Mode             ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size   ; MIF  ;
++------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+--------+------+
+; ram:u_ram|altsyncram:mem_in_rtl_0|altsyncram_scq1:auto_generated|ALTSYNCRAM  ; AUTO ; Simple Dual Port ; 16384        ; 32           ; 16384        ; 32           ; 524288 ; None ;
+; ram:u_ram|altsyncram:mem_out_rtl_0|altsyncram_scq1:auto_generated|ALTSYNCRAM ; AUTO ; Simple Dual Port ; 16384        ; 32           ; 16384        ; 32           ; 524288 ; None ;
++------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+--------+------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis IP Cores Summary                                                                                                                                                                                                                                                                                                                                   ;
++--------+---------------------+---------+--------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
+; Vendor ; IP Core Name        ; Version ; Release Date ; License Type ; Entity Instance                                                                                                                                                                                                                                                                ; IP Include File ;
++--------+---------------------+---------+--------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
+; Altera ; Signal Tap          ; N/A     ; N/A          ; Licensed     ; |top_level|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric                                                                                 ;                 ;
+; Altera ; Signal Tap          ; N/A     ; N/A          ; Licensed     ; |top_level|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab                                             ;                 ;
+; Altera ; Signal Tap          ; N/A     ; N/A          ; Licensed     ; |top_level|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_presplit:presplit   ;                 ;
+; Altera ; Signal Tap          ; N/A     ; N/A          ; Licensed     ; |top_level|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric ;                 ;
+; Altera ; Signal Tap          ; N/A     ; N/A          ; Licensed     ; |top_level|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_splitter:splitter   ;                 ;
+; N/A    ; altera_virtual_jtag ; 25.1    ; N/A          ; N/A          ; |top_level|vjtag:vjtag_inst                                                                                                                                                                                                                                                    ; vjtag.qsys      ;
++--------+---------------------+---------+--------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
+
+
+Encoding Type:  One-Hot
++----------------------------------------------------------------------------------------------------------------+
+; State Machine - |top_level|vj_state                                                                            ;
++-----------------------+----------------------+----------------------+-----------------------+------------------+
+; Name                  ; vj_state.VJ_READ_CAP ; vj_state.VJ_READ_REQ ; vj_state.VJ_WRITE_REQ ; vj_state.VJ_IDLE ;
++-----------------------+----------------------+----------------------+-----------------------+------------------+
+; vj_state.VJ_IDLE      ; 0                    ; 0                    ; 0                     ; 0                ;
+; vj_state.VJ_WRITE_REQ ; 0                    ; 0                    ; 1                     ; 1                ;
+; vj_state.VJ_READ_REQ  ; 0                    ; 1                    ; 0                     ; 1                ;
+; vj_state.VJ_READ_CAP  ; 1                    ; 0                    ; 0                     ; 1                ;
++-----------------------+----------------------+----------------------+-----------------------+------------------+
+
+
+Encoding Type:  One-Hot
++----------------------------------------------------------------------------------------------+
+; State Machine - |top_level|mmio_decoder:u_mmio_decoder|sel_q                                 ;
++----------------+--------------+--------------+---------------+----------------+--------------+
+; Name           ; sel_q.SEL_IO ; sel_q.SEL_RB ; sel_q.SEL_RAM ; sel_q.SEL_NONE ; sel_q.SEL_CR ;
++----------------+--------------+--------------+---------------+----------------+--------------+
+; sel_q.SEL_NONE ; 0            ; 0            ; 0             ; 0              ; 0            ;
+; sel_q.SEL_RAM  ; 0            ; 0            ; 1             ; 1              ; 0            ;
+; sel_q.SEL_RB   ; 0            ; 1            ; 0             ; 1              ; 0            ;
+; sel_q.SEL_IO   ; 1            ; 0            ; 0             ; 1              ; 0            ;
+; sel_q.SEL_CR   ; 0            ; 0            ; 0             ; 1              ; 1            ;
++----------------+--------------+--------------+---------------+----------------+--------------+
 
 
 Encoding Type:  One-Hot
 +-------------------------------------------------------------------------+
-; State Machine - |arbiter|state                                          ;
+; State Machine - |top_level|arbiter:u_arbiter|state                      ;
 +--------------------+------------+------------------+--------------------+
 ; Name               ; state.IDLE ; state.FSM_ACCESS ; state.VJTAG_ACCESS ;
 +--------------------+------------+------------------+--------------------+
@@ -226,14 +392,44 @@ Encoding Type:  One-Hot
 +--------------------+------------+------------------+--------------------+
 
 
-+------------------------------------------------------------+
-; Registers Removed During Synthesis                         ;
-+---------------------------------------+--------------------+
-; Register name                         ; Reason for Removal ;
-+---------------------------------------+--------------------+
-; state.IDLE                            ; Lost fanout        ;
-; Total Number of Removed Registers = 1 ;                    ;
-+---------------------------------------+--------------------+
+Encoding Type:  One-Hot
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |top_level|fsm:u_fsm|state                                                                                                                                                             ;
++-------------------+------------------+--------------+-------------------+-----------------+-------------------+-------------------+-------------------+----------------+----------------+--------------+
+; Name              ; state.S_DONE_REQ ; state.S_NEXT ; state.S_WRITE_REQ ; state.S_COMPUTE ; state.S_STORE_REQ ; state.S_FETCH_CAP ; state.S_FETCH_REQ ; state.S_TH_CAP ; state.S_TH_REQ ; state.S_IDLE ;
++-------------------+------------------+--------------+-------------------+-----------------+-------------------+-------------------+-------------------+----------------+----------------+--------------+
+; state.S_IDLE      ; 0                ; 0            ; 0                 ; 0               ; 0                 ; 0                 ; 0                 ; 0              ; 0              ; 0            ;
+; state.S_TH_REQ    ; 0                ; 0            ; 0                 ; 0               ; 0                 ; 0                 ; 0                 ; 0              ; 1              ; 1            ;
+; state.S_TH_CAP    ; 0                ; 0            ; 0                 ; 0               ; 0                 ; 0                 ; 0                 ; 1              ; 0              ; 1            ;
+; state.S_FETCH_REQ ; 0                ; 0            ; 0                 ; 0               ; 0                 ; 0                 ; 1                 ; 0              ; 0              ; 1            ;
+; state.S_FETCH_CAP ; 0                ; 0            ; 0                 ; 0               ; 0                 ; 1                 ; 0                 ; 0              ; 0              ; 1            ;
+; state.S_STORE_REQ ; 0                ; 0            ; 0                 ; 0               ; 1                 ; 0                 ; 0                 ; 0              ; 0              ; 1            ;
+; state.S_COMPUTE   ; 0                ; 0            ; 0                 ; 1               ; 0                 ; 0                 ; 0                 ; 0              ; 0              ; 1            ;
+; state.S_WRITE_REQ ; 0                ; 0            ; 1                 ; 0               ; 0                 ; 0                 ; 0                 ; 0              ; 0              ; 1            ;
+; state.S_NEXT      ; 0                ; 1            ; 0                 ; 0               ; 0                 ; 0                 ; 0                 ; 0              ; 0              ; 1            ;
+; state.S_DONE_REQ  ; 1                ; 0            ; 0                 ; 0               ; 0                 ; 0                 ; 0                 ; 0              ; 0              ; 1            ;
++-------------------+------------------+--------------+-------------------+-----------------+-------------------+-------------------+-------------------+----------------+----------------+--------------+
+
+
++------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                 ;
++-------------------------------------------+----------------------------------------+
+; Register name                             ; Reason for Removal                     ;
++-------------------------------------------+----------------------------------------+
+; fsm:u_fsm|result_q[8..31]                 ; Stuck at GND due to stuck port data_in ;
+; fsm:u_fsm|result_q[1..7]                  ; Merged with fsm:u_fsm|result_q[0]      ;
+; arbiter:u_arbiter|state.IDLE              ; Lost fanout                            ;
+; mmio_decoder:u_mmio_decoder|sel_q.SEL_RAM ; Lost fanout                            ;
+; vj_state~4                                ; Lost fanout                            ;
+; vj_state~5                                ; Lost fanout                            ;
+; mmio_decoder:u_mmio_decoder|sel_q~4       ; Lost fanout                            ;
+; mmio_decoder:u_mmio_decoder|sel_q~5       ; Lost fanout                            ;
+; fsm:u_fsm|state~4                         ; Lost fanout                            ;
+; fsm:u_fsm|state~5                         ; Lost fanout                            ;
+; fsm:u_fsm|state~6                         ; Lost fanout                            ;
+; fsm:u_fsm|state~7                         ; Lost fanout                            ;
+; Total Number of Removed Registers = 41    ;                                        ;
++-------------------------------------------+----------------------------------------+
 
 
 +------------------------------------------------------+
@@ -241,14 +437,404 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 2     ;
-; Number of registers using Synchronous Clear  ; 0     ;
-; Number of registers using Synchronous Load   ; 0     ;
-; Number of registers using Asynchronous Clear ; 2     ;
+; Total registers                              ; 1678  ;
+; Number of registers using Synchronous Clear  ; 117   ;
+; Number of registers using Synchronous Load   ; 32    ;
+; Number of registers using Asynchronous Clear ; 1559  ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 0     ;
+; Number of registers using Clock Enable       ; 1553  ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Inverted Register Statistics                                                                                                                                                                                                                                                                                                              ;
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------+
+; Inverted Register                                                                                                                                                                                                                                                                                                               ; Fan out ;
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------+
+; sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub|jtag_ir_reg[1] ; 3       ;
+; sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub|jtag_ir_reg[2] ; 3       ;
+; Total number of inverted registers = 2                                                                                                                                                                                                                                                                                          ;         ;
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------+
+
+
++--------------------------------------------------------------+
+; Registers Packed Into Inferred Megafunctions                 ;
++-----------------------------+-------------------------+------+
+; Register Name               ; Megafunction            ; Type ;
++-----------------------------+-------------------------+------+
+; ram:u_ram|data_out_a[0..31] ; ram:u_ram|mem_in_rtl_0  ; RAM  ;
+; ram:u_ram|data_out_b[0..31] ; ram:u_ram|mem_out_rtl_0 ; RAM  ;
++-----------------------------+-------------------------+------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                           ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                 ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------+
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |top_level|status_q[1]                                     ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 0 LEs                ; 64 LEs                 ; Yes        ; |top_level|vjtag_interface:u_vjtag_interface|DR2[25]       ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 0 LEs                ; 64 LEs                 ; Yes        ; |top_level|counter:u_counter|count[15]                     ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 0 LEs                ; 64 LEs                 ; Yes        ; |top_level|control_registers:u_control_registers|status[9] ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 0 LEs                ; 64 LEs                 ; Yes        ; |top_level|control_registers:u_control_registers|ctrl[20]  ;
+; 5:1                ; 14 bits   ; 42 LEs        ; 0 LEs                ; 42 LEs                 ; Yes        ; |top_level|fsm:u_fsm|counter_q[0]                          ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |top_level|Mux0                                            ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; No         ; |top_level|binary_to_bcd_converter:u_bcd_pixel|Add30       ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |top_level|binary_to_bcd_converter:u_bcd_result|Add31      ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |top_level|binary_to_bcd_converter:u_bcd_result|Add30      ;
+; 3:1                ; 12 bits   ; 24 LEs        ; 24 LEs               ; 0 LEs                  ; No         ; |top_level|fsm:u_fsm|fsm_addr[11]                          ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |top_level|mmio_decoder:u_mmio_decoder|sel.SEL_CR          ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |top_level|Mux12                                           ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |top_level|Mux5                                            ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 6 LEs                ; 2 LEs                  ; No         ; |top_level|Mux15                                           ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 6 LEs                ; 3 LEs                  ; No         ; |top_level|Mux9                                            ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |top_level|fsm:u_fsm|fsm_data[2]                           ;
+; 7:1                ; 3 bits    ; 12 LEs        ; 9 LEs                ; 3 LEs                  ; No         ; |top_level|Mux19                                           ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 6 LEs                ; 2 LEs                  ; No         ; |top_level|Selector2                                       ;
+; 8:1                ; 2 bits    ; 10 LEs        ; 8 LEs                ; 2 LEs                  ; No         ; |top_level|Selector3                                       ;
+; 40:1               ; 32 bits   ; 832 LEs       ; 832 LEs              ; 0 LEs                  ; No         ; |top_level|mmio_decoder:u_mmio_decoder|Selector19          ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------+
+; Source assignments for ram:u_ram|altsyncram:mem_in_rtl_0|altsyncram_scq1:auto_generated ;
++---------------------------------+--------------------+------+---------------------------+
+; Assignment                      ; Value              ; From ; To                        ;
++---------------------------------+--------------------+------+---------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                         ;
++---------------------------------+--------------------+------+---------------------------+
+
+
++------------------------------------------------------------------------------------------+
+; Source assignments for ram:u_ram|altsyncram:mem_out_rtl_0|altsyncram_scq1:auto_generated ;
++---------------------------------+--------------------+------+----------------------------+
+; Assignment                      ; Value              ; From ; To                         ;
++---------------------------------+--------------------+------+----------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                          ;
++---------------------------------+--------------------+------+----------------------------+
+
+
++-----------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: vjtag:vjtag_inst|sld_virtual_jtag:virtual_jtag_0 ;
++-------------------------+------------------+--------------------------------------------------+
+; Parameter Name          ; Value            ; Type                                             ;
++-------------------------+------------------+--------------------------------------------------+
+; sld_auto_instance_index ; NO               ; String                                           ;
+; sld_instance_index      ; 0                ; Signed Integer                                   ;
+; sld_ir_width            ; 2                ; Signed Integer                                   ;
+; sld_sim_n_scan          ; 0                ; Signed Integer                                   ;
+; sld_sim_action          ; UNUSED           ; String                                           ;
+; sld_sim_total_length    ; 0                ; Signed Integer                                   ;
+; lpm_type                ; sld_virtual_jtag ; String                                           ;
+; lpm_hint                ; UNUSED           ; String                                           ;
++-------------------------+------------------+--------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: vjtag_interface:u_vjtag_interface ;
++----------------+-------+-------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                  ;
++----------------+-------+-------------------------------------------------------+
+; AW             ; 32    ; Signed Integer                                        ;
+; DW             ; 32    ; Signed Integer                                        ;
++----------------+-------+-------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: fsm:u_fsm              ;
++----------------+----------------------------------+-----------------+
+; Parameter Name ; Value                            ; Type            ;
++----------------+----------------------------------+-----------------+
+; NUM_PIXELS     ; 00000000000000000100000000000000 ; Unsigned Binary ;
++----------------+----------------------------------+-----------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: alu_param:u_alu ;
++----------------+-------+-------------------------------------+
+; Parameter Name ; Value ; Type                                ;
++----------------+-------+-------------------------------------+
+; WIDTH          ; 32    ; Signed Integer                      ;
++----------------+-------+-------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: ram:u_ram|altsyncram:mem_in_rtl_0 ;
++------------------------------------+----------------------+------------------------+
+; Parameter Name                     ; Value                ; Type                   ;
++------------------------------------+----------------------+------------------------+
+; BYTE_SIZE_BLOCK                    ; 8                    ; Untyped                ;
+; AUTO_CARRY_CHAINS                  ; ON                   ; AUTO_CARRY             ;
+; IGNORE_CARRY_BUFFERS               ; OFF                  ; IGNORE_CARRY           ;
+; AUTO_CASCADE_CHAINS                ; ON                   ; AUTO_CASCADE           ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                  ; IGNORE_CASCADE         ;
+; WIDTH_BYTEENA                      ; 1                    ; Untyped                ;
+; OPERATION_MODE                     ; DUAL_PORT            ; Untyped                ;
+; WIDTH_A                            ; 32                   ; Untyped                ;
+; WIDTHAD_A                          ; 14                   ; Untyped                ;
+; NUMWORDS_A                         ; 16384                ; Untyped                ;
+; OUTDATA_REG_A                      ; UNREGISTERED         ; Untyped                ;
+; ADDRESS_ACLR_A                     ; NONE                 ; Untyped                ;
+; OUTDATA_ACLR_A                     ; NONE                 ; Untyped                ;
+; WRCONTROL_ACLR_A                   ; NONE                 ; Untyped                ;
+; INDATA_ACLR_A                      ; NONE                 ; Untyped                ;
+; BYTEENA_ACLR_A                     ; NONE                 ; Untyped                ;
+; WIDTH_B                            ; 32                   ; Untyped                ;
+; WIDTHAD_B                          ; 14                   ; Untyped                ;
+; NUMWORDS_B                         ; 16384                ; Untyped                ;
+; INDATA_REG_B                       ; CLOCK1               ; Untyped                ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1               ; Untyped                ;
+; RDCONTROL_REG_B                    ; CLOCK0               ; Untyped                ;
+; ADDRESS_REG_B                      ; CLOCK0               ; Untyped                ;
+; OUTDATA_REG_B                      ; UNREGISTERED         ; Untyped                ;
+; BYTEENA_REG_B                      ; CLOCK1               ; Untyped                ;
+; INDATA_ACLR_B                      ; NONE                 ; Untyped                ;
+; WRCONTROL_ACLR_B                   ; NONE                 ; Untyped                ;
+; ADDRESS_ACLR_B                     ; NONE                 ; Untyped                ;
+; OUTDATA_ACLR_B                     ; NONE                 ; Untyped                ;
+; RDCONTROL_ACLR_B                   ; NONE                 ; Untyped                ;
+; BYTEENA_ACLR_B                     ; NONE                 ; Untyped                ;
+; WIDTH_BYTEENA_A                    ; 1                    ; Untyped                ;
+; WIDTH_BYTEENA_B                    ; 1                    ; Untyped                ;
+; RAM_BLOCK_TYPE                     ; AUTO                 ; Untyped                ;
+; BYTE_SIZE                          ; 8                    ; Untyped                ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA             ; Untyped                ;
+; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ ; Untyped                ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ ; Untyped                ;
+; INIT_FILE                          ; UNUSED               ; Untyped                ;
+; INIT_FILE_LAYOUT                   ; PORT_A               ; Untyped                ;
+; MAXIMUM_DEPTH                      ; 0                    ; Untyped                ;
+; CLOCK_ENABLE_INPUT_A               ; NORMAL               ; Untyped                ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL               ; Untyped                ;
+; CLOCK_ENABLE_OUTPUT_A              ; NORMAL               ; Untyped                ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL               ; Untyped                ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN      ; Untyped                ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN      ; Untyped                ;
+; ENABLE_ECC                         ; FALSE                ; Untyped                ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                ; Untyped                ;
+; WIDTH_ECCSTATUS                    ; 3                    ; Untyped                ;
+; DEVICE_FAMILY                      ; Cyclone V            ; Untyped                ;
+; CBXI_PARAMETER                     ; altsyncram_scq1      ; Untyped                ;
++------------------------------------+----------------------+------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: ram:u_ram|altsyncram:mem_out_rtl_0 ;
++------------------------------------+----------------------+-------------------------+
+; Parameter Name                     ; Value                ; Type                    ;
++------------------------------------+----------------------+-------------------------+
+; BYTE_SIZE_BLOCK                    ; 8                    ; Untyped                 ;
+; AUTO_CARRY_CHAINS                  ; ON                   ; AUTO_CARRY              ;
+; IGNORE_CARRY_BUFFERS               ; OFF                  ; IGNORE_CARRY            ;
+; AUTO_CASCADE_CHAINS                ; ON                   ; AUTO_CASCADE            ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                  ; IGNORE_CASCADE          ;
+; WIDTH_BYTEENA                      ; 1                    ; Untyped                 ;
+; OPERATION_MODE                     ; DUAL_PORT            ; Untyped                 ;
+; WIDTH_A                            ; 32                   ; Untyped                 ;
+; WIDTHAD_A                          ; 14                   ; Untyped                 ;
+; NUMWORDS_A                         ; 16384                ; Untyped                 ;
+; OUTDATA_REG_A                      ; UNREGISTERED         ; Untyped                 ;
+; ADDRESS_ACLR_A                     ; NONE                 ; Untyped                 ;
+; OUTDATA_ACLR_A                     ; NONE                 ; Untyped                 ;
+; WRCONTROL_ACLR_A                   ; NONE                 ; Untyped                 ;
+; INDATA_ACLR_A                      ; NONE                 ; Untyped                 ;
+; BYTEENA_ACLR_A                     ; NONE                 ; Untyped                 ;
+; WIDTH_B                            ; 32                   ; Untyped                 ;
+; WIDTHAD_B                          ; 14                   ; Untyped                 ;
+; NUMWORDS_B                         ; 16384                ; Untyped                 ;
+; INDATA_REG_B                       ; CLOCK1               ; Untyped                 ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1               ; Untyped                 ;
+; RDCONTROL_REG_B                    ; CLOCK0               ; Untyped                 ;
+; ADDRESS_REG_B                      ; CLOCK0               ; Untyped                 ;
+; OUTDATA_REG_B                      ; UNREGISTERED         ; Untyped                 ;
+; BYTEENA_REG_B                      ; CLOCK1               ; Untyped                 ;
+; INDATA_ACLR_B                      ; NONE                 ; Untyped                 ;
+; WRCONTROL_ACLR_B                   ; NONE                 ; Untyped                 ;
+; ADDRESS_ACLR_B                     ; NONE                 ; Untyped                 ;
+; OUTDATA_ACLR_B                     ; NONE                 ; Untyped                 ;
+; RDCONTROL_ACLR_B                   ; NONE                 ; Untyped                 ;
+; BYTEENA_ACLR_B                     ; NONE                 ; Untyped                 ;
+; WIDTH_BYTEENA_A                    ; 1                    ; Untyped                 ;
+; WIDTH_BYTEENA_B                    ; 1                    ; Untyped                 ;
+; RAM_BLOCK_TYPE                     ; AUTO                 ; Untyped                 ;
+; BYTE_SIZE                          ; 8                    ; Untyped                 ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA             ; Untyped                 ;
+; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ ; Untyped                 ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ ; Untyped                 ;
+; INIT_FILE                          ; UNUSED               ; Untyped                 ;
+; INIT_FILE_LAYOUT                   ; PORT_A               ; Untyped                 ;
+; MAXIMUM_DEPTH                      ; 0                    ; Untyped                 ;
+; CLOCK_ENABLE_INPUT_A               ; NORMAL               ; Untyped                 ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL               ; Untyped                 ;
+; CLOCK_ENABLE_OUTPUT_A              ; NORMAL               ; Untyped                 ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL               ; Untyped                 ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN      ; Untyped                 ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN      ; Untyped                 ;
+; ENABLE_ECC                         ; FALSE                ; Untyped                 ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                ; Untyped                 ;
+; WIDTH_ECCSTATUS                    ; 3                    ; Untyped                 ;
+; DEVICE_FAMILY                      ; Cyclone V            ; Untyped                 ;
+; CBXI_PARAMETER                     ; altsyncram_scq1      ; Untyped                 ;
++------------------------------------+----------------------+-------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------------+
+; altsyncram Parameter Settings by Entity Instance                               ;
++-------------------------------------------+------------------------------------+
+; Name                                      ; Value                              ;
++-------------------------------------------+------------------------------------+
+; Number of entity instances                ; 2                                  ;
+; Entity Instance                           ; ram:u_ram|altsyncram:mem_in_rtl_0  ;
+;     -- OPERATION_MODE                     ; DUAL_PORT                          ;
+;     -- WIDTH_A                            ; 32                                 ;
+;     -- NUMWORDS_A                         ; 16384                              ;
+;     -- OUTDATA_REG_A                      ; UNREGISTERED                       ;
+;     -- WIDTH_B                            ; 32                                 ;
+;     -- NUMWORDS_B                         ; 16384                              ;
+;     -- ADDRESS_REG_B                      ; CLOCK0                             ;
+;     -- OUTDATA_REG_B                      ; UNREGISTERED                       ;
+;     -- RAM_BLOCK_TYPE                     ; AUTO                               ;
+;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA                           ;
+; Entity Instance                           ; ram:u_ram|altsyncram:mem_out_rtl_0 ;
+;     -- OPERATION_MODE                     ; DUAL_PORT                          ;
+;     -- WIDTH_A                            ; 32                                 ;
+;     -- NUMWORDS_A                         ; 16384                              ;
+;     -- OUTDATA_REG_A                      ; UNREGISTERED                       ;
+;     -- WIDTH_B                            ; 32                                 ;
+;     -- NUMWORDS_B                         ; 16384                              ;
+;     -- ADDRESS_REG_B                      ; CLOCK0                             ;
+;     -- OUTDATA_REG_B                      ; UNREGISTERED                       ;
+;     -- RAM_BLOCK_TYPE                     ; AUTO                               ;
+;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA                           ;
++-------------------------------------------+------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "binary_to_bcd_converter:u_bcd_result"                                                      ;
++-------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port        ; Type   ; Severity ; Details                                                                             ;
++-------------+--------+----------+-------------------------------------------------------------------------------------+
+; bin[15..8]  ; Input  ; Info     ; Stuck at GND                                                                        ;
+; bcd[19..12] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++-------------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "binary_to_bcd_converter:u_bcd_pixel"                                                       ;
++-------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port        ; Type   ; Severity ; Details                                                                             ;
++-------------+--------+----------+-------------------------------------------------------------------------------------+
+; bin[15..8]  ; Input  ; Info     ; Stuck at GND                                                                        ;
+; bcd[19..12] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++-------------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "binary_to_bcd_converter:u_bcd_threshold"                                                   ;
++-------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port        ; Type   ; Severity ; Details                                                                             ;
++-------------+--------+----------+-------------------------------------------------------------------------------------+
+; bin[15..8]  ; Input  ; Info     ; Stuck at GND                                                                        ;
+; bcd[19..12] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++-------------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------+
+; Port Connectivity Checks: "binary_to_bcd_converter:u_bcd_count" ;
++-------------+-------+----------+--------------------------------+
+; Port        ; Type  ; Severity ; Details                        ;
++-------------+-------+----------+--------------------------------+
+; bin[15..14] ; Input ; Info     ; Stuck at GND                   ;
++-------------+-------+----------+--------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "alu_param:u_alu"                                                                              ;
++----------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port           ; Type   ; Severity ; Details                                                                             ;
++----------------+--------+----------+-------------------------------------------------------------------------------------+
+; code[2..1]     ; Input  ; Info     ; Stuck at GND                                                                        ;
+; code[0]        ; Input  ; Info     ; Stuck at VCC                                                                        ;
+; result         ; Output ; Info     ; Explicitly unconnected                                                              ;
+; flags.zero     ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; flags.carry    ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; flags.overflow ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++----------------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++---------------------------------------------------------------+
+; Port Connectivity Checks: "vjtag_interface:u_vjtag_interface" ;
++-----------+--------+----------+-------------------------------+
+; Port      ; Type   ; Severity ; Details                       ;
++-----------+--------+----------+-------------------------------+
+; debug_dr2 ; Output ; Info     ; Explicitly unconnected        ;
+; debug_dr1 ; Output ; Info     ; Explicitly unconnected        ;
++-----------+--------+----------+-------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "vjtag:vjtag_inst|sld_virtual_jtag:virtual_jtag_0"                                                                   ;
++-----------------+--------+----------+----------------------------------------------------------------------------------------------------------+
+; Port            ; Type   ; Severity ; Details                                                                                                  ;
++-----------------+--------+----------+----------------------------------------------------------------------------------------------------------+
+; tms             ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
+; jtag_state_tlr  ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
+; jtag_state_rti  ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
+; jtag_state_sdrs ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
+; jtag_state_cdr  ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
+; jtag_state_sdr  ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
+; jtag_state_e1dr ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
+; jtag_state_pdr  ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
+; jtag_state_e2dr ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
+; jtag_state_udr  ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
+; jtag_state_sirs ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
+; jtag_state_cir  ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
+; jtag_state_sir  ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
+; jtag_state_e1ir ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
+; jtag_state_pir  ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
+; jtag_state_e2ir ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
+; jtag_state_uir  ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
++-----------------+--------+----------+----------------------------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------+
+; Port Connectivity Checks: "vjtag:vjtag_inst"                    ;
++--------------------+--------+----------+------------------------+
+; Port               ; Type   ; Severity ; Details                ;
++--------------------+--------+----------+------------------------+
+; ir_out             ; Input  ; Info     ; Stuck at GND           ;
+; virtual_state_e1dr ; Output ; Info     ; Explicitly unconnected ;
+; virtual_state_pdr  ; Output ; Info     ; Explicitly unconnected ;
+; virtual_state_e2dr ; Output ; Info     ; Explicitly unconnected ;
+; virtual_state_cir  ; Output ; Info     ; Explicitly unconnected ;
+; virtual_state_uir  ; Output ; Info     ; Explicitly unconnected ;
++--------------------+--------+----------+------------------------+
+
+
++--------------------------------------------------------+
+; Port Connectivity Checks: "key_sync:u_key_sync"        ;
++-----------+--------+----------+------------------------+
+; Port      ; Type   ; Severity ; Details                ;
++-----------+--------+----------+------------------------+
+; key_raw   ; Input  ; Info     ; Stuck at GND           ;
+; key_pulse ; Output ; Info     ; Explicitly unconnected ;
++-----------+--------+----------+------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Virtual JTAG Settings                                                                                                                                              ;
++----------------+------------+------------------+----------+---------+-----------------+-------------------------+--------------------------------------------------+
+; Instance Index ; Auto Index ; Index Reassigned ; IR Width ; Address ; USER1 DR length ; VIR capture instruction ; Hierarchy Location                               ;
++----------------+------------+------------------+----------+---------+-----------------+-------------------------+--------------------------------------------------+
+; 0              ; NO         ; NO               ; 2        ; 0x10    ; 5               ; 0x0B                    ; vjtag:vjtag_inst|sld_virtual_jtag:virtual_jtag_0 ;
++----------------+------------+------------------+----------+---------+-----------------+-------------------------+--------------------------------------------------+
 
 
 +-----------------------------------------------------+
@@ -256,16 +842,32 @@ Encoding Type:  One-Hot
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; arriav_ff             ; 2                           ;
-;     CLR               ; 2                           ;
-; arriav_lcell_comb     ; 68                          ;
-;     normal            ; 68                          ;
-;         2 data inputs ; 3                           ;
-;         4 data inputs ; 65                          ;
-; boundary_port         ; 200                         ;
+; arriav_ff             ; 1602                        ;
+;     CLR               ; 98                          ;
+;     ENA               ; 66                          ;
+;     ENA CLR           ; 1296                        ;
+;     ENA CLR SCLR      ; 110                         ;
+;     ENA CLR SLD       ; 32                          ;
+; arriav_lcell_comb     ; 1064                        ;
+;     arith             ; 46                          ;
+;         1 data inputs ; 46                          ;
+;     extend            ; 3                           ;
+;         7 data inputs ; 3                           ;
+;     normal            ; 983                         ;
+;         0 data inputs ; 1                           ;
+;         1 data inputs ; 24                          ;
+;         2 data inputs ; 42                          ;
+;         3 data inputs ; 58                          ;
+;         4 data inputs ; 94                          ;
+;         5 data inputs ; 179                         ;
+;         6 data inputs ; 585                         ;
+;     shared            ; 32                          ;
+;         2 data inputs ; 32                          ;
+; boundary_port         ; 83                          ;
+; stratixv_ram_block    ; 128                         ;
 ;                       ;                             ;
-; Max LUT depth         ; 1.00                        ;
-; Average LUT depth     ; 0.99                        ;
+; Max LUT depth         ; 12.00                       ;
+; Average LUT depth     ; 5.53                        ;
 +-----------------------+-----------------------------+
 
 
@@ -274,7 +876,7 @@ Encoding Type:  One-Hot
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:00     ;
+; Top            ; 00:00:04     ;
 +----------------+--------------+
 
 
@@ -284,32 +886,168 @@ Encoding Type:  One-Hot
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
-    Info: Processing started: Fri Oct  9 22:10:40 2026
+    Info: Processing started: Sun Oct 25 14:47:13 2026
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off top_level -c top_level
-Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
-Info (20030): Parallel compilation is enabled and will use 12 of the 12 processors detected
-Info (12021): Found 1 design units, including 1 entities, in source file /short_paths_wo_onedrive/github_repos/taller_digitales_repo/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv
-    Info (12023): Found entity 1: arbiter File: C:/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 1
-Info (12021): Found 1 design units, including 1 entities, in source file /short_paths_wo_onedrive/github_repos/taller_digitales_repo/group7_ce3201_s2_g1_2026/sprint3/src/memory_mapped_register_file.sv
-    Info (12023): Found entity 1: memory_mapped_register_file File: C:/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/group7_ce3201_s2_g1_2026/sprint3/src/memory_mapped_register_file.sv Line: 1
-Info (12021): Found 1 design units, including 1 entities, in source file /short_paths_wo_onedrive/github_repos/taller_digitales_repo/group7_ce3201_s2_g1_2026/sprint3/src/control_registers.sv
-    Info (12023): Found entity 1: control_registers File: C:/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/group7_ce3201_s2_g1_2026/sprint3/src/control_registers.sv Line: 1
-Info (12021): Found 1 design units, including 1 entities, in source file /short_paths_wo_onedrive/github_repos/taller_digitales_repo/group7_ce3201_s2_g1_2026/sprint3/test/sv/tb_arbiter.sv
-    Info (12023): Found entity 1: tb_arbiter File: C:/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/group7_ce3201_s2_g1_2026/sprint3/test/sv/tb_arbiter.sv Line: 1
-Info (12127): Elaborating entity "arbiter" for the top level hierarchy
-Info (10264): Verilog HDL Case Statement information at arbiter.sv(68): all case item expressions in this case statement are onehot File: C:/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 68
-Info (286030): Timing-Driven Synthesis is running
-Info (17049): 1 registers lost all their fanouts during netlist optimizations.
+Info (20032): Parallel compilation is enabled and will use up to 16 processors
+Info (12021): Found 1 design units, including 1 entities, in source file vjtag/synthesis/vjtag.v
+    Info (12023): Found entity 1: vjtag File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/quartus/vjtag/synthesis/vjtag.v Line: 6
+Info (12021): Found 1 design units, including 0 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint1/src/alu_types_pkg.sv
+    Info (12022): Found design unit 1: alu_types_pkg (SystemVerilog) File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/alu_types_pkg.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint1/src/alu_param.sv
+    Info (12023): Found entity 1: alu_param File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/alu_param.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint1/src/decoder_4x16.sv
+    Info (12023): Found entity 1: decoder_4x16 File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/decoder_4x16.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint1/src/seven_segment_adapter.sv
+    Info (12023): Found entity 1: seven_segment_adapter File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/seven_segment_adapter.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint2/src/binary_to_bcd_converter.sv
+    Info (12023): Found entity 1: binary_to_bcd_converter File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/binary_to_bcd_converter.sv Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint2/src/key_sync.sv
+    Info (12023): Found entity 1: key_sync File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/key_sync.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv
+    Info (12023): Found entity 1: vjtag_interface File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv
+    Info (12023): Found entity 1: arbiter File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint3/src/fsm.sv
+    Info (12023): Found entity 1: fsm File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/fsm.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint3/src/counter.sv
+    Info (12023): Found entity 1: counter File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/counter.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint3/src/mmio_decoder.sv
+    Info (12023): Found entity 1: mmio_decoder File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/mmio_decoder.sv Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint3/src/control_registers.sv
+    Info (12023): Found entity 1: control_registers File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/control_registers.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint3/src/memory_mapped_register_file.sv
+    Info (12023): Found entity 1: memory_mapped_register_file File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/memory_mapped_register_file.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint3/src/ram.sv
+    Info (12023): Found entity 1: ram File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/ram.sv Line: 3
+Info (12021): Found 1 design units, including 1 entities, in source file /byronbp/semact/proyecto-taller/group7_ce3201_s2_g1_2026/sprint3/src/top_level.sv
+    Info (12023): Found entity 1: top_level File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/top_level.sv Line: 3
+Info (12127): Elaborating entity "top_level" for the top level hierarchy
+Info (10264): Verilog HDL Case Statement information at top_level.sv(88): all case item expressions in this case statement are onehot File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/top_level.sv Line: 88
+Info (12128): Elaborating entity "key_sync" for hierarchy "key_sync:u_key_sync" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/top_level.sv Line: 24
+Info (12128): Elaborating entity "vjtag" for hierarchy "vjtag:vjtag_inst" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/top_level.sv Line: 44
+Info (12128): Elaborating entity "sld_virtual_jtag" for hierarchy "vjtag:vjtag_inst|sld_virtual_jtag:virtual_jtag_0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/quartus/vjtag/synthesis/vjtag.v Line: 40
+Info (12130): Elaborated megafunction instantiation "vjtag:vjtag_inst|sld_virtual_jtag:virtual_jtag_0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/quartus/vjtag/synthesis/vjtag.v Line: 40
+Info (12133): Instantiated megafunction "vjtag:vjtag_inst|sld_virtual_jtag:virtual_jtag_0" with the following parameter: File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/quartus/vjtag/synthesis/vjtag.v Line: 40
+    Info (12134): Parameter "sld_auto_instance_index" = "NO"
+    Info (12134): Parameter "sld_instance_index" = "0"
+    Info (12134): Parameter "sld_ir_width" = "2"
+Info (12128): Elaborating entity "sld_virtual_jtag_basic" for hierarchy "vjtag:vjtag_inst|sld_virtual_jtag:virtual_jtag_0|sld_virtual_jtag_basic:sld_virtual_jtag_basic_inst" File: c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_virtual_jtag.v Line: 152
+Info (12131): Elaborated megafunction instantiation "vjtag:vjtag_inst|sld_virtual_jtag:virtual_jtag_0|sld_virtual_jtag_basic:sld_virtual_jtag_basic_inst", which is child of megafunction instantiation "vjtag:vjtag_inst|sld_virtual_jtag:virtual_jtag_0" File: c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_virtual_jtag.v Line: 152
+Info (12128): Elaborating entity "sld_virtual_jtag_impl" for hierarchy "vjtag:vjtag_inst|sld_virtual_jtag:virtual_jtag_0|sld_virtual_jtag_basic:sld_virtual_jtag_basic_inst|sld_virtual_jtag_impl:sld_virtual_jtag_impl_inst" File: c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_virtual_jtag_basic.v Line: 152
+Info (12131): Elaborated megafunction instantiation "vjtag:vjtag_inst|sld_virtual_jtag:virtual_jtag_0|sld_virtual_jtag_basic:sld_virtual_jtag_basic_inst|sld_virtual_jtag_impl:sld_virtual_jtag_impl_inst", which is child of megafunction instantiation "vjtag:vjtag_inst|sld_virtual_jtag:virtual_jtag_0" File: c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_virtual_jtag_basic.v Line: 152
+Info (12128): Elaborating entity "sld_jtag_endpoint_adapter" for hierarchy "vjtag:vjtag_inst|sld_virtual_jtag:virtual_jtag_0|sld_virtual_jtag_basic:sld_virtual_jtag_basic_inst|sld_virtual_jtag_impl:sld_virtual_jtag_impl_inst|sld_jtag_endpoint_adapter:jtag_signal_adapter" File: c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_virtual_jtag_basic.v Line: 415
+Info (12128): Elaborating entity "sld_jtag_endpoint_adapter_impl" for hierarchy "vjtag:vjtag_inst|sld_virtual_jtag:virtual_jtag_0|sld_virtual_jtag_basic:sld_virtual_jtag_basic_inst|sld_virtual_jtag_impl:sld_virtual_jtag_impl_inst|sld_jtag_endpoint_adapter:jtag_signal_adapter|sld_jtag_endpoint_adapter_impl:sld_jtag_endpoint_adapter_impl_inst" File: c:/altera_lite/25.1std/quartus/libraries/megafunctions/sld_jtag_endpoint_adapter.vhd Line: 232
+Info (12128): Elaborating entity "vjtag_interface" for hierarchy "vjtag_interface:u_vjtag_interface" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/top_level.sv Line: 55
+Info (12128): Elaborating entity "fsm" for hierarchy "fsm:u_fsm" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/top_level.sv Line: 135
+Info (12128): Elaborating entity "alu_param" for hierarchy "alu_param:u_alu" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/top_level.sv Line: 139
+Info (12128): Elaborating entity "counter" for hierarchy "counter:u_counter" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/top_level.sv Line: 173
+Info (12128): Elaborating entity "arbiter" for hierarchy "arbiter:u_arbiter" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/top_level.sv Line: 184
+Info (10264): Verilog HDL Case Statement information at arbiter.sv(72): all case item expressions in this case statement are onehot File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+Info (12128): Elaborating entity "mmio_decoder" for hierarchy "mmio_decoder:u_mmio_decoder" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/top_level.sv Line: 190
+Info (10264): Verilog HDL Case Statement information at mmio_decoder.sv(66): all case item expressions in this case statement are onehot File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/mmio_decoder.sv Line: 66
+Info (12128): Elaborating entity "ram" for hierarchy "ram:u_ram" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/top_level.sv Line: 205
+Info (12128): Elaborating entity "memory_mapped_register_file" for hierarchy "memory_mapped_register_file:u_mmrf" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/top_level.sv Line: 211
+Info (12128): Elaborating entity "control_registers" for hierarchy "control_registers:u_control_registers" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/top_level.sv Line: 216
+Info (12128): Elaborating entity "binary_to_bcd_converter" for hierarchy "binary_to_bcd_converter:u_bcd_count" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/top_level.sv Line: 224
+Info (12128): Elaborating entity "seven_segment_adapter" for hierarchy "seven_segment_adapter:u_seg0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/top_level.sv Line: 229
+Info (12128): Elaborating entity "decoder_4x16" for hierarchy "seven_segment_adapter:u_seg0|decoder_4x16:u_decoder" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint1/src/seven_segment_adapter.sv Line: 11
+Info (11170): Starting IP generation for the debug fabric: alt_sld_fab.
+Info (11172): 2026.10.25.14:47:29 Progress: Loading sld7717125d/alt_sld_fab_wrapper_hw.tcl
+Info (11172): Alt_sld_fab.alt_sld_fab: SLD fabric agents which did not specify prefer_host were connected to JTAG
+Info (11172): Alt_sld_fab: Generating "alt_sld_fab" for QUARTUS_SYNTH
+Info (11172): Alt_sld_fab: "alt_sld_fab" instantiated alt_sld_fab "alt_sld_fab"
+Info (11172): Presplit: "alt_sld_fab" instantiated altera_super_splitter "presplit"
+Info (11172): Splitter: "alt_sld_fab" instantiated altera_sld_splitter "splitter"
+Info (11172): Sldfabric: "alt_sld_fab" instantiated altera_sld_jtag_hub "sldfabric"
+Info (11172): Ident: "alt_sld_fab" instantiated altera_connection_identification_hub "ident"
+Info (11172): Alt_sld_fab: Done "alt_sld_fab" with 6 modules, 6 files
+Info (11171): Finished IP generation for the debug fabric: alt_sld_fab.
+Info (12021): Found 1 design units, including 1 entities, in source file db/ip/sld7717125d/alt_sld_fab.v
+    Info (12023): Found entity 1: alt_sld_fab File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/quartus/db/ip/sld7717125d/alt_sld_fab.v Line: 9
+Info (12021): Found 1 design units, including 1 entities, in source file db/ip/sld7717125d/submodules/alt_sld_fab_alt_sld_fab.v
+    Info (12023): Found entity 1: alt_sld_fab_alt_sld_fab File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/quartus/db/ip/sld7717125d/submodules/alt_sld_fab_alt_sld_fab.v Line: 9
+Info (12021): Found 1 design units, including 1 entities, in source file db/ip/sld7717125d/submodules/alt_sld_fab_alt_sld_fab_ident.sv
+    Info (12023): Found entity 1: alt_sld_fab_alt_sld_fab_ident File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/quartus/db/ip/sld7717125d/submodules/alt_sld_fab_alt_sld_fab_ident.sv Line: 33
+Info (12021): Found 1 design units, including 1 entities, in source file db/ip/sld7717125d/submodules/alt_sld_fab_alt_sld_fab_presplit.sv
+    Info (12023): Found entity 1: alt_sld_fab_alt_sld_fab_presplit File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/quartus/db/ip/sld7717125d/submodules/alt_sld_fab_alt_sld_fab_presplit.sv Line: 3
+Info (12021): Found 2 design units, including 1 entities, in source file db/ip/sld7717125d/submodules/alt_sld_fab_alt_sld_fab_sldfabric.vhd
+    Info (12022): Found design unit 1: alt_sld_fab_alt_sld_fab_sldfabric-rtl File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/quartus/db/ip/sld7717125d/submodules/alt_sld_fab_alt_sld_fab_sldfabric.vhd Line: 102
+    Info (12023): Found entity 1: alt_sld_fab_alt_sld_fab_sldfabric File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/quartus/db/ip/sld7717125d/submodules/alt_sld_fab_alt_sld_fab_sldfabric.vhd Line: 11
+Info (12021): Found 1 design units, including 1 entities, in source file db/ip/sld7717125d/submodules/alt_sld_fab_alt_sld_fab_splitter.sv
+    Info (12023): Found entity 1: alt_sld_fab_alt_sld_fab_splitter File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/quartus/db/ip/sld7717125d/submodules/alt_sld_fab_alt_sld_fab_splitter.sv Line: 3
+Info (19000): Inferred 2 megafunctions from design logic
+    Info (276029): Inferred altsyncram megafunction from the following design logic: "ram:u_ram|mem_in_rtl_0" 
+        Info (286033): Parameter OPERATION_MODE set to DUAL_PORT
+        Info (286033): Parameter WIDTH_A set to 32
+        Info (286033): Parameter WIDTHAD_A set to 14
+        Info (286033): Parameter NUMWORDS_A set to 16384
+        Info (286033): Parameter WIDTH_B set to 32
+        Info (286033): Parameter WIDTHAD_B set to 14
+        Info (286033): Parameter NUMWORDS_B set to 16384
+        Info (286033): Parameter ADDRESS_ACLR_A set to NONE
+        Info (286033): Parameter OUTDATA_REG_B set to UNREGISTERED
+        Info (286033): Parameter ADDRESS_ACLR_B set to NONE
+        Info (286033): Parameter OUTDATA_ACLR_B set to NONE
+        Info (286033): Parameter ADDRESS_REG_B set to CLOCK0
+        Info (286033): Parameter INDATA_ACLR_A set to NONE
+        Info (286033): Parameter WRCONTROL_ACLR_A set to NONE
+        Info (286033): Parameter READ_DURING_WRITE_MODE_MIXED_PORTS set to OLD_DATA
+        Info (286033): Parameter RDCONTROL_REG_B set to CLOCK0
+    Info (276029): Inferred altsyncram megafunction from the following design logic: "ram:u_ram|mem_out_rtl_0" 
+        Info (286033): Parameter OPERATION_MODE set to DUAL_PORT
+        Info (286033): Parameter WIDTH_A set to 32
+        Info (286033): Parameter WIDTHAD_A set to 14
+        Info (286033): Parameter NUMWORDS_A set to 16384
+        Info (286033): Parameter WIDTH_B set to 32
+        Info (286033): Parameter WIDTHAD_B set to 14
+        Info (286033): Parameter NUMWORDS_B set to 16384
+        Info (286033): Parameter ADDRESS_ACLR_A set to NONE
+        Info (286033): Parameter OUTDATA_REG_B set to UNREGISTERED
+        Info (286033): Parameter ADDRESS_ACLR_B set to NONE
+        Info (286033): Parameter OUTDATA_ACLR_B set to NONE
+        Info (286033): Parameter ADDRESS_REG_B set to CLOCK0
+        Info (286033): Parameter INDATA_ACLR_A set to NONE
+        Info (286033): Parameter WRCONTROL_ACLR_A set to NONE
+        Info (286033): Parameter READ_DURING_WRITE_MODE_MIXED_PORTS set to OLD_DATA
+        Info (286033): Parameter RDCONTROL_REG_B set to CLOCK0
+Info (12130): Elaborated megafunction instantiation "ram:u_ram|altsyncram:mem_in_rtl_0"
+Info (12133): Instantiated megafunction "ram:u_ram|altsyncram:mem_in_rtl_0" with the following parameter:
+    Info (12134): Parameter "OPERATION_MODE" = "DUAL_PORT"
+    Info (12134): Parameter "WIDTH_A" = "32"
+    Info (12134): Parameter "WIDTHAD_A" = "14"
+    Info (12134): Parameter "NUMWORDS_A" = "16384"
+    Info (12134): Parameter "WIDTH_B" = "32"
+    Info (12134): Parameter "WIDTHAD_B" = "14"
+    Info (12134): Parameter "NUMWORDS_B" = "16384"
+    Info (12134): Parameter "ADDRESS_ACLR_A" = "NONE"
+    Info (12134): Parameter "OUTDATA_REG_B" = "UNREGISTERED"
+    Info (12134): Parameter "ADDRESS_ACLR_B" = "NONE"
+    Info (12134): Parameter "OUTDATA_ACLR_B" = "NONE"
+    Info (12134): Parameter "ADDRESS_REG_B" = "CLOCK0"
+    Info (12134): Parameter "INDATA_ACLR_A" = "NONE"
+    Info (12134): Parameter "WRCONTROL_ACLR_A" = "NONE"
+    Info (12134): Parameter "READ_DURING_WRITE_MODE_MIXED_PORTS" = "OLD_DATA"
+    Info (12134): Parameter "RDCONTROL_REG_B" = "CLOCK0"
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_scq1.tdf
+    Info (12023): Found entity 1: altsyncram_scq1 File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/quartus/db/altsyncram_scq1.tdf Line: 32
+Info (12021): Found 1 design units, including 1 entities, in source file db/decode_5la.tdf
+    Info (12023): Found entity 1: decode_5la File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/quartus/db/decode_5la.tdf Line: 23
+Info (12021): Found 1 design units, including 1 entities, in source file db/mux_2hb.tdf
+    Info (12023): Found entity 1: mux_2hb File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/quartus/db/mux_2hb.tdf Line: 23
+Warning (12241): 1 hierarchies have connectivity warnings - see the Connectivity Checks report folder
+Info (286031): Timing-Driven Synthesis is running on partition "Top"
+Info (17049): 10 registers lost all their fanouts during netlist optimizations.
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
-    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 269 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 133 input pins
-    Info (21059): Implemented 67 output pins
-    Info (21061): Implemented 69 logic cells
+    Info (16011): Adding 9 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Info (21057): Implemented 2841 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 7 input pins
+    Info (21059): Implemented 53 output pins
+    Info (21061): Implemented 2652 logic cells
+    Info (21064): Implemented 128 RAM segments
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 1 warning
-    Info: Peak virtual memory: 4867 megabytes
-    Info: Processing ended: Fri Oct  9 22:10:48 2026
-    Info: Elapsed time: 00:00:08
-    Info: Total CPU time (on all processors): 00:00:16
+    Info: Peak virtual memory: 5166 megabytes
+    Info: Processing ended: Sun Oct 25 14:47:41 2026
+    Info: Elapsed time: 00:00:28
+    Info: Total CPU time (on all processors): 00:00:31
 
 
