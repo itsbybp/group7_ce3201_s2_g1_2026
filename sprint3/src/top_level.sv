@@ -61,7 +61,10 @@ import alu_types_pkg::*;
 
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-            addr_sync_q <= '0; write_sync_q <= '0; jtag_addr_q <= '0; jtag_wdata_q <= '0;
+            addr_sync_q  <= '0;
+            write_sync_q <= '0;
+            jtag_addr_q  <= '0;
+            jtag_wdata_q <= '0;
         end else begin
             addr_sync_q  <= {addr_sync_q[1:0],  jtag_addr_toggle};
             write_sync_q <= {write_sync_q[1:0], jtag_write_toggle};
@@ -86,7 +89,10 @@ import alu_types_pkg::*;
     always_comb begin
         vj_next = vj_state;
         case (vj_state)
-            VJ_IDLE:      if (write_pulse) vj_next = VJ_WRITE_REQ; else if (addr_pulse) vj_next = VJ_READ_REQ;
+            VJ_IDLE: begin
+                if (write_pulse)      vj_next = VJ_WRITE_REQ;
+                else if (addr_pulse)  vj_next = VJ_READ_REQ;
+            end
             VJ_WRITE_REQ: if (vjtag_ready) vj_next = VJ_IDLE;
             VJ_READ_REQ:  if (vjtag_ready) vj_next = VJ_READ_CAP;
             default:      vj_next = VJ_IDLE;
@@ -95,7 +101,8 @@ import alu_types_pkg::*;
 
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-            vj_state <= VJ_IDLE; read_data_q <= '0;
+            vj_state    <= VJ_IDLE;
+            read_data_q <= '0;
         end else begin
             vj_state <= vj_next;
             if (vj_state == VJ_READ_CAP) read_data_q <= mmio_rdata;
@@ -149,9 +156,13 @@ import alu_types_pkg::*;
 
     always_ff @(posedge clk or negedge core_rst_n) begin
         if (!core_rst_n) begin
-            alu_done <= 1'b0; timer_running_q <= 1'b0;
-            timer_limit_q <= '0; threshold_q <= '0; status_q <= '0;
-            ledr_q <= '0; hex_q <= '0;
+            alu_done        <= 1'b0;
+            timer_running_q <= 1'b0;
+            timer_limit_q   <= '0;
+            threshold_q     <= '0;
+            status_q        <= '0;
+            ledr_q          <= '0;
+            hex_q           <= '0;
         end else begin
             alu_done <= alu_start;
             // timer_start tiene prioridad sobre timer_clear: S_TH_CAP activa
@@ -237,7 +248,10 @@ import alu_types_pkg::*;
         nib = {fsm_state_w, count_bcd};
         off = 6'b000000;
         case (SW[1:0])
-            2'b01:   begin nib[11:0] = threshold_bcd[11:0]; off = 6'b111000; end
+            2'b01: begin
+                nib[11:0] = threshold_bcd[11:0];
+                off = 6'b111000;
+            end
             2'b10:   nib = {pixel_bcd[11:0], result_bcd[11:0]};
             2'b11:   nib = hex_q;
             default: ;
