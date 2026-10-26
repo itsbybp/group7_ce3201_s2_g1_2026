@@ -1,0 +1,39 @@
+# Questa Altera Starter FPGA Edition-64 vmap 2025.2 Lib Mapping Utility 2025.05 May 31 2025
+# vmap work work 
+# ** Note: (vmap-220) 'modelsim.ini' is used as the ini file.
+# Modifying modelsim.ini
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 02:12:53 on Oct 11,2026
+# vlog -reportprogress 300 -sv ../../src/ram.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling module ram
+# 
+# Top level modules:
+# 	ram
+# End time: 02:12:53 on Oct 11,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 02:12:54 on Oct 11,2026
+# vlog -reportprogress 300 -sv tb_ram.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling module tb_ram
+# 
+# Top level modules:
+# 	tb_ram
+# End time: 02:12:54 on Oct 11,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# ** Note: (vsim-220) 'modelsim.ini' is used as the ini file.
+# vsim -wlf run_ram.wlf -voptargs="+acc" work.tb_ram 
+# Start time: 02:12:54 on Oct 11,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: (vopt-10908) Some optimizations are turned off because the +acc switch is in effect.
+# ** Note: (vopt-220) 'modelsim.ini' is used as the ini file.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.tb_ram(fast)
+# Loading work.ram(fast)
+# Pruebas completadas exitosamente
+# ** Note: $finish    : tb_ram.sv(75)
+#    Time: 230 ns  Iteration: 1  Instance: /tb_ram
+# End time: 02:13:02 on Oct 11,2026, Elapsed time: 0:00:08
+# Errors: 0, Warnings: 1

@@ -1,0 +1,43 @@
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work work 
+# Modifying modelsim.ini
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 17:24:20 on Oct 22,2026
+# vlog -sv ../../src/counter.sv 
+# -- Compiling module counter
+# 
+# Top level modules:
+# 	counter
+# End time: 17:24:20 on Oct 22,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 17:24:20 on Oct 22,2026
+# vlog -sv tb_counter.sv 
+# -- Compiling module tb_counter
+# 
+# Top level modules:
+# 	tb_counter
+# End time: 17:24:20 on Oct 22,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim -wlf run_counter.wlf -voptargs="+acc" work.tb_counter 
+# Start time: 17:24:20 on Oct 22,2026
+# Loading sv_std.std
+# Loading work.tb_counter
+# Loading work.counter
+# configure wave not supported in batch mode
+# configure wave not supported in batch mode
+# configure wave not supported in batch mode
+# ---Test Use Case and Clear---
+# PASS: test_use_case_and_clear
+# ---Test Lower Timer Limit Mid Count---
+# PASS: test_lower_timer_limit_mid_count
+# ----------------------------------------
+# TOTAL_CHECKS=1059
+# ERRORS=0
+# WARNINGS=0
+# ALL_TESTS_PASSED
+# ----------------------------------------
+# ** Note: $finish    : tb_counter.sv(166)
+#    Time: 21272 ps  Iteration: 0  Instance: /tb_counter
+# End time: 17:24:21 on Oct 22,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0

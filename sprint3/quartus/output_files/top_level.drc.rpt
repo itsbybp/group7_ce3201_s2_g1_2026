@@ -1,0 +1,601 @@
+Design Assistant report for top_level
+Thu Oct 22 01:30:44 2026
+Quartus Prime Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Design Assistant Summary
+  3. Parallel Compilation
+  4. Design Assistant Settings
+  5. High Violations
+  6. Medium Violations
+  7. Information only Violations
+  8. Design Assistant Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2025  Altera Corporation. All rights reserved.
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and any partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, the Altera Quartus Prime License Agreement,
+the Altera IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Altera and sold by Altera or its authorized distributors.  Please
+refer to the Altera Software License Subscription Agreements 
+on the Quartus Prime software download page.
+
+
+
++-------------------------------------------------------------------------+
+; Design Assistant Summary                                                ;
++-----------------------------------+-------------------------------------+
+; Design Assistant Status           ; Analyzed - Thu Oct 22 01:30:44 2026 ;
+; Revision Name                     ; top_level                           ;
+; Top-level Entity Name             ; top_level                           ;
+; Family                            ; Cyclone V                           ;
+; Total Critical Violations         ; 0                                   ;
+; Total High Violations             ; 66                                  ;
+; - Rule C105                       ; 1                                   ;
+; - Rule D101                       ; 65                                  ;
+; Total Medium Violations           ; 1                                   ;
+; - Rule R105                       ; 1                                   ;
+; Total Information only Violations ; 161                                 ;
+; - Rule T101                       ; 111                                 ;
+; - Rule T102                       ; 50                                  ;
++-----------------------------------+-------------------------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 24          ;
+; Maximum allowed            ; 16          ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 5           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
+;     Processor 2            ;   0.0%      ;
+;     Processor 3            ;   0.0%      ;
+;     Processor 4            ;   0.0%      ;
+;     Processor 5            ;   0.0%      ;
++----------------------------+-------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Design Assistant Settings                                                                                                                                                                ;
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+----+
+; Option                                                                                                                                                               ; Setting      ; To ;
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+----+
+; Design Assistant mode                                                                                                                                                ; Post-Fitting ;    ;
+; Threshold value for clock net not mapped to clock spines rule                                                                                                        ; 25           ;    ;
+; Minimum number of clock port feed by gated clocks                                                                                                                    ; 30           ;    ;
+; Minimum number of node fan-out                                                                                                                                       ; 30           ;    ;
+; Maximum number of nodes to report                                                                                                                                    ; 50           ;    ;
+; Rule C101: Gated clock should be implemented according to the Intel FPGA standard scheme                                                                             ; On           ;    ;
+; Rule C102: Logic cell should not be used to generate an inverted clock signal                                                                                        ; On           ;    ;
+; Rule C103: Gated clock does not feed at least a pre-defined number of clock ports to effectively save power                                                          ; On           ;    ;
+; Rule C104: Clock signal source should drive only clock input ports                                                                                                   ; On           ;    ;
+; Rule C105: Clock signal should be a global signal                                                                                                                    ; On           ;    ;
+; Rule C106: Clock signal source should not drive registers triggered by different clock edges                                                                         ; On           ;    ;
+; Rule R101: Combinational logic used as a reset signal should be synchronized                                                                                         ; On           ;    ;
+; Rule R102: External reset signals should be synchronized using two cascaded registers                                                                                ; On           ;    ;
+; Rule R103: External reset signal should be correctly synchronized                                                                                                    ; On           ;    ;
+; Rule R104: The reset signal that is generated in one clock domain and used in another clock domain should be correctly synchronized                                  ; On           ;    ;
+; Rule R105: The reset signal that is generated in one clock domain and used in another clock domain should be synchronized                                            ; On           ;    ;
+; Rule T101: Nodes with more than the specified number of fan-outs                                                                                                     ; On           ;    ;
+; Rule T102: Top nodes with the highest number of fan-outs                                                                                                             ; On           ;    ;
+; Rule A101: Design should not contain combinational loops                                                                                                             ; On           ;    ;
+; Rule A102: Register output should not drive its own control signal directly or through combinational logic                                                           ; On           ;    ;
+; Rule A103: Design should not contain delay chains                                                                                                                    ; On           ;    ;
+; Rule A104: Design should not contain ripple clock structures                                                                                                         ; On           ;    ;
+; Rule A105: Pulses should not be implemented asynchronously                                                                                                           ; On           ;    ;
+; Rule A106: Multiple pulses should not be generated in design                                                                                                         ; On           ;    ;
+; Rule A107: Design should not contain SR latches                                                                                                                      ; On           ;    ;
+; Rule A108: Design should not contain latches                                                                                                                         ; On           ;    ;
+; Rule S101: Output enable and input of the same tri-state node should not be driven by same signal source                                                             ; On           ;    ;
+; Rule S102: Synchronous port and asynchronous port of the same register should not be driven by the same signal source                                                ; On           ;    ;
+; Rule S103: More than one asynchronous port of a register should not be driven by the same signal source                                                              ; On           ;    ;
+; Rule S104: Clock port and any other port of a register should not be driven by the same signal source                                                                ; On           ;    ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains                                                                        ; On           ;    ;
+; Rule D102: Multiple data bits that are transferred across asynchronous clock domains are synchronized, but not all bits may be aligned in the receiving clock domain ; On           ;    ;
+; Rule D103: Data bits are not correctly synchronized when transferred between asynchronous clock domains                                                              ; On           ;    ;
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+----+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; High Violations                                                                                                                                               ;
++--------------------------------------------------------------------------------------------------------------+------------------------------------------------+
+; Rule name                                                                                                    ; Name                                           ;
++--------------------------------------------------------------------------------------------------------------+------------------------------------------------+
+; Rule C105: Clock signal should be a global signal                                                            ; altera_internal_jtag~TCKUTAP                   ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 1  ;                                                ;
+;  Source node(s) from clock "CLOCK_50"                                                                        ; read_data_q[0]                                 ;
+;  Destination node(s) from clock "altera_reserved_tck"                                                        ; vjtag_interface:u_vjtag_interface|DR2[0]       ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 2  ;                                                ;
+;  Source node(s) from clock "altera_reserved_tck"                                                             ; vjtag_interface:u_vjtag_interface|addr_out[5]  ;
+;  Destination node(s) from clock "CLOCK_50"                                                                   ; jtag_addr_q[5]                                 ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 3  ;                                                ;
+;  Source node(s) from clock "altera_reserved_tck"                                                             ; vjtag_interface:u_vjtag_interface|addr_out[6]  ;
+;  Destination node(s) from clock "CLOCK_50"                                                                   ; jtag_addr_q[6]                                 ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 4  ;                                                ;
+;  Source node(s) from clock "altera_reserved_tck"                                                             ; vjtag_interface:u_vjtag_interface|addr_out[3]  ;
+;  Destination node(s) from clock "CLOCK_50"                                                                   ; jtag_addr_q[3]                                 ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 5  ;                                                ;
+;  Source node(s) from clock "altera_reserved_tck"                                                             ; vjtag_interface:u_vjtag_interface|addr_out[2]  ;
+;  Destination node(s) from clock "CLOCK_50"                                                                   ; jtag_addr_q[2]                                 ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 6  ;                                                ;
+;  Source node(s) from clock "altera_reserved_tck"                                                             ; vjtag_interface:u_vjtag_interface|addr_out[4]  ;
+;  Destination node(s) from clock "CLOCK_50"                                                                   ; jtag_addr_q[4]                                 ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 7  ;                                                ;
+;  Source node(s) from clock "altera_reserved_tck"                                                             ; vjtag_interface:u_vjtag_interface|addr_out[23] ;
+;  Destination node(s) from clock "CLOCK_50"                                                                   ; jtag_addr_q[23]                                ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 8  ;                                                ;
+;  Source node(s) from clock "altera_reserved_tck"                                                             ; vjtag_interface:u_vjtag_interface|addr_out[24] ;
+;  Destination node(s) from clock "CLOCK_50"                                                                   ; jtag_addr_q[24]                                ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 9  ;                                                ;
+;  Source node(s) from clock "altera_reserved_tck"                                                             ; vjtag_interface:u_vjtag_interface|addr_out[22] ;
+;  Destination node(s) from clock "CLOCK_50"                                                                   ; jtag_addr_q[22]                                ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 10 ;                                                ;
+;  Source node(s) from clock "altera_reserved_tck"                                                             ; vjtag_interface:u_vjtag_interface|addr_out[21] ;
+;  Destination node(s) from clock "CLOCK_50"                                                                   ; jtag_addr_q[21]                                ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 11 ;                                                ;
+;  Source node(s) from clock "altera_reserved_tck"                                                             ; vjtag_interface:u_vjtag_interface|addr_out[20] ;
+;  Destination node(s) from clock "CLOCK_50"                                                                   ; jtag_addr_q[20]                                ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 12 ;                                                ;
+;  Source node(s) from clock "altera_reserved_tck"                                                             ; vjtag_interface:u_vjtag_interface|addr_out[29] ;
+;  Destination node(s) from clock "CLOCK_50"                                                                   ; jtag_addr_q[29]                                ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 13 ;                                                ;
+;  Source node(s) from clock "altera_reserved_tck"                                                             ; vjtag_interface:u_vjtag_interface|addr_out[30] ;
+;  Destination node(s) from clock "CLOCK_50"                                                                   ; jtag_addr_q[30]                                ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 14 ;                                                ;
+;  Source node(s) from clock "altera_reserved_tck"                                                             ; vjtag_interface:u_vjtag_interface|addr_out[31] ;
+;  Destination node(s) from clock "CLOCK_50"                                                                   ; jtag_addr_q[31]                                ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 15 ;                                                ;
+;  Source node(s) from clock "altera_reserved_tck"                                                             ; vjtag_interface:u_vjtag_interface|addr_out[26] ;
+;  Destination node(s) from clock "CLOCK_50"                                                                   ; jtag_addr_q[26]                                ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 16 ;                                                ;
+;  Source node(s) from clock "altera_reserved_tck"                                                             ; vjtag_interface:u_vjtag_interface|addr_out[27] ;
+;  Destination node(s) from clock "CLOCK_50"                                                                   ; jtag_addr_q[27]                                ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 17 ;                                                ;
+;  Source node(s) from clock "altera_reserved_tck"                                                             ; vjtag_interface:u_vjtag_interface|addr_out[28] ;
+;  Destination node(s) from clock "CLOCK_50"                                                                   ; jtag_addr_q[28]                                ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 18 ;                                                ;
+;  Source node(s) from clock "altera_reserved_tck"                                                             ; vjtag_interface:u_vjtag_interface|addr_out[25] ;
+;  Destination node(s) from clock "CLOCK_50"                                                                   ; jtag_addr_q[25]                                ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 19 ;                                                ;
+;  Source node(s) from clock "altera_reserved_tck"                                                             ; vjtag_interface:u_vjtag_interface|addr_out[18] ;
+;  Destination node(s) from clock "CLOCK_50"                                                                   ; jtag_addr_q[18]                                ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 20 ;                                                ;
+;  Source node(s) from clock "altera_reserved_tck"                                                             ; vjtag_interface:u_vjtag_interface|addr_out[19] ;
+;  Destination node(s) from clock "CLOCK_50"                                                                   ; jtag_addr_q[19]                                ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 21 ;                                                ;
+;  Source node(s) from clock "altera_reserved_tck"                                                             ; vjtag_interface:u_vjtag_interface|addr_out[17] ;
+;  Destination node(s) from clock "CLOCK_50"                                                                   ; jtag_addr_q[17]                                ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 22 ;                                                ;
+;  Source node(s) from clock "altera_reserved_tck"                                                             ; vjtag_interface:u_vjtag_interface|addr_out[1]  ;
+;  Destination node(s) from clock "CLOCK_50"                                                                   ; jtag_addr_q[1]                                 ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 23 ;                                                ;
+;  Source node(s) from clock "altera_reserved_tck"                                                             ; vjtag_interface:u_vjtag_interface|addr_out[0]  ;
+;  Destination node(s) from clock "CLOCK_50"                                                                   ; jtag_addr_q[0]                                 ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 24 ;                                                ;
+;  Source node(s) from clock "altera_reserved_tck"                                                             ; vjtag_interface:u_vjtag_interface|addr_out[15] ;
+;  Destination node(s) from clock "CLOCK_50"                                                                   ; jtag_addr_q[15]                                ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 25 ;                                                ;
+;  Source node(s) from clock "altera_reserved_tck"                                                             ; vjtag_interface:u_vjtag_interface|addr_out[14] ;
+;  Destination node(s) from clock "CLOCK_50"                                                                   ; jtag_addr_q[14]                                ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 26 ;                                                ;
+;  Source node(s) from clock "altera_reserved_tck"                                                             ; vjtag_interface:u_vjtag_interface|addr_out[7]  ;
+;  Destination node(s) from clock "CLOCK_50"                                                                   ; jtag_addr_q[7]                                 ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 27 ;                                                ;
+;  Source node(s) from clock "altera_reserved_tck"                                                             ; vjtag_interface:u_vjtag_interface|addr_out[11] ;
+;  Destination node(s) from clock "CLOCK_50"                                                                   ; jtag_addr_q[11]                                ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 28 ;                                                ;
+;  Source node(s) from clock "altera_reserved_tck"                                                             ; vjtag_interface:u_vjtag_interface|addr_out[12] ;
+;  Destination node(s) from clock "CLOCK_50"                                                                   ; jtag_addr_q[12]                                ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 29 ;                                                ;
+;  Source node(s) from clock "altera_reserved_tck"                                                             ; vjtag_interface:u_vjtag_interface|addr_out[13] ;
+;  Destination node(s) from clock "CLOCK_50"                                                                   ; jtag_addr_q[13]                                ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 30 ;                                                ;
+;  Source node(s) from clock "altera_reserved_tck"                                                             ; vjtag_interface:u_vjtag_interface|addr_out[8]  ;
+;  Destination node(s) from clock "CLOCK_50"                                                                   ; jtag_addr_q[8]                                 ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 31 ;                                                ;
+;  Structure 31                                                                                                ; vjtag_interface:u_vjtag_interface|addr_out[9]  ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 32 ;                                                ;
+;  Structure 32                                                                                                ; vjtag_interface:u_vjtag_interface|addr_out[10] ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 33 ;                                                ;
+;  Structure 33                                                                                                ; vjtag_interface:u_vjtag_interface|addr_out[16] ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 34 ;                                                ;
+;  Structure 34                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[0]  ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 35 ;                                                ;
+;  Structure 35                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[30] ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 36 ;                                                ;
+;  Structure 36                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[29] ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 37 ;                                                ;
+;  Structure 37                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[28] ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 38 ;                                                ;
+;  Structure 38                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[27] ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 39 ;                                                ;
+;  Structure 39                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[26] ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 40 ;                                                ;
+;  Structure 40                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[25] ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 41 ;                                                ;
+;  Structure 41                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[24] ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 42 ;                                                ;
+;  Structure 42                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[23] ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 43 ;                                                ;
+;  Structure 43                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[22] ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 44 ;                                                ;
+;  Structure 44                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[21] ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 45 ;                                                ;
+;  Structure 45                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[20] ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 46 ;                                                ;
+;  Structure 46                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[19] ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 47 ;                                                ;
+;  Structure 47                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[18] ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 48 ;                                                ;
+;  Structure 48                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[17] ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 49 ;                                                ;
+;  Structure 49                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[16] ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 50 ;                                                ;
+;  Structure 50                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[15] ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 51 ;                                                ;
+;  Structure 51                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[14] ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 52 ;                                                ;
+;  Structure 52                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[13] ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 53 ;                                                ;
+;  Structure 53                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[12] ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 54 ;                                                ;
+;  Structure 54                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[11] ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 55 ;                                                ;
+;  Structure 55                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[10] ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 56 ;                                                ;
+;  Structure 56                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[9]  ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 57 ;                                                ;
+;  Structure 57                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[8]  ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 58 ;                                                ;
+;  Structure 58                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[7]  ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 59 ;                                                ;
+;  Structure 59                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[6]  ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 60 ;                                                ;
+;  Structure 60                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[5]  ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 61 ;                                                ;
+;  Structure 61                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[4]  ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 62 ;                                                ;
+;  Structure 62                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[3]  ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 63 ;                                                ;
+;  Structure 63                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[2]  ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 64 ;                                                ;
+;  Structure 64                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[1]  ;
+; Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains - Structure 65 ;                                                ;
+;  Structure 65                                                                                                ; vjtag_interface:u_vjtag_interface|data_out[31] ;
++--------------------------------------------------------------------------------------------------------------+------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Medium Violations                                                                                                                                                               ;
++---------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------+
+; Rule name                                                                                                                 ; Name                                                ;
++---------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------+
+; Rule R105: The reset signal that is generated in one clock domain and used in another clock domain should be synchronized ; key_sync:u_key_sync|reset_ff2                       ;
+;  Reset signal destination node(s) from clock "altera_reserved_tck"                                                        ; vjtag_interface:u_vjtag_interface|jtag_addr_toggle  ;
+;  Reset signal destination node(s) from clock "altera_reserved_tck"                                                        ; vjtag_interface:u_vjtag_interface|DR2[0]            ;
+;  Reset signal destination node(s) from clock "altera_reserved_tck"                                                        ; vjtag_interface:u_vjtag_interface|jtag_write_toggle ;
+;  Reset signal destination node(s) from clock "altera_reserved_tck"                                                        ; vjtag_interface:u_vjtag_interface|DR_ADDR[5]        ;
+;  Reset signal destination node(s) from clock "altera_reserved_tck"                                                        ; vjtag_interface:u_vjtag_interface|DR_ADDR[6]        ;
+;  Reset signal destination node(s) from clock "altera_reserved_tck"                                                        ; vjtag_interface:u_vjtag_interface|DR_ADDR[7]        ;
+;  Reset signal destination node(s) from clock "altera_reserved_tck"                                                        ; vjtag_interface:u_vjtag_interface|DR_ADDR[8]        ;
+;  Reset signal destination node(s) from clock "altera_reserved_tck"                                                        ; vjtag_interface:u_vjtag_interface|DR_ADDR[9]        ;
+;  Reset signal destination node(s) from clock "altera_reserved_tck"                                                        ; vjtag_interface:u_vjtag_interface|DR_ADDR[10]       ;
+;  Reset signal destination node(s) from clock "altera_reserved_tck"                                                        ; vjtag_interface:u_vjtag_interface|DR_ADDR[11]       ;
++---------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Information only Violations                                                                                                                                                                        ;
++------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------+---------+
+; Rule name                                                        ; Name                                                                                                                  ; Fan-Out ;
++------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------+---------+
+; Rule T101: Nodes with more than the specified number of fan-outs ; CLOCK_50~inputCLKENA0                                                                                                 ; 1475    ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; key_sync:u_key_sync|reset_ff2                                                                                         ; 1441    ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; altera_internal_jtag~TCKUTAP                                                                                          ; 246     ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; vjtag_interface:u_vjtag_interface|DR2[0]~0                                                                            ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; vj_state.VJ_READ_CAP                                                                                                  ; 36      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|state.VJTAG_ACCESS                                                                                  ; 66      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; vjtag_interface:u_vjtag_interface|data_out[0]~0                                                                       ; 33      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~13                                                                        ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector27~0                                                                                        ; 452     ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|state.FSM_ACCESS                                                                                    ; 46      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; fsm:u_fsm|state.S_TH_CAP                                                                                              ; 39      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; fsm:u_fsm|state.S_FETCH_CAP                                                                                           ; 41      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector26~0                                                                                        ; 420     ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; vjtag_interface:u_vjtag_interface|addr_out[31]~0                                                                      ; 33      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; vjtag_interface:u_vjtag_interface|always1~1                                                                           ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~24                                                                        ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector25~0                                                                                        ; 289     ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector28~0                                                                                        ; 484     ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; mmio_decoder:u_mmio_decoder|Selector12~2                                                                              ; 231     ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; fsm:u_fsm|state.S_STORE_REQ                                                                                           ; 38      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|always0~0                                                                          ; 31      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; mmio_decoder:u_mmio_decoder|sel.SEL_RB~0                                                                              ; 33      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector24~0                                                                                        ; 257     ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector18~0                                                                                        ; 257     ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector21~0                                                                                        ; 257     ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector63~1                                                                                        ; 100     ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; vjtag_interface:u_vjtag_interface|always2~0                                                                           ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~35                                                                        ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector33~0                                                                                        ; 99      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~33                                                                        ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~32                                                                        ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~34                                                                        ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~27                                                                        ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~23                                                                        ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~26                                                                        ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~37                                                                        ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~38                                                                        ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~36                                                                        ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~39                                                                        ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~31                                                                        ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~28                                                                        ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~29                                                                        ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~30                                                                        ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; mmio_decoder:u_mmio_decoder|Selector12~4                                                                              ; 66      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; comb~2                                                                                                                ; 65      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; ram:u_ram|altsyncram:mem_out_rtl_0|altsyncram_scq1:auto_generated|decode_5la:decode2|eq_node[1]~0                     ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector22~0                                                                                        ; 256     ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector19~0                                                                                        ; 256     ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector17~0                                                                                        ; 256     ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; mmio_decoder:u_mmio_decoder|Selector12~2_wirecell                                                                     ; 256     ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector20~0                                                                                        ; 256     ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector23~0                                                                                        ; 256     ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; ram:u_ram|altsyncram:mem_out_rtl_0|altsyncram_scq1:auto_generated|decode_5la:decode2|eq_node[0]~1                     ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; ram:u_ram|altsyncram:mem_out_rtl_0|altsyncram_scq1:auto_generated|address_reg_b[0]                                    ; 33      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; comb~1                                                                                                                ; 66      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; ram:u_ram|altsyncram:mem_in_rtl_0|altsyncram_scq1:auto_generated|decode_5la:decode2|eq_node[1]~0                      ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; mmio_decoder:u_mmio_decoder|Selector12~1                                                                              ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; control_registers:u_control_registers|timer_limit[0]~0                                                                ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; control_registers:u_control_registers|threshold[0]~1                                                                  ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; control_registers:u_control_registers|ctrl[9]~1                                                                       ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; fsm:u_fsm|clear_on_start~0                                                                                            ; 64      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; mmio_decoder:u_mmio_decoder|Selector12~3                                                                              ; 35      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; mmio_decoder:u_mmio_decoder|Selector31~20                                                                             ; 34      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; status_q[1]~1                                                                                                         ; 34      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; mmio_decoder:u_mmio_decoder|Selector12~0                                                                              ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; ram:u_ram|altsyncram:mem_in_rtl_0|altsyncram_scq1:auto_generated|decode_5la:decode2|eq_node[0]~1                      ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~20                                                                        ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~21                                                                        ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~17                                                                        ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~19                                                                        ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~5                                                                         ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~4                                                                         ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~3                                                                         ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~11                                                                        ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~8                                                                         ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~10                                                                        ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~9                                                                         ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~16                                                                        ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~15                                                                        ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; memory_mapped_register_file:u_mmrf|Decoder0~14                                                                        ; 32      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector34~0                                                                                        ; 99      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector35~0                                                                                        ; 99      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector36~0                                                                                        ; 99      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector37~0                                                                                        ; 99      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector38~0                                                                                        ; 99      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector39~0                                                                                        ; 99      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector40~0                                                                                        ; 99      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector41~0                                                                                        ; 99      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector42~0                                                                                        ; 99      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector43~0                                                                                        ; 99      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector44~0                                                                                        ; 99      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector45~0                                                                                        ; 99      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector46~0                                                                                        ; 99      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector47~0                                                                                        ; 99      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector48~0                                                                                        ; 99      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector49~0                                                                                        ; 99      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector50~0                                                                                        ; 99      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector51~0                                                                                        ; 99      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector52~0                                                                                        ; 99      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector53~0                                                                                        ; 99      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector54~0                                                                                        ; 99      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector55~0                                                                                        ; 99      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector56~1                                                                                        ; 100     ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector57~1                                                                                        ; 100     ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector58~1                                                                                        ; 100     ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector59~1                                                                                        ; 100     ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector60~1                                                                                        ; 100     ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector61~1                                                                                        ; 101     ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector62~1                                                                                        ; 101     ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; arbiter:u_arbiter|Selector32~0                                                                                        ; 99      ;
+; Rule T101: Nodes with more than the specified number of fan-outs ; vjtag:vjtag_inst|sld_virtual_jtag:virtual_jtag_0|sld_virtual_jtag_basic:sld_virtual_jtag_basic_inst|virtual_state_cdr ; 33      ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; CLOCK_50~inputCLKENA0                                                                                                 ; 1475    ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; key_sync:u_key_sync|reset_ff2                                                                                         ; 1441    ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector28~0                                                                                        ; 484     ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector27~0                                                                                        ; 452     ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector26~0                                                                                        ; 420     ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector25~0                                                                                        ; 289     ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector18~0                                                                                        ; 257     ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector21~0                                                                                        ; 257     ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector24~0                                                                                        ; 257     ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector20~0                                                                                        ; 256     ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector22~0                                                                                        ; 256     ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector19~0                                                                                        ; 256     ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector17~0                                                                                        ; 256     ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; mmio_decoder:u_mmio_decoder|Selector12~2_wirecell                                                                     ; 256     ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector23~0                                                                                        ; 256     ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; altera_internal_jtag~TCKUTAP                                                                                          ; 246     ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; mmio_decoder:u_mmio_decoder|Selector12~2                                                                              ; 231     ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector62~1                                                                                        ; 101     ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector61~1                                                                                        ; 101     ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector63~1                                                                                        ; 100     ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector57~1                                                                                        ; 100     ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector60~1                                                                                        ; 100     ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector59~1                                                                                        ; 100     ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector56~1                                                                                        ; 100     ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector58~1                                                                                        ; 100     ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector49~0                                                                                        ; 99      ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector34~0                                                                                        ; 99      ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector46~0                                                                                        ; 99      ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector47~0                                                                                        ; 99      ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector33~0                                                                                        ; 99      ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector45~0                                                                                        ; 99      ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector42~0                                                                                        ; 99      ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector41~0                                                                                        ; 99      ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector52~0                                                                                        ; 99      ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector55~0                                                                                        ; 99      ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector48~0                                                                                        ; 99      ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector44~0                                                                                        ; 99      ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector37~0                                                                                        ; 99      ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector35~0                                                                                        ; 99      ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector50~0                                                                                        ; 99      ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector51~0                                                                                        ; 99      ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector54~0                                                                                        ; 99      ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector40~0                                                                                        ; 99      ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector32~0                                                                                        ; 99      ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector39~0                                                                                        ; 99      ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector43~0                                                                                        ; 99      ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector53~0                                                                                        ; 99      ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector36~0                                                                                        ; 99      ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; arbiter:u_arbiter|Selector38~0                                                                                        ; 99      ;
+; Rule T102: Top nodes with the highest number of fan-outs         ; comb~1                                                                                                                ; 66      ;
++------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------+---------+
+
+
++---------------------------+
+; Design Assistant Messages ;
++---------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Design Assistant
+    Info: Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
+    Info: Processing started: Thu Oct 22 01:30:42 2026
+Info: Command: quartus_drc top_level -c top_level
+Info (332164): Evaluating HDL-embedded SDC commands
+    Info (332165): Entity sld_hub
+        Info (332166): create_clock -name altera_reserved_tck [get_ports {altera_reserved_tck}] -period 30MHz   
+        Info (332166): if { [string equal quartus_fit $::TimeQuestInfo(nameofexecutable)] } { set_max_delay -to [get_ports { altera_reserved_tdo } ] 0 }
+        Info (332166): set_clock_groups -asynchronous -group {altera_reserved_tck}
+Info (332104): Reading SDC File: '../sdc/timing_constraints.sdc'
+Info (332151): Clock uncertainty is not calculated until you update the timing netlist.
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
+Critical Warning (308042): (High) Rule C105: Clock signal should be a global signal. (Reporting threshold:25). Found 1 node(s) related to this rule.
+    Info (308076): The following clocks all contain more than 25 fanouts. You can either change the following clock signals to global signals, or adjust the reporting threshold in the Design Assistant Settings page.
+    Critical Warning (308012): Node  "altera_internal_jtag~TCKUTAP"
+Critical Warning (308060): (High) Rule D101: Data bits are not synchronized when transferred between asynchronous clock domains. (Value defined:2). Found 65 asynchronous clock domain interface structure(s) related to this rule.
+    Critical Warning (308012): Node  "read_data_q[0]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/top_level.sv Line: 89
+    Critical Warning (308012): Node  "vjtag_interface:u_vjtag_interface|addr_out[5]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Critical Warning (308012): Node  "vjtag_interface:u_vjtag_interface|addr_out[6]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Critical Warning (308012): Node  "vjtag_interface:u_vjtag_interface|addr_out[3]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Critical Warning (308012): Node  "vjtag_interface:u_vjtag_interface|addr_out[2]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Critical Warning (308012): Node  "vjtag_interface:u_vjtag_interface|addr_out[4]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Critical Warning (308012): Node  "vjtag_interface:u_vjtag_interface|addr_out[23]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Critical Warning (308012): Node  "vjtag_interface:u_vjtag_interface|addr_out[24]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Critical Warning (308012): Node  "vjtag_interface:u_vjtag_interface|addr_out[22]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Critical Warning (308012): Node  "vjtag_interface:u_vjtag_interface|addr_out[21]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Critical Warning (308012): Node  "vjtag_interface:u_vjtag_interface|addr_out[20]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Critical Warning (308012): Node  "vjtag_interface:u_vjtag_interface|addr_out[29]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Critical Warning (308012): Node  "vjtag_interface:u_vjtag_interface|addr_out[30]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Critical Warning (308012): Node  "vjtag_interface:u_vjtag_interface|addr_out[31]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Critical Warning (308012): Node  "vjtag_interface:u_vjtag_interface|addr_out[26]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Critical Warning (308012): Node  "vjtag_interface:u_vjtag_interface|addr_out[27]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Critical Warning (308012): Node  "vjtag_interface:u_vjtag_interface|addr_out[28]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Critical Warning (308012): Node  "vjtag_interface:u_vjtag_interface|addr_out[25]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Critical Warning (308012): Node  "vjtag_interface:u_vjtag_interface|addr_out[18]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Critical Warning (308012): Node  "vjtag_interface:u_vjtag_interface|addr_out[19]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Critical Warning (308012): Node  "vjtag_interface:u_vjtag_interface|addr_out[17]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Critical Warning (308012): Node  "vjtag_interface:u_vjtag_interface|addr_out[1]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Critical Warning (308012): Node  "vjtag_interface:u_vjtag_interface|addr_out[0]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Critical Warning (308012): Node  "vjtag_interface:u_vjtag_interface|addr_out[15]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Critical Warning (308012): Node  "vjtag_interface:u_vjtag_interface|addr_out[14]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Critical Warning (308012): Node  "vjtag_interface:u_vjtag_interface|addr_out[7]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Critical Warning (308012): Node  "vjtag_interface:u_vjtag_interface|addr_out[11]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Critical Warning (308012): Node  "vjtag_interface:u_vjtag_interface|addr_out[12]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Critical Warning (308012): Node  "vjtag_interface:u_vjtag_interface|addr_out[13]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Critical Warning (308012): Node  "vjtag_interface:u_vjtag_interface|addr_out[8]" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Info (308002): Truncated list of Design Assistant messages to 30 messages. Go to sections under Design Assistant section of Compilation Report for complete lists of Design Assistant messages generated.
+Warning (308027): (Medium) Rule R105: The reset signal that is generated in one clock domain and used in another clock domain should be synchronized. Found 1 node(s) related to this rule.
+    Warning (308010): Node  "key_sync:u_key_sync|reset_ff2" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/key_sync.sv Line: 25
+Info (308046): (Information) Rule T101: Nodes with more than the specified number of fan-outs. (Value defined:30). Found 111 node(s) with highest fan-out.
+    Info (308011): Node  "CLOCK_50~inputCLKENA0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/top_level.sv Line: 4
+    Info (308011): Node  "key_sync:u_key_sync|reset_ff2" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/key_sync.sv Line: 25
+    Info (308011): Node  "altera_internal_jtag~TCKUTAP"
+    Info (308011): Node  "vjtag_interface:u_vjtag_interface|DR2[0]~0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 80
+    Info (308011): Node  "vj_state.VJ_READ_CAP" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/top_level.sv Line: 67
+    Info (308011): Node  "arbiter:u_arbiter|state.VJTAG_ACCESS" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 33
+    Info (308011): Node  "vjtag_interface:u_vjtag_interface|data_out[0]~0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Info (308011): Node  "memory_mapped_register_file:u_mmrf|Decoder0~13" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/memory_mapped_register_file.sv Line: 24
+    Info (308011): Node  "arbiter:u_arbiter|Selector27~0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "arbiter:u_arbiter|state.FSM_ACCESS" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 33
+    Info (308011): Node  "fsm:u_fsm|state.S_TH_CAP" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/fsm.sv Line: 66
+    Info (308011): Node  "fsm:u_fsm|state.S_FETCH_CAP" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/fsm.sv Line: 66
+    Info (308011): Node  "arbiter:u_arbiter|Selector26~0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "vjtag_interface:u_vjtag_interface|addr_out[31]~0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/vjtag_interface.sv Line: 93
+    Info (308011): Node  "vjtag_interface:u_vjtag_interface|always1~1"
+    Info (308011): Node  "memory_mapped_register_file:u_mmrf|Decoder0~24" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/memory_mapped_register_file.sv Line: 24
+    Info (308011): Node  "arbiter:u_arbiter|Selector25~0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "arbiter:u_arbiter|Selector28~0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "mmio_decoder:u_mmio_decoder|Selector12~2" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/mmio_decoder.sv Line: 66
+    Info (308011): Node  "fsm:u_fsm|state.S_STORE_REQ" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/fsm.sv Line: 66
+    Info (308011): Node  "memory_mapped_register_file:u_mmrf|always0~0"
+    Info (308011): Node  "mmio_decoder:u_mmio_decoder|sel.SEL_RB~0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/mmio_decoder.sv Line: 35
+    Info (308011): Node  "arbiter:u_arbiter|Selector24~0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "arbiter:u_arbiter|Selector18~0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "arbiter:u_arbiter|Selector21~0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "arbiter:u_arbiter|Selector63~1" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "vjtag_interface:u_vjtag_interface|always2~0"
+    Info (308011): Node  "memory_mapped_register_file:u_mmrf|Decoder0~35" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/memory_mapped_register_file.sv Line: 24
+    Info (308011): Node  "arbiter:u_arbiter|Selector33~0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "memory_mapped_register_file:u_mmrf|Decoder0~33" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/memory_mapped_register_file.sv Line: 24
+    Info (308002): Truncated list of Design Assistant messages to 30 messages. Go to sections under Design Assistant section of Compilation Report for complete lists of Design Assistant messages generated.
+Info (308044): (Information) Rule T102: Top nodes with the highest number of fan-outs. (Value defined:50). Found 50 node(s) with highest fan-out.
+    Info (308011): Node  "CLOCK_50~inputCLKENA0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/top_level.sv Line: 4
+    Info (308011): Node  "key_sync:u_key_sync|reset_ff2" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/src/key_sync.sv Line: 25
+    Info (308011): Node  "arbiter:u_arbiter|Selector28~0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "arbiter:u_arbiter|Selector27~0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "arbiter:u_arbiter|Selector26~0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "arbiter:u_arbiter|Selector25~0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "arbiter:u_arbiter|Selector18~0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "arbiter:u_arbiter|Selector21~0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "arbiter:u_arbiter|Selector24~0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "arbiter:u_arbiter|Selector20~0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "arbiter:u_arbiter|Selector22~0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "arbiter:u_arbiter|Selector19~0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "arbiter:u_arbiter|Selector17~0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "mmio_decoder:u_mmio_decoder|Selector12~2_wirecell" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/mmio_decoder.sv Line: 66
+    Info (308011): Node  "arbiter:u_arbiter|Selector23~0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "altera_internal_jtag~TCKUTAP"
+    Info (308011): Node  "mmio_decoder:u_mmio_decoder|Selector12~2" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/mmio_decoder.sv Line: 66
+    Info (308011): Node  "arbiter:u_arbiter|Selector62~1" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "arbiter:u_arbiter|Selector61~1" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "arbiter:u_arbiter|Selector63~1" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "arbiter:u_arbiter|Selector57~1" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "arbiter:u_arbiter|Selector60~1" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "arbiter:u_arbiter|Selector59~1" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "arbiter:u_arbiter|Selector56~1" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "arbiter:u_arbiter|Selector58~1" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "arbiter:u_arbiter|Selector49~0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "arbiter:u_arbiter|Selector34~0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "arbiter:u_arbiter|Selector46~0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "arbiter:u_arbiter|Selector47~0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308011): Node  "arbiter:u_arbiter|Selector33~0" File: C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint3/src/arbiter.sv Line: 72
+    Info (308002): Truncated list of Design Assistant messages to 30 messages. Go to sections under Design Assistant section of Compilation Report for complete lists of Design Assistant messages generated.
+Info (308007): Design Assistant information: finished post-fitting analysis of current design -- generated 161 information messages and 67 warning messages
+Info: Quartus Prime Design Assistant was successful. 0 errors, 35 warnings
+    Info: Peak virtual memory: 4896 megabytes
+    Info: Processing ended: Thu Oct 22 01:30:44 2026
+    Info: Elapsed time: 00:00:02
+    Info: Total CPU time (on all processors): 00:00:01
+
+
