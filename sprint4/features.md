@@ -122,3 +122,35 @@ This is particularly straightforward. Look at sections 1.2 and 5.1 in the origin
 - SystemVerilog code follows the style guidelines kept during the course and in previous sprints.
 
 \* bonus stuff
+
+
+
+
+
+
+
+--------------------------------------
+
+
+"Clasificación de módulos reutilizables"
+    From sprint0
+        none
+    From sprint1
+        alu_param.sv
+        alu_types_pkg.sv (its associated package)
+        decoder_4x16.sv (display related)
+        seven_segment_adapter.sv (display related)
+    From sprint2
+        binary_to_bcd_converter (display related, right size)
+        key_sync.sv
+        toggle.sv
+        (there's no mode selector module in our sprint2, that was implemented inside the execute fsm itself as will be inside the processor for sprint4)
+    From sprint3
+        arbiter.sv (directly requested in the specs. Modifications are needed and requested too)
+        mmio_decoder.sv (directly requested in the specs)
+        contorl_registers.sv
+        memory_mapped_register_file.sv (won't need the MMIO part as it is now inside the RV32I)
+        ram.sv
+        vjtag_interface.sv
+        vjtag_sim_stub.sv (tbs still require driving the jtag)
+
