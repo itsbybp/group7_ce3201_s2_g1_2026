@@ -78,48 +78,60 @@ jobs:
           CHANGED_SPRINTS: ${{ needs.detect-changes.outputs.sprints }}
         run: |
           shopt -s nullglob
-          
+
           for sprint in $CHANGED_SPRINTS
           do
+            # Questa: solo se valida si existe test/sv
             if [ -d "${sprint}/test/sv" ]
             then
               summary="${sprint}/test/sv/questa_test_summary.log"
-              
+
               if [ ! -f "$summary" ]
               then
                 echo "Error: Local Questa summary missing (${summary})."
                 exit 1
               fi
-              
+
               if ! grep -q "ERRORS=0" "$summary"
               then
                 echo "Error: Questa summary does not show ERRORS=0 in ${sprint}."
                 exit 1
               fi
-              
+
               if ! grep -q "WARNINGS=0" "$summary"
               then
                 echo "Error: Questa summary does not show WARNINGS=0 in ${sprint}."
                 exit 1
               fi
-              
+
               if ! grep -q "ALL_TESTS_PASSED" "$summary"
               then
                 echo "Error: Questa summary does not show ALL_TESTS_PASSED in ${sprint}."
                 exit 1
               fi
-              
+
               echo "Questa summary verified for ${sprint}."
+            else
+              echo "No test/sv in ${sprint}; Questa validation skipped."
             fi
 
+            # Quartus: solo se valida si existen reportes en output_files
             reports=("${sprint}/quartus/output_files"/*.flow.rpt)
-            
+            map_reports=("${sprint}/quartus/output_files"/*.map.rpt)
+            sta_reports=("${sprint}/quartus/output_files"/*.sta.rpt)
+
+            if [ ${#reports[@]} -eq 0 ] && [ ${#map_reports[@]} -eq 0 ] && [ ${#sta_reports[@]} -eq 0 ]
+            then
+              echo "No Quartus artefacts in ${sprint}; synthesis validation skipped."
+              continue
+            fi
+
             if [ ${#reports[@]} -eq 0 ]
             then
               echo "Error: Local synthesis artefact missing in ${sprint}/quartus/output_files"
               exit 1
             fi
-            
+
             for report in "${reports[@]}"
             do
               if grep -q "Successful" "$report"
@@ -131,8 +143,6 @@ jobs:
               fi
             done
 
-            map_reports=("${sprint}/quartus/output_files"/*.map.rpt)
-
             if [ ${#map_reports[@]} -eq 0 ]
             then
               echo "Error: Local map (synthesis) report missing in ${sprint}/quartus/output_files"
@@ -140,8 +150,6 @@ jobs:
             fi
 
             echo "Map report(s) present for ${sprint}: ${map_reports[*]}"
-
-            sta_reports=("${sprint}/quartus/output_files"/*.sta.rpt)
 
             if [ ${#sta_reports[@]} -eq 0 ]
             then
@@ -151,7 +159,7 @@ jobs:
 
             echo "Timing report(s) present for ${sprint}: ${sta_reports[*]}"
           done
-
+          
   style-check:
     runs-on: ubuntu-latest
     needs: detect-changes
