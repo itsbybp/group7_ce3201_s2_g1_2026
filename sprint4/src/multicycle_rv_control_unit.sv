@@ -7,6 +7,7 @@ module multicycle_rv_control_unit
     input logic [6:0] funct_7,
 
     input logic enable, 
+    input logic soft_reset_n, 
 
     input alu_types_pkg::alu_flags_t alu_flags; // [1:0]
     // OV is unused. Zero and Negative are used for branches. Carry is used for sltu (set less than unsigned). 
@@ -26,7 +27,7 @@ module multicycle_rv_control_unit
 
     output logic pc_write,
     output alu_types_pkg::alu_op_t alu_control,
-    output multicycle_rv_instruction_format immediate_src, // [2:0]
+    output multicycle_rv_instruction_formats_pkg::multicycle_rv_instruction_format immediate_src, // [2:0]
 
 
     output logic reg_write,
@@ -55,31 +56,32 @@ module multicycle_rv_control_unit
 
     multicycle_rv_control_fsm control_fsm
     (
-    .clk(clk),
-    .rst_n(rst_n),
-    .op(op),
-    .enable(enable), 
-    
-    // .ready_in_instr_memory(ready_in_instr_memory),
-    .valid_in_instr_memory(valid_in_instr_memory),
-    // .ready_in_data_memory(ready_in_data_memory),
-    .valid_in_data_memory(valid_in_data_memory),
+        .clk(clk),
+        .rst_n(rst_n),
+        .op(op),
+        .soft_reset_n(soft_reset_n), 
+        .enable(enable), 
+        
+        // .ready_in_instr_memory(ready_in_instr_memory),
+        .valid_in_instr_memory(valid_in_instr_memory),
+        // .ready_in_data_memory(ready_in_data_memory),
+        .valid_in_data_memory(valid_in_data_memory),
 
-    // .ready_out_instr_memory(ready_out_instr_memory),
-    .valid_out_instr_memory(valid_out_instr_memory),
-    // .ready_out_data_memory(ready_out_data_memory),
-    .valid_out_data_memory(valid_out_data_memory),
+        // .ready_out_instr_memory(ready_out_instr_memory),
+        .valid_out_instr_memory(valid_out_instr_memory),
+        // .ready_out_data_memory(ready_out_data_memory),
+        .valid_out_data_memory(valid_out_data_memory),
 
-    .branch(branch),
-    .pc_update(pc_update),
-    .reg_write(reg_write),
-    .mem_write(mem_write),
-    .ir_write(ir_write),
-    .result_src(result_src),
-    .alu_src_a(alu_src_a),
-    .alu_src_b(alu_src_b),
-    .adr_src(adr_src),
-    .alu_op(alu_op)
+        .branch(branch),
+        .pc_update(pc_update),
+        .reg_write(reg_write),
+        .mem_write(mem_write),
+        .ir_write(ir_write),
+        .result_src(result_src),
+        .alu_src_a(alu_src_a),
+        .alu_src_b(alu_src_b),
+        .adr_src(adr_src),
+        .alu_op(alu_op)
     )
 
 

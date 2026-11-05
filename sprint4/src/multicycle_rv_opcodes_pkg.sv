@@ -8,7 +8,7 @@ package multicycle_rv_opcodes_pkg;
     S       = 7'b0100011,   // S
     B       = 7'b1100011,   // B
     J       = 7'b1101111,   // J
-    // I_JUMP  = 7'b1100111,
+    I_JUMP  = 7'b1100111,   // Not a state. Corresponds to jalr which has a unique opcode.
     LUI     = 7'b0110111    // U
     //, AUIPC   = 7'b0010111
   } multicycle_rv_opcode;

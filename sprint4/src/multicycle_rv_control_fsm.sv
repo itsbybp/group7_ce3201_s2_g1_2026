@@ -24,18 +24,22 @@ module multicycle_rv_control_fsm
 (
     input logic clk,
     input logic rst_n,
-    input logic [6:0] op,
+    input multicycle_rv_opcodes_pkg::multicycle_rv_opcode op, // [6:0]
+    // input multicycle_rv_opcode op, // The full name is used because the import is below.
+    // It is below to quickly check what it contains in a comment next to the import.
+    // Why not move the import and leave the comment below? It makes the comment clearer imho.
 
-    // enable should be connected to CTRL[0], i.e. start.
+    // soft_reset_n should be connected to CTRL[0], i.e. start.
     // If LOW, the FSM state resets to FETCH and raising ready valid outputs is prevented.
-    input logic enable, 
+    input logic soft_reset_n, 
+    input logic enable, // enables advancing the FSM and raising ready valid outputs.
 
     // Ready is not needed because the RAM doesn't have an input buffer, data reads are fast,
     // and the RV32I FSM can't advance without receiving the data required in FETCH/MEM_READ/MEM_WRITE.
     // So that mantaining valid_out until the valid_in from the RAM rises is enough.
     // NO READY THEN????????????
 
-    // Ready valid inputs
+    // Ready valid inputs   // TODO All ready valid logic is currently unused.
     // input logic ready_in_instr_memory,
     input logic valid_in_instr_memory,
     // input logic ready_in_data_memory,
@@ -43,9 +47,9 @@ module multicycle_rv_control_fsm
 
     // Ready valid outputs
     // output logic ready_out_instr_memory,
-    output logic valid_out_instr_memory,
+    output logic valid_out_instr_memory, // TODO THIS IS UNASSIGNED! They should use the enable input as well.
     // output logic ready_out_data_memory,
-    output logic valid_out_data_memory,
+    output logic valid_out_data_memory, // TODO THIS IS UNASSIGNED! They should use the enable input as well.
 
 
 
@@ -69,21 +73,43 @@ module multicycle_rv_control_fsm
         // S       = 7'b0100011,
         // B       = 7'b1100011,
         // J       = 7'b1101111,
-        // // I_JUMP  = 7'b1100111,
+        // I_JUMP  = 7'b1100111,
         // LUI     = 7'b0110111
         // //, AUIPC   = 7'b0010111
+
+    multicycle_rv_control_fsm_state current_state; 
+    multicycle_rv_control_fsm_state next_state; 
 
     assign branch = current_state == BEQ;   // Posiblity of branching. Branching is finally determined in the control unit.
     assign pc_update = current_state == FETCH || current_state == JAL; // Write enable of pc register.
     assign reg_write = current_state == MEM_WB || current_state == ALU_WB; // Write enable reg file.
     assign mem_write = current_state == MEM_WRITE; // write enable of data bus.
-    assign ir_write = current_state == FETCH; // write enable of instruction register.
+    assign ir_write = current_state == FETCH; // write enable of instruction register. //TODO this is not using Ready valid logic.
     
     // 2'b11 is not a possible value because FETCH and MEM_WB are mutually exclusive since they are states.
     assign result_src = {current_state == FETCH, current_state == MEM_WB}; // Selection input of write back mux.
     
     assign alu_src_a = {current_state == MEM_ADR || current_state == EXECUTE_R || current_state == EXECUTE_I || current_state == BEQ,
         current_state == DECODE || current_state == JAL}; // Selection input of alu operand a mux. 2'b11 is not possible.
+    always_comb begin
+        case (current_state)
+            MEM_ADR, EXECUTE_R, EXECUTE_I, BEQ: begin
+                alu_src_a = 2'b10;
+            end
+            DECODE: begin
+                if (op == I_JUMP) begin
+                    alu_src_a = 2'b10;
+                end else begin
+                    alu_src_a = 2'b01;
+                end
+            end
+            JAL: begin
+                alu_src_a = 2'b01;
+            end
+            default: alu_src_a = 2'b01;
+        endcase
+    end
+
 
     // Selection input of alu operand b mux. 2'b11 is not possible.
     assign alu_src_b = {current_state == FETCH || JAL, current_state == DECODE || current_state == MEM_ADR || EXECUTE_I};
@@ -91,14 +117,17 @@ module multicycle_rv_control_fsm
     assign adr_src = current_state == MEM_READ || current_state == MEM_WRITE; // The data bus is active when HIGH.
     assign alu_op = {current_state == EXECUTE_R || EXECUTE_I, current_state == BEQ}; // TODO Check this. This a partial result before alu_ctrl
 
-    multicycle_rv_control_fsm_state current_state; 
-    multicycle_rv_control_fsm_state next_state; 
+
+    // Next state and ready valid logic.
+    // Ready valid logic. It is the same for instruction and data memory.
+    logic ready_valid_fsm; // This is the state of a two-state ready valid FSM. Valid is 0 and ready is 1;
+    logic handsake_out;
 
     always_comb begin
         next_state = FETCH;
         case (current_state)
             FETCH: begin
-                if (conditions) begin
+                if (conditions) begin   // TODO READY VALID.
                     
                 end 
                 next_state = DECODE;
@@ -191,13 +220,15 @@ module multicycle_rv_control_fsm
         if (~rst_n) begin
             current_state <= FETCH;
         end
-        else if (enable) begin
+        else if (~soft_reset_n) begin
             current_state <= FETCH;
         end
-        else begin
+        else if (enable) begin
             current_state <= next_state;
         end
     end
     
+
+
 
 endmodule
