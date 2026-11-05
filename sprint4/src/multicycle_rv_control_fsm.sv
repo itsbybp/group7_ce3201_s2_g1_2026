@@ -121,7 +121,28 @@ module multicycle_rv_control_fsm
     // Next state and ready valid logic.
     // Ready valid logic. It is the same for instruction and data memory.
     logic ready_valid_fsm; // This is the state of a two-state ready valid FSM. Valid is 0 and ready is 1;
-    logic handsake_out;
+    
+    // All 8 ready valid signals:
+    // ready_in_instr_memory:   ready from the instruction memory.
+    // valid_in_instr_memory:   valid from the instruction memory.
+    // ready_in_data_memory:    ready from the data memory.
+    // valid_in_data_memory:    valid from the data memory.
+    // ready_out_instr_memory:  ready from the processor to the instruction memory.
+    // valid_out_instr_memory:  valid from the processor to the instruction memory.
+    // ready_out_data_memory:   ready from the processor to the data memory.
+    // valid_out_data_memory:   valid from the processor to the data memory.
+    
+    // These are named from the perspective of the A handsake out happens if  
+    logic handshake_in_instr_memory;
+    assign handshake_in_instr_memory = ready_out_instr_memory && valid_in_instr_memory;
+    logic handshake_out_instr_memory;
+    assign handshake_out_instr_memory = ready_in_instr_memory && valid_out_instr_memory;
+    
+    logic handshake_in_data_memory;
+    assign handshake_in_data_memory = ready_out_data_memory && valid_in_data_memory;
+    logic handshake_out_data_memory;
+    assign handshake_out_data_memory = ready_in_data_memory && valid_out_data_memory;
+
 
     always_comb begin
         next_state = FETCH;
