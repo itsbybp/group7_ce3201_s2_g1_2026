@@ -31,8 +31,13 @@ results*.xml
 /vsim.dbg
 /modelsim.ini
 /vsim.wlf
+/test_pkg.qpf
+/test_pkg.qws
 
-# Quartus synthesis
+# Waveforms
+*.vcd
+
+# Quartus (raíz de proyectos anteriores)
 /quartus/db/
 /quartus/incremental_db/
 /quartus/*.qws
@@ -41,40 +46,37 @@ results*.xml
 /quartus/*.smsg
 /quartus/*.summary
 /quartus/*.qarlog
+/quartus/*.qdf
 /quartus/output_files/*.sof
 /quartus/output_files/*.pof
 /quartus/output_files/*.rbf
 /quartus/output_files/*.jdi
 /quartus/output_files/*.pin
 /quartus/output_files/*.cdf
-/quartus/*.qdf
+/quartus/output_files/*.done
+/quartus/output_files/*.smsg
+/quartus/output_files/*.summary
+/quartus/output_files/*.sld
+/quartus/output_files/*.jditmp
+/quartus/output_files/*.asm.rpt
 
-# Waveforms
-*.vcd
-vsim.wlf
-
-**/test_pkg.qpf
-**/test_pkg.qws
-
-**/quartus/output_files/*.done
-**/quartus/output_files/*.smsg
-**/quartus/output_files/*.summary
-**/quartus/output_files/*.sld
-**/quartus/output_files/*.jditmp
-**/quartus/output_files/*.jdi
-**/quartus/output_files/*.asm.rpt
-**/quartus/output_files/*.cdf
-**/quartus/*.qdf
-
-**/db/
+/db/
+/incremental_db/
 **/incremental_db/
 
-**/*.vcd
-
-**/modelsim.ini
-**/vsim.wlf
-**/incremental_db/
-
+# Sprint 3
 sprint3/quartus/.qsys_edit/
 sprint3/quartus/simulation/
 sprint3/scripts/venv/
+
+# Sprint 4: artefactos generados
+sprint4/test/rv32i_cocotb/results/
+sprint4/test/rv32i_cocotb/sim_build/
+sprint4/test/sv/
+sprint4/quartus/db/
+sprint4/quartus/incremental_db/
+sprint4/quartus/output_files/
+sprint4/quartus/simulation/
+sprint4/quartus/*.sof
+sprint4/quartus/*.pof
+sprint4/quartus/c5_pin_model_dump.txt
