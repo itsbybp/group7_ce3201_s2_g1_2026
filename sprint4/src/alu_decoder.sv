@@ -9,7 +9,9 @@ module alu_decoder
 
     input logic [1:0] alu_op,
 
-    output alu_op_t alu_control // 3 bit signal.
+    output alu_op_t alu_control, // 3 bit signal.
+    output [1:0] slt_sltu_source // Source signal for a mux that decides between
+                                 //alu_result, {31'b0, Negative}, and {31'b0, !Carry} 
 );
     import alu_types_pkg::*;
     // ADD,
@@ -22,6 +24,7 @@ module alu_decoder
     // SRA
 
     always_comb begin
+        slt_sltu_source = 2'b00;
         if (alu_op == 2'b01) begin  // State is branch.
             alu_control = SUB;
         end else if (alu_op == 2'b10) begin // State is execute.
@@ -36,11 +39,13 @@ module alu_decoder
                 3'b001: begin
                     alu_control = SLL;
                 end
-                3'b010: begin
+                3'b010: begin // slt
                     alu_control = SUB;
+                    slt_sltu_source = 2'b01;
                 end
-                3'b011: begin
+                3'b011: begin // sltu
                     alu_control = SUB;
+                    slt_sltu_source = 2'b10;
                 end
                 3'b100: begin
                     alu_control = XOR;
@@ -58,7 +63,7 @@ module alu_decoder
                 3'b111: begin
                     alu_control = AND;
                 end
-                default: 
+                default: alu_control = AND;
             endcase
         end else begin
             alu_control = ADD;  // Default. This is used for other states when adding addresses to obtain the PC.

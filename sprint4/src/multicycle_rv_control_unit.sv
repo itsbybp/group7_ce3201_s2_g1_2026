@@ -9,20 +9,21 @@ module multicycle_rv_control_unit
     input logic enable, 
     input logic soft_reset_n, 
 
-    input alu_types_pkg::alu_flags_t alu_flags; // [1:0]
+    input alu_types_pkg::alu_flags_t alu_flags, // [1:0]
     // OV is unused. Zero and Negative are used for branches. Carry is used for sltu (set less than unsigned). 
 
-    // Ready valid inputs.
-    // input logic ready_in_instr_memory,
-    input logic valid_in_instr_memory,
-    // input logic ready_in_data_memory,
-    input logic valid_in_data_memory,
 
-    // Ready valid outputs. Outputs are determined by control FSM.
-    // output logic ready_out_instr_memory,
+    // Ready valid inputs
+    input logic ready_in_instr_memory,
+    input logic ready_in_data_memory,
+
+    // Ready valid outputs
     output logic valid_out_instr_memory,
-    // output logic ready_out_data_memory,
     output logic valid_out_data_memory,
+
+    // Handshakes 
+    output logic handshake_instr_memory,
+    output logic handshake_data_memory,
 
 
     output logic pc_write,
@@ -36,7 +37,12 @@ module multicycle_rv_control_unit
     output logic [1:0] result_src,
     output logic [1:0] alu_src_a,
     output logic [1:0] alu_src_b,
-    output logic adr_src
+    output logic adr_src,
+    output [1:0] slt_sltu_source,
+
+
+    // Tests
+    output logic illegal
 );
     import alu_types_pkg::*;
     // ADD,
@@ -62,15 +68,15 @@ module multicycle_rv_control_unit
         .soft_reset_n(soft_reset_n), 
         .enable(enable), 
         
-        // .ready_in_instr_memory(ready_in_instr_memory),
-        .valid_in_instr_memory(valid_in_instr_memory),
-        // .ready_in_data_memory(ready_in_data_memory),
-        .valid_in_data_memory(valid_in_data_memory),
-
-        // .ready_out_instr_memory(ready_out_instr_memory),
+        // Ready valid inputs
+        .ready_in_instr_memory(ready_in_instr_memory),
+        .ready_in_data_memory(ready_in_data_memory),
+        // Ready valid outputs
         .valid_out_instr_memory(valid_out_instr_memory),
-        // .ready_out_data_memory(ready_out_data_memory),
         .valid_out_data_memory(valid_out_data_memory),
+        // Handshakes 
+        .handshake_instr_memory(handshake_instr_memory),
+        .handshake_data_memory(handshake_data_memory),
 
         .branch(branch),
         .pc_update(pc_update),
@@ -81,8 +87,11 @@ module multicycle_rv_control_unit
         .alu_src_a(alu_src_a),
         .alu_src_b(alu_src_b),
         .adr_src(adr_src),
-        .alu_op(alu_op)
-    )
+        .alu_op(alu_op),
+
+        // Test
+        .illegal(illegal)
+    );
 
 
 
@@ -106,7 +115,7 @@ module multicycle_rv_control_unit
             3'b110: begin // bltu   // Implementing other branch types because the carry flag is already inside the control unit.
                 branch_condition = ~alu_flags.carry;
             end 
-            3'b101: begin // bgeu
+            3'b111: begin // bgeu
                 branch_condition = alu_flags.carry;
             end
             default: branch_condition = alu_flags.zero; // Invalid branch funct_3.
@@ -116,7 +125,7 @@ module multicycle_rv_control_unit
     // flags.negative
     // flags.carry
     // flags.overflow
-    assign pc_write = pc_update || branch && branch_condition
+    assign pc_write = pc_update || branch && branch_condition;
 
 
 
@@ -127,7 +136,8 @@ module multicycle_rv_control_unit
         .funct_3(funct_3),
         .funct_7_6th_bit(funct_7[5]),
         .alu_op(alu_op),
-        .alu_control(alu_control)
+        .alu_control(alu_control),
+        .slt_sltu_source(slt_sltu_source)
     );
 
 

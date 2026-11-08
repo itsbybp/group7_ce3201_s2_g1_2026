@@ -12,10 +12,10 @@ package multicycle_rv_control_fsm_states_pkg;
     EXECUTE_I,
     JAL,
     BEQ
+    // ,LUI // LUI is executed in EXECUTE_I by changing operand a to 0. The appropriate immediate is chosen by immediate_decoder.
   } multicycle_rv_control_fsm_state;
 
 endpackage
-
 
 
 
@@ -39,19 +39,17 @@ module multicycle_rv_control_fsm
     // So that mantaining valid_out until the valid_in from the RAM rises is enough.
     // NO READY THEN????????????
 
-    // Ready valid inputs   // TODO All ready valid logic is currently unused.
-    // input logic ready_in_instr_memory,
-    input logic valid_in_instr_memory,
-    // input logic ready_in_data_memory,
-    input logic valid_in_data_memory,
+    // Ready valid inputs
+    input logic ready_in_instr_memory,
+    input logic ready_in_data_memory,
 
     // Ready valid outputs
-    // output logic ready_out_instr_memory,
-    output logic valid_out_instr_memory, // TODO THIS IS UNASSIGNED! They should use the enable input as well.
-    // output logic ready_out_data_memory,
-    output logic valid_out_data_memory, // TODO THIS IS UNASSIGNED! They should use the enable input as well.
+    output logic valid_out_instr_memory,
+    output logic valid_out_data_memory,
 
-
+    // Handshakes 
+    output logic handshake_instr_memory,
+    output logic handshake_data_memory,
 
 
     output logic branch,
@@ -63,8 +61,13 @@ module multicycle_rv_control_fsm
     output logic [1:0] alu_src_a,
     output logic [1:0] alu_src_b,
     output logic adr_src,
-    output logic [1:0] alu_op
+    output logic [1:0] alu_op,
+
+    // Tests
+    output logic illegal    // This is 1 for a cycle if an unsopported instruction was found in DECODE.
+                            // 0 otherwise. This stays 1 during that DECODE cycle.
 );
+    import multicycle_rv_control_fsm_states_pkg::*;
 
     import multicycle_rv_opcodes_pkg::*;
         // R_TYPE  = 7'b0110011,
@@ -80,24 +83,27 @@ module multicycle_rv_control_fsm
     multicycle_rv_control_fsm_state current_state; 
     multicycle_rv_control_fsm_state next_state; 
 
-    assign branch = current_state == BEQ;   // Posiblity of branching. Branching is finally determined in the control unit.
-    assign pc_update = current_state == FETCH || current_state == JAL; // Write enable of pc register.
+    assign branch = current_state == BEQ;   // Possiblity of branching. Branching is finally determined in the control unit.
+    assign pc_update = ((current_state == FETCH) && handshake_instr_memory) || current_state == JAL; // Write enable of pc register.
     assign reg_write = current_state == MEM_WB || current_state == ALU_WB; // Write enable reg file.
     assign mem_write = current_state == MEM_WRITE; // write enable of data bus.
-    assign ir_write = current_state == FETCH; // write enable of instruction register. //TODO this is not using Ready valid logic.
+    assign ir_write = ((current_state == FETCH) && handshake_instr_memory); // write enable of instruction register.
     
     // 2'b11 is not a possible value because FETCH and MEM_WB are mutually exclusive since they are states.
     assign result_src = {current_state == FETCH, current_state == MEM_WB}; // Selection input of write back mux.
     
-    assign alu_src_a = {current_state == MEM_ADR || current_state == EXECUTE_R || current_state == EXECUTE_I || current_state == BEQ,
-        current_state == DECODE || current_state == JAL}; // Selection input of alu operand a mux. 2'b11 is not possible.
+
     always_comb begin
         case (current_state)
             MEM_ADR, EXECUTE_R, EXECUTE_I, BEQ: begin
-                alu_src_a = 2'b10;
+                if (op == LUI_OP) begin
+                    alu_src_a = 2'b11;
+                end else begin
+                    alu_src_a = 2'b10;
+                end
             end
             DECODE: begin
-                if (op == I_JUMP) begin
+                if (op == I_JUMP_OP) begin // I_JUMP_OP is JALR. It's named like that because JALR is a jump but also an I type.
                     alu_src_a = 2'b10;
                 end else begin
                     alu_src_a = 2'b01;
@@ -112,92 +118,86 @@ module multicycle_rv_control_fsm
 
 
     // Selection input of alu operand b mux. 2'b11 is not possible.
-    assign alu_src_b = {current_state == FETCH || JAL, current_state == DECODE || current_state == MEM_ADR || EXECUTE_I};
+    assign alu_src_b = {current_state==FETCH || current_state==JAL, current_state==DECODE || current_state==MEM_ADR || current_state==EXECUTE_I};
     
     assign adr_src = current_state == MEM_READ || current_state == MEM_WRITE; // The data bus is active when HIGH.
-    assign alu_op = {current_state == EXECUTE_R || EXECUTE_I, current_state == BEQ}; // TODO Check this. This a partial result before alu_ctrl
+    assign alu_op = {current_state==EXECUTE_R || current_state==EXECUTE_I, current_state == BEQ}; // TODO Check this. This a partial result before alu_ctrl
 
 
-    // Next state and ready valid logic.
-    // Ready valid logic. It is the same for instruction and data memory.
-    logic ready_valid_fsm; // This is the state of a two-state ready valid FSM. Valid is 0 and ready is 1;
-    
-    // All 8 ready valid signals:
+
+    // All 4 ready valid signals:
     // ready_in_instr_memory:   ready from the instruction memory.
-    // valid_in_instr_memory:   valid from the instruction memory.
-    // ready_in_data_memory:    ready from the data memory.
-    // valid_in_data_memory:    valid from the data memory.
-    // ready_out_instr_memory:  ready from the processor to the instruction memory.
     // valid_out_instr_memory:  valid from the processor to the instruction memory.
-    // ready_out_data_memory:   ready from the processor to the data memory.
+    // ready_in_data_memory:    ready from the data memory.
     // valid_out_data_memory:   valid from the processor to the data memory.
     
-    // These are named from the perspective of the A handsake out happens if  
-    logic handshake_in_instr_memory;
-    assign handshake_in_instr_memory = ready_out_instr_memory && valid_in_instr_memory;
-    logic handshake_out_instr_memory;
-    assign handshake_out_instr_memory = ready_in_instr_memory && valid_out_instr_memory;
+    assign valid_out_instr_memory = current_state == FETCH;
+    assign handshake_instr_memory = ready_in_instr_memory && valid_out_instr_memory;
     
-    logic handshake_in_data_memory;
-    assign handshake_in_data_memory = ready_out_data_memory && valid_in_data_memory;
-    logic handshake_out_data_memory;
-    assign handshake_out_data_memory = ready_in_data_memory && valid_out_data_memory;
+    assign valid_out_data_memory = (current_state == MEM_READ) || (current_state == MEM_WRITE);
+    assign handshake_data_memory = ready_in_data_memory && valid_out_data_memory;
 
 
     always_comb begin
-        next_state = FETCH;
+        next_state = FETCH; // unsopported instruction lead here.
+        illegal = 1'b0;
         case (current_state)
             FETCH: begin
-                if (conditions) begin   // TODO READY VALID.
-                    
+                if (handshake_instr_memory) begin
+                    next_state = DECODE;
                 end 
-                next_state = DECODE;
             end
             DECODE: begin 
                 case (op)
-                    R_TYPE: begin
+                    R_TYPE_OP: begin
                         next_state = EXECUTE_R;
                     end 
-                    I_TYPE: begin
+                    I_TYPE_OP: begin
                         next_state = EXECUTE_I;
                     end 
-                    I_LOAD: begin
+                    I_LOAD_OP: begin
                         next_state = MEM_ADR;
                     end 
-                    S: begin
+                    S_OP: begin
                         next_state = MEM_ADR;
                     end 
-                    B: begin
+                    B_OP: begin
                         next_state = BEQ;
                     end 
-                    J: begin
+                    J_OP, I_JUMP_OP: begin
                         next_state = JAL;
                     end 
-                    // I_JUMP: begin
+                    // I_JUMP_OP: begin
                     //     next_state = JAL;
                     // end 
-                    LUI: begin
-                        next_state = JAL;
+                    LUI_OP: begin
+                        next_state = EXECUTE_I;
                     end 
-                    // AUIPC: begin
+                    // AUIPC_OP: begin
                     //     next_state = JAL;
                     // end 
-                    default: ;
+                    default: begin
+                        illegal = 1'b1;
+                    end
                 endcase
             end
             MEM_ADR: begin 
                 case (op) 
-                    I_LOAD: begin
+                    I_LOAD_OP: begin
                         next_state = MEM_READ;
                     end 
-                    S: begin
+                    S_OP: begin
                         next_state = MEM_WRITE;
                     end 
                     default: ;
                 endcase
             end
             MEM_READ: begin 
-                next_state = MEM_WB;
+                if (handshake_data_memory) begin
+                    next_state = MEM_WB;
+                end else begin
+                    next_state = MEM_READ;
+                end
             end
             
             MEM_WB: begin 
@@ -205,7 +205,11 @@ module multicycle_rv_control_fsm
             end
             
             MEM_WRITE: begin 
-                next_state = FETCH;
+                if (handshake_data_memory) begin
+                    next_state = FETCH;
+                end else begin
+                    next_state = MEM_WRITE;
+                end
             end
             
             EXECUTE_R: begin 

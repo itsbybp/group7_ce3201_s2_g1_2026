@@ -6,28 +6,33 @@ module multicycle_rv32i
     input logic enable, 
     input logic soft_reset_n, 
 
-    // Instruction memory
-    // input logic ready_in_instr_memory,
-    output logic valid_out_instr_memory,
-    // output logic ready_out_instr_memory,
-    input logic valid_in_instr_memory,
+    // Ready valid inputs
+    input logic ready_in_instr_memory,
+    input logic ready_in_data_memory,
 
-    output logic [31:0] address_instr_memory,
+    // Ready valid outputs
+    output logic valid_out_instr_memory,
+    output logic valid_out_data_memory,
+
+    // Handshakes. Display these.
+    output logic handshake_instr_memory,
+    output logic handshake_data_memory,
+
+    // Instruction memory
+    output logic [31:0] address_instr_memory, // The pc, but renamed.
     input logic [31:0] read_data_instr_memory,
 
     // Data memory
-    // input logic ready_in_data_memory,
-    output logic valid_out_data_memory,
-    // output logic ready_out_data_memory,
-    input logic valid_in_data_memory,
-    
     output logic write_enable_data_memory,
     output logic [31:0] address_data_memory,
     output logic [31:0] write_data_data_memory,
     input logic [31:0] read_data_data_memory,
     
     // Display
-    output logic [31:0] instruction
+    output logic [31:0] instruction,
+
+    // Tests
+    output logic illegal
 );
 
     import alu_types_pkg::*;
@@ -87,6 +92,7 @@ module multicycle_rv32i
     logic [1:0] alu_src_b;
     
     logic adr_src;  // TODO Is this necessary???
+    logic [1:0] slt_sltu_source;
 
     // Control unit
     multicycle_rv_control_unit control_unit
@@ -102,23 +108,19 @@ module multicycle_rv32i
 
         .alu_flags(alu_flags), // [1:0]
 
-        // Ready valid inputs.
-        // .ready_in_instr_memory(ready_in_instr_memory),
-        .valid_in_instr_memory(valid_in_instr_memory),
-        // .ready_in_data_memory(ready_in_data_memory),
-        .valid_in_data_memory(valid_in_data_memory),
-
-        // Ready valid outputs. Outputs are determined by control FSM.
-        // .ready_out_instr_memory(ready_out_instr_memory),
+        // Ready valid inputs
+        .ready_in_instr_memory(ready_in_instr_memory),
+        .ready_in_data_memory(ready_in_data_memory),
+        // Ready valid outputs
         .valid_out_instr_memory(valid_out_instr_memory),
-        // .ready_out_data_memory(ready_out_data_memory),
         .valid_out_data_memory(valid_out_data_memory),
-
+        // Handshakes 
+        .handshake_instr_memory(handshake_instr_memory),
+        .handshake_data_memory(handshake_data_memory),
 
         .pc_write(pc_write),
         .alu_control(alu_control),
         .immediate_src(immediate_src), // [2:0]
-
 
         .reg_write(reg_write),
         .mem_write(write_enable_data_memory),
@@ -126,7 +128,11 @@ module multicycle_rv32i
         .result_src(result_src),
         .alu_src_a(alu_src_a),
         .alu_src_b(alu_src_b),
-        .adr_src(adr_src)
+        .adr_src(adr_src),
+        .slt_sltu_source(slt_sltu_source),
+
+        // Test
+        .illegal(illegal)
     );
 
 
@@ -139,7 +145,7 @@ module multicycle_rv32i
             pc <= '0;
         end else if (~soft_reset_n) begin
             pc <= '0;
-        end else if (pc_write) begin
+        end else if (enable && pc_write) begin
             pc <= wb_mux;
         end
     end    
@@ -156,7 +162,7 @@ module multicycle_rv32i
             instruction <= '0;
         // end else if (~soft_reset_n) begin    // No need to reset nonarchitectural registers with soft reset
         //     pc <= '0;
-        end else if (ir_write) begin
+        end else if (enable && ir_write) begin
             old_pc <= pc;
             instruction <= read_data_instr_memory;
         end
@@ -176,7 +182,7 @@ module multicycle_rv32i
         if (~rst_n) begin
             read_data_reg <= '0;
         end else begin
-            read_data_reg <= read_data_data_memory; // This is always enabled.
+            read_data_reg <= read_data_data_memory; // This is always enabled. TODO find out if enable is not required.
         end
     end    
 
@@ -205,7 +211,7 @@ module multicycle_rv32i
         if (~rst_n) begin
             rs1_data_reg <= '0;
             rs2_data_reg <= '0;
-        end else begin // Always enabled
+        end else if (enable) begin // Always enabled
             rs1_data_reg <= rs1_data;
             rs2_data_reg <= rs2_data;
         end
@@ -233,7 +239,7 @@ module multicycle_rv32i
                 immediate = {instruction[31:12], 12'b0}; // This shifts 12 bits to the left when doing lui.
             end
             J: begin
-                immediate = {{11{instruction[31]}}, instruction[31], instruction[19:12], instruction[20], instruction[30:21]};
+                immediate = {{11{instruction[31]}}, instruction[31], instruction[19:12], instruction[20], instruction[30:21], 1'b0};
             end 
             default: begin
                 immediate = {{20{instruction[31]}}, instruction[31:20]};
@@ -281,15 +287,38 @@ module multicycle_rv32i
     end
 
     // ALU
-    logic [31:0] alu_result;
+    logic [31:0] alu_result_wo_slt; // This is the output of the ALU without slt and sltu.
+                                    // It must be multiplexed to include results for slt and sltu.
+    logic [31:0] alu_operand_b_shifts; // Ignores bits outside of [4:0] when shifting.
+    always_comb begin
+        if ((alu_control==SLL) || (alu_control==SRL) || (alu_control==SRA)) begin
+            alu_operand_b_shifts = {27'b0, alu_operand_b[4:0]};
+        end else begin
+            alu_operand_b_shifts = alu_operand_b;
+        end
+    end
     alu_param #(.WIDTH(32)) rv32i_alu
     (
         .code   (alu_control),
         .a      (alu_operand_a),
-        .b      (alu_operand_b),
-        .result (alu_result),
+        .b      (alu_operand_b_shifts),
+        .result (alu_result_wo_slt),
         .flags  (alu_flags)
     );
+    logic [31:0] alu_result_slt;
+    assign alu_result_slt = {31'b0, alu_flags.negative ^ alu_flags.overflow}; // if overflow==1, negative is wrong.
+    logic [31:0] alu_result_sltu;
+    assign alu_result_sltu = {31'b0, !alu_flags.carry};
+    logic [31:0] alu_result;
+    always_comb begin
+        alu_result = alu_result_wo_slt;
+        if (slt_sltu_source == 2'b01) begin
+            alu_result = alu_result_slt;
+        end else if (slt_sltu_source == 2'b10) begin
+            alu_result = alu_result_sltu;
+        end
+    end
+
 
     // EXECUTE to WRITEBACK
     logic [31:0] alu_result_reg;
@@ -298,9 +327,11 @@ module multicycle_rv32i
     always_ff @(posedge clk or negedge rst_n) begin
         if (~rst_n) begin
             alu_result_reg <= '0;
-        // end else if (ir_write) begin // TODO: ADD a signal to freeze this register if the fsm freezes.
-        // TODO Usually because of ready valid stuff and the enabler. This signal could be (valid_in && enabler).
-        end else begin
+        end else if (enable && (handshake_data_memory || !valid_out_data_memory)) begin
+            // This condition is equivalent to 
+            // enable && ((ready_in_data_memory && valid_out_data_memory) || !valid_out_data_memory)
+            // also valid_out_data_memory = fsm.current_state == MEM_WRITE or MEM_READ
+            // So that this condition is enable && (~(want to access memory and memory is not valid yet))
             alu_result_reg <= alu_result;
         end
     end    
@@ -320,7 +351,7 @@ module multicycle_rv32i
                 wb_mux = read_data_reg; // To read from the data memory in a load instruction.
             end
             2'b10: begin
-                wb_mux = alu_result; // This is used to select PC+4 to the PC register during execute
+                wb_mux = alu_result; // This is used to select PC+4 for the PC register at the beginning.
                 // (which is possibly the PC for the next instruction).
             end 
             default: begin
