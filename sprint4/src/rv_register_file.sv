@@ -20,7 +20,11 @@ module rv_register_file #(
     integer i;
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-            for (i=1; i<32; i=i+1) begin
+            for (
+                i = 1; 
+                i < 32; 
+                i = i + 1
+            ) begin
                 registers[i] <= '0;
             end
         end else if (write_en && (rd != '0)) begin
