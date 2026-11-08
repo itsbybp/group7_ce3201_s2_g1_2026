@@ -1,0 +1,163 @@
+make[1]: Entering directory '/mnt/c/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb'
+rm -f /mnt/c/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/results/results.xml
+mkdir -p /mnt/c/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/results/sim_build
+/usr/local/bin/verilator -cc --exe -Mdir /mnt/c/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/results/sim_build --top-module rv32i_cpu -F /mnt/c/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/files.f  --timescale 1ns/1ps --vpi --public-flat-rw --prefix Vtop -o Vtop -LDFLAGS "-Wl,-rpath,/home/esteb/venvs/cocotb/lib/python3.12/site-packages/cocotb/libs -L/home/esteb/venvs/cocotb/lib/python3.12/site-packages/cocotb/libs -lcocotbvpi_verilator"   /home/esteb/venvs/cocotb/lib/python3.12/site-packages/cocotb/share/lib/verilator/verilator.cpp
+- V e r i l a t i o n   R e p o r t: Verilator 5.052 2026-09-05 rev v5.052
+- Verilator: Built from 0.340 MB sources in 13 modules, into 0.224 MB in 7 C++ files needing 0.000 MB
+- Verilator: Walltime 0.281 s (elab=0.005, cvt=0.070, bld=0.000); cpu 0.075 s on 1 threads; allocated 23.285 MB
+make -C /mnt/c/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/results/sim_build  -f Vtop.mk
+make[2]: Entering directory '/mnt/c/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/results/sim_build'
+ccache g++  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -DVM_VPI=1 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -Os  -c -o verilator.o /home/esteb/venvs/cocotb/lib/python3.12/site-packages/cocotb/share/lib/verilator/verilator.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -DVM_VPI=1 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated.o /usr/local/share/verilator/include/verilated.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -DVM_VPI=1 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated_dpi.o /usr/local/share/verilator/include/verilated_dpi.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -DVM_VPI=1 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated_vpi.o /usr/local/share/verilator/include/verilated_vpi.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -DVM_VPI=1 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated_threads.o /usr/local/share/verilator/include/verilated_threads.cpp
+python3 /usr/local/share/verilator/bin/verilator_includer -DVL_INCLUDE_OPT=include Vtop.cpp Vtop___024root__0.cpp Vtop__Dpi.cpp Vtop__ConstPool__0__Slow.cpp Vtop___024root__Slow.cpp Vtop___024root__0__Slow.cpp Vtop__Syms__Slow.cpp > Vtop__ALL.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -DVM_VPI=1 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o Vtop__ALL.o Vtop__ALL.cpp
+g++    -rdynamic verilator.o verilated.o verilated_dpi.o verilated_vpi.o verilated_threads.o Vtop__ALL.a   -Wl,-rpath,/home/esteb/venvs/cocotb/lib/python3.12/site-packages/cocotb/libs -L/home/esteb/venvs/cocotb/lib/python3.12/site-packages/cocotb/libs -lcocotbvpi_verilator  -pthread -lpthread -latomic -ldl   -o Vtop
+rm Vtop__ALL.verilator_deplist.tmp
+make[2]: Leaving directory '/mnt/c/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/results/sim_build'
+rm -f /mnt/c/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/results/results.xml
+COCOTB_TEST_MODULES=test_rv32i COCOTB_TESTCASE=  COCOTB_TOPLEVEL=rv32i_cpu TOPLEVEL_LANG=verilog       \
+         /mnt/c/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/results/sim_build/Vtop     
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:242  in gpi_load_users                  Loaded entry library: '/usr/lib/x86_64-linux-gnu/libpython3.12.so.1.0'
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/home/esteb/venvs/cocotb/lib/python3.12/site-packages/cocotb/simulator.cpython-312-x86_64-linux-gnu.so'
+     -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.12.12 interpreter at /home/esteb/venvs/cocotb/bin/python
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+     0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1794096866
+     0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /home/esteb/venvs/cocotb/lib/python3.12/site-packages/cocotb
+     0.00ns INFO     cocotb.initialize                  Running on Verilator version 5.052 2026-09-05
+     0.00ns INFO     cocotb.regression                  Running tests
+     0.00ns INFO     cocotb.regression                  running test_rv32i.add (1/29)
+   416.00ns INFO     cocotb.regression                  test_rv32i.add passed
+   416.00ns INFO     cocotb.regression                  running test_rv32i.sub (2/29)
+   832.00ns INFO     cocotb.regression                  test_rv32i.sub passed
+   832.00ns INFO     cocotb.regression                  running test_rv32i.and (3/29)
+  1248.00ns INFO     cocotb.regression                  test_rv32i.and passed
+  1248.00ns INFO     cocotb.regression                  running test_rv32i.or (4/29)
+  1664.00ns INFO     cocotb.regression                  test_rv32i.or passed
+  1664.00ns INFO     cocotb.regression                  running test_rv32i.xor (5/29)
+  2080.00ns INFO     cocotb.regression                  test_rv32i.xor passed
+  2080.00ns INFO     cocotb.regression                  running test_rv32i.sll (6/29)
+  2496.01ns INFO     cocotb.regression                  test_rv32i.sll passed
+  2496.01ns INFO     cocotb.regression                  running test_rv32i.srl (7/29)
+  2912.01ns INFO     cocotb.regression                  test_rv32i.srl passed
+  2912.01ns INFO     cocotb.regression                  running test_rv32i.sra (8/29)
+  3328.01ns INFO     cocotb.regression                  test_rv32i.sra passed
+  3328.01ns INFO     cocotb.regression                  running test_rv32i.slt (9/29)
+  3744.01ns INFO     cocotb.regression                  test_rv32i.slt passed
+  3744.01ns INFO     cocotb.regression                  running test_rv32i.sltu (10/29)
+  4160.01ns INFO     cocotb.regression                  test_rv32i.sltu passed
+  4160.01ns INFO     cocotb.regression                  running test_rv32i.addi (11/29)
+  4456.01ns INFO     cocotb.regression                  test_rv32i.addi passed
+  4456.01ns INFO     cocotb.regression                  running test_rv32i.andi (12/29)
+  4752.01ns INFO     cocotb.regression                  test_rv32i.andi passed
+  4752.01ns INFO     cocotb.regression                  running test_rv32i.ori (13/29)
+  5048.01ns INFO     cocotb.regression                  test_rv32i.ori passed
+  5048.01ns INFO     cocotb.regression                  running test_rv32i.xori (14/29)
+  5344.01ns INFO     cocotb.regression                  test_rv32i.xori passed
+  5344.01ns INFO     cocotb.regression                  running test_rv32i.slli (15/29)
+  5640.01ns INFO     cocotb.regression                  test_rv32i.slli passed
+  5640.01ns INFO     cocotb.regression                  running test_rv32i.srli (16/29)
+  5936.02ns INFO     cocotb.regression                  test_rv32i.srli passed
+  5936.02ns INFO     cocotb.regression                  running test_rv32i.srai (17/29)
+  6232.02ns INFO     cocotb.regression                  test_rv32i.srai passed
+  6232.02ns INFO     cocotb.regression                  running test_rv32i.slti (18/29)
+  6528.02ns INFO     cocotb.regression                  test_rv32i.slti passed
+  6528.02ns INFO     cocotb.regression                  running test_rv32i.sltiu (19/29)
+  6824.02ns INFO     cocotb.regression                  test_rv32i.sltiu passed
+  6824.02ns INFO     cocotb.regression                  running test_rv32i.beq (20/29)
+  7150.02ns INFO     cocotb.regression                  test_rv32i.beq passed
+  7150.02ns INFO     cocotb.regression                  running test_rv32i.bne (21/29)
+  7426.02ns INFO     cocotb.regression                  test_rv32i.bne passed
+  7426.02ns INFO     cocotb.regression                  running test_rv32i.blt (22/29)
+  7702.02ns INFO     cocotb.regression                  test_rv32i.blt passed
+  7702.02ns INFO     cocotb.regression                  running test_rv32i.bge (23/29)
+  8028.02ns INFO     cocotb.regression                  test_rv32i.bge passed
+  8028.02ns INFO     cocotb.regression                  running test_rv32i.jal (24/29)
+  8314.02ns INFO     cocotb.regression                  test_rv32i.jal passed
+  8314.02ns INFO     cocotb.regression                  running test_rv32i.jalr (25/29)
+ 11350.02ns WARNING  cocotb.regression                  test_rv32i.jalr failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/rv32i_cocotb_template/rv32i_cocotb_template/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/rv32i_cocotb_template/rv32i_cocotb_template/cocotb/test_rv32i.py", line 390, in run_case
+                                                            await test_jump(dut, case.operation)
+                                                          File "/mnt/c/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/rv32i_cocotb_template/rv32i_cocotb_template/cocotb/test_rv32i.py", line 333, in test_jump
+                                                            await wait_for(
+                                                          File "/mnt/c/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/rv32i_cocotb_template/rv32i_cocotb_template/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: JALR did not fetch expected PC 0x00000020
+ 11350.02ns INFO     cocotb.regression                  running test_rv32i.lui (26/29)
+ 11526.02ns INFO     cocotb.regression                  test_rv32i.lui passed
+ 11526.02ns INFO     cocotb.regression                  running test_rv32i.lw (27/29)
+ 11882.03ns INFO     cocotb.regression                  test_rv32i.lw passed
+ 11882.03ns INFO     cocotb.regression                  running test_rv32i.sw (28/29)
+ 12178.03ns INFO     cocotb.regression                  test_rv32i.sw passed
+ 12178.03ns INFO     cocotb.regression                  running test_rv32i.illegal (29/29)
+ 12244.03ns INFO     cocotb.regression                  test_rv32i.illegal passed
+ 12244.03ns INFO     cocotb.regression                  ****************************************************************************************
+                                                        ** TEST                            STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        ****************************************************************************************
+                                                        ** test_rv32i.add                   PASS         416.00           0.00      83854.65  **
+                                                        ** test_rv32i.sub                   PASS         416.00           0.01      78689.28  **
+                                                        ** test_rv32i.and                   PASS         416.00           0.00      85627.44  **
+                                                        ** test_rv32i.or                    PASS         416.00           0.01      81142.41  **
+                                                        ** test_rv32i.xor                   PASS         416.00           0.01      82742.70  **
+                                                        ** test_rv32i.sll                   PASS         416.00           0.01      76077.11  **
+                                                        ** test_rv32i.srl                   PASS         416.00           0.01      79646.00  **
+                                                        ** test_rv32i.sra                   PASS         416.00           0.01      70442.95  **
+                                                        ** test_rv32i.slt                   PASS         416.00           0.01      75993.13  **
+                                                        ** test_rv32i.sltu                  PASS         416.00           0.01      65315.01  **
+                                                        ** test_rv32i.addi                  PASS         296.00           0.00      59671.89  **
+                                                        ** test_rv32i.andi                  PASS         296.00           0.00      68388.80  **
+                                                        ** test_rv32i.ori                   PASS         296.00           0.00      65213.42  **
+                                                        ** test_rv32i.xori                  PASS         296.00           0.00      64733.74  **
+                                                        ** test_rv32i.slli                  PASS         296.00           0.00      63987.02  **
+                                                        ** test_rv32i.srli                  PASS         296.00           0.00      68298.43  **
+                                                        ** test_rv32i.srai                  PASS         296.00           0.00      59209.26  **
+                                                        ** test_rv32i.slti                  PASS         296.00           0.00      60468.97  **
+                                                        ** test_rv32i.sltiu                 PASS         296.00           0.00      67520.19  **
+                                                        ** test_rv32i.beq                   PASS         326.00           0.00      68097.79  **
+                                                        ** test_rv32i.bne                   PASS         276.00           0.01      51852.91  **
+                                                        ** test_rv32i.blt                   PASS         276.00           0.00      59953.03  **
+                                                        ** test_rv32i.bge                   PASS         326.00           0.00      72995.38  **
+                                                        ** test_rv32i.jal                   PASS         286.00           0.00      65191.63  **
+                                                        ** test_rv32i.jalr                  FAIL        3036.00           0.01     250528.33  **
+                                                        ** test_rv32i.lui                   PASS         176.00           0.00      47707.93  **
+                                                        ** test_rv32i.lw                    PASS         356.00           0.00      73222.85  **
+                                                        ** test_rv32i.sw                    PASS         296.00           0.00      60275.74  **
+                                                        ** test_rv32i.illegal               PASS          66.00           0.00      15916.33  **
+                                                        ****************************************************************************************
+                                                        ** TESTS=29 PASS=28 FAIL=1 SKIP=0              12244.03           0.17      71899.15  **
+                                                        ****************************************************************************************
+- :0: Verilog $finish
+make[1]: *** [/home/esteb/venvs/cocotb/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.verilator:74: /mnt/c/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/results/results.xml] Error 1
+make[1]: Leaving directory '/mnt/c/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb'
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0
+rootdir: /mnt/c/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb
+configfile: pytest.ini
+plugins: html-4.2.0, metadata-3.1.1
+collected 30 items
+
+cocotb/test_dashboard.py ........................F.....                  [100%]
+
+=================================== FAILURES ===================================
+____________________________ test_cocotb_case[jalr] ____________________________
+
+name = 'jalr'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: JALR failed: Timed out after 300 cycles: JALR did not fetch expected PC 0x00000020
+E       assert False
+
+../../../../rv32i_cocotb_template/rv32i_cocotb_template/cocotb/test_dashboard.py:43: AssertionError
+- Generated html report: file:///mnt/c/short_paths_wo_OneDrive/GitHub_repos/Taller_Digitales_repo/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/results/dashboard_cpu.html -
+=========================== short test summary info ============================
+FAILED cocotb/test_dashboard.py::test_cocotb_case[jalr] - AssertionError: JAL...
+========================= 1 failed, 29 passed in 0.25s =========================
+make: *** [Makefile:40: test_cpu] Error 1
