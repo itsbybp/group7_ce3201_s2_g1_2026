@@ -39,6 +39,7 @@ module multicycle_rv_control_unit
     output logic [1:0] alu_src_b,
     output logic adr_src,
     output [1:0] slt_sltu_source,
+    output logic forward_rs1,
 
 
     // Tests
@@ -88,6 +89,7 @@ module multicycle_rv_control_unit
         .alu_src_b(alu_src_b),
         .adr_src(adr_src),
         .alu_op(alu_op),
+        .forward_rs1(forward_rs1),
 
         // Test
         .illegal(illegal)

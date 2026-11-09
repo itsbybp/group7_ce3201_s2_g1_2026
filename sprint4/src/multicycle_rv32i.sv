@@ -93,6 +93,7 @@ module multicycle_rv32i
     
     logic adr_src;  // TODO Is this necessary???
     logic [1:0] slt_sltu_source;
+    logic forward_rs1; // Decides whether to use the register conncected to the output of the register file or the output of the register_file_directly.
 
     // Control unit
     multicycle_rv_control_unit control_unit
@@ -130,6 +131,7 @@ module multicycle_rv32i
         .alu_src_b(alu_src_b),
         .adr_src(adr_src),
         .slt_sltu_source(slt_sltu_source),
+        .forward_rs1(forward_rs1),
 
         // Test
         .illegal(illegal)
@@ -211,7 +213,7 @@ module multicycle_rv32i
         if (~rst_n) begin
             rs1_data_reg <= '0;
             rs2_data_reg <= '0;
-        end else if (enable) begin // Always enabled
+        end else if (enable) begin
             rs1_data_reg <= rs1_data;
             rs2_data_reg <= rs2_data;
         end
@@ -260,7 +262,11 @@ module multicycle_rv32i
                 alu_operand_a = old_pc;
             end
             2'b10: begin
-                alu_operand_a = rs1_data_reg;
+                if (forward_rs1) begin  // This is true when op == I_JUMP_OP && fsm.current_state == DECODE
+                    alu_operand_a = rs1_data;
+                end else begin
+                    alu_operand_a = rs1_data_reg;
+                end
             end
             2'b11: begin
                 alu_operand_a = '0;
