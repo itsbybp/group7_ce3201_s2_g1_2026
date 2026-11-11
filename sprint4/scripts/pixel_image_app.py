@@ -19,6 +19,7 @@ jtag_fpga.DATA_WIDTH = 32
 jtag_fpga.MAX_VAL = (1 << 32) - 1
 jtag_fpga.HEX_PADDING = 8
 
+ADDR_HEX = 0x40004        # el firmware escribe aquí cuántos píxeles lleva
 IMAGE_WIDTH = 128
 IMAGE_HEIGHT = 128
 PIXEL_COUNT = IMAGE_WIDTH * IMAGE_HEIGHT  # 16384
@@ -101,9 +102,14 @@ def wait_done(connection, timeout):
     while time.monotonic() < deadline:
         status = jtag_fpga.read_value_from_fpga(connection, ADDR_STATUS, strict=True)
         if status & 0x2:
-            return
+            return True
         time.sleep(POLL_INTERVAL)
-    raise TimeoutError("Se agoto el tiempo de espera: STATUS.done nunca se activo.")
+    return False
+
+def read_partial_output(connection):
+    processed = min(jtag_fpga.read_value_from_fpga(connection, ADDR_HEX, strict=True), PIXEL_COUNT)
+    done_pixels = [v & 0xFF for v in read_block(connection, BASE_OUT, processed, "Imagen parcial")]
+    return processed, done_pixels + [255] * (PIXEL_COUNT - processed)
 
 
 def save_images(source_image, output_pixels, input_path):
@@ -116,7 +122,7 @@ def save_images(source_image, output_pixels, input_path):
     return in_path, out_path
 
 
-def display_results(source_image, histogram, output_pixels, threshold):
+def display_results(source_image, histogram, output_pixels, threshold, processed=PIXEL_COUNT):
     import matplotlib.pyplot as plt
 
     output = np.array(output_pixels, dtype=np.uint8).reshape(IMAGE_HEIGHT, IMAGE_WIDTH)
@@ -130,7 +136,10 @@ def display_results(source_image, histogram, output_pixels, threshold):
     axes[1].set_ylabel("Pixeles")
     axes[1].legend()
     axes[2].imshow(output, cmap="gray", vmin=0, vmax=255, interpolation="nearest")
-    axes[2].set_title("Imagen binarizada leida de la FPGA")
+    title = "Imagen binarizada leida de la FPGA"
+    if processed < PIXEL_COUNT:
+        title += f"\nINCOMPLETA: {processed}/{PIXEL_COUNT} (resto en blanco)"
+    axes[2].set_title(title)
     for axis in (axes[0], axes[2]):
         axis.set_xticks([])
         axis.set_yticks([])
@@ -177,20 +186,32 @@ def main(argv=None):
         load_program(connection, firmware)
         start_cpu(connection, pixels, args.threshold)
         print(f"CPU iniciado (umbral={args.threshold}). Esperando STATUS.done...")
-        wait_done(connection, args.timeout)
 
-        output_pixels = [v & 0xFF for v in read_block(connection, BASE_OUT, PIXEL_COUNT, "Imagen de salida")]
+
+
+        finished = wait_done(connection, args.timeout)
+
+        if finished:
+            processed = PIXEL_COUNT
+            output_pixels = [v & 0xFF for v in read_block(connection, BASE_OUT, PIXEL_COUNT, "Imagen de salida")]
+        else:
+            processed, output_pixels = read_partial_output(connection)
+            print(f"AVISO: se agoto el tiempo; {processed}/{PIXEL_COUNT} pixeles procesados. "
+                  "El resto se rellena en blanco.")
         histogram = read_block(connection, BASE_HIST, HIST_BINS, "Histograma")
 
-        expected_out = [255 if v >= args.threshold else 0 for v in pixels]
-        expected_hist = np.bincount(pixels, minlength=HIST_BINS).tolist()
-        if output_pixels != expected_out:
-            bad = sum(1 for a, b in zip(output_pixels, expected_out) if a != b)
-            raise RuntimeError(f"La imagen binarizada no coincide ({bad} pixeles distintos).")
-        if histogram != expected_hist:
-            bad = sum(1 for a, b in zip(histogram, expected_hist) if a != b)
-            raise RuntimeError(f"El histograma no coincide ({bad} contadores distintos).")
-        print("OK: histograma e imagen binarizada coinciden con lo esperado.")
+        if finished:
+            expected_out = [255 if v >= args.threshold else 0 for v in pixels]
+            expected_hist = np.bincount(pixels, minlength=HIST_BINS).tolist()
+            if output_pixels != expected_out:
+                bad = sum(1 for a, b in zip(output_pixels, expected_out) if a != b)
+                raise RuntimeError(f"La imagen binarizada no coincide ({bad} pixeles distintos).")
+            if histogram != expected_hist:
+                bad = sum(1 for a, b in zip(histogram, expected_hist) if a != b)
+                raise RuntimeError(f"El histograma no coincide ({bad} contadores distintos).")
+            print("OK: histograma e imagen binarizada coinciden con lo esperado.")
+
+
 
         if args.save_images:
             in_path, out_path = save_images(image, output_pixels, args.image)
@@ -198,15 +219,15 @@ def main(argv=None):
         if args.no_display:
             print("Visualizacion omitida.")
         else:
-            display_results(image, histogram, output_pixels, args.threshold)
+            display_results(image, histogram, output_pixels, args.threshold, processed)
     except (ConnectionError, OSError, RuntimeError, TimeoutError, ValueError) as exc:
         logging.error("Fallo la ejecucion: %s", exc)
         return 1
     finally:
         connection.close()
-    return 0
+    return 0 if finished else 1
 
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format="|%(levelname)s| %(message)s")
-    raise SystemExit(main())
+    raise SystemExit(main()) 
