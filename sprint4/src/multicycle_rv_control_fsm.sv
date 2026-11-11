@@ -62,6 +62,7 @@ module multicycle_rv_control_fsm
     output logic [1:0] alu_src_b,
     output logic adr_src,
     output logic [1:0] alu_op,
+    output logic forward_rs1,
 
     // Tests
     output logic illegal    // This is 1 for a cycle if an unsopported instruction was found in DECODE.
@@ -94,6 +95,7 @@ module multicycle_rv_control_fsm
     
 
     always_comb begin
+        forward_rs1 = 1'b0;
         case (current_state)
             MEM_ADR, EXECUTE_R, EXECUTE_I, BEQ: begin
                 if (op == LUI_OP) begin
@@ -105,6 +107,8 @@ module multicycle_rv_control_fsm
             DECODE: begin
                 if (op == I_JUMP_OP) begin // I_JUMP_OP is JALR. It's named like that because JALR is a jump but also an I type.
                     alu_src_a = 2'b10;
+                    forward_rs1 = 1'b1;    // JALR uses rs2 data during decode, so it needs to use the value directly from the reg file
+                                           // Because the registers at the outputs ot the reg file havent saved yet. 
                 end else begin
                     alu_src_a = 2'b01;
                 end
