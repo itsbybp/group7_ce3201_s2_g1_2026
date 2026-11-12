@@ -7,7 +7,8 @@
 | FSM | Implementada |
 | Datapath | Implementado |
 | Interfaces ready-valid | Implementadas en la FSM |
-| Instrucciones de Tabla 1 | 27 de 28 pass. `jalr` falla |
+| Enabler (`valid` con `enable`) | Implementado y verificado |
+| Instrucciones de Tabla 1 | 28 de 28 pass (29/29 con `illegal`). `jalr` corregido |
 | Modo stepping (Epic 1) | Pendiente |
 | Top de Quartus para Sprint 4 | Pendiente |
 | Testbench end-to-end | Pendiente |
@@ -127,22 +128,13 @@ Nota de diseño:
 - Mientras no hay handshake, la FSM no cambia de estado. Las señales de dirección y datos se mantienen estables.
 - En FETCH, `ir_write` y el avance del PC ocurren solo con handshake de instrucción.
 
-Estado actual: `valid` no está combinado con `enable`. Está pendiente deshabilitar desde la Control FSM las salidas de valid cuando no está encendido `enable`.
-
----
-
-### Falla pendiente: `jalr`
-
-- Mensaje: `Timed out after 300 cycles: JALR did not fetch expected PC 0x00000020`.
-- No se conoce el origen de la falla. Se debe comparar su comportamiento en la prueba con jal.
+Enabler: `valid_out_* = enable && soft_reset_n && (estado)`. Con `enable = 0` la FSM no cambia de estado y los `valid` de ambos buses valen 0.
 
 ---
 
 ## 6. Próximos pasos
 
-1. Corregir JALR (sección 7).
-2. Conectar el enabler con AND a los cuatro `valid`/`ready`.
-3. Agregar el modo pulse (SW[0] y KEY[1], con el eventual top).
-4. Implementar el mapa MMIO.
-5. Crear el top y compilarlo en Quartus.
-6. Captura en SignalTap de la FSM, PC, instrucción, `valid`/`ready` y done.
+1. Agregar el modo pulse (SW[0] y KEY[1], con el eventual top).
+2. Implementar el mapa MMIO.
+3. Crear el top y compilarlo en Quartus.
+4. Captura en SignalTap de la FSM, PC, instrucción, `valid`/`ready` y done.

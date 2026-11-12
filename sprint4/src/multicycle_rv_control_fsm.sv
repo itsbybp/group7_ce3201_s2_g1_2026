@@ -93,7 +93,7 @@ module multicycle_rv_control_fsm
     // 2'b11 is not a possible value because FETCH and MEM_WB are mutually exclusive since they are states.
     assign result_src = {current_state == FETCH, current_state == MEM_WB}; // Selection input of write back mux.
     
-
+  
     always_comb begin
         forward_rs1 = 1'b0;
         case (current_state)
@@ -135,10 +135,10 @@ module multicycle_rv_control_fsm
     // ready_in_data_memory:    ready from the data memory.
     // valid_out_data_memory:   valid from the processor to the data memory.
     
-    assign valid_out_instr_memory = current_state == FETCH;
+    assign valid_out_instr_memory = enable && soft_reset_n && (current_state == FETCH);
     assign handshake_instr_memory = ready_in_instr_memory && valid_out_instr_memory;
     
-    assign valid_out_data_memory = (current_state == MEM_READ) || (current_state == MEM_WRITE);
+    assign valid_out_data_memory  = enable && soft_reset_n && ((current_state == MEM_READ) || (current_state == MEM_WRITE));
     assign handshake_data_memory = ready_in_data_memory && valid_out_data_memory;
 
 

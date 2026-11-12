@@ -13,7 +13,7 @@ Este plan cubre:
 
 | Herramienta | Uso | Estado |
 |---|---|---|
-| Cocotb + Verilator 5.052 | Repo del profesor (`rv32i_cocotb_template`) | Ejecutada (pasan 28/29) |
+| Cocotb + Verilator 5.052 | Repo del profesor (`rv32i_cocotb_template`) | Ejecutada (pasan 29/29) |
 | Cocotb + Verilator | Validación con el mock CPU del profesor | Ejecutado |
 | Questa (`.do`) | Pruebas unitarias de Sprint 3 | Pendiente en Sprint 4 |
 | Quartus Prime | Síntesis, reportes `.map.rpt` y `.sta.rpt` | Pendiente: no hay top de Sprint 4 |
@@ -21,10 +21,10 @@ Este plan cubre:
 
 ## 3. Matriz de pruebas
 
-| ID | Prueba | Alcance | Herramienta | Comando | Criterio de aceptación | Estado (07 nov) |
+| ID | Prueba | Alcance | Herramienta | Comando | Criterio de aceptación | Estado (11 nov) |
 |---|---|---|---|---|---|---|
 | TP-01 | Prueba del repo | Mock CPU del profesor | Cocotb + Verilator | `make test_cpu` | 29/29 PASS | Ejecutada: 29/29 |
-| TP-02 | Validación con el repo | `rv32i_cpu` (diseño del equipo) | Cocotb + Verilator | `make test_cpu SV_FILELIST=files.f TOPLEVEL=rv32i_cpu` | 29/29 PASS | Ejecutada: 28/29. Falla `jalr` |
+| TP-02 | Validación con el repo | `rv32i_cpu` (diseño del equipo) | Cocotb + Verilator | `make test_cpu SV_FILELIST=files.f TOPLEVEL=rv32i_cpu` | 29/29 PASS | Ejecutada: 29/29 |
 | TP-03 | Árbitro | `arbiter` | Questa | `run_arbiter.do` | ERRORS=0, WARNINGS=0 | Pendiente en Sprint 4 (ejecutada en Sprint 3) |
 | TP-04 | Contador | `counter` | Questa | `run_counter.do` | ERRORS=0, WARNINGS=0 | Pendiente en Sprint 4 (ejecutada en Sprint 3) |
 | TP-05 | FSM de Sprint 3 | `fsm` | Questa | `run_fsm.do` | ERRORS=0, WARNINGS=0 | Pendiente en Sprint 4 (ejecutada en Sprint 3) |
@@ -32,7 +32,7 @@ Este plan cubre:
 | TP-07 | RAM | `ram` | Cocotb | `make` del módulo | Lectura de 1 ciclo y puertos independientes | Pendiente en Sprint 4 |
 | TP-08 | Registros de control | `control_registers` | Questa | `run_control_registers.do` | Escritura y lectura de CTRL, STATUS, TIMER_LIMIT, THRESHOLD; `write_en=0` no modifica | Pendiente: debe adaptarse a Tabla 2 |
 | TP-09 | Reg file x0–x31 | `memory_mapped_register_file` | Questa | `run_memory_mapped_register_file.do` | x0 siempre 0; escritura y reset | Pendiente en Sprint 4 |
-| TP-10 | Enabler | `rv32i_cpu` con `enable = 0` | Cocotb o Questa | Por definir | La FSM no cambia de estado y los cuatro `valid`/`ready` son 0 | Pendiente: no implementado |
+| TP-10 | Enabler | `rv32i_cpu` con `enable = 0` | Cocotb o Questa | Por definir | La FSM no cambia de estado y los cuatro `valid`/`ready` son 0 | Ejecutada: sin `valid` activo con `enable = 0` |
 | TP-11 | Modo pulse | `rv32i_cpu` con pulse | Cocotb o Questa | Por definir | Avanza un paso por pulso de un ciclo | Pendiente: no implementado |
 | TP-12 | Stalls de memoria | `rv32i_cpu` con `ready = 0` | Cocotb | Por definir | La FSM se congela y no pierde datos | Pendiente |
 | TP-13 | End-to-end | CPU, árbitro, RAM y MMIO con `firmware.hex` y una imagen reducida | Questa | Por definir | Histograma e imagen de salida exactos | Pendiente |
@@ -55,4 +55,17 @@ Archivos en `docs/evidencia/avance1/`:
 - `dashboard_cpu.html`: resultado por prueba y cobertura por instrucción.
 
 ## 5. Evidencia del Avance 2
-...
+
+Ejecución del repo con el procesador propio, `TP-02`:
+
+```
+TESTS=29 PASS=29 FAIL=0 SKIP=0
+```
+
+Cobertura: 29/29 bins (100 %).
+
+Archivos en `docs/evidencia/avance2/`:
+
+- `avance2_cocotb.log`: salida de consola completa.
+- `coverage.json`: bins cubiertos y conteo de hits.
+- `dashboard_cpu.html`: resultado por prueba y cobertura por instrucción.
