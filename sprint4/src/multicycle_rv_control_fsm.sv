@@ -97,6 +97,9 @@ module multicycle_rv_control_fsm
     always_comb begin
         forward_rs1 = 1'b0;
         case (current_state)
+            FETCH: begin
+                alu_src_a = 2'b00;  // pc: el siguiente PC es pc + 4 (no old_pc + 4)
+            end
             MEM_ADR, EXECUTE_R, EXECUTE_I, BEQ: begin
                 if (op == LUI_OP) begin
                     alu_src_a = 2'b11;

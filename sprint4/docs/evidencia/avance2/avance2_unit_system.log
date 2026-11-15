@@ -1,0 +1,295 @@
+rm -f results.xml
+/home/byron/.local/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.verilator:73: Using MODULE is deprecated, please use COCOTB_TEST_MODULES instead.
+rm -f results.xml
+COCOTB_TEST_MODULES=tb_arbiter COCOTB_TESTCASE=  COCOTB_TOPLEVEL=arbiter TOPLEVEL_LANG=verilog       \
+         sim_build_arbiter/Vtop     
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:242  in gpi_load_users                  Loaded entry library: '/usr/lib/x86_64-linux-gnu/libpython3.12.so.1.0'
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/home/byron/.local/lib/python3.12/site-packages/cocotb/simulator.cpython-312-x86_64-linux-gnu.so'
+     -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.12.12 interpreter at /usr/bin/python3
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+     0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1794764931
+     0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /home/byron/.local/lib/python3.12/site-packages/cocotb
+     0.00ns INFO     cocotb.initialize                  Running on Verilator version 5.053 devel
+     0.00ns INFO     cocotb.regression                  Running tests
+     0.00ns INFO     cocotb.regression                  running tb_arbiter.test_idle_outputs_zero (1/8)
+    21.00ns INFO     cocotb.regression                  tb_arbiter.test_idle_outputs_zero passed
+    21.00ns INFO     cocotb.regression                  running tb_arbiter.test_vjtag_wins_when_both_request (2/8)
+    82.00ns INFO     cocotb.regression                  tb_arbiter.test_vjtag_wins_when_both_request passed
+    82.00ns INFO     cocotb.regression                  running tb_arbiter.test_cpu_alone (3/8)
+   143.00ns INFO     cocotb.regression                  tb_arbiter.test_cpu_alone passed
+   143.00ns INFO     cocotb.regression                  running tb_arbiter.test_vjtag_backpressure_freezes_bus (4/8)
+   244.00ns INFO     cocotb.regression                  tb_arbiter.test_vjtag_backpressure_freezes_bus passed
+   244.00ns INFO     cocotb.regression                  running tb_arbiter.test_cpu_holds_grant_until_ready (5/8)
+                                                            Si vJTAG pide mientras la CPU espera ready, la CPU conserva el bus.
+   405.00ns INFO     cocotb.regression                  tb_arbiter.test_cpu_holds_grant_until_ready passed
+   405.00ns INFO     cocotb.regression                  running tb_arbiter.test_cpu_released_when_valid_drops (6/8)
+   486.00ns INFO     cocotb.regression                  tb_arbiter.test_cpu_released_when_valid_drops passed
+   486.00ns INFO     cocotb.regression                  running tb_arbiter.test_reset_returns_to_idle (7/8)
+   567.01ns INFO     cocotb.regression                  tb_arbiter.test_reset_returns_to_idle passed
+   567.01ns INFO     cocotb.regression                  running tb_arbiter.test_random_against_model (8/8)
+                                                            Estimulo aleatorio contra un modelo de referencia + invariantes.
+ 60608.01ns INFO     cocotb.regression                  tb_arbiter.test_random_against_model passed
+ 60608.01ns INFO     cocotb.regression                  ********************************************************************************************************
+                                                        ** TEST                                            STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        ********************************************************************************************************
+                                                        ** tb_arbiter.test_idle_outputs_zero                PASS          21.00           0.00      23635.63  **
+                                                        ** tb_arbiter.test_vjtag_wins_when_both_request     PASS          61.00           0.00     271997.22  **
+                                                        ** tb_arbiter.test_cpu_alone                        PASS          61.00           0.00     514251.51  **
+                                                        ** tb_arbiter.test_vjtag_backpressure_freezes_bus   PASS         101.00           0.00     785240.59  **
+                                                        ** tb_arbiter.test_cpu_holds_grant_until_ready      PASS         161.00           0.00     873106.69  **
+                                                        ** tb_arbiter.test_cpu_released_when_valid_drops    PASS          81.00           0.00     785401.23  **
+                                                        ** tb_arbiter.test_reset_returns_to_idle            PASS          81.00           0.00     744198.02  **
+                                                        ** tb_arbiter.test_random_against_model             PASS       60041.00           0.09     636137.36  **
+                                                        ********************************************************************************************************
+                                                        ** TESTS=8 PASS=8 FAIL=0 SKIP=0                                60608.01           0.10     622254.78  **
+                                                        ********************************************************************************************************
+- :0: Verilog $finish
+make arbiter
+make[1]: Entering directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/cocotb'
+rm -f results_arbiter.xml
+/home/byron/.local/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.verilator:73: Using MODULE is deprecated, please use COCOTB_TEST_MODULES instead.
+rm -f results_arbiter.xml
+COCOTB_TEST_MODULES=tb_arbiter COCOTB_TESTCASE=  COCOTB_TOPLEVEL=arbiter TOPLEVEL_LANG=verilog       \
+         sim_build_arbiter/Vtop     
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:242  in gpi_load_users                  Loaded entry library: '/usr/lib/x86_64-linux-gnu/libpython3.12.so.1.0'
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/home/byron/.local/lib/python3.12/site-packages/cocotb/simulator.cpython-312-x86_64-linux-gnu.so'
+     -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.12.12 interpreter at /usr/bin/python3
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+     0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1794764932
+     0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /home/byron/.local/lib/python3.12/site-packages/cocotb
+     0.00ns INFO     cocotb.initialize                  Running on Verilator version 5.053 devel
+     0.00ns INFO     cocotb.regression                  Running tests
+     0.00ns INFO     cocotb.regression                  running tb_arbiter.test_idle_outputs_zero (1/8)
+    21.00ns INFO     cocotb.regression                  tb_arbiter.test_idle_outputs_zero passed
+    21.00ns INFO     cocotb.regression                  running tb_arbiter.test_vjtag_wins_when_both_request (2/8)
+    82.00ns INFO     cocotb.regression                  tb_arbiter.test_vjtag_wins_when_both_request passed
+    82.00ns INFO     cocotb.regression                  running tb_arbiter.test_cpu_alone (3/8)
+   143.00ns INFO     cocotb.regression                  tb_arbiter.test_cpu_alone passed
+   143.00ns INFO     cocotb.regression                  running tb_arbiter.test_vjtag_backpressure_freezes_bus (4/8)
+   244.00ns INFO     cocotb.regression                  tb_arbiter.test_vjtag_backpressure_freezes_bus passed
+   244.00ns INFO     cocotb.regression                  running tb_arbiter.test_cpu_holds_grant_until_ready (5/8)
+                                                            Si vJTAG pide mientras la CPU espera ready, la CPU conserva el bus.
+   405.00ns INFO     cocotb.regression                  tb_arbiter.test_cpu_holds_grant_until_ready passed
+   405.00ns INFO     cocotb.regression                  running tb_arbiter.test_cpu_released_when_valid_drops (6/8)
+   486.00ns INFO     cocotb.regression                  tb_arbiter.test_cpu_released_when_valid_drops passed
+   486.00ns INFO     cocotb.regression                  running tb_arbiter.test_reset_returns_to_idle (7/8)
+   567.01ns INFO     cocotb.regression                  tb_arbiter.test_reset_returns_to_idle passed
+   567.01ns INFO     cocotb.regression                  running tb_arbiter.test_random_against_model (8/8)
+                                                            Estimulo aleatorio contra un modelo de referencia + invariantes.
+ 60608.01ns INFO     cocotb.regression                  tb_arbiter.test_random_against_model passed
+ 60608.01ns INFO     cocotb.regression                  ********************************************************************************************************
+                                                        ** TEST                                            STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        ********************************************************************************************************
+                                                        ** tb_arbiter.test_idle_outputs_zero                PASS          21.00           0.00      33962.61  **
+                                                        ** tb_arbiter.test_vjtag_wins_when_both_request     PASS          61.00           0.00     517879.58  **
+                                                        ** tb_arbiter.test_cpu_alone                        PASS          61.00           0.00     508736.08  **
+                                                        ** tb_arbiter.test_vjtag_backpressure_freezes_bus   PASS         101.00           0.00     810385.78  **
+                                                        ** tb_arbiter.test_cpu_holds_grant_until_ready      PASS         161.00           0.00     860226.54  **
+                                                        ** tb_arbiter.test_cpu_released_when_valid_drops    PASS          81.00           0.00     789381.36  **
+                                                        ** tb_arbiter.test_reset_returns_to_idle            PASS          81.00           0.00     743460.30  **
+                                                        ** tb_arbiter.test_random_against_model             PASS       60041.00           0.10     573288.61  **
+                                                        ********************************************************************************************************
+                                                        ** TESTS=8 PASS=8 FAIL=0 SKIP=0                                60608.01           0.11     565260.17  **
+                                                        ********************************************************************************************************
+- :0: Verilog $finish
+make[1]: Leaving directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/cocotb'
+make mmio_decoder
+make[1]: Entering directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/cocotb'
+rm -f results_mmio_decoder.xml
+/home/byron/.local/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.verilator:73: Using MODULE is deprecated, please use COCOTB_TEST_MODULES instead.
+rm -f results_mmio_decoder.xml
+COCOTB_TEST_MODULES=tb_mmio_decoder COCOTB_TESTCASE=  COCOTB_TOPLEVEL=mmio_decoder TOPLEVEL_LANG=verilog       \
+         sim_build_mmio_decoder/Vtop     
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:242  in gpi_load_users                  Loaded entry library: '/usr/lib/x86_64-linux-gnu/libpython3.12.so.1.0'
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/home/byron/.local/lib/python3.12/site-packages/cocotb/simulator.cpython-312-x86_64-linux-gnu.so'
+     -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.12.12 interpreter at /usr/bin/python3
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+     0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1794764933
+     0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /home/byron/.local/lib/python3.12/site-packages/cocotb
+     0.00ns INFO     cocotb.initialize                  Running on Verilator version 5.053 devel
+     0.00ns INFO     cocotb.regression                  Running tests
+     0.00ns INFO     cocotb.regression                  running tb_mmio_decoder.test_write_permissions (1/7)
+                                                            Tabla 2: cada we_* solo se activa para el maestro permitido.
+   541.00ns INFO     cocotb.regression                  tb_mmio_decoder.test_write_permissions passed
+   541.00ns INFO     cocotb.regression                  running tb_mmio_decoder.test_read_selects (2/7)
+                                                            Las lecturas activan el re_* de la RAM correcta, para ambos maestros.
+  1102.00ns INFO     cocotb.regression                  tb_mmio_decoder.test_read_selects passed
+  1102.00ns INFO     cocotb.regression                  running tb_mmio_decoder.test_read_data_and_latency (3/7)
+                                                            rdata valido junto con ready, un ciclo despues de la direccion.
+  2183.00ns INFO     cocotb.regression                  tb_mmio_decoder.test_read_data_and_latency passed
+  2183.00ns INFO     cocotb.regression                  running tb_mmio_decoder.test_raz_unmapped (4/7)
+                                                            Lecturas fuera de mapa devuelven 0 aunque los subordinados tengan datos.
+  3024.00ns INFO     cocotb.regression                  tb_mmio_decoder.test_raz_unmapped passed
+  3024.00ns INFO     cocotb.regression                  running tb_mmio_decoder.test_wi_unmapped (5/7)
+                                                            Escrituras fuera de mapa se ignoran (WI) pero completan con ready.
+  3465.00ns INFO     cocotb.regression                  tb_mmio_decoder.test_wi_unmapped passed
+  3465.00ns INFO     cocotb.regression                  running tb_mmio_decoder.test_valid_gating (6/7)
+                                                            Con valid=0 no hay we_*, re_* ni ready.
+  3532.01ns INFO     cocotb.regression                  tb_mmio_decoder.test_valid_gating passed
+  3532.01ns INFO     cocotb.regression                  running tb_mmio_decoder.test_read_handshake_sequence (7/7)
+                                                            Con valid sostenido en lectura, ready alterna 0,1,0,1 (cada lectura = 2 ciclos).
+  3673.01ns INFO     cocotb.regression                  tb_mmio_decoder.test_read_handshake_sequence passed
+  3673.01ns INFO     cocotb.regression                  ******************************************************************************************************
+                                                        ** TEST                                          STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        ******************************************************************************************************
+                                                        ** tb_mmio_decoder.test_write_permissions         PASS         541.00           0.00     429358.61  **
+                                                        ** tb_mmio_decoder.test_read_selects              PASS         561.00           0.00     523135.46  **
+                                                        ** tb_mmio_decoder.test_read_data_and_latency     PASS        1081.00           0.00     860236.62  **
+                                                        ** tb_mmio_decoder.test_raz_unmapped              PASS         841.00           0.00     832454.03  **
+                                                        ** tb_mmio_decoder.test_wi_unmapped               PASS         441.00           0.00     488136.40  **
+                                                        ** tb_mmio_decoder.test_valid_gating              PASS          67.00           0.00      95484.71  **
+                                                        ** tb_mmio_decoder.test_read_handshake_sequence   PASS         141.00           0.00     692174.02  **
+                                                        ******************************************************************************************************
+                                                        ** TESTS=7 PASS=7 FAIL=0 SKIP=0                               3673.01           0.01     477077.71  **
+                                                        ******************************************************************************************************
+- :0: Verilog $finish
+make[1]: Leaving directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/cocotb'
+make ram
+make[1]: Entering directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/cocotb'
+rm -f results_ram.xml
+/home/byron/.local/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.verilator:73: Using MODULE is deprecated, please use COCOTB_TEST_MODULES instead.
+rm -f results_ram.xml
+COCOTB_TEST_MODULES=tb_ram COCOTB_TESTCASE=  COCOTB_TOPLEVEL=ram TOPLEVEL_LANG=verilog       \
+         sim_build_ram/Vtop     
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:242  in gpi_load_users                  Loaded entry library: '/usr/lib/x86_64-linux-gnu/libpython3.12.so.1.0'
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/home/byron/.local/lib/python3.12/site-packages/cocotb/simulator.cpython-312-x86_64-linux-gnu.so'
+     -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.12.12 interpreter at /usr/bin/python3
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+     0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1794764934
+     0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /home/byron/.local/lib/python3.12/site-packages/cocotb
+     0.00ns INFO     cocotb.initialize                  Running on Verilator version 5.053 devel
+     0.00ns INFO     cocotb.regression                  Running tests
+     0.00ns INFO     cocotb.regression                  running tb_ram.test_write_read_each_memory (1/8)
+                                                            Primera y ultima palabra de cada memoria.
+   341.00ns INFO     cocotb.regression                  tb_ram.test_write_read_each_memory passed
+   341.00ns INFO     cocotb.regression                  running tb_ram.test_memories_independent (2/8)
+                                                            Misma direccion en las 4 memorias con datos distintos: sin interferencia.
+   542.00ns INFO     cocotb.regression                  tb_ram.test_memories_independent passed
+   542.00ns INFO     cocotb.regression                  running tb_ram.test_read_latency_and_hold (3/8)
+                                                            El dato llega 1 ciclo despues y se mantiene mientras re_* esta en 0.
+   663.00ns INFO     cocotb.regression                  tb_ram.test_read_latency_and_hold passed
+   663.00ns INFO     cocotb.regression                  running tb_ram.test_no_write_without_we (4/8)
+   764.00ns INFO     cocotb.regression                  tb_ram.test_no_write_without_we passed
+   764.00ns INFO     cocotb.regression                  running tb_ram.test_hist_address_mapping (5/8)
+                                                            Histograma: addr[9:2] -> 256 contadores; 0x3FC es el ultimo.
+   965.00ns INFO     cocotb.regression                  tb_ram.test_hist_address_mapping passed
+   965.00ns INFO     cocotb.regression                  running tb_ram.test_imem_port (6/8)
+                                                            Puerto de instrucciones de la CPU: lee mem_instr, ready 1 ciclo despues.
+  1246.01ns INFO     cocotb.regression                  tb_ram.test_imem_port passed
+  1246.01ns INFO     cocotb.regression                  running tb_ram.test_imem_ready_pattern (7/8)
+                                                            Con valid sostenido imem_ready alterna 1,0,1,0 (una instruccion cada 2 ciclos).
+  1367.01ns INFO     cocotb.regression                  tb_ram.test_imem_ready_pattern passed
+  1367.01ns INFO     cocotb.regression                  running tb_ram.test_host_and_cpu_instr_ports_coexist (8/8)
+                                                            El Host puede escribir/leer la RAM de instrucciones mientras la CPU no hace fetch.
+  1468.01ns INFO     cocotb.regression                  tb_ram.test_host_and_cpu_instr_ports_coexist passed
+  1468.01ns INFO     cocotb.regression                  ******************************************************************************************************
+                                                        ** TEST                                          STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        ******************************************************************************************************
+                                                        ** tb_ram.test_write_read_each_memory             PASS         341.00           0.00     551122.69  **
+                                                        ** tb_ram.test_memories_independent               PASS         201.00           0.00    1021253.25  **
+                                                        ** tb_ram.test_read_latency_and_hold              PASS         121.00           0.00     912250.54  **
+                                                        ** tb_ram.test_no_write_without_we                PASS         101.00           0.00     933189.20  **
+                                                        ** tb_ram.test_hist_address_mapping               PASS         201.00           0.00     951303.67  **
+                                                        ** tb_ram.test_imem_port                          PASS         281.00           0.00    1035860.69  **
+                                                        ** tb_ram.test_imem_ready_pattern                 PASS         121.00           0.00    1123752.03  **
+                                                        ** tb_ram.test_host_and_cpu_instr_ports_coexist   PASS         101.00           0.00     848432.92  **
+                                                        ******************************************************************************************************
+                                                        ** TESTS=8 PASS=8 FAIL=0 SKIP=0                               1468.01           0.00     510250.14  **
+                                                        ******************************************************************************************************
+- :0: Verilog $finish
+make[1]: Leaving directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/cocotb'
+make control_registers
+make[1]: Entering directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/cocotb'
+rm -f results_control_registers.xml
+/home/byron/.local/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.verilator:73: Using MODULE is deprecated, please use COCOTB_TEST_MODULES instead.
+rm -f results_control_registers.xml
+COCOTB_TEST_MODULES=tb_control_registers COCOTB_TESTCASE=  COCOTB_TOPLEVEL=control_registers TOPLEVEL_LANG=verilog       \
+         sim_build_control_registers/Vtop     
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:242  in gpi_load_users                  Loaded entry library: '/usr/lib/x86_64-linux-gnu/libpython3.12.so.1.0'
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/home/byron/.local/lib/python3.12/site-packages/cocotb/simulator.cpython-312-x86_64-linux-gnu.so'
+     -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.12.12 interpreter at /usr/bin/python3
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+     0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1794764935
+     0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /home/byron/.local/lib/python3.12/site-packages/cocotb
+     0.00ns INFO     cocotb.initialize                  Running on Verilator version 5.053 devel
+     0.00ns INFO     cocotb.regression                  Running tests
+     0.00ns INFO     cocotb.regression                  running tb_control_registers.test_reset_values (1/10)
+   121.00ns INFO     cocotb.regression                  tb_control_registers.test_reset_values passed
+   121.00ns INFO     cocotb.regression                  running tb_control_registers.test_ledr_hex_threshold_rw_and_width (2/10)
+   342.00ns INFO     cocotb.regression                  tb_control_registers.test_ledr_hex_threshold_rw_and_width passed
+   342.00ns INFO     cocotb.regression                  running tb_control_registers.test_ctrl_start_busy_enable (3/10)
+   443.00ns INFO     cocotb.regression                  tb_control_registers.test_ctrl_start_busy_enable passed
+   443.00ns INFO     cocotb.regression                  running tb_control_registers.test_status_done_and_enable_off (4/10)
+                                                            La CPU escribe done=1: busy y cpu_enable bajan, start queda en 1.
+   564.00ns INFO     cocotb.regression                  tb_control_registers.test_status_done_and_enable_off passed
+   564.00ns INFO     cocotb.regression                  running tb_control_registers.test_status_write_ignored_when_idle (5/10)
+   645.00ns INFO     cocotb.regression                  tb_control_registers.test_status_write_ignored_when_idle passed
+   645.00ns INFO     cocotb.regression                  running tb_control_registers.test_done_clears_and_rearm (6/10)
+                                                            El Host baja CTRL[0]: done se limpia solo; subirlo re-arma (busy=1, done=0).
+   786.00ns INFO     cocotb.regression                  tb_control_registers.test_done_clears_and_rearm passed
+   786.00ns INFO     cocotb.regression                  running tb_control_registers.test_no_write_without_we (7/10)
+                                                            Cambiar write_data/mmio_address sin we_* no modifica nada.
+   967.01ns INFO     cocotb.regression                  tb_control_registers.test_no_write_without_we passed
+   967.01ns INFO     cocotb.regression                  running tb_control_registers.test_unmapped_reads_zero (8/10)
+                                                            0x50008 (sin registro) y otras direcciones sin mapear leen 0.
+  1148.01ns INFO     cocotb.regression                  tb_control_registers.test_unmapped_reads_zero passed
+  1148.01ns INFO     cocotb.regression                  running tb_control_registers.test_read_latency (9/10)
+  1249.01ns INFO     cocotb.regression                  tb_control_registers.test_read_latency passed
+  1249.01ns INFO     cocotb.regression                  running tb_control_registers.test_async_reset (10/10)
+  1510.01ns INFO     cocotb.regression                  tb_control_registers.test_async_reset passed
+  1510.01ns INFO     cocotb.regression                  *******************************************************************************************************************
+                                                        ** TEST                                                       STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        *******************************************************************************************************************
+                                                        ** tb_control_registers.test_reset_values                      PASS         121.00           0.00     272455.02  **
+                                                        ** tb_control_registers.test_ledr_hex_threshold_rw_and_width   PASS         221.00           0.00     784405.59  **
+                                                        ** tb_control_registers.test_ctrl_start_busy_enable            PASS         101.00           0.00     983552.28  **
+                                                        ** tb_control_registers.test_status_done_and_enable_off        PASS         121.00           0.00    1030910.27  **
+                                                        ** tb_control_registers.test_status_write_ignored_when_idle    PASS          81.00           0.00     878286.80  **
+                                                        ** tb_control_registers.test_done_clears_and_rearm             PASS         141.00           0.00     907335.91  **
+                                                        ** tb_control_registers.test_no_write_without_we               PASS         181.00           0.00    1253705.70  **
+                                                        ** tb_control_registers.test_unmapped_reads_zero               PASS         181.00           0.00    1244088.86  **
+                                                        ** tb_control_registers.test_read_latency                      PASS         101.00           0.00     623145.22  **
+                                                        ** tb_control_registers.test_async_reset                       PASS         261.00           0.00    1211884.83  **
+                                                        *******************************************************************************************************************
+                                                        ** TESTS=10 PASS=10 FAIL=0 SKIP=0                                          1510.01           0.00     507384.42  **
+                                                        *******************************************************************************************************************
+- :0: Verilog $finish
+make[1]: Leaving directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/cocotb'
+make top
+make[1]: Entering directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/cocotb'
+rm -f results_top.xml
+/home/byron/.local/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.verilator:73: Using MODULE is deprecated, please use COCOTB_TEST_MODULES instead.
+rm -f results_top.xml
+COCOTB_TEST_MODULES=tb_top COCOTB_TESTCASE=  COCOTB_TOPLEVEL=rv32i_top TOPLEVEL_LANG=verilog       \
+         sim_build_top/Vtop     
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:242  in gpi_load_users                  Loaded entry library: '/usr/lib/x86_64-linux-gnu/libpython3.12.so.1.0'
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/home/byron/.local/lib/python3.12/site-packages/cocotb/simulator.cpython-312-x86_64-linux-gnu.so'
+     -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.12.12 interpreter at /usr/bin/python3
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+     0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1794764935
+     0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /home/byron/.local/lib/python3.12/site-packages/cocotb
+     0.00ns INFO     cocotb.initialize                  Running on Verilator version 5.053 devel
+     0.00ns INFO     cocotb.regression                  Running tests
+     0.00ns INFO     cocotb.regression                  running tb_top.test_fetch_secuencial (1/3)
+                                                            Diagnostico: cada instruccion se busca una sola vez y en orden (0x0, 0x4, 0x8, ...).
+ 10080.00ns INFO     cocotb.rv32i_top                   Busquedas de instruccion: ['0x0', '0x4', '0x8', '0xc', '0x10', '0x14', '0x18', '0x1c', '0x20', '0x24', '0x28', '0x2c', '0x24', '0x28']
+ 10080.00ns INFO     cocotb.regression                  tb_top.test_fetch_secuencial passed
+ 10080.00ns INFO     cocotb.regression                  running tb_top.test_firmware_end_to_end (2/3)
+                                                            TP-13: firmware.hex + imagen reducida -> histograma e imagen de salida exactos.
+212681.00ns INFO     cocotb.rv32i_top                   OK: 64 pixeles, ~9280 ciclos hasta done
+212681.00ns INFO     cocotb.regression                  tb_top.test_firmware_end_to_end passed
+212681.00ns INFO     cocotb.regression                  running tb_top.test_firmware_with_bus_stalls (3/3)
+                                                            Mismo firmware con el Host leyendo al azar: el CPU espera por el bus y no pierde datos.
+425582.00ns INFO     cocotb.rv32i_top                   OK con stalls: 1507 lecturas del Host, ~9792 ciclos hasta done
+425582.00ns INFO     cocotb.regression                  tb_top.test_firmware_with_bus_stalls passed
+425582.00ns INFO     cocotb.regression                  **********************************************************************************************
+                                                        ** TEST                                  STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        **********************************************************************************************
+                                                        ** tb_top.test_fetch_secuencial           PASS       10080.00           0.01    1298658.47  **
+                                                        ** tb_top.test_firmware_end_to_end        PASS      202601.00           0.05    4501650.33  **
+                                                        ** tb_top.test_firmware_with_bus_stalls   PASS      212901.00           0.11    2008022.92  **
+                                                        **********************************************************************************************
+                                                        ** TESTS=3 PASS=3 FAIL=0 SKIP=0                     425582.00           0.16    2668680.56  **
+                                                        **********************************************************************************************
+- :0: Verilog $finish
+make[1]: Leaving directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/cocotb'
