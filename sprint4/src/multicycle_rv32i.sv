@@ -148,9 +148,9 @@ module multicycle_rv32i
         end else if (~soft_reset_n) begin
             pc <= '0;
         end else if (enable && pc_write) begin
-            pc <= wb_mux;
+            pc <= {wb_mux[31:1], 1'b0}; // JALR: destino = (rs1 + imm) & ~1
         end
-    end    
+    end
     assign address_instr_memory = pc; // This is simply the pc.
     // Renaming the signal is justified because pc is used for old_pc
     //and it's a more recognizable signal name in the processor.

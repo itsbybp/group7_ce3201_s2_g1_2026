@@ -1,0 +1,12 @@
++incdir+../../src
+../../../sprint1/src/alu_types_pkg.sv
+../../../sprint1/src/alu_param.sv
+../../src/multicycle_rv_immediate_types_pkg.sv
+../../src/multicycle_rv_opcodes_pkg.sv
+../../src/alu_decoder.sv
+../../src/immediate_decoder.sv
+../../src/rv_register_file.sv
+../../src/multicycle_rv_control_fsm.sv
+../../src/multicycle_rv_control_unit.sv
+../../src/multicycle_rv32i.sv
+rv32i_cpu_enable.sv

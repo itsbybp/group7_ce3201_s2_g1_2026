@@ -7,7 +7,8 @@
 | FSM | Implementada |
 | Datapath | Implementado |
 | Interfaces ready-valid | Implementadas en la FSM |
-| Instrucciones de Tabla 1 | 27 de 28 pass. `jalr` falla |
+| Enabler (`valid` con `enable`) | Implementado y verificado |
+| Instrucciones de Tabla 1 | 28 de 28 pass (29/29 con `illegal`). `jalr` corregido |
 | Modo stepping (Epic 1) | Pendiente |
 | Top de Quartus para Sprint 4 | Pendiente |
 | Testbench end-to-end | Pendiente |
@@ -19,8 +20,33 @@
 
 ![diagrama de baja calidad recortado del libro](fsm_states_diagram_hnh_lq.png)
 
-Diagrama de estados de la Control FSM. Se conserva el mismo orden usado en Digital Design and Computer Architecture RISC-V Edition
+Diagrama de estados de la Control FSM de Digital Design and Computer Architecture RISC-V Edition
 (Sarah L Harris; David Money Harris)
+
+```mermaid
+flowchart LR
+    Fetch -- "imem handshake" --> Decode
+    Decode --> MemAdr
+    Decode --> ExecuteR
+    Decode --> ExecuteI
+    Decode --> Jump
+    Decode --> Branch
+
+    MemAdr --> MemRead
+    MemAdr --> MemWrite
+
+    MemRead -- "dmem handshake" --> MemWB
+    MemWrite -- "dmem handshake" --> ㅤFetchㅤ
+
+    ExecuteR --> ALUWB
+    ExecuteI --> ALUWB
+    Jump --> ALUWB
+```
+
+
+Diagrama de estados de la Control FSM. imem handshake y dmem handshake son los handshakes the ready valid necesarios para avanzar al siguiente estado. Los estados hoja en este diagrama (que no se conectan a nada) vuelven a Fetch incondicionalmente.
+
+
 
 ![diagrama del Logic Circui](logic_circuit_multicycle_rv32i.png)
 
@@ -29,7 +55,7 @@ Diagrama interno del procesador realizado en el simulador open source Logic Circ
 ---
 
 ## 3. Interfaz del módulo `rv32i_cpu`
-Este es el módulo implementado para provar el RV32I con las pruebas de cocotb provistas en el repositorio https://github.com/rgarciatec/rv32i_cocotb_template.
+Este es el módulo implementado para probar el RV32I con las pruebas de cocotb provistas en el repositorio https://github.com/rgarciatec/rv32i_cocotb_template.
 
 | Puerto | Dirección | Ancho | Función |
 |---|---|---|---|
@@ -127,22 +153,26 @@ Nota de diseño:
 - Mientras no hay handshake, la FSM no cambia de estado. Las señales de dirección y datos se mantienen estables.
 - En FETCH, `ir_write` y el avance del PC ocurren solo con handshake de instrucción.
 
-Estado actual: `valid` no está combinado con `enable`. Está pendiente deshabilitar desde la Control FSM las salidas de valid cuando no está encendido `enable`.
+Enabler: `valid_out_* = enable && soft_reset_n && (estado)`. Con `enable = 0` la FSM no cambia de estado y los `valid` de ambos buses valen 0.
 
 ---
 
-### Falla pendiente: `jalr`
-
-- Mensaje: `Timed out after 300 cycles: JALR did not fetch expected PC 0x00000020`.
-- No se conoce el origen de la falla. Se debe comparar su comportamiento en la prueba con jal.
+## 6. Arbiter
+- El arbiter debe multiplexar tres buses: instruction memory, data memory y el del Jtag.
+- Además debe enviar un bit que indique el manager a mmio decoder para habilitar o deshabilitar el permiso de escritura para
+interacciones tipo RO (read only).
 
 ---
+## 7. MMIO decoder
+- El MMIO decoder debe habilitar o deshabilitar el permisos de escritura como se define en el punto 3 de features.md
+- Asimismo su tabla de mapeo de direcciones se debe modificar respecto al sprint3 como se indica en la tabla 2.
+---
+## 8. Periféricos
+- Los periféricos mantienen su misma función del sprint 3, excepto los registros de control, los cuales ahora deben externalizar todas sus señales para usarse estas en el top.
+---
 
-## 6. Próximos pasos
+## 9. Próximos pasos
 
-1. Corregir JALR (sección 7).
-2. Conectar el enabler con AND a los cuatro `valid`/`ready`.
-3. Agregar el modo pulse (SW[0] y KEY[1], con el eventual top).
-4. Implementar el mapa MMIO.
-5. Crear el top y compilarlo en Quartus.
-6. Captura en SignalTap de la FSM, PC, instrucción, `valid`/`ready` y done.
+1. Agregar el modo pulse (SW[0] y KEY[1], con el eventual top).
+2. Captura en SignalTap de la FSM, PC, instrucción, `valid`/`ready` y done.
+3. Crear la prueba de integración del top después de confirmar la funcionalidad del firmware.

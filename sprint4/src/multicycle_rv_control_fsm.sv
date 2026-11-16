@@ -19,7 +19,7 @@ endpackage
 
 
 
-
+import multicycle_rv_opcodes_pkg::*;
 module multicycle_rv_control_fsm 
 (
     input logic clk,
@@ -70,7 +70,7 @@ module multicycle_rv_control_fsm
 );
     import multicycle_rv_control_fsm_states_pkg::*;
 
-    import multicycle_rv_opcodes_pkg::*;
+    // import multicycle_rv_opcodes_pkg::*;
         // R_TYPE  = 7'b0110011,
         // I_TYPE  = 7'b0010011,
         // I_LOAD  = 7'b0000011,
@@ -93,10 +93,13 @@ module multicycle_rv_control_fsm
     // 2'b11 is not a possible value because FETCH and MEM_WB are mutually exclusive since they are states.
     assign result_src = {current_state == FETCH, current_state == MEM_WB}; // Selection input of write back mux.
     
-
+  
     always_comb begin
         forward_rs1 = 1'b0;
         case (current_state)
+            FETCH: begin
+                alu_src_a = 2'b00;  // pc: el siguiente PC es pc + 4 (no old_pc + 4)
+            end
             MEM_ADR, EXECUTE_R, EXECUTE_I, BEQ: begin
                 if (op == LUI_OP) begin
                     alu_src_a = 2'b11;
@@ -135,10 +138,10 @@ module multicycle_rv_control_fsm
     // ready_in_data_memory:    ready from the data memory.
     // valid_out_data_memory:   valid from the processor to the data memory.
     
-    assign valid_out_instr_memory = current_state == FETCH;
+    assign valid_out_instr_memory = enable && soft_reset_n && (current_state == FETCH);
     assign handshake_instr_memory = ready_in_instr_memory && valid_out_instr_memory;
     
-    assign valid_out_data_memory = (current_state == MEM_READ) || (current_state == MEM_WRITE);
+    assign valid_out_data_memory  = enable && soft_reset_n && ((current_state == MEM_READ) || (current_state == MEM_WRITE));
     assign handshake_data_memory = ready_in_data_memory && valid_out_data_memory;
 
 
