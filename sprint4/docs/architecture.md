@@ -20,8 +20,33 @@
 
 ![diagrama de baja calidad recortado del libro](fsm_states_diagram_hnh_lq.png)
 
-Diagrama de estados de la Control FSM. Se conserva el mismo orden usado en Digital Design and Computer Architecture RISC-V Edition
+Diagrama de estados de la Control FSM de Digital Design and Computer Architecture RISC-V Edition
 (Sarah L Harris; David Money Harris)
+
+```mermaid
+flowchart LR
+    Fetch -- "imem handshake" --> Decode
+    Decode --> MemAdr
+    Decode --> ExecuteR
+    Decode --> ExecuteI
+    Decode --> Jump
+    Decode --> Branch
+
+    MemAdr --> MemRead
+    MemAdr --> MemWrite
+
+    MemRead -- "dmem handshake" --> MemWB
+    MemWrite -- "dmem handshake" --> ㅤFetchㅤ
+
+    ExecuteR --> ALUWB
+    ExecuteI --> ALUWB
+    Jump --> ALUWB
+```
+
+
+Diagrama de estados de la Control FSM. imem handshake y dmem handshake son los handshakes the ready valid necesarios para avanzar al siguiente estado. Los estados hoja en este diagrama (que no se conectan a nada) vuelven a Fetch incondicionalmente.
+
+
 
 ![diagrama del Logic Circui](logic_circuit_multicycle_rv32i.png)
 
@@ -30,7 +55,7 @@ Diagrama interno del procesador realizado en el simulador open source Logic Circ
 ---
 
 ## 3. Interfaz del módulo `rv32i_cpu`
-Este es el módulo implementado para provar el RV32I con las pruebas de cocotb provistas en el repositorio https://github.com/rgarciatec/rv32i_cocotb_template.
+Este es el módulo implementado para probar el RV32I con las pruebas de cocotb provistas en el repositorio https://github.com/rgarciatec/rv32i_cocotb_template.
 
 | Puerto | Dirección | Ancho | Función |
 |---|---|---|---|
@@ -132,9 +157,22 @@ Enabler: `valid_out_* = enable && soft_reset_n && (estado)`. Con `enable = 0` la
 
 ---
 
-## 6. Próximos pasos
+## 6. Arbiter
+- El arbiter debe multiplexar tres buses: instruction memory, data memory y el del Jtag.
+- Además debe enviar un bit que indique el manager a mmio decoder para habilitar o deshabilitar el permiso de escritura para
+interacciones tipo RO (read only).
+
+---
+## 7. MMIO decoder
+- El MMIO decoder debe habilitar o deshabilitar el permisos de escritura como se define en el punto 3 de features.md
+- Asimismo su tabla de mapeo de direcciones se debe modificar respecto al sprint3 como se indica en la tabla 2.
+---
+## 8. Periféricos
+- Los periféricos mantienen su misma función del sprint 3, excepto los registros de control, los cuales ahora deben externalizar todas sus señales para usarse estas en el top.
+---
+
+## 9. Próximos pasos
 
 1. Agregar el modo pulse (SW[0] y KEY[1], con el eventual top).
-2. Implementar el mapa MMIO.
-3. Crear el top y compilarlo en Quartus.
-4. Captura en SignalTap de la FSM, PC, instrucción, `valid`/`ready` y done.
+2. Captura en SignalTap de la FSM, PC, instrucción, `valid`/`ready` y done.
+3. Crear la prueba de integración del top después de confirmar la funcionalidad del firmware.
