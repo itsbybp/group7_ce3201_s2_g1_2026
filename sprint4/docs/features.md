@@ -27,7 +27,18 @@ https://github.com/rgarciatec/rv32i_cocotb_template
   - Connect the enable directly to the first bit of CTRL.
     - (This is just a possible implementation)
 
+  - In stepping mode, if the processor is disabled during a ready valid transaction, the transaction could be lost,
+  but this is only possible if the user disables the processor few clock cycles after manually pressing the step button,
+  which is not feasible, so this scenario is not contemplated.
+
 3. Modify the existing MMIO decoder with the new MMIO addresses in Tabla 2.
+  - Notice that memory spaces also have a Read and Write availabilty per manager.
+  - This functionality is implemented in the MMIO decoder.
+    - read/write permission is the default
+    - To implement read only interactions the mmio_decoder must know who is the current manager
+    and and present a fake ready signal to the manager so that the writes are ignored.
+    - This ready signal is driven by an always_comb block based on the mmio address and manager
+      - looking at address[18:16] and the current manager (a 1-bit signal) is enough to determine this. 
 
 # Epic 3
 
@@ -41,8 +52,9 @@ This is particularly straightforward. Look at sections 1.2 and 5.1 in the origin
   >
   > Etapa C (Binarización): Lee el umbral desde el registro THRESHOLD, compara cada píxel de entrada contra el umbral, asigna 255 si P(y,x) ≥ TH o 0 en caso contrario, y guarda el resultado en la región de memoria dedicada a la imagen de salida.
 
-  - 4.1 The program also executes `STATUS = 1` at the end.
-  - 4.2 The program ends in an infinite loop to freeze itself?
+  - 4.1 The program also executes `STATUS[1] = 1` at the end. i.e. 'done'
+  - 4.2 This change must lead to the processor being disabled.
+  - 4.3 Only the processor can write to `STATUS`, so the first thing in the program must be `STATUS[1] = 0`.
 
 5. Python script modifications from sprint3
 - 5.1 Modify the Python program from sprint3 so that it can also binarize (umbralize?) images so that it can validate whether the process was correct.
@@ -68,13 +80,14 @@ This is particularly straightforward. Look at sections 1.2 and 5.1 in the origin
 
 8. Update the tbs from Sprint 3 for these modules:
   - 8.1 Arbiter
+  -- The arbiter receives three buses instead of two as in sprint3. These three buses are multiplexed into the output mux bus
+  of the arbiter.
   - 8.2 MMIO decoder
   - 8.3 RAM
   - 8.4 Control registers (some changes to allow the step-by-step mode in the processor must be considered).
 
 9. Create/add:
   - 9.1 Adapt the RV32I tb from the provided repository.
-  - 9.2 A module to join the buses from the processor is being considered. It would need its own tb.
 
 
 ## Verification scenarios
@@ -135,26 +148,28 @@ This is particularly straightforward. Look at sections 1.2 and 5.1 in the origin
 
 --------------------------------------
 
-
-"Clasificación de módulos reutilizables"
-    From sprint0
-        none
-    From sprint1
-        alu_param.sv
-        alu_types_pkg.sv (its associated package)
-        decoder_4x16.sv (display related)
-        seven_segment_adapter.sv (display related)
-    From sprint2
-        binary_to_bcd_converter (display related, right size)
-        key_sync.sv
-        toggle.sv
-        (there's no mode selector module in our sprint2, that was implemented inside the execute fsm itself as will be inside the processor for sprint4)
-    From sprint3
-        arbiter.sv (directly requested in the specs. Modifications are needed and requested too)
-        mmio_decoder.sv (directly requested in the specs)
-        contorl_registers.sv
-        memory_mapped_register_file.sv (won't need the MMIO part as it is now inside the RV32I)
-        ram.sv
-        vjtag_interface.sv
-        vjtag_sim_stub.sv (tbs still require driving the jtag)
+Clasificación de módulos reutilizables
+- From sprint0
+  - none
+- From sprint1
+  - alu_param.sv
+  - alu_types_pkg.sv (its associated package)
+  - decoder_4x16.sv (display related)
+  - seven_segment_adapter.sv (display related)
+- From sprint2
+  - binary_to_bcd_converter (display related, right size)
+  - key_sync.sv
+  - toggle.sv
+  - (there's no mode selector module in our sprint2, that was implemented inside the execute fsm itself as will be inside the processor for sprint4)
+- From sprint3
+  - arbiter.sv (directly requested in the specs. Modifications are needed and requested too)
+    - Now receives and multiplexes three buses: instruction memory, data memory and the vJtag.
+  - mmio_decoder.sv (directly requested in the specs)
+    - Implements read/write permissions
+  - contorl_registers.sv
+    - Must output the registers separately to use them in top
+  - ram.sv
+    - It wasn't correctly implemented in the last sprint. It should be the same as sprint3 requested.
+  - vjtag_interface.sv
+  - vjtag_sim_stub.sv (tbs still require driving the jtag)
 

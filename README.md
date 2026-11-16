@@ -12,12 +12,18 @@ Repositorio base para los sprints del curso CE-3201 Taller de Diseño Digital. E
     * `quartus/`: Configuración del proyecto (`.qsf`) y scripts de post-síntesis (`post_flow.tcl`).
     * `src/`: Modelos SystemVerilog (`parity_checker_structural.sv` y `parity_checker_behavioral.sv`).
     * `tests/`: Makefile unificado y banco de pruebas funcional en Cocotb (`test_parity_checker.py`).
-* `sprint1/`, `sprint2/`: Directorios de los sprints siguientes, cada uno con la misma sub-estructura:
+* `sprint1/`, `sprint2/`, `sprint3/`: Directorios de los sprints siguientes, cada uno con la misma sub-estructura:
     * `docs/`: Documentación del sprint (ICD, arquitectura, diagramas de FSM, plan y resultados de pruebas).
     * `quartus/`: Proyecto de Quartus Prime (`.qpf`/`.qsf`), restricciones de temporización en `sdc/`, y reportes de síntesis generados en `output_files/` (`.flow.rpt`, `.fit.rpt`, `.map.rpt`, `.sta.rpt`).
     * `src/`: Código fuente SystemVerilog (`.sv`).
     * `test/cocotb/`: Pruebas funcionales en Python con Cocotb.
     * `test/sv/`: Testbenches en SystemVerilog puro, corridos en Questa, junto con sus scripts `.do` y el resumen `questa_test_summary.log`.
+    * `sdc/` (Sprint 3): Restricciones de temporización a nivel de sprint.
+    * `scripts/` (Sprint 3): Consola en Python vía vJTAG para el procesamiento de imágenes (`pixel_image_app.py`, `jtag_fpga.py`, `jtag_server.tcl`) e imágenes de prueba.
+* `sprint4/`: Directorio del proyecto final (Microcontrolador RV32I y Procesamiento de Imágenes):
+    * `docs/`: Documentación técnica obligatoria (`features.md`, `architecture.md`, `testplan.md`, `results.md`, `evidencia_atributos.md`).
+    * `firmware/`: Programa en ensamblador RV32I (`firmware.s`) y su versión ensamblada para la RAM de instrucciones (`firmware.hex`).
+    * `scripts/`: Consola en Python (`pixel_image_app.py`) que carga el firmware y la imagen, inicia el CPU y recoge el histograma y la imagen binarizada. Reutiliza `jtag_fpga.py`, `jtag_server.tcl` y `requirements.txt` de `sprint3/scripts/`.
 * `Dockerfile`: Imagen de contenedor para la ejecución estandarizada en la nube.
 * `Makefile`: Orquestrador global de tareas para el repositorio.
 * `README.md`: Documentación principal del repositorio.
@@ -37,6 +43,30 @@ Al abrir un *Pull Request*, el pipeline de GitHub Actions (`gatekeeper.yml`) cor
 * **Simulación funcional open-source:** ejecuta `make -C sprintN/test/cocotb` (Cocotb + Icarus Verilog) si esa carpeta existe.
 * **Artefactos locales:** exige que `sprintN/quartus/output_files/*.flow.rpt` reporte síntesis exitosa, y que `sprintN/test/sv/questa_test_summary.log` (generado localmente con Questa) muestre `ERRORS=0`, `WARNINGS=0` y `ALL_TESTS_PASSED`.
 * **Estilo de código:** rechaza múltiples sentencias SystemVerilog en una misma línea dentro de `sprintN/src/`.
+
+## Sprint 4: Firmware y Consola Python
+
+### Generar `firmware.hex` desde `firmware.s`
+El CPU no ensambla: el programa se ensambla en el PC y el resultado se carga en la RAM de instrucciones. Desde `sprint4/firmware/` (toolchain `gcc-riscv64-unknown-elf`):
+
+```bash
+riscv64-unknown-elf-as -march=rv32i -mabi=ilp32 firmware.s -o firmware.o
+riscv64-unknown-elf-objcopy -O binary -j .text firmware.o firmware.bin
+xxd -e -c4 firmware.bin | awk '{print $2}' > firmware.hex
+```
+
+Solo `firmware.s` y `firmware.hex` se versionan; `firmware.o` y `firmware.bin` son intermedios y no se suben.
+
+### Ejecución en la placa
+1. Programar la FPGA con el `.sof` del diseño.
+2. Iniciar el servidor vJTAG desde `sprint3/scripts/` (`quartus_stp -t jtag_server.tcl`).
+3. Instalar dependencias (`pip install -r sprint3/scripts/requirements.txt`) y ejecutar desde `sprint4/scripts/`:
+
+```bash
+python pixel_image_app.py imagen.jpg --threshold 128 --save-images
+```
+
+La consola carga `firmware.hex` y la imagen (128×128, escala de grises), envía el pulso `start`, espera `STATUS.done` y descarga el histograma y la imagen binarizada, verificándolos contra el resultado esperado.
 
 ## Plataformas Soportadas
 

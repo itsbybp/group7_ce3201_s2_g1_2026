@@ -1,3 +1,5 @@
+import alu_types_pkg::*;
+import multicycle_rv_instruction_formats_pkg::*;
 module multicycle_rv_control_unit
 (
     input logic clk,
@@ -39,12 +41,13 @@ module multicycle_rv_control_unit
     output logic [1:0] alu_src_b,
     output logic adr_src,
     output [1:0] slt_sltu_source,
+    output logic forward_rs1,
 
 
     // Tests
     output logic illegal
 );
-    import alu_types_pkg::*;
+    // import alu_types_pkg::*;
     // ADD,
     // SUB,
     // AND,
@@ -54,17 +57,17 @@ module multicycle_rv_control_unit
     // SRL,
     // SRA
 
-    import multicycle_rv_instruction_formats_pkg::*;
 
     logic branch;
     logic pc_update;
     logic [1:0] alu_op;
 
+    import multicycle_rv_opcodes_pkg::*;
     multicycle_rv_control_fsm control_fsm
     (
         .clk(clk),
         .rst_n(rst_n),
-        .op(op),
+        .op(multicycle_rv_opcodes_pkg::multicycle_rv_opcode'(op)),
         .soft_reset_n(soft_reset_n), 
         .enable(enable), 
         
@@ -88,6 +91,7 @@ module multicycle_rv_control_unit
         .alu_src_b(alu_src_b),
         .adr_src(adr_src),
         .alu_op(alu_op),
+        .forward_rs1(forward_rs1),
 
         // Test
         .illegal(illegal)
