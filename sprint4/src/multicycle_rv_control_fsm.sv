@@ -19,7 +19,7 @@ endpackage
 
 
 
-
+import multicycle_rv_opcodes_pkg::*;
 module multicycle_rv_control_fsm 
 (
     input logic clk,
@@ -70,7 +70,7 @@ module multicycle_rv_control_fsm
 );
     import multicycle_rv_control_fsm_states_pkg::*;
 
-    import multicycle_rv_opcodes_pkg::*;
+    // import multicycle_rv_opcodes_pkg::*;
         // R_TYPE  = 7'b0110011,
         // I_TYPE  = 7'b0010011,
         // I_LOAD  = 7'b0000011,

@@ -1,3 +1,4 @@
+import multicycle_rv_instruction_formats_pkg::*;
 module immediate_decoder
 (
     input logic [6:0] op,
@@ -15,7 +16,7 @@ module immediate_decoder
         // LUI_OP     = 7'b0110111
         // //, AUIP_OP= 7'b0010111
 
-    import multicycle_rv_instruction_formats_pkg::*;
+    // import multicycle_rv_instruction_formats_pkg::*;
         // R,
         // I,
         // S,
