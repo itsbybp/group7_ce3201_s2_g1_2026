@@ -4,7 +4,7 @@ mkdir -p /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/
 /usr/local/bin/verilator -cc --exe -Mdir /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/results/sim_build --top-module rv32i_cpu -F /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/files.f  --timescale 1ns/1ps --vpi --public-flat-rw --prefix Vtop -o Vtop -LDFLAGS "-Wl,-rpath,/home/byron/.local/lib/python3.12/site-packages/cocotb/libs -L/home/byron/.local/lib/python3.12/site-packages/cocotb/libs -lcocotbvpi_verilator"   /home/byron/.local/lib/python3.12/site-packages/cocotb/share/lib/verilator/verilator.cpp
 - V e r i l a t i o n   R e p o r t: Verilator 5.053 devel rev v5.052-455-g4438772c1
 - Verilator: Built from 0.326 MB sources in 14 modules, into 0.299 MB in 7 C++ files needing 0.000 MB
-- Verilator: Walltime 1.003 s (elab=0.007, cvt=0.165, bld=0.000); cpu 0.123 s on 1 threads; allocated 27.938 MB
+- Verilator: Walltime 0.147 s (elab=0.002, cvt=0.030, bld=0.000); cpu 0.030 s on 1 threads; allocated 27.938 MB
 make -C /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/results/sim_build  -f Vtop.mk
 make[2]: Entering directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/results/sim_build'
 ccache g++  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -DVM_VPI=1 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable  -DVM_PREFIX_INCLUDE="<Vtop.h>" -DVM_PREFIX_INCLUDE_DPI="<Vtop__Dpi.h>"     -Os  -c -o verilator.o /home/byron/.local/lib/python3.12/site-packages/cocotb/share/lib/verilator/verilator.cpp
@@ -24,7 +24,7 @@ COCOTB_TEST_MODULES=test_rv32i COCOTB_TESTCASE=  COCOTB_TOPLEVEL=rv32i_cpu TOPLE
      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/home/byron/.local/lib/python3.12/site-packages/cocotb/simulator.cpython-312-x86_64-linux-gnu.so'
      -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.12.12 interpreter at /usr/bin/python3
      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
-     0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1795195436
+     0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1795209720
      0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /home/byron/.local/lib/python3.12/site-packages/cocotb
      0.00ns INFO     cocotb.initialize                  Running on Verilator version 5.053 devel
      0.00ns INFO     cocotb.regression                  Running tests
@@ -89,37 +89,37 @@ COCOTB_TEST_MODULES=test_rv32i COCOTB_TESTCASE=  COCOTB_TOPLEVEL=rv32i_cpu TOPLE
   7144.03ns INFO     cocotb.regression                  ****************************************************************************************
                                                         ** TEST                            STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
                                                         ****************************************************************************************
-                                                        ** test_rv32i.add                   PASS         296.00           0.01      23787.51  **
-                                                        ** test_rv32i.sub                   PASS         296.00           0.01      28994.23  **
-                                                        ** test_rv32i.and                   PASS         296.00           0.01      26759.64  **
-                                                        ** test_rv32i.or                    PASS         296.00           0.01      32723.78  **
-                                                        ** test_rv32i.xor                   PASS         296.00           0.01      31380.31  **
-                                                        ** test_rv32i.sll                   PASS         296.00           0.01      25982.41  **
-                                                        ** test_rv32i.srl                   PASS         296.00           0.01      29364.71  **
-                                                        ** test_rv32i.sra                   PASS         296.00           0.01      29098.64  **
-                                                        ** test_rv32i.slt                   PASS         296.00           0.01      28993.88  **
-                                                        ** test_rv32i.sltu                  PASS         296.00           0.01      29410.70  **
-                                                        ** test_rv32i.addi                  PASS         236.00           0.01      22448.65  **
-                                                        ** test_rv32i.andi                  PASS         236.00           0.01      23785.44  **
-                                                        ** test_rv32i.ori                   PASS         236.00           0.01      23973.12  **
-                                                        ** test_rv32i.xori                  PASS         236.00           0.01      21151.59  **
-                                                        ** test_rv32i.slli                  PASS         236.00           0.01      25316.11  **
-                                                        ** test_rv32i.srli                  PASS         236.00           0.01      23737.06  **
-                                                        ** test_rv32i.srai                  PASS         236.00           0.01      22342.96  **
-                                                        ** test_rv32i.slti                  PASS         236.00           0.01      21787.59  **
-                                                        ** test_rv32i.sltiu                 PASS         236.00           0.01      24157.86  **
-                                                        ** test_rv32i.beq                   PASS         216.00           0.01      21258.35  **
-                                                        ** test_rv32i.bne                   PASS         216.00           0.01      20639.65  **
-                                                        ** test_rv32i.blt                   PASS         216.00           0.01      21005.94  **
-                                                        ** test_rv32i.bge                   PASS         216.00           0.01      18691.03  **
-                                                        ** test_rv32i.jal                   PASS         226.00           0.01      19168.81  **
-                                                        ** test_rv32i.jalr                  PASS         226.00           0.01      20362.97  **
-                                                        ** test_rv32i.lui                   PASS         176.00           0.01      14571.15  **
-                                                        ** test_rv32i.lw                    PASS         266.00           0.01      21827.00  **
-                                                        ** test_rv32i.sw                    PASS         236.00           0.01      21821.12  **
-                                                        ** test_rv32i.illegal               PASS          66.00           0.01       6547.25  **
+                                                        ** test_rv32i.add                   PASS         296.00           0.00     106330.24  **
+                                                        ** test_rv32i.sub                   PASS         296.00           0.00     145149.27  **
+                                                        ** test_rv32i.and                   PASS         296.00           0.00     144066.20  **
+                                                        ** test_rv32i.or                    PASS         296.00           0.00     153316.88  **
+                                                        ** test_rv32i.xor                   PASS         296.00           0.00     158668.81  **
+                                                        ** test_rv32i.sll                   PASS         296.00           0.00     158020.22  **
+                                                        ** test_rv32i.srl                   PASS         296.00           0.00     155747.26  **
+                                                        ** test_rv32i.sra                   PASS         296.00           0.00     166572.22  **
+                                                        ** test_rv32i.slt                   PASS         296.00           0.00     179033.70  **
+                                                        ** test_rv32i.sltu                  PASS         296.00           0.00     176240.41  **
+                                                        ** test_rv32i.addi                  PASS         236.00           0.00     124894.82  **
+                                                        ** test_rv32i.andi                  PASS         236.00           0.00     131276.74  **
+                                                        ** test_rv32i.ori                   PASS         236.00           0.00     151710.24  **
+                                                        ** test_rv32i.xori                  PASS         236.00           0.00     148076.02  **
+                                                        ** test_rv32i.slli                  PASS         236.00           0.00     119292.47  **
+                                                        ** test_rv32i.srli                  PASS         236.00           0.00     139064.36  **
+                                                        ** test_rv32i.srai                  PASS         236.00           0.00     147368.84  **
+                                                        ** test_rv32i.slti                  PASS         236.00           0.00     138088.90  **
+                                                        ** test_rv32i.sltiu                 PASS         236.00           0.00     148664.23  **
+                                                        ** test_rv32i.beq                   PASS         216.00           0.00     127170.21  **
+                                                        ** test_rv32i.bne                   PASS         216.00           0.00     141394.01  **
+                                                        ** test_rv32i.blt                   PASS         216.00           0.00     123862.94  **
+                                                        ** test_rv32i.bge                   PASS         216.00           0.00     135049.04  **
+                                                        ** test_rv32i.jal                   PASS         226.00           0.00     147730.96  **
+                                                        ** test_rv32i.jalr                  PASS         226.00           0.00     134906.85  **
+                                                        ** test_rv32i.lui                   PASS         176.00           0.00      84403.04  **
+                                                        ** test_rv32i.lw                    PASS         266.00           0.00     145650.79  **
+                                                        ** test_rv32i.sw                    PASS         236.00           0.00     140287.39  **
+                                                        ** test_rv32i.illegal               PASS          66.00           0.00      45771.00  **
                                                         ****************************************************************************************
-                                                        ** TESTS=29 PASS=29 FAIL=0 SKIP=0               7144.03           0.32      22169.31  **
+                                                        ** TESTS=29 PASS=29 FAIL=0 SKIP=0               7144.03           0.06     126613.81  **
                                                         ****************************************************************************************
 - :0: Verilog $finish
 make[1]: Leaving directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb'
@@ -133,4 +133,4 @@ collected 30 items
 cocotb/test_dashboard.py ..............................                  [100%]
 
 - Generated html report: file:///mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/results/dashboard_cpu.html -
-============================== 30 passed in 0.72s ==============================
+============================== 30 passed in 0.09s ==============================

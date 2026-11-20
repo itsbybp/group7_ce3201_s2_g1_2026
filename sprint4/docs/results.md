@@ -49,7 +49,7 @@ make test_cpu SV_FILELIST=files.f TOPLEVEL=rv32i_cpu 2>&1 | tee ../../docs/evide
 Resultado (corrida del 20 nov, después de los últimos cambios al CPU):
 
 ```
-** TESTS=29 PASS=29 FAIL=0 SKIP=0               7144.03           0.32      22169.31  **
+** TESTS=29 PASS=29 FAIL=0 SKIP=0               7144.03           0.06     126613.81  **
 ```
 
 El dashboard de pytest reporta `30 passed` (29 casos de instrucción más `test_functional_instruction_coverage`). La cobertura de instrucciones (29/29 bins, 1 hit por instrucción) se lee de `coverage.json`, que genera esta misma corrida.
@@ -102,7 +102,7 @@ Se integró la CPU con el árbitro, el decodificador MMIO, la RAM (M10K) y los r
 Comando: `make top` (en `sprint4/test/cocotb`), 64 píxeles.
 
 ```
-** TESTS=3 PASS=3 FAIL=0 SKIP=0                     425582.00           0.53     807315.82  **
+** TESTS=3 PASS=3 FAIL=0 SKIP=0                     425582.00           0.14    3101726.58  **
 ```
 
 | Prueba | Qué verifica | Resultado |

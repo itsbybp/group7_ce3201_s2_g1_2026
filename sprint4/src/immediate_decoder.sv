@@ -1,11 +1,12 @@
 import multicycle_rv_instruction_formats_pkg::*;
+import multicycle_rv_opcodes_pkg::*;
 module immediate_decoder
 (
     input logic [6:0] op,
 
     output multicycle_rv_instruction_format immediate_src // [2:0]
 );
-    import multicycle_rv_opcodes_pkg::*;
+    // Opcodes (paquete importado antes del módulo):
         // R_TYPE_OP  = 7'b0110011,
         // I_TYPE_OP  = 7'b0010011,
         // I_LOAD_OP  = 7'b0000011,
