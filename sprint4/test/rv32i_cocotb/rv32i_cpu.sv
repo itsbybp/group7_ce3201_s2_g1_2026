@@ -56,6 +56,7 @@ module rv32i_cpu
 
         // Display
         .instruction(),
+        .state_num(),
 
         // Tests
         .illegal(illegal_instruction)
