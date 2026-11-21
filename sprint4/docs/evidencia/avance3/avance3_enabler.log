@@ -1,0 +1,880 @@
+make[1]: Entering directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb'
+rm -f /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/results/results.xml
+mkdir -p /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/results/sim_build
+/usr/local/bin/verilator -cc --exe -Mdir /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/results/sim_build --top-module rv32i_cpu_enable -F /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/files_enable.f  --timescale 1ns/1ps --vpi --public-flat-rw --prefix Vtop -o Vtop -LDFLAGS "-Wl,-rpath,/home/byron/.local/lib/python3.12/site-packages/cocotb/libs -L/home/byron/.local/lib/python3.12/site-packages/cocotb/libs -lcocotbvpi_verilator"   /home/byron/.local/lib/python3.12/site-packages/cocotb/share/lib/verilator/verilator.cpp
+- V e r i l a t i o n   R e p o r t: Verilator 5.053 devel rev v5.052-455-g4438772c1
+- Verilator: Built from 0.326 MB sources in 14 modules, into 0.314 MB in 7 C++ files needing 0.000 MB
+- Verilator: Walltime 0.992 s (elab=0.030, cvt=0.178, bld=0.000); cpu 0.146 s on 1 threads; allocated 27.375 MB
+make -C /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/results/sim_build  -f Vtop.mk
+make[2]: Entering directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/results/sim_build'
+ccache g++  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -DVM_VPI=1 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable  -DVM_PREFIX_INCLUDE="<Vtop.h>" -DVM_PREFIX_INCLUDE_DPI="<Vtop__Dpi.h>"     -Os  -c -o verilator.o /home/byron/.local/lib/python3.12/site-packages/cocotb/share/lib/verilator/verilator.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -DVM_VPI=1 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable  -DVM_PREFIX_INCLUDE="<Vtop.h>" -DVM_PREFIX_INCLUDE_DPI="<Vtop__Dpi.h>"     -c -o verilated.o /usr/local/share/verilator/include/verilated.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -DVM_VPI=1 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable  -DVM_PREFIX_INCLUDE="<Vtop.h>" -DVM_PREFIX_INCLUDE_DPI="<Vtop__Dpi.h>"     -c -o verilated_dpi.o /usr/local/share/verilator/include/verilated_dpi.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -DVM_VPI=1 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable  -DVM_PREFIX_INCLUDE="<Vtop.h>" -DVM_PREFIX_INCLUDE_DPI="<Vtop__Dpi.h>"     -c -o verilated_vpi.o /usr/local/share/verilator/include/verilated_vpi.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -DVM_VPI=1 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable  -DVM_PREFIX_INCLUDE="<Vtop.h>" -DVM_PREFIX_INCLUDE_DPI="<Vtop__Dpi.h>"     -c -o verilated_threads.o /usr/local/share/verilator/include/verilated_threads.cpp
+python3 /usr/local/share/verilator/bin/verilator_includer -DVL_INCLUDE_OPT=include Vtop.cpp Vtop___024root__0.cpp Vtop__Dpi.cpp Vtop__ConstPool__0__Slow.cpp Vtop___024root__Slow.cpp Vtop___024root__0__Slow.cpp Vtop__Syms__Slow.cpp > Vtop__ALL.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -DVM_VPI=1 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable  -DVM_PREFIX_INCLUDE="<Vtop.h>" -DVM_PREFIX_INCLUDE_DPI="<Vtop__Dpi.h>"     -c -o Vtop__ALL.o Vtop__ALL.cpp
+g++    -rdynamic verilator.o verilated.o verilated_dpi.o verilated_vpi.o verilated_threads.o Vtop__ALL.a   -Wl,-rpath,/home/byron/.local/lib/python3.12/site-packages/cocotb/libs -L/home/byron/.local/lib/python3.12/site-packages/cocotb/libs -lcocotbvpi_verilator  -pthread -lpthread -latomic -ldl   -o Vtop
+rm Vtop__ALL.verilator_deplist.tmp
+make[2]: Leaving directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/results/sim_build'
+rm -f /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/results/results.xml
+COCOTB_TEST_MODULES=test_rv32i COCOTB_TESTCASE=  COCOTB_TOPLEVEL=rv32i_cpu_enable TOPLEVEL_LANG=verilog       \
+         /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/results/sim_build/Vtop     
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:242  in gpi_load_users                  Loaded entry library: '/usr/lib/x86_64-linux-gnu/libpython3.12.so.1.0'
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/home/byron/.local/lib/python3.12/site-packages/cocotb/simulator.cpython-312-x86_64-linux-gnu.so'
+     -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.12.12 interpreter at /usr/bin/python3
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+     0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1795195415
+     0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /home/byron/.local/lib/python3.12/site-packages/cocotb
+     0.00ns INFO     cocotb.initialize                  Running on Verilator version 5.053 devel
+     0.00ns INFO     cocotb.regression                  Running tests
+     0.00ns INFO     cocotb.regression                  running test_rv32i.add (1/29)
+  3036.00ns WARNING  cocotb.regression                  test_rv32i.add failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 384, in run_case
+                                                            await test_alu(dut, case.operation)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 287, in test_alu
+                                                            address, actual = await check_store(dut, program)
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 276, in check_store
+                                                            await wait_for(
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+  3036.00ns INFO     cocotb.regression                  running test_rv32i.sub (2/29)
+  6072.00ns WARNING  cocotb.regression                  test_rv32i.sub failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 384, in run_case
+                                                            await test_alu(dut, case.operation)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 287, in test_alu
+                                                            address, actual = await check_store(dut, program)
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 276, in check_store
+                                                            await wait_for(
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+  6072.00ns INFO     cocotb.regression                  running test_rv32i.and (3/29)
+  9108.00ns WARNING  cocotb.regression                  test_rv32i.and failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 384, in run_case
+                                                            await test_alu(dut, case.operation)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 287, in test_alu
+                                                            address, actual = await check_store(dut, program)
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 276, in check_store
+                                                            await wait_for(
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+  9108.00ns INFO     cocotb.regression                  running test_rv32i.or (4/29)
+ 12144.00ns WARNING  cocotb.regression                  test_rv32i.or failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 384, in run_case
+                                                            await test_alu(dut, case.operation)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 287, in test_alu
+                                                            address, actual = await check_store(dut, program)
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 276, in check_store
+                                                            await wait_for(
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+ 12144.00ns INFO     cocotb.regression                  running test_rv32i.xor (5/29)
+ 15180.00ns WARNING  cocotb.regression                  test_rv32i.xor failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 384, in run_case
+                                                            await test_alu(dut, case.operation)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 287, in test_alu
+                                                            address, actual = await check_store(dut, program)
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 276, in check_store
+                                                            await wait_for(
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+ 15180.00ns INFO     cocotb.regression                  running test_rv32i.sll (6/29)
+ 18216.01ns WARNING  cocotb.regression                  test_rv32i.sll failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 384, in run_case
+                                                            await test_alu(dut, case.operation)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 287, in test_alu
+                                                            address, actual = await check_store(dut, program)
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 276, in check_store
+                                                            await wait_for(
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+ 18216.01ns INFO     cocotb.regression                  running test_rv32i.srl (7/29)
+ 21252.01ns WARNING  cocotb.regression                  test_rv32i.srl failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 384, in run_case
+                                                            await test_alu(dut, case.operation)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 287, in test_alu
+                                                            address, actual = await check_store(dut, program)
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 276, in check_store
+                                                            await wait_for(
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+ 21252.01ns INFO     cocotb.regression                  running test_rv32i.sra (8/29)
+ 24288.01ns WARNING  cocotb.regression                  test_rv32i.sra failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 384, in run_case
+                                                            await test_alu(dut, case.operation)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 287, in test_alu
+                                                            address, actual = await check_store(dut, program)
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 276, in check_store
+                                                            await wait_for(
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+ 24288.01ns INFO     cocotb.regression                  running test_rv32i.slt (9/29)
+ 27324.01ns WARNING  cocotb.regression                  test_rv32i.slt failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 384, in run_case
+                                                            await test_alu(dut, case.operation)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 287, in test_alu
+                                                            address, actual = await check_store(dut, program)
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 276, in check_store
+                                                            await wait_for(
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+ 27324.01ns INFO     cocotb.regression                  running test_rv32i.sltu (10/29)
+ 30360.01ns WARNING  cocotb.regression                  test_rv32i.sltu failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 384, in run_case
+                                                            await test_alu(dut, case.operation)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 287, in test_alu
+                                                            address, actual = await check_store(dut, program)
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 276, in check_store
+                                                            await wait_for(
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+ 30360.01ns INFO     cocotb.regression                  running test_rv32i.addi (11/29)
+ 33396.01ns WARNING  cocotb.regression                  test_rv32i.addi failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 384, in run_case
+                                                            await test_alu(dut, case.operation)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 287, in test_alu
+                                                            address, actual = await check_store(dut, program)
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 276, in check_store
+                                                            await wait_for(
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+ 33396.01ns INFO     cocotb.regression                  running test_rv32i.andi (12/29)
+ 36432.01ns WARNING  cocotb.regression                  test_rv32i.andi failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 384, in run_case
+                                                            await test_alu(dut, case.operation)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 287, in test_alu
+                                                            address, actual = await check_store(dut, program)
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 276, in check_store
+                                                            await wait_for(
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+ 36432.01ns INFO     cocotb.regression                  running test_rv32i.ori (13/29)
+ 39468.01ns WARNING  cocotb.regression                  test_rv32i.ori failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 384, in run_case
+                                                            await test_alu(dut, case.operation)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 287, in test_alu
+                                                            address, actual = await check_store(dut, program)
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 276, in check_store
+                                                            await wait_for(
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+ 39468.01ns INFO     cocotb.regression                  running test_rv32i.xori (14/29)
+ 42504.01ns WARNING  cocotb.regression                  test_rv32i.xori failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 384, in run_case
+                                                            await test_alu(dut, case.operation)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 287, in test_alu
+                                                            address, actual = await check_store(dut, program)
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 276, in check_store
+                                                            await wait_for(
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+ 42504.01ns INFO     cocotb.regression                  running test_rv32i.slli (15/29)
+ 45540.01ns WARNING  cocotb.regression                  test_rv32i.slli failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 384, in run_case
+                                                            await test_alu(dut, case.operation)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 287, in test_alu
+                                                            address, actual = await check_store(dut, program)
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 276, in check_store
+                                                            await wait_for(
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+ 45540.01ns INFO     cocotb.regression                  running test_rv32i.srli (16/29)
+ 48576.01ns WARNING  cocotb.regression                  test_rv32i.srli failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 384, in run_case
+                                                            await test_alu(dut, case.operation)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 287, in test_alu
+                                                            address, actual = await check_store(dut, program)
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 276, in check_store
+                                                            await wait_for(
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+ 48576.01ns INFO     cocotb.regression                  running test_rv32i.srai (17/29)
+ 51612.02ns WARNING  cocotb.regression                  test_rv32i.srai failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 384, in run_case
+                                                            await test_alu(dut, case.operation)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 287, in test_alu
+                                                            address, actual = await check_store(dut, program)
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 276, in check_store
+                                                            await wait_for(
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+ 51612.02ns INFO     cocotb.regression                  running test_rv32i.slti (18/29)
+ 54648.02ns WARNING  cocotb.regression                  test_rv32i.slti failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 384, in run_case
+                                                            await test_alu(dut, case.operation)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 287, in test_alu
+                                                            address, actual = await check_store(dut, program)
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 276, in check_store
+                                                            await wait_for(
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+ 54648.02ns INFO     cocotb.regression                  running test_rv32i.sltiu (19/29)
+ 57684.02ns WARNING  cocotb.regression                  test_rv32i.sltiu failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 384, in run_case
+                                                            await test_alu(dut, case.operation)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 287, in test_alu
+                                                            address, actual = await check_store(dut, program)
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 276, in check_store
+                                                            await wait_for(
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+ 57684.02ns INFO     cocotb.regression                  running test_rv32i.beq (20/29)
+ 60720.02ns WARNING  cocotb.regression                  test_rv32i.beq failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 387, in run_case
+                                                            await test_branch(dut, case.operation)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 314, in test_branch
+                                                            await wait_for(
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: BEQ did not fetch expected PC 0x0000000c
+ 60720.02ns INFO     cocotb.regression                  running test_rv32i.bne (21/29)
+ 63756.02ns WARNING  cocotb.regression                  test_rv32i.bne failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 387, in run_case
+                                                            await test_branch(dut, case.operation)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 314, in test_branch
+                                                            await wait_for(
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: BNE did not fetch expected PC 0x00000010
+ 63756.02ns INFO     cocotb.regression                  running test_rv32i.blt (22/29)
+ 66792.02ns WARNING  cocotb.regression                  test_rv32i.blt failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 387, in run_case
+                                                            await test_branch(dut, case.operation)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 314, in test_branch
+                                                            await wait_for(
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: BLT did not fetch expected PC 0x00000010
+ 66792.02ns INFO     cocotb.regression                  running test_rv32i.bge (23/29)
+ 69828.02ns WARNING  cocotb.regression                  test_rv32i.bge failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 387, in run_case
+                                                            await test_branch(dut, case.operation)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 314, in test_branch
+                                                            await wait_for(
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: BGE did not fetch expected PC 0x0000000c
+ 69828.02ns INFO     cocotb.regression                  running test_rv32i.jal (24/29)
+ 72864.02ns WARNING  cocotb.regression                  test_rv32i.jal failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 390, in run_case
+                                                            await test_jump(dut, case.operation)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 333, in test_jump
+                                                            await wait_for(
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: JAL did not fetch expected PC 0x00000014
+ 72864.02ns INFO     cocotb.regression                  running test_rv32i.jalr (25/29)
+ 75900.02ns WARNING  cocotb.regression                  test_rv32i.jalr failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 390, in run_case
+                                                            await test_jump(dut, case.operation)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 333, in test_jump
+                                                            await wait_for(
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: JALR did not fetch expected PC 0x00000020
+ 75900.02ns INFO     cocotb.regression                  running test_rv32i.lui (26/29)
+ 78936.02ns WARNING  cocotb.regression                  test_rv32i.lui failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 393, in run_case
+                                                            await run_lui(dut)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 344, in run_lui
+                                                            address, actual = await check_store(dut, program)
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 276, in check_store
+                                                            await wait_for(
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+ 78936.02ns INFO     cocotb.regression                  running test_rv32i.lw (27/29)
+ 81972.03ns WARNING  cocotb.regression                  test_rv32i.lw failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 396, in run_case
+                                                            await run_lw(dut)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 352, in run_lw
+                                                            address, actual = await check_store(dut, program_map(words), {0x18C: expected})
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 276, in check_store
+                                                            await wait_for(
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+ 81972.03ns INFO     cocotb.regression                  running test_rv32i.sw (28/29)
+ 85008.03ns WARNING  cocotb.regression                  test_rv32i.sw failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 401, in run_case
+                                                            await run_sw(dut)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 362, in run_sw
+                                                            await wait_for(
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: SW did not write the expected address and data
+ 85008.03ns INFO     cocotb.regression                  running test_rv32i.illegal (29/29)
+ 88044.03ns WARNING  cocotb.regression                  test_rv32i.illegal failed
+                                                        Traceback (most recent call last):
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 410, in test
+                                                            await run_case(dut, selected_case)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 399, in run_case
+                                                            await run_illegal(dut)
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 373, in run_illegal
+                                                            await wait_for(
+                                                          File "/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb/test_rv32i.py", line 270, in wait_for
+                                                            raise AssertionError(f"Timed out after {MAX_CYCLES} cycles: {message}")
+                                                        AssertionError: Timed out after 300 cycles: CPU did not assert illegal_instruction for an unsupported encoding
+ 88044.03ns INFO     cocotb.regression                  ****************************************************************************************
+                                                        ** TEST                            STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        ****************************************************************************************
+                                                        ** test_rv32i.add                   FAIL        3036.00           0.02     127064.66  **
+                                                        ** test_rv32i.sub                   FAIL        3036.00           0.02     135870.16  **
+                                                        ** test_rv32i.and                   FAIL        3036.00           0.02     149119.89  **
+                                                        ** test_rv32i.or                    FAIL        3036.00           0.02     158481.46  **
+                                                        ** test_rv32i.xor                   FAIL        3036.00           0.02     148676.78  **
+                                                        ** test_rv32i.sll                   FAIL        3036.00           0.02     147711.60  **
+                                                        ** test_rv32i.srl                   FAIL        3036.00           0.02     155777.94  **
+                                                        ** test_rv32i.sra                   FAIL        3036.00           0.02     143782.13  **
+                                                        ** test_rv32i.slt                   FAIL        3036.00           0.02     137514.55  **
+                                                        ** test_rv32i.sltu                  FAIL        3036.00           0.02     134147.70  **
+                                                        ** test_rv32i.addi                  FAIL        3036.00           0.02     153225.39  **
+                                                        ** test_rv32i.andi                  FAIL        3036.00           0.02     126148.54  **
+                                                        ** test_rv32i.ori                   FAIL        3036.00           0.01     258358.99  **
+                                                        ** test_rv32i.xori                  FAIL        3036.00           0.01     274373.07  **
+                                                        ** test_rv32i.slli                  FAIL        3036.00           0.01     323447.65  **
+                                                        ** test_rv32i.srli                  FAIL        3036.00           0.01     275699.51  **
+                                                        ** test_rv32i.srai                  FAIL        3036.00           0.02     139380.13  **
+                                                        ** test_rv32i.slti                  FAIL        3036.00           0.02     127110.88  **
+                                                        ** test_rv32i.sltiu                 FAIL        3036.00           0.02     138955.20  **
+                                                        ** test_rv32i.beq                   FAIL        3036.00           0.02     153520.43  **
+                                                        ** test_rv32i.bne                   FAIL        3036.00           0.02     155790.51  **
+                                                        ** test_rv32i.blt                   FAIL        3036.00           0.02     162257.03  **
+                                                        ** test_rv32i.bge                   FAIL        3036.00           0.02     162592.40  **
+                                                        ** test_rv32i.jal                   FAIL        3036.00           0.02     163727.56  **
+                                                        ** test_rv32i.jalr                  FAIL        3036.00           0.02     150808.34  **
+                                                        ** test_rv32i.lui                   FAIL        3036.00           0.02     157265.63  **
+                                                        ** test_rv32i.lw                    FAIL        3036.00           0.02     158158.31  **
+                                                        ** test_rv32i.sw                    FAIL        3036.00           0.02     158826.61  **
+                                                        ** test_rv32i.illegal               FAIL        3036.00           0.02     129020.45  **
+                                                        ****************************************************************************************
+                                                        ** TESTS=29 PASS=0 FAIL=29 SKIP=0              88044.03           0.91      96496.35  **
+                                                        ****************************************************************************************
+- :0: Verilog $finish
+make[1]: *** [/home/byron/.local/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.verilator:74: /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/results/results.xml] Error 29
+make[1]: Leaving directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb'
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0
+rootdir: /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/cocotb
+configfile: pytest.ini
+plugins: html-4.2.0, metadata-3.1.1
+collected 30 items
+
+cocotb/test_dashboard.py FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF                  [100%]
+
+=================================== FAILURES ===================================
+____________________________ test_cocotb_case[add] _____________________________
+
+name = 'add'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: ADD failed: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+E       assert False
+
+cocotb/test_dashboard.py:43: AssertionError
+____________________________ test_cocotb_case[sub] _____________________________
+
+name = 'sub'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: SUB failed: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+E       assert False
+
+cocotb/test_dashboard.py:43: AssertionError
+____________________________ test_cocotb_case[and] _____________________________
+
+name = 'and'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: AND failed: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+E       assert False
+
+cocotb/test_dashboard.py:43: AssertionError
+_____________________________ test_cocotb_case[or] _____________________________
+
+name = 'or'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: OR failed: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+E       assert False
+
+cocotb/test_dashboard.py:43: AssertionError
+____________________________ test_cocotb_case[xor] _____________________________
+
+name = 'xor'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: XOR failed: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+E       assert False
+
+cocotb/test_dashboard.py:43: AssertionError
+____________________________ test_cocotb_case[sll] _____________________________
+
+name = 'sll'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: SLL failed: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+E       assert False
+
+cocotb/test_dashboard.py:43: AssertionError
+____________________________ test_cocotb_case[srl] _____________________________
+
+name = 'srl'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: SRL failed: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+E       assert False
+
+cocotb/test_dashboard.py:43: AssertionError
+____________________________ test_cocotb_case[sra] _____________________________
+
+name = 'sra'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: SRA failed: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+E       assert False
+
+cocotb/test_dashboard.py:43: AssertionError
+____________________________ test_cocotb_case[slt] _____________________________
+
+name = 'slt'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: SLT failed: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+E       assert False
+
+cocotb/test_dashboard.py:43: AssertionError
+____________________________ test_cocotb_case[sltu] ____________________________
+
+name = 'sltu'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: SLTU failed: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+E       assert False
+
+cocotb/test_dashboard.py:43: AssertionError
+____________________________ test_cocotb_case[addi] ____________________________
+
+name = 'addi'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: ADDI failed: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+E       assert False
+
+cocotb/test_dashboard.py:43: AssertionError
+____________________________ test_cocotb_case[andi] ____________________________
+
+name = 'andi'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: ANDI failed: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+E       assert False
+
+cocotb/test_dashboard.py:43: AssertionError
+____________________________ test_cocotb_case[ori] _____________________________
+
+name = 'ori'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: ORI failed: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+E       assert False
+
+cocotb/test_dashboard.py:43: AssertionError
+____________________________ test_cocotb_case[xori] ____________________________
+
+name = 'xori'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: XORI failed: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+E       assert False
+
+cocotb/test_dashboard.py:43: AssertionError
+____________________________ test_cocotb_case[slli] ____________________________
+
+name = 'slli'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: SLLI failed: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+E       assert False
+
+cocotb/test_dashboard.py:43: AssertionError
+____________________________ test_cocotb_case[srli] ____________________________
+
+name = 'srli'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: SRLI failed: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+E       assert False
+
+cocotb/test_dashboard.py:43: AssertionError
+____________________________ test_cocotb_case[srai] ____________________________
+
+name = 'srai'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: SRAI failed: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+E       assert False
+
+cocotb/test_dashboard.py:43: AssertionError
+____________________________ test_cocotb_case[slti] ____________________________
+
+name = 'slti'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: SLTI failed: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+E       assert False
+
+cocotb/test_dashboard.py:43: AssertionError
+___________________________ test_cocotb_case[sltiu] ____________________________
+
+name = 'sltiu'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: SLTIU failed: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+E       assert False
+
+cocotb/test_dashboard.py:43: AssertionError
+____________________________ test_cocotb_case[beq] _____________________________
+
+name = 'beq'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: BEQ failed: Timed out after 300 cycles: BEQ did not fetch expected PC 0x0000000c
+E       assert False
+
+cocotb/test_dashboard.py:43: AssertionError
+____________________________ test_cocotb_case[bne] _____________________________
+
+name = 'bne'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: BNE failed: Timed out after 300 cycles: BNE did not fetch expected PC 0x00000010
+E       assert False
+
+cocotb/test_dashboard.py:43: AssertionError
+____________________________ test_cocotb_case[blt] _____________________________
+
+name = 'blt'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: BLT failed: Timed out after 300 cycles: BLT did not fetch expected PC 0x00000010
+E       assert False
+
+cocotb/test_dashboard.py:43: AssertionError
+____________________________ test_cocotb_case[bge] _____________________________
+
+name = 'bge'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: BGE failed: Timed out after 300 cycles: BGE did not fetch expected PC 0x0000000c
+E       assert False
+
+cocotb/test_dashboard.py:43: AssertionError
+____________________________ test_cocotb_case[jal] _____________________________
+
+name = 'jal'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: JAL failed: Timed out after 300 cycles: JAL did not fetch expected PC 0x00000014
+E       assert False
+
+cocotb/test_dashboard.py:43: AssertionError
+____________________________ test_cocotb_case[jalr] ____________________________
+
+name = 'jalr'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: JALR failed: Timed out after 300 cycles: JALR did not fetch expected PC 0x00000020
+E       assert False
+
+cocotb/test_dashboard.py:43: AssertionError
+____________________________ test_cocotb_case[lui] _____________________________
+
+name = 'lui'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: LUI failed: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+E       assert False
+
+cocotb/test_dashboard.py:43: AssertionError
+_____________________________ test_cocotb_case[lw] _____________________________
+
+name = 'lw'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: LW failed: Timed out after 300 cycles: CPU did not write the result to 0x00000100
+E       assert False
+
+cocotb/test_dashboard.py:43: AssertionError
+_____________________________ test_cocotb_case[sw] _____________________________
+
+name = 'sw'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: SW failed: Timed out after 300 cycles: SW did not write the expected address and data
+E       assert False
+
+cocotb/test_dashboard.py:43: AssertionError
+__________________________ test_cocotb_case[illegal] ___________________________
+
+name = 'illegal'
+
+    @pytest.mark.parametrize("name", EXPECTED_TESTS, ids=EXPECTED_TESTS)
+    def test_cocotb_case(name: str) -> None:
+        passed, details = RESULTS.get(name, (False, "Cocotb result was not reported"))
+>       assert passed, f"{name.upper()} failed: {details}"
+E       AssertionError: ILLEGAL failed: Timed out after 300 cycles: CPU did not assert illegal_instruction for an unsupported encoding
+E       assert False
+
+cocotb/test_dashboard.py:43: AssertionError
+_____________________ test_functional_instruction_coverage _____________________
+
+    def test_functional_instruction_coverage() -> None:
+        coverage = load_coverage()
+>       assert coverage, f"Missing Cocotb functional coverage data: {COVERAGE_FILE}"
+E       AssertionError: Missing Cocotb functional coverage data: /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/results/coverage.json
+E       assert {}
+
+cocotb/test_dashboard.py:54: AssertionError
+- Generated html report: file:///mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/rv32i_cocotb/results/dashboard_cpu.html -
+=========================== short test summary info ============================
+FAILED cocotb/test_dashboard.py::test_cocotb_case[add] - AssertionError: ADD ...
+FAILED cocotb/test_dashboard.py::test_cocotb_case[sub] - AssertionError: SUB ...
+FAILED cocotb/test_dashboard.py::test_cocotb_case[and] - AssertionError: AND ...
+FAILED cocotb/test_dashboard.py::test_cocotb_case[or] - AssertionError: OR fa...
+FAILED cocotb/test_dashboard.py::test_cocotb_case[xor] - AssertionError: XOR ...
+FAILED cocotb/test_dashboard.py::test_cocotb_case[sll] - AssertionError: SLL ...
+FAILED cocotb/test_dashboard.py::test_cocotb_case[srl] - AssertionError: SRL ...
+FAILED cocotb/test_dashboard.py::test_cocotb_case[sra] - AssertionError: SRA ...
+FAILED cocotb/test_dashboard.py::test_cocotb_case[slt] - AssertionError: SLT ...
+FAILED cocotb/test_dashboard.py::test_cocotb_case[sltu] - AssertionError: SLT...
+FAILED cocotb/test_dashboard.py::test_cocotb_case[addi] - AssertionError: ADD...
+FAILED cocotb/test_dashboard.py::test_cocotb_case[andi] - AssertionError: AND...
+FAILED cocotb/test_dashboard.py::test_cocotb_case[ori] - AssertionError: ORI ...
+FAILED cocotb/test_dashboard.py::test_cocotb_case[xori] - AssertionError: XOR...
+FAILED cocotb/test_dashboard.py::test_cocotb_case[slli] - AssertionError: SLL...
+FAILED cocotb/test_dashboard.py::test_cocotb_case[srli] - AssertionError: SRL...
+FAILED cocotb/test_dashboard.py::test_cocotb_case[srai] - AssertionError: SRA...
+FAILED cocotb/test_dashboard.py::test_cocotb_case[slti] - AssertionError: SLT...
+FAILED cocotb/test_dashboard.py::test_cocotb_case[sltiu] - AssertionError: SL...
+FAILED cocotb/test_dashboard.py::test_cocotb_case[beq] - AssertionError: BEQ ...
+FAILED cocotb/test_dashboard.py::test_cocotb_case[bne] - AssertionError: BNE ...
+FAILED cocotb/test_dashboard.py::test_cocotb_case[blt] - AssertionError: BLT ...
+FAILED cocotb/test_dashboard.py::test_cocotb_case[bge] - AssertionError: BGE ...
+FAILED cocotb/test_dashboard.py::test_cocotb_case[jal] - AssertionError: JAL ...
+FAILED cocotb/test_dashboard.py::test_cocotb_case[jalr] - AssertionError: JAL...
+FAILED cocotb/test_dashboard.py::test_cocotb_case[lui] - AssertionError: LUI ...
+FAILED cocotb/test_dashboard.py::test_cocotb_case[lw] - AssertionError: LW fa...
+FAILED cocotb/test_dashboard.py::test_cocotb_case[sw] - AssertionError: SW fa...
+FAILED cocotb/test_dashboard.py::test_cocotb_case[illegal] - AssertionError: ...
+FAILED cocotb/test_dashboard.py::test_functional_instruction_coverage - Asser...
+============================== 30 failed in 2.00s ==============================
+make: *** [Makefile:40: test_cpu] Error 1
