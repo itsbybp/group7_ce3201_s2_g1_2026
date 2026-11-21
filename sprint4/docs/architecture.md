@@ -9,44 +9,44 @@
 | Interfaces ready-valid | Implementadas en la FSM |
 | Enabler (`valid` con `enable`) | Implementado y verificado |
 | Instrucciones de Tabla 1 | 28 de 28 pass (29/29 con `illegal`). `jalr` corregido |
-| Modo stepping (Epic 1) | Pendiente |
-| Top de Quartus para Sprint 4 | Pendiente |
-| Testbench end-to-end | Pendiente |
+| Mapa MMIO, árbitro, RAM y registros de control | Implementados y verificados (`rv32i_top`) |
+| Testbench end-to-end | Implementado: 64 píxeles e imagen completa (16384), con y sin stalls |
+| Top de placa (`top_level`) con vJTAG | Implementado; compila en Quartus (Fitter Successful) |
+| Modo paso a paso (Epic 1) | Implementado en `top_level`; sin simular ni probar en la placa |
 | SignalTap | Pendiente |
 
 ---
 
 ## 2. Vista general
 
-![diagrama de baja calidad recortado del libro](fsm_states_diagram_hnh_lq.png)
-
-Diagrama de estados de la Control FSM de Digital Design and Computer Architecture RISC-V Edition
-(Sarah L Harris; David Money Harris)
+Diagrama de estados de la Control FSM, elaborado a partir del RTL (`multicycle_rv_control_fsm.sv`). Incluye las esperas por `ready` (FETCH, MEM_READ y MEM_WRITE se mantienen en su estado hasta que ocurre el handshake) y los estados que usan bne, blt, bge (estado BEQ, la condición se resuelve en la unidad de control), lui (EXECUTE_I con operando A = 0) y jalr (estado JAL con rs1 reenviado desde el banco de registros).
 
 ```mermaid
-flowchart LR
-    Fetch -- "imem handshake" --> Decode
-    Decode --> MemAdr
-    Decode --> ExecuteR
-    Decode --> ExecuteI
-    Decode --> Jump
-    Decode --> Branch
-
-    MemAdr --> MemRead
-    MemAdr --> MemWrite
-
-    MemRead -- "dmem handshake" --> MemWB
-    MemWrite -- "dmem handshake" --> ㅤFetchㅤ
-
-    ExecuteR --> ALUWB
-    ExecuteI --> ALUWB
-    Jump --> ALUWB
+stateDiagram-v2
+    [*] --> FETCH
+    FETCH --> FETCH: sin handshake imem (valid = 1, ready = 0)
+    FETCH --> DECODE: handshake imem
+    DECODE --> EXECUTE_R: R
+    DECODE --> EXECUTE_I: I (ALU) o lui
+    DECODE --> MEM_ADR: lw o sw
+    DECODE --> BEQ: beq, bne, blt, bge
+    DECODE --> JAL: jal o jalr
+    DECODE --> FETCH: instrucción ilegal (illegal = 1)
+    MEM_ADR --> MEM_READ: lw
+    MEM_ADR --> MEM_WRITE: sw
+    MEM_READ --> MEM_READ: sin handshake dmem
+    MEM_READ --> MEM_WB: handshake dmem
+    MEM_WRITE --> MEM_WRITE: sin handshake dmem
+    MEM_WRITE --> FETCH: handshake dmem
+    EXECUTE_R --> ALU_WB
+    EXECUTE_I --> ALU_WB
+    JAL --> ALU_WB
+    MEM_WB --> FETCH
+    ALU_WB --> FETCH
+    BEQ --> FETCH
 ```
 
-
-Diagrama de estados de la Control FSM. imem handshake y dmem handshake son los handshakes the ready valid necesarios para avanzar al siguiente estado. Los estados hoja en este diagrama (que no se conectan a nada) vuelven a Fetch incondicionalmente.
-
-
+Si `enable = 0` la FSM no cambia de estado en ninguno de los casos anteriores; si `soft_reset_n = 0` (CTRL[0] = 0) vuelve a FETCH.
 
 ![diagrama del Logic Circui](logic_circuit_multicycle_rv32i.png)
 
@@ -55,7 +55,7 @@ Diagrama interno del procesador realizado en el simulador open source Logic Circ
 ---
 
 ## 3. Interfaz del módulo `rv32i_cpu`
-Este es el módulo implementado para probar el RV32I con las pruebas de cocotb provistas en el repositorio https://github.com/rgarciatec/rv32i_cocotb_template.
+Este es el módulo implementado para provar el RV32I con las pruebas de cocotb provistas en el repositorio https://github.com/rgarciatec/rv32i_cocotb_template.
 
 | Puerto | Dirección | Ancho | Función |
 |---|---|---|---|
@@ -111,6 +111,7 @@ Este es el módulo implementado para probar el RV32I con las pruebas de cocotb p
 
         // Display
         .instruction(),
+        .state_num(),
 
         // Tests
         .illegal(illegal_instruction)
@@ -155,24 +156,145 @@ Nota de diseño:
 
 Enabler: `valid_out_* = enable && soft_reset_n && (estado)`. Con `enable = 0` la FSM no cambia de estado y los `valid` de ambos buses valen 0.
 
+¿Qué pasa si un `ready` llega mientras `enable = 0`? El handshake se define como `ready && valid_out`, y `valid_out` vale 0, por lo que no hay handshake: la transacción no se cuenta, la FSM permanece en FETCH, MEM_READ o MEM_WRITE y no se escribe `ir`, ni el PC, ni ningún registro. Al volver `enable = 1` el CPU repite la petición desde el mismo estado. Una escritura al bus de datos solo se completa si `valid = 1` en el mismo ciclo, por lo que con `enable = 0` no se escribe nada. En el modo paso a paso el CPU se congela con `cpu_hold` solo después de que `cpu_state` cambia, es decir, cuando la transacción en curso ya terminó, de modo que no se pierde ninguna.
+
+Con la CPU congelada (`enable = 0`) el registro `read_data_reg` conserva su valor (`else if (enable)`); antes capturaba el bus en todos los ciclos y se perdía el dato de un `lw` congelado en `MEM_WB`.
+
+La FSM expone su estado actual en `state_num[3:0]` (puerto del `multicycle_rv32i`), usado por el modo paso a paso y por las vistas de depuración.
+
 ---
 
-## 6. Arbiter
-- El arbiter debe multiplexar tres buses: instruction memory, data memory y el del Jtag.
-- Además debe enviar un bit que indique el manager a mmio decoder para habilitar o deshabilitar el permiso de escritura para
-interacciones tipo RO (read only).
+## 6. Buses independientes y arbitraje (AC 3)
+
+El módulo propuesto en `features.md` (9.2) para unir los buses del procesador **se descarta**: unir los buses contradice el AC 3, que exige dos buses físicos independientes (instrucciones y datos) hacia el exterior. En su lugar:
+
+| Bus | Camino | Maestros | Se arbitra |
+|---|---|---|---|
+| Instrucciones (Fetch) | CPU -> puerto de instrucciones de `ram` (lectura directa, sin árbitro ni decodificador) | CPU | No: es un bus dedicado solo de lectura |
+| Datos (Memory) | CPU y Host vJTAG -> `arbiter` -> `mmio_decoder` -> RAM de datos y registros | CPU y Host | Sí: el `arbiter` concede el bus a uno de los dos |
+
+- **Independencia.** El bus de instrucciones nunca pasa por el `arbiter`, por lo que un acceso del Host al bus de datos no frena el Fetch ni lo mezcla con las transacciones de datos. Cada bus tiene su propio par `valid`/`ready` (`imem_valid`/`imem_ready` y `cpu_valid`/`cpu_ready`) y su propio `ready` (la FSM espera por cada uno por separado).
+- **Árbitro.** Tiene dos maestros, el Host vJTAG y el bus de datos de la CPU (no tres: el bus de instrucciones no entra). Prioridad fija al Host (AC 2 de Sprint 3); la CPU conserva el bus hasta completar su transacción (`FSM_ACCESS`) y entrega `mux_is_cpu` al decodificador para aplicar permisos por maestro.
+- **Acceso del Host a la RAM de instrucciones.** La RAM de instrucciones tiene dos puertos: uno de datos (Host R/W por el bus arbitrado) y uno de instrucciones (CPU RO). Esto permite que el Host cargue el firmware mientras la CPU está apagada, y que la CPU lea instrucciones sin pasar por el árbitro.
 
 ---
-## 7. MMIO decoder
-- El MMIO decoder debe habilitar o deshabilitar el permisos de escritura como se define en el punto 3 de features.md
-- Asimismo su tabla de mapeo de direcciones se debe modificar respecto al sprint3 como se indica en la tabla 2.
----
-## 8. Periféricos
-- Los periféricos mantienen su misma función del sprint 3, excepto los registros de control, los cuales ahora deben externalizar todas sus señales para usarse estas en el top.
+
+## 7. Mapa MMIO y permisos por maestro (Tabla 2)
+
+El `mmio_decoder` aplica los permisos con la señal `is_cpu` que entrega el árbitro. Una escritura sin permiso se descarta (Write-Ignored, WI) sin bloquear el bus; la lectura de direcciones no mapeadas devuelve 0 (Read-As-Zero, RAZ).
+
+| Rango (hex) | Destino | Host | CPU | Nota |
+|---|---|---|---|---|
+| 00000–01FFF | RAM de instrucciones (8 KB, 2048 palabras) | R/W | RO (WI) | `we_instr` solo si `is_cpu = 0` |
+| 10000–1FFFF | RAM imagen de entrada (16384 palabras) | R/W | RO (WI) | `we_in` solo Host |
+| 20000–2FFFF | RAM imagen de salida (16384 palabras) | RO | R/W | `we_out` solo CPU |
+| 30000–303FC | RAM histograma (256 contadores de 32 bits) | RO | R/W | `we_hist` solo CPU |
+| 40000 | LEDR (10 bits) | R/W | R/W | |
+| 40004 | HEX (24 bits, un nibble por display) | R/W | R/W | |
+| 50000 | CTRL (bit 0 = start) | R/W | RO | `we_ctrl` solo Host |
+| 50004 | STATUS (bit 0 = busy, bit 1 = done) | RO | R/W | `we_status` solo CPU |
+| 5000C | THRESHOLD (0 a 255) | R/W | RO | `we_threshold` solo Host |
+
+Resto: no mapeado (RAZ/WI; p. ej. 0x50008 lee 0). Las lecturas tardan un ciclo (M10K sincrónica): `ready` sube un ciclo después de `valid` en lecturas y en el mismo ciclo en escrituras.
+
 ---
 
-## 9. Próximos pasos
+## 8. Arranque y fin del procesamiento (AC 7)
 
-1. Agregar el modo pulse (SW[0] y KEY[1], con el eventual top).
-2. Captura en SignalTap de la FSM, PC, instrucción, `valid`/`ready` y done.
-3. Crear la prueba de integración del top después de confirmar la funcionalidad del firmware.
+- **Arranque.** El Host escribe CTRL[0] = 1 (`start`). `start` es el nivel `soft_reset_n` de la CPU (no un pulso): mientras vale 0, el PC se mantiene en 0x0000_0000 y la FSM en FETCH; al ponerse en 1 la CPU comienza a ejecutar desde la dirección 0.
+- **Fin.** El firmware escribe `STATUS = 0b10`, es decir, el bit 1 (`done`); el valor 1 en el bit 0 sería `busy`, que es de solo lectura y se calcula en hardware como `start && !done`.
+- **Apagado de peticiones.** Con `done = 1`, `cpu_enable = start && !done` vale 0: la FSM deja de avanzar y `valid_out` de ambos buses vale 0 (el firmware termina en un bucle infinito `j halt`, pero la CPU ya no genera peticiones). El control regresa al Host, que puede leer STATUS, el histograma y la imagen de salida.
+- **Re-armado.** El Host baja CTRL[0] a 0 (`done` se limpia solo) y lo vuelve a subir a 1.
+
+---
+
+## 9. Sistema completo: `rv32i_top` y `top_level`
+
+```text
+top_level (placa)
+├─ key_sync x2 (reset desde KEY[0], paso desde KEY[1])
+├─ vjtag (IP) + vjtag_interface + FSM de bus del Host (cruce tck -> clk)
+├─ lógica del modo paso a paso
+├─ rv32i_top
+│   ├─ multicycle_rv32i (CPU)
+│   ├─ arbiter (Host vJTAG tiene prioridad sobre la CPU)
+│   ├─ mmio_decoder
+│   ├─ ram (M10K: instrucciones, IN, OUT, histograma)
+│   └─ control_registers (LEDR, HEX, CTRL, STATUS, THRESHOLD)
+└─ seven_segment_adapter x6 (HEX0..HEX5)
+```
+
+Mapa de memoria (Tabla 2): instrucciones 0x00000–0x01FFF, IN 0x10000–0x1FFFF, OUT 0x20000–0x2FFFF, histograma 0x30000–0x303FC, LEDR 0x40000, HEX 0x40004, CTRL 0x50000 (bit 0 = start), STATUS 0x50004 (bit 0 = busy, bit 1 = done), THRESHOLD 0x5000C.
+
+La CPU corre con `cpu_enable = start && !done`, donde `start` es CTRL[0] (`soft_reset_n`). `busy` se calcula en hardware como `start && !done`.
+
+### Modo paso a paso
+
+- SW[0] = 0: la CPU corre a 50 MHz. SW[0] = 1: avance manual con KEY[1].
+- Un solo ciclo de `enable` no completa un FETCH ni un handshake de datos, por lo que un paso deja correr la FSM hasta que `cpu_state` cambie.
+- Implementación: `cpu_hold = step_mode & ~(step_active_q & (cpu_state == step_ref_q))`. Al pulsar KEY[1] se activa `step_active_q` y se guarda el estado actual en `step_ref_q`; cuando `cpu_state` cambia, `step_active_q` se limpia y la CPU vuelve a congelarse. `step_active_q` también se limpia si `busy` vale 0.
+- `rv32i_top` recibe `cpu_hold` y lo combina como `enable(cpu_enable && !cpu_hold)`. Sin conectar, `cpu_hold` vale 0, por lo que el testbench de simulación no cambia.
+
+### Vistas de depuración (SW[2:1])
+
+| SW[2:1] | HEX | LEDR |
+|---|---|---|
+| 00 | Registro `hex` | Registro `ledr` |
+| 01 | PC[23:0] | `{step_mode, done, busy, illegal, 2'b00, cpu_state}` |
+| 10 | Instrucción[23:0] | igual que arriba |
+| 11 | Instrucción[31:8] | igual que arriba |
+
+### Señales para SignalTap
+
+`top_level` marca con `(* keep *)` `tap_imem_valid`, `tap_imem_ready`, `tap_cpu_valid`, `tap_cpu_ready` y `tap_handshake_instr`, junto con `cpu_state`, el PC, la instrucción y `done`. SignalTap está apagado en el `.qsf` actual.
+
+---
+
+## 10. Clasificación de módulos
+
+| Módulo | Origen | Estado en Sprint 4 | Cambios |
+|---|---|---|---|
+| `alu_param.sv`, `alu_types_pkg.sv` | Sprint 1 | Reutilizado sin cambios | — |
+| `decoder_4x16.sv`, `seven_segment_adapter.sv` | Sprint 1 | Reutilizado sin cambios | Se usan 6 `seven_segment_adapter` para HEX0 a HEX5 |
+| `key_sync.sv` | Sprint 2 | Reutilizado sin cambios | Dos instancias: reset (KEY[0]) y paso (KEY[1]) |
+| `binary_to_bcd_converter.sv`, `toggle.sv` | Sprint 2 | No se usan | — |
+| `vjtag_interface.sv`, IP `vjtag` | Sprint 3 | Reutilizado sin cambios | — |
+| `arbiter.sv` | Sprint 3 | Modificado | Maestros: Host y bus de datos de la CPU; la CPU conserva el bus hasta `ready`; nueva salida `mux_is_cpu` |
+| `mmio_decoder.sv` | Sprint 3 | Modificado | Direcciones de la Tabla 2; permisos por maestro; RAZ/WI; `ready` de lectura con 1 ciclo |
+| `control_registers.sv` | Sprint 3 | Modificado | Registros LEDR, HEX, CTRL, STATUS y THRESHOLD; salidas `start`, `cpu_enable`, `busy`, `done`, `ledr`, `hex`, `threshold` |
+| `ram.sv` | Sprint 3 | Modificado | Cuatro memorias (instrucciones, entrada, salida, histograma); segundo puerto de lectura para el bus de instrucciones con `imem_ready` |
+| `rv_register_file.sv` | Nuevo | Banco x0–x31 interno del procesador (sin x0 instanciado) | Ya no es un periférico MMIO como en Sprint 3 |
+| `multicycle_rv32i.sv`, `multicycle_rv_control_unit.sv`, `multicycle_rv_control_fsm.sv`, `alu_decoder.sv`, `immediate_decoder.sv` | Nuevo | Procesador RV32I multiciclo | — |
+| `rv32i_top.sv`, `top_level.sv` | Nuevo | Integración y top de placa | — |
+
+---
+
+## 11. Infraestructura
+
+- **Firmware.** `firmware.hex` se genera desde `firmware.s` con la toolchain `gcc-riscv64-unknown-elf` en `sprint4/firmware/`:
+
+```bash
+riscv64-unknown-elf-as -march=rv32i -mabi=ilp32 firmware.s -o firmware.o
+riscv64-unknown-elf-objcopy -O binary -j .text firmware.o firmware.bin
+xxd -e -c4 firmware.bin | awk '{print $2}' > firmware.hex
+```
+
+  Solo `firmware.s` y `firmware.hex` se versionan.
+- **CI.** El gatekeeper ejecuta `make -C sprint4/test/cocotb` (pruebas unitarias y de sistema) en cada PR que toque `sprint4`. Las 29 pruebas del profesor (`sprint4/test/rv32i_cocotb`, `make test_cpu`) se corren a mano y su evidencia se guarda en `docs/evidencia/`.
+- **Estructura de `sprint4/`.** `src/`, `test/cocotb/` (unitarias y sistema), `test/rv32i_cocotb/` (repo del profesor con los wrappers `rv32i_cpu*.sv`), `firmware/`, `scripts/`, `quartus/` y `docs/`. Los cambios a la estructura se documentan en `README.md`.
+
+---
+
+## 12. Requisitos del enunciado
+
+- **Solo `lw` y `sw` (AC 1).** Los píxeles se leen y escriben por palabras de 32 bits (un píxel por palabra). No se implementan lb, lh, sb ni sh.
+- **`lui` (AC 2).** Se ejecuta en EXECUTE_I con el operando A en 0 y el inmediato tipo U (`{instruction[31:12], 12'b0}`); `firmware.s` lo usa (directamente o por `li`) para cargar las bases del mapa MMIO.
+- **Latencia de las M10K.** La lectura sincrónica tarda un ciclo, por eso `ready` de lectura sube un ciclo después de `valid`, y el bus de instrucciones entrega una instrucción cada 2 ciclos (`imem_ready` alterna 1, 0, 1, 0). La FSM mantiene `valid` hasta recibir `ready`.
+
+---
+
+## 13. Próximos pasos
+
+1. Programar la DE10-Standard y probar la carga por vJTAG (`jtag_server.tcl` y `pixel_image_app.py`).
+2. Probar el modo paso a paso en la placa y revisar la orientación de los dígitos HEX.
+3. Captura en SignalTap de la FSM, PC, instrucción, `valid`/`ready` y `done`.

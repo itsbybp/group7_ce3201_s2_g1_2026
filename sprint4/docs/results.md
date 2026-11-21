@@ -1,11 +1,11 @@
-# Resultados de Verificación: Sprint 4 (Avance 2)
+# Resultados de Verificación: Sprint 4 (Avance 3)
 
 **Proyecto:** CE3201 Taller de Diseño Digital, Grupo 7
-**Fecha:** 15 nov 2026
-**Avance:** 2, tag `v0.0.2-proj`
+**Fecha:** 20 nov 2026
+**Avance:** 3, tag `v0.1.0-proj` (el Avance 2, `v0.0.2-proj`, es del 15 nov 2026)
 **Arquitectura:** ver `docs/architecture.md`
 **Plan de pruebas:** ver `docs/testplan.md`
-**Entorno de simulación:** Verilator 5.053 (devel), cocotb 2.1.0, Python 3.12, WSL. Todos los resultados de las secciones 2 a 5 son de la corrida del 15 nov 2026, con el diseño ya corregido (sección 5).
+**Entorno de simulación:** Verilator 5.053 (devel), cocotb 2.1.0, Python 3.12, WSL. Los resultados de las secciones 2 a 4 son de la corrida del 20 nov 2026, hecha después de los últimos cambios al CPU (`state_num`, `cpu_hold` y la corrección de `read_data_reg`, sección 5). La síntesis (sección 6) es del 19 nov 2026 (Fitter).
 
 ---
 
@@ -13,16 +13,18 @@
 
 | Verificación | Herramienta | Resultado | Estado |
 |---|---|---|---|
-| Prueba del repo con mock CPU | Cocotb | 29/29 PASS | Ejecutada en Avance 1 (no repetida el 15 nov) |
-| Verificación del repo sobre `rv32i_cpu` | Cocotb | 29/29 PASS | Ejecutada |
-| Enabler (`enable = 0`) | Cocotb | Sin `valid` activo | Ejecutada antes de las correcciones de la sección 5; no repetida el 15 nov |
-| Unitaria `arbiter` | Cocotb | 8/8 PASS | Ejecutada |
-| Unitaria `mmio_decoder` | Cocotb | 7/7 PASS | Ejecutada |
-| Unitaria `ram` | Cocotb | 8/8 PASS | Ejecutada |
-| Unitaria `control_registers` | Cocotb | 10/10 PASS | Ejecutada |
-| Sistema `rv32i_top` (CPU + árbitro + MMIO + RAM + registros) | Cocotb | 3/3 PASS | Ejecutada |
-| Síntesis en Quartus | Quartus Prime | Pendiente | Pendiente |
-| Captura en hardware | SignalTap | No ejecutada | Pendiente |
+| Prueba del repo con mock CPU | Cocotb | 29/29 PASS | Ejecutada en Avance 1 (el mock no cambió) |
+| Verificación del repo sobre `rv32i_cpu` | Cocotb | 29/29 PASS (pytest 30 passed) | Ejecutada el 20 nov |
+| Enabler (`enable = 0`) | Cocotb | 29/29 casos con timeout a 300 ciclos (pytest: 30 failed), ninguna instrucción completada | Ejecutada el 20 nov |
+| Unitaria `arbiter` | Cocotb | 8/8 PASS | Ejecutada el 20 nov |
+| Unitaria `mmio_decoder` | Cocotb | 7/7 PASS | Ejecutada el 20 nov |
+| Unitaria `ram` | Cocotb | 8/8 PASS | Ejecutada el 20 nov |
+| Unitaria `control_registers` | Cocotb | 10/10 PASS | Ejecutada el 20 nov |
+| Sistema `rv32i_top`, 64 píxeles | Cocotb | 3/3 PASS | Ejecutada el 20 nov |
+| Sistema `rv32i_top`, imagen completa (16384 píxeles, `FULL_IMAGE=1`) | Cocotb | 3/3 PASS | Ejecutada el 20 nov |
+| Síntesis del top de placa (`top_level`) | Quartus Prime 25.1 Lite | Fitter Successful, 1609 ALMs, Fmax 67.33 MHz | Ejecutada el 19 nov |
+| Modo paso a paso (SW[0], KEY[1]) | — | Implementado en `top_level`; compila | Sin simular ni probar en la placa |
+| Carga por vJTAG y captura en hardware | DE10-Standard, SignalTap | No ejecutada | Pendiente |
 
 ---
 
@@ -44,10 +46,10 @@ Comando:
 make test_cpu SV_FILELIST=files.f TOPLEVEL=rv32i_cpu 2>&1 | tee ../../docs/evidencia/avance2/avance2_cocotb.log
 ```
 
-Resultado (después de las correcciones de la sección 5):
+Resultado (corrida del 20 nov, después de los últimos cambios al CPU):
 
 ```
-** TESTS=29 PASS=29 FAIL=0 SKIP=0               7144.03           0.07     103927.16  **
+** TESTS=29 PASS=29 FAIL=0 SKIP=0               7144.03           0.06     126613.81  **
 ```
 
 El dashboard de pytest reporta `30 passed` (29 casos de instrucción más `test_functional_instruction_coverage`). La cobertura de instrucciones (29/29 bins, 1 hit por instrucción) se lee de `coverage.json`, que genera esta misma corrida.
@@ -64,9 +66,9 @@ El dashboard de pytest reporta `30 passed` (29 casos de instrucción más `test_
 | J | jal | PASS |
 | Ilegal | illegal | PASS |
 
-### Enabler
+### Enabler (TP-10)
 
-Con `enable = 0` en el wrapper, el procesador no genera `valid` (0 mensajes de `valid activo` frente a 300 antes de la corrección) y la prueba termina por timeout, como se espera de una CPU apagada. Esta prueba se ejecutó antes de las correcciones de la sección 5 y no se repitió el 15 nov. Las correcciones no tocan la lógica de `enable`, pero no se verificó de nuevo.
+Con `enable = 0` en el wrapper (`files_enable.f`, `TOPLEVEL=rv32i_cpu_enable`), la CPU queda apagada y ninguna prueba puede terminar. Resultado del 20 nov: cocotb `TESTS=29 PASS=0 FAIL=29` y pytest `30 failed`; cada caso de instrucción termina con `Timed out after 300 cycles` (por ejemplo `LUI failed: Timed out after 300 cycles: CPU did not write the result to 0x00000100`, y `CPU did not assert illegal_instruction` en `illegal`). El trigésimo fallo de pytest es el caso de cobertura, que falla por falta de datos (`Missing Cocotb functional coverage data`). Esto es lo esperado: la CPU apagada no completa ninguna instrucción. Log: `docs/evidencia/avance3/avance3_enabler.log`.
 
 ### Evidencia
 
@@ -76,13 +78,13 @@ Archivos en `docs/evidencia/avance2/`:
 - `coverage.json`: bins cubiertos y conteo de hits.
 - `dashboard_cpu.html`: resultado por prueba y cobertura por instrucción.
 
-Los tres archivos corresponden a la corrida posterior a las correcciones.
+Los tres archivos de `avance3/` corresponden a una corrida normal posterior a los cambios, hecha después del enabler (que sobrescribe `results/`).
 
 ---
 
 ## 3. Pruebas unitarias (Cocotb + Verilator)
 
-Directorio: `sprint4/test/cocotb`. Comando: `make all` (ejecuta `arbiter`, `mmio_decoder`, `ram`, `control_registers` y `top`; la salida completa se guardó en `docs/evidencia/avance2/avance2_unit_system.log`).
+Directorio: `sprint4/test/cocotb`. Comando: `make all` (ejecuta `arbiter`, `mmio_decoder`, `ram`, `control_registers` y `top`; la salida completa del Avance 3 está en `docs/evidencia/avance3/avance3_unit_system.log`; la del Avance 2 está en `docs/evidencia/avance2/avance2_unit_system.log`).
 
 | Módulo | Pruebas | Resultado | Qué verifican |
 |---|---|---|---|
@@ -97,10 +99,10 @@ Directorio: `sprint4/test/cocotb`. Comando: `make all` (ejecuta `arbiter`, `mmio
 
 Se integró la CPU con el árbitro, el decodificador MMIO, la RAM (M10K) y los registros de control en `src/rv32i_top.sv`. El Host (vJTAG simulado) carga `firmware.hex` y la imagen, escribe CTRL y espera `done`.
 
-Comando: `make top` (en `sprint4/test/cocotb`).
+Comando: `make top` (en `sprint4/test/cocotb`), 64 píxeles.
 
 ```
-** TESTS=3 PASS=3 FAIL=0 SKIP=0                     425582.00           0.16    2641908.91  **
+** TESTS=3 PASS=3 FAIL=0 SKIP=0                     425582.00           0.14    3101726.58  **
 ```
 
 | Prueba | Qué verifica | Resultado |
@@ -113,7 +115,7 @@ Comando: `make top` (en `sprint4/test/cocotb`).
 
 - **Orden de búsqueda.** La traza de `test_fetch_secuencial` fue `0x0, 0x4, 0x8, 0xc, 0x10, 0x14, 0x18, 0x1c, 0x20, 0x24, 0x28, 0x2c, 0x24, 0x28`. Las primeras 10 son las que verifica la prueba. Después de `0x2c` (el `bne` del bucle `clear` de `firmware.s`) vuelve a `0x24`, que es lo esperado del salto hacia atrás.
 - **Costo de los stalls.** Con el Host leyendo al azar, el firmware tardó ~9792 ciclos contra ~9280 sin ruido (~5 % más). Los ciclos se miden revisando `done` cada 64 ciclos, por lo que son aproximados (±64).
-- **Velocidad.** ~9280 ciclos para 64 píxeles son ~145 ciclos por píxel. Con la imagen completa (16384 píxeles) serían del orden de 2,4 millones de ciclos; es una extrapolación, no una medición.
+- **Velocidad.** ~9280 ciclos para 64 píxeles incluyen la limpieza del histograma, que es un costo fijo. Con la imagen completa el costo por píxel es menor (sección 4.1).
 
 ### Cómo se redujo la imagen
 
@@ -124,11 +126,29 @@ La prueba no ejecuta `firmware.hex` tal cual: carga solo 64 píxeles y `shorten_
 | `addi t0, zero, 1` (0x14) | `addi a1, s0, 4*64` | a1 = fin de la imagen reducida. El `sw t0, 4(s4)` siguiente escribe 0 en STATUS en lugar de 1 (busy); no cambia el resultado porque `busy` ahora se calcula en hardware (`start && !done`) |
 | `bne t0, s1, loop` | `bne t0, a1, loop` | El bucle termina en 0x10000 + 4*64 en vez de 0x20000 |
 
-El resto del firmware (limpieza del histograma, histograma, binarización, escritura de HEX y de `STATUS.done`) se ejecuta sin cambios. El firmware original completo (16384 píxeles) no se simuló: la prueba tiene la opción `FULL_IMAGE=1`, pero no se ejecutó.
+El resto del firmware (limpieza del histograma, histograma, binarización, escritura de HEX y de `STATUS.done`) se ejecuta sin cambios. El firmware original completo se simuló aparte con `FULL_IMAGE=1` (sección 4.1).
+
+### 4.1 Imagen completa (`FULL_IMAGE=1`)
+
+Comando (en `sprint4/test/cocotb`): `FULL_IMAGE=1 make top`. Corre `firmware.hex` sin modificar con los 16384 píxeles. Log: `docs/evidencia/avance3/avance3_full_image.log`.
+
+```
+** TESTS=3 PASS=3 FAIL=0 SKIP=0                   59388682.00          30.39    1954323.30  **
+```
+
+| Prueba | Resultado | Ciclos hasta `done` |
+|---|---|---|
+| `test_fetch_secuencial` | PASS | n/a (misma traza de búsquedas que con 64 píxeles) |
+| `test_firmware_end_to_end` | PASS: 16384 píxeles, histograma e imagen exactos | ~1 363 840 |
+| `test_firmware_with_bus_stalls` | PASS: 220 363 lecturas del Host | ~1 440 192 |
+
+- ~1 363 840 ciclos son ~83 ciclos por píxel. A 50 MHz serían ~27,3 ms (cálculo a partir de los ciclos simulados, no una medición en la placa).
+- Con el Host leyendo al azar el firmware tardó ~5,6 % más (1 440 192 contra 1 363 840 ciclos).
+- Los ciclos se miden revisando `done` cada 64 ciclos (±64).
 
 ### Limitaciones de las pruebas
 
-- La imagen de entrada es aleatoria con semilla fija (64 píxeles, con un píxel justo en el umbral y otro justo debajo); no es una imagen real.
+- La imagen de entrada es aleatoria con semilla fija (con un píxel justo en el umbral y otro justo debajo); no es una imagen real.
 - `THRESHOLD` se fijó en 100. Otros umbrales no se probaron.
 - Las pruebas de JAL y JALR del repo del profesor verifican el destino del salto, no el valor de enlace (`rd = pc + 4`). El firmware solo usa `jal` implícito en `j halt`.
 
@@ -143,38 +163,60 @@ La prueba de sistema encontró dos errores de la CPU que las 29 pruebas del prof
 | En FETCH el ALU sumaba 4 a `old_pc` en lugar de `pc` | En la primera corrida de `make top` (3 pruebas en FAIL) cada instrucción se buscaba dos veces y el firmware no marcó `done` | `alu_src_a` caía en el `default` del `case` (01 = `old_pc`) en FETCH | `multicycle_rv_control_fsm.sv`: `FETCH: alu_src_a = 2'b00` (pc) |
 | JALR no limpiaba el bit 0 del destino | Al corregir el error anterior, `test_rv32i.jalr` falló en la corrida del 15 nov: `JALR did not fetch expected PC 0x00000020` (la prueba salta con rs1 = 0x21) | El PC se escribía con `wb_mux` completo; el ISA exige `(rs1 + imm) & ~1` | `multicycle_rv32i.sv`: `pc <= {wb_mux[31:1], 1'b0}` |
 
+Un tercer error apareció al preparar el modo paso a paso (Avance 3), no por una prueba que fallara sino al revisar el diseño:
+
+| Error | Causa | Corrección |
+|---|---|---|
+| `read_data_reg` se corrompía si la CPU se congelaba en `MEM_WB` | Capturaba `bus_rdata` en todos los ciclos, aun con `enable = 0`; al congelar la CPU se perdía el dato de un `lw` | `multicycle_rv32i.sv`: `else if (enable) read_data_reg <= read_data_data_memory;` |
+
+Detectado por análisis, no por una prueba fallida; las pruebas existentes no congelan la CPU en medio de un `lw`. Tras este cambio y los de `state_num`/`cpu_hold` se repitieron todas las pruebas el 20 nov (secciones 2 a 4).
+
 Sobre por qué las 29 pruebas aprobaban antes: con el primer error, el PC avanzaba desde `old_pc` y las pruebas solo comprueban que el PC esperado aparezca en la lista de búsquedas, no el orden ni la cantidad. Para JALR, la explicación (por análisis del diseño, no verificada reproduciendo el estado anterior) es que la CPU pasaba por 0x20 al recorrer direcciones, por lo que la prueba aprobaba sin que el salto fuera correcto.
 
-Después de ambas correcciones se repitieron las 29 pruebas del profesor (29/29, dashboard 30 passed), las 4 unitarias (8, 7, 8 y 10 PASS) y el sistema (3/3), todas el 15 nov.
+Después de ambas correcciones se repitieron las 29 pruebas del profesor (29/29, dashboard 30 passed), las 4 unitarias (8, 7, 8 y 10 PASS) y el sistema (3/3), todas el 15 nov (repetidas el 20 nov).
 
 ---
 
-## 6. Síntesis y timing (Quartus Prime)
+## 6. Síntesis y timing (Quartus Prime 25.1 Lite)
 
-Pendiente. El top `rv32i_top` ya existe y se simula; falta crear el proyecto de Quartus con él (conexión a vJTAG, LEDR y HEX de la DE10-Standard). Esta sección incluirá:
+Proyecto: `sprint4/quartus/top_level.qpf`, entidad top `top_level`, dispositivo 5CSXFC6D6F31C6, SDC `sprint3/sdc/timing_constraints.sdc` (reloj de 20 ns), SignalTap apagado. Compilación completa del 19 nov 2026 sin errores.
 
 | Métrica | Valor |
 |---|---|
-| Flow Status | Pendiente |
-| ALMs | Pendiente |
-| Registros | Pendiente |
-| Bloques de memoria | Pendiente |
-| Fmax (`.sta.rpt`) | Pendiente |
+| Fitter Status | Successful (19 nov 2026) |
+| ALMs | 1 609 / 41 910 (4 %) |
+| Registros | 1 773 (1 662 tras la síntesis) |
+| Pines | 58 / 499 |
+| Bits de memoria | 1 187 840 / 5 662 720 (21 %) |
+| Bloques RAM (M10K) | 143 / 553 (26 %) |
+| Bloques DSP | 0 |
+| Fmax `clk` (85 °C, Slow 1100mV) | 67,33 MHz |
+| Fmax `clk` (0 °C, Slow 1100mV) | 68,79 MHz |
+| Fmax `altera_reserved_tck` (85 °C) | 106,21 MHz |
+
+El reloj de 50 MHz de la placa cumple timing con Fmax de 67,33 MHz en el peor caso. Advertencias del compilador: latch inferido sobre `i` en `rv_register_file.sv`, `tap_handshake_instr` sin uso y puertos de E/S sin restricción completa en el SDC. La comparación con Sprint 3 está en `docs/evidencia_atributos.md`.
+
+Archivos: `sprint4/quartus/output_files/top_level.fit.summary`, `top_level.map.rpt` y `top_level.sta.rpt`.
 
 ---
 
-## 7. Captura en hardware (SignalTap)
+## 7. Modo paso a paso y vistas de depuración
 
-Pendiente.
+Implementado en `src/top_level.sv` y compilado; no se simuló ni se probó en la placa. SW[0] elige entre 50 MHz y avance manual con KEY[1]. En modo manual, cada pulsación deja correr la FSM hasta que `cpu_state` cambia, porque un pulso de un solo ciclo de `enable` no completa un FETCH ni un handshake de datos. SW[2:1] elige qué muestran los HEX: registros, PC, instrucción o instrucción alta; en las vistas distintas de registros, LEDR muestra `{step_mode, done, busy, illegal, 2'b00, cpu_state}`.
 
 ---
 
-## 8. Pendientes
+## 8. Captura en hardware (SignalTap)
+
+Pendiente. El `.stp` a 50 MHz capturará estado de la FSM, PC, instrucción, `valid`/`ready` y `done`.
+
+---
+
+## 9. Pendientes
 
 | Pendiente | Referencia |
 |---|---|
-| Modo stepping | `architecture.md`, TP-11 |
-| Proyecto de Quartus con `rv32i_top` | `testplan.md`, TP-14 |
-| Captura SignalTap | `testplan.md`, TP-15 |
-| Imagen completa (16384 píxeles) en simulación | `FULL_IMAGE=1`, no ejecutada |
-| Repetir la prueba del enabler con el diseño corregido | TP-10 |
+| Programar la DE10-Standard y cargar `firmware.hex` y la imagen por vJTAG (`jtag_server.tcl` + `pixel_image_app.py`) | TP-16 |
+| Probar el modo paso a paso en la placa (SW[0], KEY[1], SW[2:1]) y revisar la orientación de los dígitos HEX | TP-11 |
+| Captura SignalTap | TP-15 |
+| Fmax de Sprint 3 sin SignalTap para una comparación equivalente | `evidencia_atributos.md` |

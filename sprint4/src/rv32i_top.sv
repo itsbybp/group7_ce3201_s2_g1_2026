@@ -7,11 +7,13 @@
 //   CPU (instrucciones) ------------------------> ram (puerto de instrucciones, directo)
 //
 // CTRL[0] (start) es el soft_reset_n del CPU y cpu_enable = start && !done congela
-// el CPU cuando el firmware escribe STATUS.done = 1.
+// el CPU cuando el firmware escribe STATUS.done = 1. cpu_hold permite congelarlo
+// ademas desde fuera (modo paso a paso, AC 4).
 module rv32i_top
 (
     input  logic        clk,
     input  logic        rst_n,
+    input  logic        cpu_hold,    // 1 = congela el CPU (paso a paso); 0 o sin conectar = corre libre
 
     // Host vJTAG (manager)
     input  logic        vjtag_valid,
@@ -31,7 +33,12 @@ module rv32i_top
     output logic [31:0] pc,
     output logic [31:0] instruction,
     output logic        handshake_instr,
-    output logic        illegal
+    output logic        illegal,
+    output logic [3:0]  cpu_state,
+    output logic        dbg_imem_valid,
+    output logic        dbg_imem_ready,
+    output logic        dbg_cpu_valid,
+    output logic        dbg_cpu_ready
 );
 
     // CPU: bus de instrucciones (directo a la RAM)
@@ -72,7 +79,7 @@ module rv32i_top
         .clk(clk),
         .rst_n(rst_n),
 
-        .enable(cpu_enable),
+        .enable(cpu_enable && !cpu_hold),
         .soft_reset_n(start),
 
         .ready_in_instr_memory(imem_ready),
@@ -93,8 +100,14 @@ module rv32i_top
         .read_data_data_memory(bus_rdata),
 
         .instruction(instruction),
+        .state_num(cpu_state),
         .illegal(illegal)
     );
+
+    assign dbg_imem_valid = imem_valid;
+    assign dbg_imem_ready = imem_ready;
+    assign dbg_cpu_valid  = cpu_valid;
+    assign dbg_cpu_ready  = cpu_ready;
 
     // Los puertos fsm_* del arbiter son los del CPU (nombre heredado del Sprint 3).
     arbiter arbiter_inst

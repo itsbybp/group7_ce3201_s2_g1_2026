@@ -30,6 +30,7 @@ module multicycle_rv32i
     
     // Display
     output logic [31:0] instruction,
+    output logic [3:0] state_num, // estado de la FSM de control
 
     // Tests
     output logic illegal
@@ -132,6 +133,7 @@ module multicycle_rv32i
         .adr_src(adr_src),
         .slt_sltu_source(slt_sltu_source),
         .forward_rs1(forward_rs1),
+        .state_num(state_num),
 
         // Test
         .illegal(illegal)
@@ -183,8 +185,10 @@ module multicycle_rv32i
     always_ff @(posedge clk or negedge rst_n) begin
         if (~rst_n) begin
             read_data_reg <= '0;
-        end else begin
-            read_data_reg <= read_data_data_memory; // This is always enabled. TODO find out if enable is not required.
+        end else if (enable) begin
+            // Con enable = 0 (paso a paso) el bus ya no es de la CPU y rdata cambia:
+            // si se captura, MEM_WB escribiria un dato corrupto.
+            read_data_reg <= read_data_data_memory;
         end
     end    
 

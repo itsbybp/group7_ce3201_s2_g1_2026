@@ -106,6 +106,7 @@ def wait_done(connection, timeout):
         time.sleep(POLL_INTERVAL)
     return False
 
+
 def read_partial_output(connection):
     processed = min(jtag_fpga.read_value_from_fpga(connection, ADDR_HEX, strict=True), PIXEL_COUNT)
     done_pixels = [v & 0xFF for v in read_block(connection, BASE_OUT, processed, "Imagen parcial")]
@@ -180,15 +181,15 @@ def main(argv=None):
         logging.error("No se pudo conectar al servidor JTAG en %s:%s.", args.host, args.port)
         return 1
 
+    finished = False
     try:
         pixels = np.asarray(image).reshape(-1).tolist()
         print(f"Firmware: {args.firmware} ({len(firmware)} instrucciones)")
+        # CTRL[0] = 0 reinicia el CPU (PC = 0) y limpia done de una corrida previa.
+        jtag_fpga.write_value_to_fpga(connection, ADDR_CTRL, 0x0, strict=True)
         load_program(connection, firmware)
         start_cpu(connection, pixels, args.threshold)
         print(f"CPU iniciado (umbral={args.threshold}). Esperando STATUS.done...")
-
-
-
         finished = wait_done(connection, args.timeout)
 
         if finished:
@@ -211,8 +212,6 @@ def main(argv=None):
                 raise RuntimeError(f"El histograma no coincide ({bad} contadores distintos).")
             print("OK: histograma e imagen binarizada coinciden con lo esperado.")
 
-
-
         if args.save_images:
             in_path, out_path = save_images(image, output_pixels, args.image)
             print(f"Guardadas: {in_path} y {out_path}")
@@ -230,4 +229,4 @@ def main(argv=None):
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format="|%(levelname)s| %(message)s")
-    raise SystemExit(main()) 
+    raise SystemExit(main())

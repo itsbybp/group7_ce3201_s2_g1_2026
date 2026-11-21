@@ -1,0 +1,35 @@
+rm -f results_top.xml
+/home/byron/.local/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.verilator:73: Using MODULE is deprecated, please use COCOTB_TEST_MODULES instead.
+rm -f results_top.xml
+COCOTB_TEST_MODULES=tb_top COCOTB_TESTCASE=  COCOTB_TOPLEVEL=rv32i_top TOPLEVEL_LANG=verilog       \
+         sim_build_top/Vtop     
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:242  in gpi_load_users                  Loaded entry library: '/usr/lib/x86_64-linux-gnu/libpython3.12.so.1.0'
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/home/byron/.local/lib/python3.12/site-packages/cocotb/simulator.cpython-312-x86_64-linux-gnu.so'
+     -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.12.12 interpreter at /usr/bin/python3
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+     0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1795195370
+     0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /home/byron/.local/lib/python3.12/site-packages/cocotb
+     0.00ns INFO     cocotb.initialize                  Running on Verilator version 5.053 devel
+     0.00ns INFO     cocotb.regression                  Running tests
+     0.00ns INFO     cocotb.regression                  running tb_top.test_fetch_secuencial (1/3)
+                                                            Diagnostico: cada instruccion se busca una sola vez y en orden (0x0, 0x4, 0x8, ...).
+662880.00ns INFO     cocotb.rv32i_top                   Busquedas de instruccion: ['0x0', '0x4', '0x8', '0xc', '0x10', '0x14', '0x18', '0x1c', '0x20', '0x24', '0x28', '0x2c', '0x24', '0x28']
+662880.00ns INFO     cocotb.regression                  tb_top.test_fetch_secuencial passed
+662880.00ns INFO     cocotb.regression                  running tb_top.test_firmware_end_to_end (2/3)
+                                                            TP-13: firmware.hex + imagen reducida -> histograma e imagen de salida exactos.
+29262241.00ns INFO     cocotb.rv32i_top                   OK: 16384 pixeles, ~1363840 ciclos hasta done
+29262241.00ns INFO     cocotb.regression                  tb_top.test_firmware_end_to_end passed
+29262241.00ns INFO     cocotb.regression                  running tb_top.test_firmware_with_bus_stalls (3/3)
+                                                            Mismo firmware con el Host leyendo al azar: el CPU espera por el bus y no pierde datos.
+59388682.00ns INFO     cocotb.rv32i_top                   OK con stalls: 220363 lecturas del Host, ~1440192 ciclos hasta done
+59388682.00ns INFO     cocotb.regression                  tb_top.test_firmware_with_bus_stalls passed
+59388682.00ns INFO     cocotb.regression                  **********************************************************************************************
+                                                        ** TEST                                  STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        **********************************************************************************************
+                                                        ** tb_top.test_fetch_secuencial           PASS      662880.00           1.38     480977.44  **
+                                                        ** tb_top.test_firmware_end_to_end        PASS    28599361.00          14.75    1938895.32  **
+                                                        ** tb_top.test_firmware_with_bus_stalls   PASS    30126441.00          14.26    2113075.44  **
+                                                        **********************************************************************************************
+                                                        ** TESTS=3 PASS=3 FAIL=0 SKIP=0                   59388682.00          30.39    1954323.30  **
+                                                        **********************************************************************************************
+- :0: Verilog $finish

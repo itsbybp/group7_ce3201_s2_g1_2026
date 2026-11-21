@@ -63,6 +63,7 @@ module multicycle_rv_control_fsm
     output logic adr_src,
     output logic [1:0] alu_op,
     output logic forward_rs1,
+    output logic [3:0] state_num, // estado actual de la FSM (paso a paso y SignalTap)
 
     // Tests
     output logic illegal    // This is 1 for a cycle if an unsopported instruction was found in DECODE.
@@ -83,6 +84,8 @@ module multicycle_rv_control_fsm
 
     multicycle_rv_control_fsm_state current_state; 
     multicycle_rv_control_fsm_state next_state; 
+
+    assign state_num = current_state;
 
     assign branch = current_state == BEQ;   // Possiblity of branching. Branching is finally determined in the control unit.
     assign pc_update = ((current_state == FETCH) && handshake_instr_memory) || current_state == JAL; // Write enable of pc register.

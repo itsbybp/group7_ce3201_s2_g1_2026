@@ -1,3 +1,4 @@
+import alu_types_pkg::*;
 module alu_decoder
 (
     input logic op_6th_bit,
@@ -13,7 +14,6 @@ module alu_decoder
     output [1:0] slt_sltu_source // Source signal for a mux that decides between
                                  //alu_result, {31'b0, Negative}, and {31'b0, !Carry} 
 );
-    import alu_types_pkg::*;
     // ADD,
     // SUB,
     // AND,
