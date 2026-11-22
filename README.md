@@ -22,6 +22,10 @@ Repositorio base para los sprints del curso CE-3201 Taller de Diseño Digital. E
     * `scripts/` (Sprint 3): Consola en Python vía vJTAG para el procesamiento de imágenes (`pixel_image_app.py`, `jtag_fpga.py`, `jtag_server.tcl`) e imágenes de prueba.
 * `sprint4/`: Directorio del proyecto final (Microcontrolador RV32I y Procesamiento de Imágenes):
     * `docs/`: Documentación técnica obligatoria (`features.md`, `architecture.md`, `testplan.md`, `results.md`, `evidencia_atributos.md`).
+    * `src/`: RTL en SystemVerilog (procesador, árbitro, decodificador MMIO, RAM, registros de control, `rv32i_top.sv` y `top_level.sv`).
+    * `test/cocotb/`: pruebas unitarias y de sistema propias (Cocotb + Verilator).
+    * `test/rv32i_cocotb/`: repositorio de pruebas del profesor (`make test_cpu`, `make test_programs`) con los wrappers `rv32i_cpu*.sv` del equipo.
+    * `quartus/`: proyecto de Quartus de la placa (`top_level.qpf`, `top_level.qsf`).
     * `firmware/`: Programa en ensamblador RV32I (`firmware.s`) y su versión ensamblada para la RAM de instrucciones (`firmware.hex`).
     * `scripts/`: Consola en Python (`pixel_image_app.py`) que carga el firmware y la imagen, inicia el CPU y recoge el histograma y la imagen binarizada. Reutiliza `jtag_fpga.py`, `jtag_server.tcl` y `requirements.txt` de `sprint3/scripts/`.
 * `Dockerfile`: Imagen de contenedor para la ejecución estandarizada en la nube.
@@ -40,7 +44,7 @@ Repositorio base para los sprints del curso CE-3201 Taller de Diseño Digital. E
 
 ### 3. Integración Continua (Gatekeeper)
 Al abrir un *Pull Request*, el pipeline de GitHub Actions (`gatekeeper.yml`) corre únicamente sobre los sprints modificados (y los que dependan de ellos), validando tres cosas:
-* **Simulación funcional open-source:** ejecuta `make -C sprintN/test/cocotb` (Cocotb + Icarus Verilog) si esa carpeta existe.
+* **Simulación funcional open-source:** ejecuta `make -C sprintN/test/cocotb` (Cocotb + Icarus Verilog) si esa carpeta existe. Si existe `sprintN/test/rv32i_cocotb`, también ejecuta `make test_cpu` y `make test_programs` con `SV_FILELIST=files.f TOPLEVEL=rv32i_cpu`.
 * **Artefactos locales:** exige que `sprintN/quartus/output_files/*.flow.rpt` reporte síntesis exitosa, y que `sprintN/test/sv/questa_test_summary.log` (generado localmente con Questa) muestre `ERRORS=0`, `WARNINGS=0` y `ALL_TESTS_PASSED`.
 * **Estilo de código:** rechaza múltiples sentencias SystemVerilog en una misma línea dentro de `sprintN/src/`.
 

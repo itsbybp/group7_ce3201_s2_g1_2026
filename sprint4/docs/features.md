@@ -18,14 +18,19 @@ https://github.com/rgarciatec/rv32i_cocotb_template
   - It usually stays at 0 for many cycles between activations because it is ultimately driven by a button on the FPGA.
     - Driving this signal is not part of this requirement. This is implemented in the top module later on.
 
+- 1.3 Only word accesses: `lw` and `sw` (AC 1). `lb`, `lh`, `sb` and `sh` are out of scope.
+- 1.4 `lui` (AC 2): executed in EXECUTE_I with operand A = 0 and the U-type immediate; used to load the upper 20 bits of the MMIO base addresses.
+- 1.5 M10K latency: reads are synchronous and take one cycle, so `ready` of a read rises one cycle after `valid` (the instruction bus delivers one instruction every 2 cycles). The FSM keeps `valid` until it receives `ready`; no asynchronous reads are inferred.
+
 # Epic 2
 
 2. Create an enabler for the processor.
   - When disabled (`enabler == 1'b0`), the FSM can't change its state, and the `ready out` and `valid out` signals of both the instruction and data buses (4 signals) are 0.
     - They each connect to an AND gate with the enabler before exiting the processor.
 
-  - Connect the enable directly to the first bit of CTRL.
-    - (This is just a possible implementation)
+  - `start` (CTRL[0], AC 7) is what starts the processor, and the PC must be initialized to 0x0000_0000 when it starts.
+    - Implemented as a level used as the CPU `soft_reset_n`: while `start = 0` the PC stays at 0 and the FSM stays in FETCH; when it rises the CPU runs from address 0. (suposición: the specs call it a pulse; the level has the same effect on the PC)
+    - The enabler is not wired directly to CTRL[0]: `cpu_enable = start && !done`, so setting `done` also disables the processor (see 4.2).
 
   - In stepping mode, if the processor is disabled during a ready valid transaction, the transaction could be lost,
   but this is only possible if the user disables the processor few clock cycles after manually pressing the step button,
@@ -123,6 +128,17 @@ This is particularly straightforward. Look at sections 1.2 and 5.1 in the origin
 15. Demo and defense preparation:
   - 15.1 Be able to explain the execution logic in hardware.
   - 15.2 Map an injected fault to its observed behavior using SignalTap.
+
+# Infrastructure plan
+
+17. Infrastructure
+- 17.1 Firmware tool: `firmware.hex` is generated from `firmware.s` with the `gcc-riscv64-unknown-elf` toolchain (`as -march=rv32i -mabi=ilp32`, `objcopy -O binary -j .text`, `xxd`) inside `sprint4/firmware/`. Only `firmware.s` and `firmware.hex` are versioned, so the CI does not need the toolchain.
+- 17.2 CI changes (`gatekeeper.yml` and `Dockerfile`):
+  - Run `make -C sprint4/test/cocotb` (team unit and system tbs) on every PR that touches `sprint4`.
+  - Also run the professor's tbs in `sprint4/test/rv32i_cocotb`: `make test_cpu` and `make test_programs`, both with `SV_FILELIST=files.f TOPLEVEL=rv32i_cpu` (without them the Makefile builds the professor's mock instead of our CPU).
+  - The `Dockerfile` must install `pytest-html` (the `test_cpu` dashboard uses `--html`).
+  - A failure in any `make` of the loop must fail the job (accumulate the exit status).
+- 17.3 Structure of `sprint4/`: `src/` (RTL), `test/cocotb/` (unit and system tbs), `test/rv32i_cocotb/` (professor's repo plus the `rv32i_cpu*.sv` wrappers), `firmware/`, `scripts/`, `quartus/` and `docs/`. Any change is documented in `README.md`.
 
 # Git and GitHub
 

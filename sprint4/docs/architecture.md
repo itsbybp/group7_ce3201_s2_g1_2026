@@ -23,6 +23,18 @@ Diagrama de estados de la Control FSM, elaborado a partir del RTL (`multicycle_r
 
 ```mermaid
 stateDiagram-v2
+    state "S0: FETCH" as FETCH
+    state "S1: DECODE" as DECODE
+    state "S2: MEM_ADR" as MEM_ADR
+    state "S3: MEM_READ" as MEM_READ
+    state "S4: MEM_WB" as MEM_WB
+    state "S5: MEM_WRITE" as MEM_WRITE
+    state "S6: EXECUTE_R" as EXECUTE_R
+    state "S7: ALU_WB" as ALU_WB
+    state "S8: EXECUTE_I" as EXECUTE_I
+    state "S9: JAL" as JAL
+    state "S10: BEQ" as BEQ
+
     [*] --> FETCH
     FETCH --> FETCH: sin handshake imem (valid = 1, ready = 0)
     FETCH --> DECODE: handshake imem
@@ -46,7 +58,7 @@ stateDiagram-v2
     BEQ --> FETCH
 ```
 
-Si `enable = 0` la FSM no cambia de estado en ninguno de los casos anteriores; si `soft_reset_n = 0` (CTRL[0] = 0) vuelve a FETCH.
+El número de cada estado (S0 a S10) es el valor de `state_num[3:0]` y lo que muestran los LEDR[3:0] en el modo paso a paso. Si `enable = 0` la FSM no cambia de estado en ninguno de los casos anteriores; si `soft_reset_n = 0` (CTRL[0] = 0) vuelve a FETCH.
 
 ![diagrama del Logic Circui](logic_circuit_multicycle_rv32i.png)
 
@@ -170,11 +182,12 @@ El módulo propuesto en `features.md` (9.2) para unir los buses del procesador *
 
 | Bus | Camino | Maestros | Se arbitra |
 |---|---|---|---|
-| Instrucciones (Fetch) | CPU -> puerto de instrucciones de `ram` (lectura directa, sin árbitro ni decodificador) | CPU | No: es un bus dedicado solo de lectura |
+| Instrucciones (Fetch) | CPU -> filtro de rango en `rv32i_top` -> puerto de instrucciones de `ram` (lectura directa, sin árbitro ni decodificador) | CPU | No: es un bus dedicado solo de lectura |
 | Datos (Memory) | CPU y Host vJTAG -> `arbiter` -> `mmio_decoder` -> RAM de datos y registros | CPU y Host | Sí: el `arbiter` concede el bus a uno de los dos |
 
 - **Independencia.** El bus de instrucciones nunca pasa por el `arbiter`, por lo que un acceso del Host al bus de datos no frena el Fetch ni lo mezcla con las transacciones de datos. Cada bus tiene su propio par `valid`/`ready` (`imem_valid`/`imem_ready` y `cpu_valid`/`cpu_ready`) y su propio `ready` (la FSM espera por cada uno por separado).
 - **Árbitro.** Tiene dos maestros, el Host vJTAG y el bus de datos de la CPU (no tres: el bus de instrucciones no entra). Prioridad fija al Host (AC 2 de Sprint 3); la CPU conserva el bus hasta completar su transacción (`FSM_ACCESS`) y entrega `mux_is_cpu` al decodificador para aplicar permisos por maestro.
+- **Permisos del bus de instrucciones (AC 5, Tabla 2).** Este bus no tiene señal de escritura, por lo que es solo lectura (RO) para la CPU por construcción: no existe forma de que la CPU escriba la RAM de instrucciones por él. Además `rv32i_top` filtra el rango: si el PC cae fuera de 0x00000–0x01FFF (`imem_in_range = 0`), la CPU recibe 0 (Read-As-Zero) y `imem_ready` lo sigue entregando la RAM, de modo que no se bloquea. Una instrucción 0 decodifica como ilegal (`illegal = 1`) y la FSM vuelve a FETCH. El flag se registra junto al dato (`imem_in_range_q`) porque la lectura de la M10K tarda un ciclo. Las escrituras de la CPU a la RAM de instrucciones por el bus de datos las descarta el `mmio_decoder` (WI).
 - **Acceso del Host a la RAM de instrucciones.** La RAM de instrucciones tiene dos puertos: uno de datos (Host R/W por el bus arbitrado) y uno de instrucciones (CPU RO). Esto permite que el Host cargue el firmware mientras la CPU está apagada, y que la CPU lea instrucciones sin pasar por el árbitro.
 
 ---
@@ -195,7 +208,7 @@ El `mmio_decoder` aplica los permisos con la señal `is_cpu` que entrega el árb
 | 50004 | STATUS (bit 0 = busy, bit 1 = done) | RO | R/W | `we_status` solo CPU |
 | 5000C | THRESHOLD (0 a 255) | R/W | RO | `we_threshold` solo Host |
 
-Resto: no mapeado (RAZ/WI; p. ej. 0x50008 lee 0). Las lecturas tardan un ciclo (M10K sincrónica): `ready` sube un ciclo después de `valid` en lecturas y en el mismo ciclo en escrituras.
+Resto: no mapeado (RAZ/WI; p. ej. 0x50008 lee 0). El bus de instrucciones de la CPU no pasa por el `mmio_decoder`: su permiso RO y la lectura de 0 fuera de 0x00000–0x01FFF se aplican en `rv32i_top` (sección 6). Las lecturas tardan un ciclo (M10K sincrónica): `ready` sube un ciclo después de `valid` en lecturas y en el mismo ciclo en escrituras.
 
 ---
 
@@ -265,7 +278,7 @@ La CPU corre con `cpu_enable = start && !done`, donde `start` es CTRL[0] (`soft_
 | `ram.sv` | Sprint 3 | Modificado | Cuatro memorias (instrucciones, entrada, salida, histograma); segundo puerto de lectura para el bus de instrucciones con `imem_ready` |
 | `rv_register_file.sv` | Nuevo | Banco x0–x31 interno del procesador (sin x0 instanciado) | Ya no es un periférico MMIO como en Sprint 3 |
 | `multicycle_rv32i.sv`, `multicycle_rv_control_unit.sv`, `multicycle_rv_control_fsm.sv`, `alu_decoder.sv`, `immediate_decoder.sv` | Nuevo | Procesador RV32I multiciclo | — |
-| `rv32i_top.sv`, `top_level.sv` | Nuevo | Integración y top de placa | — |
+| `rv32i_top.sv`, `top_level.sv` | Nuevo | Integración y top de placa | `rv32i_top`: filtro de rango del bus de instrucciones (`imem_in_range`, `imem_in_range_q`, `ram_imem_rdata`): fuera de 0x00000–0x01FFF la CPU lee 0 |
 
 ---
 
@@ -280,7 +293,7 @@ xxd -e -c4 firmware.bin | awk '{print $2}' > firmware.hex
 ```
 
   Solo `firmware.s` y `firmware.hex` se versionan.
-- **CI.** El gatekeeper ejecuta `make -C sprint4/test/cocotb` (pruebas unitarias y de sistema) en cada PR que toque `sprint4`. Las 29 pruebas del profesor (`sprint4/test/rv32i_cocotb`, `make test_cpu`) se corren a mano y su evidencia se guarda en `docs/evidencia/`.
+- **CI.** El gatekeeper, en cada PR que toque `sprint4`, ejecuta `make -C sprint4/test/cocotb` (pruebas unitarias y de sistema) y las pruebas del profesor en `sprint4/test/rv32i_cocotb`: `make test_cpu` y `make test_programs`, ambas con `SV_FILELIST=files.f TOPLEVEL=rv32i_cpu` (sin esos parámetros el Makefile compila el mock del profesor). Si cualquier `make` falla, el job falla. El `Dockerfile` instala `pytest-html`, que usa el dashboard de `test_cpu`. La evidencia de las corridas locales se guarda en `docs/evidencia/`.
 - **Estructura de `sprint4/`.** `src/`, `test/cocotb/` (unitarias y sistema), `test/rv32i_cocotb/` (repo del profesor con los wrappers `rv32i_cpu*.sv`), `firmware/`, `scripts/`, `quartus/` y `docs/`. Los cambios a la estructura se documentan en `README.md`.
 
 ---

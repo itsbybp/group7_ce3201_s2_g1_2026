@@ -1,11 +1,11 @@
 # Resultados de Verificación: Sprint 4 (Avance 3)
 
 **Proyecto:** CE3201 Taller de Diseño Digital, Grupo 7
-**Fecha:** 20 nov 2026
+**Fecha:** 20 y 21 nov 2026
 **Avance:** 3, tag `v0.1.0-proj` (el Avance 2, `v0.0.2-proj`, es del 15 nov 2026)
 **Arquitectura:** ver `docs/architecture.md`
 **Plan de pruebas:** ver `docs/testplan.md`
-**Entorno de simulación:** Verilator 5.053 (devel), cocotb 2.1.0, Python 3.12, WSL. Los resultados de las secciones 2 a 4 son de la corrida del 20 nov 2026, hecha después de los últimos cambios al CPU (`state_num`, `cpu_hold` y la corrección de `read_data_reg`, sección 5). La síntesis (sección 6) es del 19 nov 2026 (Fitter).
+**Entorno de simulación:** Verilator 5.053 (devel), cocotb 2.1.0, Python 3.12, WSL. Los resultados de las secciones 2 a 4 son de las corridas del 21 nov 2026, hechas después de los últimos cambios al CPU (`state_num`, `cpu_hold`, la corrección de `read_data_reg` y el arreglo de LUI, sección 5) y del filtro de búsquedas fuera de rango en `rv32i_top`. La síntesis (sección 6) es del 19 nov 2026 (Fitter).
 
 ---
 
@@ -14,14 +14,15 @@
 | Verificación | Herramienta | Resultado | Estado |
 |---|---|---|---|
 | Prueba del repo con mock CPU | Cocotb | 29/29 PASS | Ejecutada en Avance 1 (el mock no cambió) |
-| Verificación del repo sobre `rv32i_cpu` | Cocotb | 29/29 PASS (pytest 30 passed) | Ejecutada el 20 nov |
+| Verificación del repo sobre `rv32i_cpu` | Cocotb | 29/29 PASS (pytest 30 passed) | Ejecutada el 21 nov, después del arreglo de LUI (sección 5) |
+| Programas completos (`test_programs`: factorial y xorshift) sobre `rv32i_cpu` | Cocotb | 2/2 PASS | Ejecutada el 21 nov, después del arreglo de LUI (en el tag `v0.0.2-proj`: 1/2, falla `xorshift`) |
 | Enabler (`enable = 0`) | Cocotb | 29/29 casos con timeout a 300 ciclos (pytest: 30 failed), ninguna instrucción completada | Ejecutada el 20 nov |
-| Unitaria `arbiter` | Cocotb | 8/8 PASS | Ejecutada el 20 nov |
-| Unitaria `mmio_decoder` | Cocotb | 7/7 PASS | Ejecutada el 20 nov |
-| Unitaria `ram` | Cocotb | 8/8 PASS | Ejecutada el 20 nov |
-| Unitaria `control_registers` | Cocotb | 10/10 PASS | Ejecutada el 20 nov |
-| Sistema `rv32i_top`, 64 píxeles | Cocotb | 3/3 PASS | Ejecutada el 20 nov |
-| Sistema `rv32i_top`, imagen completa (16384 píxeles, `FULL_IMAGE=1`) | Cocotb | 3/3 PASS | Ejecutada el 20 nov |
+| Unitaria `arbiter` | Cocotb | 8/8 PASS | Ejecutada el 21 nov |
+| Unitaria `mmio_decoder` | Cocotb | 7/7 PASS | Ejecutada el 21 nov |
+| Unitaria `ram` | Cocotb | 8/8 PASS | Ejecutada el 21 nov |
+| Unitaria `control_registers` | Cocotb | 10/10 PASS | Ejecutada el 21 nov |
+| Sistema `rv32i_top`, 64 píxeles | Cocotb | 4/4 PASS | Ejecutada el 21 nov |
+| Sistema `rv32i_top`, imagen completa (16384 píxeles, `FULL_IMAGE=1`) | Cocotb | 4/4 PASS | Ejecutada el 21 nov |
 | Síntesis del top de placa (`top_level`) | Quartus Prime 25.1 Lite | Fitter Successful, 1609 ALMs, Fmax 67.33 MHz | Ejecutada el 19 nov |
 | Modo paso a paso (SW[0], KEY[1]) | — | Implementado en `top_level`; compila | Sin simular ni probar en la placa |
 | Carga por vJTAG y captura en hardware | DE10-Standard, SignalTap | No ejecutada | Pendiente |
@@ -46,10 +47,10 @@ Comando:
 make test_cpu SV_FILELIST=files.f TOPLEVEL=rv32i_cpu 2>&1 | tee ../../docs/evidencia/avance2/avance2_cocotb.log
 ```
 
-Resultado (corrida del 20 nov, después de los últimos cambios al CPU):
+Resultado (corrida del 21 nov, después del arreglo de LUI; el caso `lui` ahora prueba cinco inmediatos, por eso el tiempo simulado sube de 7144 a 7704 ns):
 
 ```
-** TESTS=29 PASS=29 FAIL=0 SKIP=0               7144.03           0.06     126613.81  **
+** TESTS=29 PASS=29 FAIL=0 SKIP=0               7704.03           0.07     104708.18  **
 ```
 
 El dashboard de pytest reporta `30 passed` (29 casos de instrucción más `test_functional_instruction_coverage`). La cobertura de instrucciones (29/29 bins, 1 hit por instrucción) se lee de `coverage.json`, que genera esta misma corrida.
@@ -65,6 +66,24 @@ El dashboard de pytest reporta `30 passed` (29 casos de instrucción más `test_
 | U | lui | PASS |
 | J | jal | PASS |
 | Ilegal | illegal | PASS |
+
+### Programas completos (`test_programs`)
+
+Comando:
+
+```
+make test_programs SV_FILELIST=files.f TOPLEVEL=rv32i_cpu 2>&1 | tee ../../docs/evidencia/avance3/avance3_programs.log
+```
+
+Resultado del 21 nov (sobre `rv32i_cpu`, no sobre el mock del profesor):
+
+```
+** test_programs.factorial        PASS      183175.00 **
+** test_programs.xorshift         PASS       38275.00 **
+** TESTS=2 PASS=2 FAIL=0 SKIP=0             221450.00 **
+```
+
+`factorial` (recursivo, 0 a 13) y `xorshift` (16 números y 9 estadísticas con signo y sin signo) coinciden con Python. Log: `docs/evidencia/avance3/avance3_programs.log`. Sin el arreglo de LUI (sección 5), `xorshift` falla en el tag `v0.0.2-proj` y en el RTL anterior con el mismo resultado.
 
 ### Enabler (TP-10)
 
@@ -102,7 +121,7 @@ Se integró la CPU con el árbitro, el decodificador MMIO, la RAM (M10K) y los r
 Comando: `make top` (en `sprint4/test/cocotb`), 64 píxeles.
 
 ```
-** TESTS=3 PASS=3 FAIL=0 SKIP=0                     425582.00           0.14    3101726.58  **
+** TESTS=4 PASS=4 FAIL=0 SKIP=0                          428722.00           0.14    3091386.48  **
 ```
 
 | Prueba | Qué verifica | Resultado |
@@ -110,6 +129,7 @@ Comando: `make top` (en `sprint4/test/cocotb`), 64 píxeles.
 | `test_fetch_secuencial` | Las primeras 10 búsquedas de instrucción son 0x0, 0x4, …, 0x24 (cada instrucción una sola vez y en orden) y no hay instrucción ilegal | PASS |
 | `test_firmware_end_to_end` (TP-13) | Histograma de 256 bins e imagen binarizada exactos contra un modelo en Python; la suma del histograma es N; `STATUS = 0b10`; `HEX = N`; nada se escribe fuera de la imagen; ninguna instrucción ilegal. 64 píxeles, ~9280 ciclos hasta `done` | PASS |
 | `test_firmware_with_bus_stalls` (TP-12) | Mismo resultado con el Host leyendo direcciones al azar durante la ejecución (1507 lecturas); la CPU espera por el bus y no pierde datos. ~9792 ciclos hasta `done` | PASS |
+| `test_fetch_fuera_de_rango_lee_cero` (TP-18) | Un `jal x0, 0x2000` en la dirección 0 lleva el PC fuera de la RAM de instrucciones (0x0000–0x1FFF). La instrucción leída es 0 (RAZ), decodifica como ilegal y la CPU no se bloquea: las búsquedas fueron `0x0, 0x2000, 0x2004, 0x2008, …` | PASS |
 
 ### Qué se observó
 
@@ -133,7 +153,7 @@ El resto del firmware (limpieza del histograma, histograma, binarización, escri
 Comando (en `sprint4/test/cocotb`): `FULL_IMAGE=1 make top`. Corre `firmware.hex` sin modificar con los 16384 píxeles. Log: `docs/evidencia/avance3/avance3_full_image.log`.
 
 ```
-** TESTS=3 PASS=3 FAIL=0 SKIP=0                   59388682.00          30.39    1954323.30  **
+** TESTS=4 PASS=4 FAIL=0 SKIP=0                        59391822.00          17.24    3445820.54  **
 ```
 
 | Prueba | Resultado | Ciclos hasta `done` |
@@ -141,6 +161,7 @@ Comando (en `sprint4/test/cocotb`): `FULL_IMAGE=1 make top`. Corre `firmware.hex
 | `test_fetch_secuencial` | PASS | n/a (misma traza de búsquedas que con 64 píxeles) |
 | `test_firmware_end_to_end` | PASS: 16384 píxeles, histograma e imagen exactos | ~1 363 840 |
 | `test_firmware_with_bus_stalls` | PASS: 220 363 lecturas del Host | ~1 440 192 |
+| `test_fetch_fuera_de_rango_lee_cero` | PASS (misma prueba que con 64 píxeles) | n/a |
 
 - ~1 363 840 ciclos son ~83 ciclos por píxel. A 50 MHz serían ~27,3 ms (cálculo a partir de los ciclos simulados, no una medición en la placa).
 - Con el Host leyendo al azar el firmware tardó ~5,6 % más (1 440 192 contra 1 363 840 ciclos).
@@ -173,7 +194,15 @@ Detectado por análisis, no por una prueba fallida; las pruebas existentes no co
 
 Sobre por qué las 29 pruebas aprobaban antes: con el primer error, el PC avanzaba desde `old_pc` y las pruebas solo comprueban que el PC esperado aparezca en la lista de búsquedas, no el orden ni la cantidad. Para JALR, la explicación (por análisis del diseño, no verificada reproduciendo el estado anterior) es que la CPU pasaba por 0x20 al recorrer direcciones, por lo que la prueba aprobaba sin que el salto fuera correcto.
 
-Después de ambas correcciones se repitieron las 29 pruebas del profesor (29/29, dashboard 30 passed), las 4 unitarias (8, 7, 8 y 10 PASS) y el sistema (3/3), todas el 15 nov (repetidas el 20 nov).
+Un cuarto error lo encontró `test_programs.xorshift` el 21 nov (falla también en el tag `v0.0.2-proj`):
+
+| Error | Síntoma observado | Causa | Corrección |
+|---|---|---|---|
+| LUI con ciertos inmediatos daba un resultado incorrecto | `xorshift`: los números del CPU formaban una cadena xorshift válida, pero con semilla `0x678` en lugar de `0x12345678`; `lui s0, 0x12345` dejaba 0 | En LUI, `instr[31:12]` es el inmediato, pero el `alu_decoder` leía `instr[14:12]` y `instr[30]` como `funct3` y `funct7`. Con `0x12345`, `funct3 = 101` decodificaba SRL (0 >> imm = 0); con `0x0F0F1`, SLL; con `0xFFFFF`, SUB o SRA | `multicycle_rv_control_unit.sv`: `funct_3` y `funct_7[5]` se fuerzan a 0 cuando `op` es LUI (la ALU suma 0 + imm) |
+
+La prueba `lui` del repo pasaba por casualidad: su inmediato `0xABCDE` da `funct3 = 110` (OR), y `0 OR imm = imm`. El firmware de la imagen usa inmediatos con esos bits en cero, por eso funcionaba en la placa. `run_lui` en `test_rv32i.py` ahora ejecuta un programa con cinco `lui` (`0xABCDE`, `0x12345`, `0x0F0F1`, `0xFFFFF`, `0x40001`). Tras el arreglo: 29/29 (pytest 30 passed) y `test_programs` 2/2, ambas el 21 nov. Las pruebas unitarias y de sistema (secciones 3 y 4) se repitieron el 21 nov después de este cambio y del filtro de `rv32i_top`: arbiter 8/8, mmio_decoder 7/7, ram 8/8, control_registers 10/10 y `top` 4/4 (con 64 píxeles y con `FULL_IMAGE=1`).
+
+Después de las dos primeras correcciones se repitieron las 29 pruebas del profesor (29/29, dashboard 30 passed), las 4 unitarias (8, 7, 8 y 10 PASS) y el sistema (3/3), todas el 15 nov (repetidas el 20 nov).
 
 ---
 
