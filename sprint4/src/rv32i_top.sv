@@ -44,7 +44,10 @@ module rv32i_top
     // CPU: bus de instrucciones (directo a la RAM)
     logic        imem_valid;
     logic        imem_ready;
-    logic [31:0] imem_rdata;
+    logic [31:0] imem_rdata;       // hacia la CPU (ya filtrado por rango)
+    logic [31:0] ram_imem_rdata;   // salida cruda del puerto de instrucciones de la RAM
+    logic        imem_in_range;
+    logic        imem_in_range_q;
 
     // CPU: bus de datos (hacia el arbiter)
     logic        cpu_valid;
@@ -103,6 +106,22 @@ module rv32i_top
         .state_num(cpu_state),
         .illegal(illegal)
     );
+
+    // Tabla 2: la RAM de instrucciones ocupa 0x00000-0x01FFF. Un fetch fuera de ese rango lee 0
+    // (Read-As-Zero) y no bloquea el bus (imem_ready lo sigue dando la RAM). El puerto de
+    // instrucciones no tiene escritura, asi que es RO para la CPU por construccion.
+    // El flag se registra junto con el dato porque la RAM tiene latencia de 1 ciclo.
+    assign imem_in_range = (pc[31:13] == 19'd0);
+
+    always_ff @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            imem_in_range_q <= 1'b1;
+        end else if (imem_valid) begin
+            imem_in_range_q <= imem_in_range;
+        end
+    end
+
+    assign imem_rdata = imem_in_range_q ? ram_imem_rdata : 32'h0;
 
     assign dbg_imem_valid = imem_valid;
     assign dbg_imem_ready = imem_ready;
@@ -196,7 +215,7 @@ module rv32i_top
         .imem_valid(imem_valid),
         .imem_addr(pc),
         .imem_ready(imem_ready),
-        .imem_rdata(imem_rdata)
+        .imem_rdata(ram_imem_rdata)
     );
 
     control_registers control_registers_inst
