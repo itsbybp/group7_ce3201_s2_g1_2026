@@ -135,12 +135,22 @@ module multicycle_rv_control_unit
 
 
 
+    // LUI no tiene funct3/funct7: instruction[31:12] es el inmediato. Si se pasaran
+    // al alu_decoder, los bits [14:12] / [30] del inmediato elegirian SLL/SRL/SRA/SUB
+    // en lugar de ADD (0 + imm). Se fuerzan a 0 para LUI.
+    logic is_lui;
+    logic [2:0] alu_funct_3;
+    logic alu_funct_7_6th_bit;
+    assign is_lui = (op == 7'b0110111);
+    assign alu_funct_3 = is_lui ? 3'b000 : funct_3;
+    assign alu_funct_7_6th_bit = is_lui ? 1'b0 : funct_7[5];
+
     // Define alu_control
     alu_decoder alu_decoder_instance
     (
         .op_6th_bit(op[5]),
-        .funct_3(funct_3),
-        .funct_7_6th_bit(funct_7[5]),
+        .funct_3(alu_funct_3),
+        .funct_7_6th_bit(alu_funct_7_6th_bit),
         .alu_op(alu_op),
         .alu_control(alu_control),
         .slt_sltu_source(slt_sltu_source)
