@@ -208,7 +208,11 @@ El `mmio_decoder` aplica los permisos con la señal `is_cpu` que entrega el árb
 | 50004 | STATUS (bit 0 = busy, bit 1 = done) | RO | R/W | `we_status` solo CPU |
 | 5000C | THRESHOLD (0 a 255) | R/W | RO | `we_threshold` solo Host |
 
-Resto: no mapeado (RAZ/WI; p. ej. 0x50008 lee 0). El bus de instrucciones de la CPU no pasa por el `mmio_decoder`: su permiso RO y la lectura de 0 fuera de 0x00000–0x01FFF se aplican en `rv32i_top` (sección 6). Las lecturas tardan un ciclo (M10K sincrónica): `ready` sube un ciclo después de `valid` en lecturas y en el mismo ciclo en escrituras.
+### Mapeo RAZ/WI del bus de instrucciones
+El bus de instrucciones de la CPU no pasa por el `mmio_decoder`: su permiso RO y la lectura de 0 fuera de 0x00000–0x01FFF se aplican en `rv32i_top` (sección 6). Las lecturas tardan un ciclo (M10K sincrónica): `ready` sube un ciclo después de `valid`.
+
+La validación de la dirección de lectura (el PC) en `rv32i_top` es `pc[31:13] == 19'd0`, lo cual es lógicamente equivalente
+a que el pc se encuentre en el rango [0x00000, 0x01FFF].
 
 ---
 
