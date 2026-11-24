@@ -16,32 +16,33 @@ Este plan cubre:
 | Cocotb 2.1.0 + Verilator 5.053 (devel) | Repo del profesor (`rv32i_cocotb_template`) | Ejecutada (pasan 29/29) |
 | Cocotb + Verilator | Validación con el mock CPU del profesor | Ejecutado |
 | Cocotb + Verilator | Pruebas unitarias y de sistema de Sprint 4 (`sprint4/test/cocotb`) | Ejecutadas |
-| Questa (`.do`) | Pruebas unitarias de Sprint 3 | Pendiente en Sprint 4 |
-| Quartus Prime 25.1 Lite | Síntesis, reportes `.map.rpt`, `.fit.summary` y `.sta.rpt` | Ejecutada el 19 nov |
-| SignalTap | Captura de FSM y bus en hardware | Pendiente |
+| Questa (`.do`) | Pruebas unitarias de Sprint 3 | No se re-ejecuta en Sprint 4 (no corre en WSL); se conserva la evidencia de Sprint 3 |
+| Quartus Prime 25.1 Lite | Síntesis, reportes `.map.rpt`, `.fit.summary` y `.sta.rpt` | Ejecutada el 19 y el 23 nov |
+| SignalTap | Captura de FSM y bus en hardware | Ejecutada el 23 nov (capturas A y B) |
+| DE10-Standard + `jtag_server.tcl` + `pixel_image_app.py` | Pruebas en la placa | Ejecutadas el 22 y 23 nov |
 
 ## 3. Matriz de pruebas
 
-| ID | Prueba | Alcance | Herramienta | Comando | Criterio de aceptación | Estado (20 nov) |
+| ID | Prueba | Alcance | Herramienta | Comando | Criterio de aceptación | Estado (23 nov) |
 |---|---|---|---|---|---|---|
 | TP-01 | Prueba del repo | Mock CPU del profesor | Cocotb + Verilator | `make test_cpu` | 29/29 PASS | Ejecutada en Avance 1: 29/29 |
-| TP-02 | Validación con el repo | `rv32i_cpu` (diseño del equipo) | Cocotb + Verilator | `make test_cpu SV_FILELIST=files.f TOPLEVEL=rv32i_cpu` | 29/29 PASS | Ejecutada el 21 nov: 29/29 (el caso `lui` ahora prueba cinco inmediatos) |
-| TP-03 | Árbitro | `arbiter` | Cocotb | `make arbiter` | Prioridad del Host, backpressure y CPU conserva el bus | Ejecutada el 21 nov: 8/8 |
-| TP-04 | Contador | `counter` | Questa | `run_counter.do` | ERRORS=0, WARNINGS=0 | Pendiente en Sprint 4 (ejecutada en Sprint 3) |
-| TP-05 | FSM de Sprint 3 | `fsm` | Questa | `run_fsm.do` | ERRORS=0, WARNINGS=0 | Pendiente en Sprint 4 (ejecutada en Sprint 3) |
-| TP-06 | Decodificador MMIO | `mmio_decoder` | Cocotb | `make mmio_decoder` | Chip selects según Tabla 2, RAZ/WI | Ejecutada el 21 nov: 7/7 |
-| TP-07 | RAM | `ram` | Cocotb | `make ram` | Lectura de 1 ciclo y puertos independientes | Ejecutada el 21 nov: 8/8 |
-| TP-08 | Registros de control | `control_registers` | Cocotb | `make control_registers` | Escritura y lectura de CTRL, STATUS, LEDR, HEX, THRESHOLD; sin `we` no modifica | Ejecutada el 21 nov: 10/10 |
-| TP-09 | Reg file x0–x31 | `memory_mapped_register_file` | Questa | `run_memory_mapped_register_file.do` | x0 siempre 0; escritura y reset | Pendiente en Sprint 4 |
+| TP-02 | Validación con el repo | `rv32i_cpu` (diseño del equipo) | Cocotb + Verilator | `make test_cpu SV_FILELIST=files.f TOPLEVEL=rv32i_cpu` | 29/29 PASS | Ejecutada el 23 nov: 29/29 (el caso `lui` prueba cinco inmediatos) |
+| TP-03 | Árbitro | `arbiter` | Cocotb | `make arbiter` | Prioridad del Host, backpressure y CPU conserva el bus | Ejecutada el 23 nov: 8/8 |
+| TP-04 | Contador | `counter` | Questa | `run_counter.do` | ERRORS=0, WARNINGS=0 | No se re-ejecuta en Sprint 4 (ejecutada en Sprint 3) |
+| TP-05 | FSM de Sprint 3 | `fsm` | Questa | `run_fsm.do` | ERRORS=0, WARNINGS=0 | No se re-ejecuta en Sprint 4 (ejecutada en Sprint 3) |
+| TP-06 | Decodificador MMIO | `mmio_decoder` | Cocotb | `make mmio_decoder` | Chip selects según Tabla 2, RAZ/WI | Ejecutada el 23 nov: 7/7 |
+| TP-07 | RAM | `ram` | Cocotb | `make ram` | Lectura de 1 ciclo y puertos independientes | Ejecutada el 23 nov: 8/8 |
+| TP-08 | Registros de control | `control_registers` | Cocotb | `make control_registers` | Escritura y lectura de CTRL, STATUS, LEDR, HEX, THRESHOLD; sin `we` no modifica | Ejecutada el 23 nov: 10/10 |
+| TP-09 | Reg file x0–x31 | `memory_mapped_register_file` | Questa | `run_memory_mapped_register_file.do` | x0 siempre 0; escritura y reset | No se re-ejecuta en Sprint 4 |
 | TP-10 | Enabler | `rv32i_cpu` con `enable = 0` | Cocotb | `make test_cpu SV_FILELIST=files_enable.f TOPLEVEL=rv32i_cpu_enable` | Con `enable = 0` ninguna instrucción se completa (todas las pruebas terminan por timeout) | Ejecutada el 20 nov: 29/29 casos con timeout a 300 ciclos (pytest 30 failed), 0 instrucciones completadas |
-| TP-11 | Modo pulse | `rv32i_cpu` con pulse | Hardware (DE10-Standard) | SW[0] y KEY[1] | Cada pulsación de KEY[1] avanza la FSM hasta el siguiente estado | Implementada en `top_level` y compilada; falta probarla en la placa |
-| TP-12 | Stalls de bus | `rv32i_top` con el Host leyendo al azar | Cocotb | `make top` (`test_firmware_with_bus_stalls`) | La CPU espera y no pierde datos | Ejecutada el 21 nov: PASS con 64 píxeles (1507 lecturas, ~9792 ciclos) y con 16384 píxeles (220 363 lecturas, ~1 440 192 ciclos) |
-| TP-13 | End-to-end | CPU, árbitro, RAM y MMIO con `firmware.hex` y una imagen reducida | Cocotb | `make top` (`test_firmware_end_to_end`) | Histograma e imagen de salida exactos | Ejecutada el 21 nov: PASS con 64 píxeles (~9280 ciclos; bucle reducido, ver `results.md`) y con la imagen completa de 16384 píxeles, firmware sin modificar (~1 363 840 ciclos, `FULL_IMAGE=1`) |
-| TP-14 | Síntesis | Top de Sprint 4 | Quartus | Compilación del `.qpf` | Flow Status: Successful; reportes `.map.rpt` y `.sta.rpt` | Ejecutada el 19 nov: Fitter Successful, 1609 ALMs, Fmax 67,33 MHz (ver `results.md`, sección 6) |
-| TP-15 | Captura en hardware | FSM, PC, instrucción, `valid`/`ready`, `done` | SignalTap | Por definir | Captura a 50 MHz guardada en `results.md` | Pendiente |
-| TP-16 | Carga por vJTAG y ejecución en la placa | `jtag_server.tcl` y `pixel_image_app.py` con `firmware.hex` y una imagen | Hardware + Python | Programar la FPGA, abrir `jtag_server.tcl` y ejecutar `pixel_image_app.py` | Histograma e imagen de salida correctos; `STATUS.done` en la placa | Pendiente |
-| TP-17 | Programas completos | `rv32i_cpu`: factorial recursivo y xorshift32 con estadísticas | Cocotb + Verilator | `make test_programs SV_FILELIST=files.f TOPLEVEL=rv32i_cpu` | 2/2 PASS, resultados iguales a Python | Ejecutada el 21 nov: 2/2 (en `v0.0.2-proj`: 1/2, `xorshift` fallaba por LUI; ver `results.md`, sección 5) |
-| TP-18 | Búsqueda fuera de rango | `rv32i_top`: PC fuera de la RAM de instrucciones (0x0000–0x1FFF) | Cocotb | `make top` (`test_fetch_fuera_de_rango_lee_cero`) | La instrucción leída es 0 (RAZ), decodifica como ilegal y la CPU no se bloquea (AC 5, Tabla 2) | Ejecutada el 21 nov: PASS (búsquedas `0x0, 0x2000, 0x2004, …`) |
+| TP-11 | Modo pulse | `rv32i_cpu` con pulse | Hardware (DE10-Standard) | SW[0] y KEY[1] | Cada pulsación de KEY[1] avanza la FSM hasta el siguiente estado | Ejecutada el 22 nov en la placa: OK. Secuencias 0 → 1 → 8 → 7 (`lui`/`addi`) y 0 → 1 → 2 → 5 (`sw`); paso a paso → modo libre OK (`results.md`, sección 7) |
+| TP-12 | Stalls de bus | `rv32i_top` con el Host leyendo al azar | Cocotb | `make top` (`test_firmware_with_bus_stalls`) | La CPU espera y no pierde datos | Ejecutada el 23 nov: PASS con 64 píxeles (1507 lecturas, ~9792 ciclos) y con 16384 píxeles (220 363 lecturas, ~1 440 192 ciclos) |
+| TP-13 | End-to-end | CPU, árbitro, RAM y MMIO con `firmware.hex` y una imagen reducida | Cocotb | `make top` (`test_firmware_end_to_end`) | Histograma e imagen de salida exactos | Ejecutada el 23 nov: PASS con 64 píxeles (~9280 ciclos; bucle reducido, ver `results.md`) y con la imagen completa de 16384 píxeles, firmware sin modificar (~1 363 840 ciclos, `FULL_IMAGE=1`) |
+| TP-14 | Síntesis | Top de Sprint 4 | Quartus | Compilación del `.qpf` | Flow Status: Successful; reportes `.map.rpt` y `.sta.rpt` | Ejecutada el 19 nov (sin SignalTap: 1609 ALMs, Fmax 67,33 MHz) y el 23 nov (con SignalTap: Fitter Successful, 2173 ALMs, 219 M10K, Fmax 63,53 MHz); ver `results.md`, sección 6 |
+| TP-15 | Captura en hardware | FSM, PC, instrucción, `valid`/`ready`, `done` | SignalTap | `stp_rv32i.stp`, `CLOCK_50`, 8K muestras, disparo en el inicio (A) y en el fin (B) | Captura a 50 MHz guardada en `results.md` | Ejecutada el 23 nov: A (`signaltap_inicio*.png/csv`) y B (`signaltap_fin.png/csv`); ver `results.md`, sección 8 |
+| TP-16 | Carga por vJTAG y ejecución en la placa | `jtag_server.tcl` y `pixel_image_app.py` con `firmware.hex` y una imagen | Hardware + Python | Programar la FPGA, abrir `jtag_server.tcl` y ejecutar `pixel_image_app.py` | Histograma e imagen de salida correctos; `STATUS.done` en la placa | Ejecutada el 22 y 23 nov: `OK` con umbrales 0, 64, 128 y 255 (imagen 128×128), re-arranque y permisos de la Tabla 2 (`results.md`, sección 7) |
+| TP-17 | Programas completos | `rv32i_cpu`: factorial recursivo y xorshift32 con estadísticas | Cocotb + Verilator | `make test_programs SV_FILELIST=files.f TOPLEVEL=rv32i_cpu` | 2/2 PASS, resultados iguales a Python | Ejecutada el 23 nov: 2/2 (en `v0.0.2-proj`: 1/2, `xorshift` fallaba por LUI; ver `results.md`, sección 5) |
+| TP-18 | Búsqueda fuera de rango | `rv32i_top`: PC fuera de la RAM de instrucciones (0x0000–0x1FFF) | Cocotb | `make top` (`test_fetch_fuera_de_rango_lee_cero`) | La instrucción leída es 0 (RAZ), decodifica como ilegal y la CPU no se bloquea (AC 5, Tabla 2) | Ejecutada el 23 nov: PASS (búsquedas `0x0, 0x2000, 0x2004, …`) |
 
 ## 4. Evidencia del Avance 1
 
@@ -79,9 +80,25 @@ Archivos en `docs/evidencia/avance2/`:
 
 Archivos en `docs/evidencia/avance3/`:
 
-- `avance3_full_image.log`: `FULL_IMAGE=1 make top` (3/3 PASS, 16384 píxeles).
+- `avance3_full_image.log`: `FULL_IMAGE=1 make top` (corrida de ese avance, 16384 píxeles).
 - `avance3_enabler.log`: prueba del enabler (29 timeouts esperados, pytest 30 failed).
 - `avance3_unit_system.log`: `make all` (4 pruebas unitarias y prueba de sistema).
 - `avance3_cocotb.log`, `coverage.json`, `dashboard_cpu.html`: corrida normal de TP-02 (29/29, pytest 30 passed) después del cambio de CPU.
 - `avance3_programs.log`: `make test_programs` sobre `rv32i_cpu` (2/2 PASS, TP-17), después del arreglo de LUI.
 - Reportes de Quartus: `top_level.fit.summary`, `top_level.map.rpt`, `top_level.sta.rpt`.
+
+## 7. Evidencia de la entrega final
+
+Archivos en `docs/evidencia/final/` (corrida del 23 nov desde la raíz del repo):
+
+- `sprint0_cocotb.log` a `sprint3_cocotb.log`: suites cocotb de los sprints anteriores (en Sprint 1 la prueba 3.2 no corre por `cocotb.binary`; el log de Sprint 3 no trae línea `TESTS=`).
+- `sprint4_unit_system.log`: `make all` (8, 7, 8, 10 y 4 PASS).
+- `sprint4_full_image.log`: `FULL_IMAGE=1 make top` (4/4 PASS, 16384 píxeles).
+- `sprint4_test_cpu.log` y `sprint4_test_programs.log`: repo del profesor sobre `rv32i_cpu` (29/29 y 2/2).
+- `top_level.fit.summary`, `top_level.map.summary`, `top_level.sta.summary`: Quartus con SignalTap (23 nov).
+
+Archivos en `docs/evidencia/`: `signaltap_inicio.png`, `signaltap_inicio_zoom.png`, `signaltap_fin.png` y los CSV `signaltap_inicio.csv` y `signaltap_fin.csv`. Instancia: `sprint4/quartus/stp_rv32i.stp`.
+
+## 8. Pendientes
+
+Enlace de la corrida de GitHub Actions en `results.md`, waves de simulación, pruebas Questa en una máquina con Questa y confirmación del criterio de arbitraje con el profesor (ver `results.md`, sección 10).

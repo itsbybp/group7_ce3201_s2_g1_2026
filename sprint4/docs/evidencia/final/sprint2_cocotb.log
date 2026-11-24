@@ -1,0 +1,288 @@
+rm -f results.xml
+/home/byron/.local/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.icarus:68: Using MODULE is deprecated, please use COCOTB_TEST_MODULES instead.
+rm -f results.xml
+COCOTB_TEST_MODULES=test_register_bank COCOTB_TESTCASE=  COCOTB_TOPLEVEL=register_bank TOPLEVEL_LANG=verilog       \
+	 /usr/bin/vvp -m /home/byron/.local/lib/python3.12/site-packages/cocotb/libs/libcocotbvpi_icarus.so   sim_build_register_bank/sim.vvp   
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:242  in gpi_load_users                  Loaded entry library: '/usr/lib/x86_64-linux-gnu/libpython3.12.so.1.0'
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/home/byron/.local/lib/python3.12/site-packages/cocotb/simulator.cpython-312-x86_64-linux-gnu.so'
+     -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.12.12 interpreter at /usr/bin/python3
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+     0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1795473842
+     0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /home/byron/.local/lib/python3.12/site-packages/cocotb
+     0.00ns INFO     cocotb.initialize                  Running on Icarus Verilog version 12.0 (stable)
+     0.00ns INFO     cocotb.regression                  Running tests
+     0.00ns INFO     cocotb.regression                  running test_register_bank.test_reset_values (1/6)
+    80.00ns INFO     cocotb.regression                  test_register_bank.test_reset_values passed
+    80.00ns INFO     cocotb.regression                  running test_register_bank.test_x0_always_zero (2/6)
+   200.00ns INFO     cocotb.regression                  test_register_bank.test_x0_always_zero passed
+   200.00ns INFO     cocotb.regression                  running test_register_bank.test_write_x1_and_read_rs1 (3/6)
+   320.00ns INFO     cocotb.regression                  test_register_bank.test_write_x1_and_read_rs1 passed
+   320.00ns INFO     cocotb.regression                  running test_register_bank.test_write_disabled_does_not_write (4/6)
+   440.00ns INFO     cocotb.regression                  test_register_bank.test_write_disabled_does_not_write passed
+   440.00ns INFO     cocotb.regression                  running test_register_bank.test_individual_write_enables (5/6)
+   580.00ns INFO     cocotb.regression                  test_register_bank.test_individual_write_enables passed
+   580.00ns INFO     cocotb.regression                  running test_register_bank.test_reset_clears_registers (6/6)
+   740.00ns INFO     cocotb.regression                  test_register_bank.test_reset_clears_registers passed
+   740.00ns INFO     cocotb.regression                  ***************************************************************************************************************
+                                                        ** TEST                                                   STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        ***************************************************************************************************************
+                                                        ** test_register_bank.test_reset_values                    PASS          80.00           0.00     136760.55  **
+                                                        ** test_register_bank.test_x0_always_zero                  PASS         120.00           0.00     732287.83  **
+                                                        ** test_register_bank.test_write_x1_and_read_rs1           PASS         120.00           0.00     811803.65  **
+                                                        ** test_register_bank.test_write_disabled_does_not_write   PASS         120.00           0.00     820961.72  **
+                                                        ** test_register_bank.test_individual_write_enables        PASS         140.00           0.00     810091.42  **
+                                                        ** test_register_bank.test_reset_clears_registers          PASS         160.00           0.00     875321.49  **
+                                                        ***************************************************************************************************************
+                                                        ** TESTS=6 PASS=6 FAIL=0 SKIP=0                                         740.00           0.00     341623.81  **
+                                                        ***************************************************************************************************************
+make register_bank
+make[1]: Entering directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb'
+rm -f results.xml
+/home/byron/.local/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.icarus:68: Using MODULE is deprecated, please use COCOTB_TEST_MODULES instead.
+rm -f results.xml
+COCOTB_TEST_MODULES=test_register_bank COCOTB_TESTCASE=  COCOTB_TOPLEVEL=register_bank TOPLEVEL_LANG=verilog       \
+	 /usr/bin/vvp -m /home/byron/.local/lib/python3.12/site-packages/cocotb/libs/libcocotbvpi_icarus.so   sim_build_register_bank/sim.vvp   
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:242  in gpi_load_users                  Loaded entry library: '/usr/lib/x86_64-linux-gnu/libpython3.12.so.1.0'
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/home/byron/.local/lib/python3.12/site-packages/cocotb/simulator.cpython-312-x86_64-linux-gnu.so'
+     -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.12.12 interpreter at /usr/bin/python3
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+     0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1795473842
+     0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /home/byron/.local/lib/python3.12/site-packages/cocotb
+     0.00ns INFO     cocotb.initialize                  Running on Icarus Verilog version 12.0 (stable)
+     0.00ns INFO     cocotb.regression                  Running tests
+     0.00ns INFO     cocotb.regression                  running test_register_bank.test_reset_values (1/6)
+    80.00ns INFO     cocotb.regression                  test_register_bank.test_reset_values passed
+    80.00ns INFO     cocotb.regression                  running test_register_bank.test_x0_always_zero (2/6)
+   200.00ns INFO     cocotb.regression                  test_register_bank.test_x0_always_zero passed
+   200.00ns INFO     cocotb.regression                  running test_register_bank.test_write_x1_and_read_rs1 (3/6)
+   320.00ns INFO     cocotb.regression                  test_register_bank.test_write_x1_and_read_rs1 passed
+   320.00ns INFO     cocotb.regression                  running test_register_bank.test_write_disabled_does_not_write (4/6)
+   440.00ns INFO     cocotb.regression                  test_register_bank.test_write_disabled_does_not_write passed
+   440.00ns INFO     cocotb.regression                  running test_register_bank.test_individual_write_enables (5/6)
+   580.00ns INFO     cocotb.regression                  test_register_bank.test_individual_write_enables passed
+   580.00ns INFO     cocotb.regression                  running test_register_bank.test_reset_clears_registers (6/6)
+   740.00ns INFO     cocotb.regression                  test_register_bank.test_reset_clears_registers passed
+   740.00ns INFO     cocotb.regression                  ***************************************************************************************************************
+                                                        ** TEST                                                   STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        ***************************************************************************************************************
+                                                        ** test_register_bank.test_reset_values                    PASS          80.00           0.00     132333.11  **
+                                                        ** test_register_bank.test_x0_always_zero                  PASS         120.00           0.00     679190.06  **
+                                                        ** test_register_bank.test_write_x1_and_read_rs1           PASS         120.00           0.00     883665.40  **
+                                                        ** test_register_bank.test_write_disabled_does_not_write   PASS         120.00           0.00     921588.11  **
+                                                        ** test_register_bank.test_individual_write_enables        PASS         140.00           0.00     937696.69  **
+                                                        ** test_register_bank.test_reset_clears_registers          PASS         160.00           0.00     863124.59  **
+                                                        ***************************************************************************************************************
+                                                        ** TESTS=6 PASS=6 FAIL=0 SKIP=0                                         740.00           0.00     355251.91  **
+                                                        ***************************************************************************************************************
+make[1]: Leaving directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb'
+make key_sync
+make[1]: Entering directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb'
+rm -f results.xml
+/home/byron/.local/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.icarus:68: Using MODULE is deprecated, please use COCOTB_TEST_MODULES instead.
+rm -f results.xml
+COCOTB_TEST_MODULES=test_key_sync COCOTB_TESTCASE=  COCOTB_TOPLEVEL=key_sync TOPLEVEL_LANG=verilog       \
+	 /usr/bin/vvp -m /home/byron/.local/lib/python3.12/site-packages/cocotb/libs/libcocotbvpi_icarus.so   sim_build_key_sync/sim.vvp   
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:242  in gpi_load_users                  Loaded entry library: '/usr/lib/x86_64-linux-gnu/libpython3.12.so.1.0'
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/home/byron/.local/lib/python3.12/site-packages/cocotb/simulator.cpython-312-x86_64-linux-gnu.so'
+     -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.12.12 interpreter at /usr/bin/python3
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+     0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1795473843
+     0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /home/byron/.local/lib/python3.12/site-packages/cocotb
+     0.00ns INFO     cocotb.initialize                  Running on Icarus Verilog version 12.0 (stable)
+     0.00ns INFO     cocotb.regression                  Running tests
+     0.00ns INFO     cocotb.regression                  running test_key_sync.test_reset_asserted_while_key0_low (1/5)
+     5.00ns INFO     cocotb.regression                  test_key_sync.test_reset_asserted_while_key0_low passed
+     5.00ns INFO     cocotb.regression                  running test_key_sync.test_reset_released_after_key0_high (2/5)
+   125.00ns INFO     cocotb.regression                  test_key_sync.test_reset_released_after_key0_high passed
+   125.00ns INFO     cocotb.regression                  running test_key_sync.test_key_pulse_single_cycle (3/5)
+   305.00ns INFO     cocotb.regression                  test_key_sync.test_key_pulse_single_cycle passed
+   305.00ns INFO     cocotb.regression                  running test_key_sync.test_key_pulse_not_repeated_while_held (4/5)
+   565.00ns INFO     cocotb.regression                  test_key_sync.test_key_pulse_not_repeated_while_held passed
+   565.00ns INFO     cocotb.regression                  running test_key_sync.test_key_pulse_fires_again_on_second_press (5/5)
+   985.00ns INFO     cocotb.regression                  test_key_sync.test_key_pulse_fires_again_on_second_press passed
+   985.00ns INFO     cocotb.regression                  ******************************************************************************************************************
+                                                        ** TEST                                                      STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        ******************************************************************************************************************
+                                                        ** test_key_sync.test_reset_asserted_while_key0_low           PASS           5.00           0.00      11384.36  **
+                                                        ** test_key_sync.test_reset_released_after_key0_high          PASS         120.00           0.00     747579.78  **
+                                                        ** test_key_sync.test_key_pulse_single_cycle                  PASS         180.00           0.00     598493.86  **
+                                                        ** test_key_sync.test_key_pulse_not_repeated_while_held       PASS         260.00           0.00    1181420.96  **
+                                                        ** test_key_sync.test_key_pulse_fires_again_on_second_press   PASS         420.00           0.00    1478113.40  **
+                                                        ******************************************************************************************************************
+                                                        ** TESTS=5 PASS=5 FAIL=0 SKIP=0                                            985.00           0.00     471569.50  **
+                                                        ******************************************************************************************************************
+make[1]: Leaving directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb'
+make exec_fsm
+make[1]: Entering directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb'
+rm -f results.xml
+/home/byron/.local/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.icarus:68: Using MODULE is deprecated, please use COCOTB_TEST_MODULES instead.
+rm -f results.xml
+COCOTB_TEST_MODULES=test_exec_fsm COCOTB_TESTCASE=  COCOTB_TOPLEVEL=exec_fsm TOPLEVEL_LANG=verilog       \
+	 /usr/bin/vvp -m /home/byron/.local/lib/python3.12/site-packages/cocotb/libs/libcocotbvpi_icarus.so   sim_build_exec_fsm/sim.vvp   
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:242  in gpi_load_users                  Loaded entry library: '/usr/lib/x86_64-linux-gnu/libpython3.12.so.1.0'
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/home/byron/.local/lib/python3.12/site-packages/cocotb/simulator.cpython-312-x86_64-linux-gnu.so'
+     -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.12.12 interpreter at /usr/bin/python3
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+     0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1795473844
+     0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /home/byron/.local/lib/python3.12/site-packages/cocotb
+     0.00ns INFO     cocotb.initialize                  Running on Icarus Verilog version 12.0 (stable)
+     0.00ns INFO     cocotb.regression                  Running tests
+     0.00ns INFO     cocotb.regression                  running test_exec_fsm.test_reset (1/6)
+     2.00ns INFO     cocotb.regression                  test_exec_fsm.test_reset passed
+     2.00ns INFO     cocotb.regression                  running test_exec_fsm.test_normal_execution (2/6)
+    83.00ns INFO     cocotb.regression                  test_exec_fsm.test_normal_execution passed
+    83.00ns INFO     cocotb.regression                  running test_exec_fsm.test_write_enable_pulse (3/6)
+   144.00ns INFO     cocotb.regression                  test_exec_fsm.test_write_enable_pulse passed
+   144.00ns INFO     cocotb.regression                  running test_exec_fsm.test_stepping_mode_pauses (4/6)
+   225.00ns INFO     cocotb.regression                  test_exec_fsm.test_stepping_mode_pauses passed
+   225.00ns INFO     cocotb.regression                  running test_exec_fsm.test_write_state_holds_in_stepping_mode (5/6)
+   326.00ns INFO     cocotb.regression                  test_exec_fsm.test_write_state_holds_in_stepping_mode passed
+   326.00ns INFO     cocotb.regression                  running test_exec_fsm.test_async_reset (6/6)
+   349.00ns INFO     cocotb.regression                  test_exec_fsm.test_async_reset passed
+   349.00ns INFO     cocotb.regression                  ***************************************************************************************************************
+                                                        ** TEST                                                   STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        ***************************************************************************************************************
+                                                        ** test_exec_fsm.test_reset                                PASS           2.00           0.00       1965.84  **
+                                                        ** test_exec_fsm.test_normal_execution                     PASS          81.00           0.00     333259.27  **
+                                                        ** test_exec_fsm.test_write_enable_pulse                   PASS          61.00           0.00     388552.39  **
+                                                        ** test_exec_fsm.test_stepping_mode_pauses                 PASS          81.00           0.00     569568.12  **
+                                                        ** test_exec_fsm.test_write_state_holds_in_stepping_mode   PASS         101.00           0.00     667362.86  **
+                                                        ** test_exec_fsm.test_async_reset                          PASS          23.00           0.00     209283.01  **
+                                                        ***************************************************************************************************************
+                                                        ** TESTS=6 PASS=6 FAIL=0 SKIP=0                                         349.00           0.00     135032.81  **
+                                                        ***************************************************************************************************************
+make[1]: Leaving directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb'
+make input_fsm
+make[1]: Entering directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb'
+rm -f results.xml
+/home/byron/.local/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.icarus:68: Using MODULE is deprecated, please use COCOTB_TEST_MODULES instead.
+rm -f results.xml
+COCOTB_TEST_MODULES=test_input_fsm COCOTB_TESTCASE=  COCOTB_TOPLEVEL=input_fsm TOPLEVEL_LANG=verilog       \
+	 /usr/bin/vvp -m /home/byron/.local/lib/python3.12/site-packages/cocotb/libs/libcocotbvpi_icarus.so   sim_build_input_fsm/sim.vvp   
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:242  in gpi_load_users                  Loaded entry library: '/usr/lib/x86_64-linux-gnu/libpython3.12.so.1.0'
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/home/byron/.local/lib/python3.12/site-packages/cocotb/simulator.cpython-312-x86_64-linux-gnu.so'
+     -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.12.12 interpreter at /usr/bin/python3
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+     0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1795473844
+     0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /home/byron/.local/lib/python3.12/site-packages/cocotb
+     0.00ns INFO     cocotb.initialize                  Running on Icarus Verilog version 12.0 (stable)
+     0.00ns INFO     cocotb.regression                  Running tests
+     0.00ns INFO     cocotb.regression                  running test_input_fsm.test_reset (1/7)
+     2.00ns INFO     cocotb.regression                  test_input_fsm.test_reset passed
+     2.00ns INFO     cocotb.regression                  running test_input_fsm.test_single_nibble (2/7)
+    23.00ns INFO     cocotb.regression                  test_input_fsm.test_single_nibble passed
+    23.00ns INFO     cocotb.regression                  running test_input_fsm.test_four_nibble_assembly (3/7)
+   104.00ns INFO     cocotb.regression                  test_input_fsm.test_four_nibble_assembly passed
+   104.00ns INFO     cocotb.regression                  running test_input_fsm.test_step_disabled (4/7)
+   165.00ns INFO     cocotb.regression                  test_input_fsm.test_step_disabled passed
+   165.00ns INFO     cocotb.regression                  running test_input_fsm.test_step_controls_one_nibble_per_cycle (5/7)
+   226.00ns INFO     cocotb.regression                  test_input_fsm.test_step_controls_one_nibble_per_cycle passed
+   226.00ns INFO     cocotb.regression                  running test_input_fsm.test_does_not_accept_input_after_finished (6/7)
+   327.00ns INFO     cocotb.regression                  test_input_fsm.test_does_not_accept_input_after_finished passed
+   327.00ns INFO     cocotb.regression                  running test_input_fsm.test_async_reset (7/7)
+   350.01ns INFO     cocotb.regression                  test_input_fsm.test_async_reset passed
+   350.01ns INFO     cocotb.regression                  ******************************************************************************************************************
+                                                        ** TEST                                                      STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        ******************************************************************************************************************
+                                                        ** test_input_fsm.test_reset                                  PASS           2.00           0.00       3336.79  **
+                                                        ** test_input_fsm.test_single_nibble                          PASS          21.00           0.00     119895.16  **
+                                                        ** test_input_fsm.test_four_nibble_assembly                   PASS          81.00           0.00     528965.81  **
+                                                        ** test_input_fsm.test_step_disabled                          PASS          61.00           0.00     531562.64  **
+                                                        ** test_input_fsm.test_step_controls_one_nibble_per_cycle     PASS          61.00           0.00     442144.42  **
+                                                        ** test_input_fsm.test_does_not_accept_input_after_finished   PASS         101.00           0.00     679457.56  **
+                                                        ** test_input_fsm.test_async_reset                            PASS          23.00           0.00     242396.15  **
+                                                        ******************************************************************************************************************
+                                                        ** TESTS=7 PASS=7 FAIL=0 SKIP=0                                            350.01           0.00     153995.27  **
+                                                        ******************************************************************************************************************
+make[1]: Leaving directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb'
+make display_logic
+make[1]: Entering directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb'
+rm -f results.xml
+/usr/bin/iverilog -o sim_build_display_logic/sim.vvp -s display_logic -g2012 -f sim_build_display_logic/cmds.f  /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../../sprint1/src/alu_types_pkg.sv /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../../sprint1/src/alu_param.sv /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../../sprint1/src/seven_segment_adapter.sv /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../../sprint1/src/n_bit_absolute_value.sv /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../../sprint1/src/decoder_4x16.sv /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/toggle.sv /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/binary_to_bcd_converter.sv /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/display_logic.sv
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../../sprint1/src/n_bit_absolute_value.sv:8: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/binary_to_bcd_converter.sv:10: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/binary_to_bcd_converter.sv:10: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/binary_to_bcd_converter.sv:10: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/binary_to_bcd_converter.sv:10: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/binary_to_bcd_converter.sv:10: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/binary_to_bcd_converter.sv:10: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/display_logic.sv:111: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/display_logic.sv:111: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../../sprint1/src/n_bit_absolute_value.sv:9: vvp.tgt sorry: Case unique/unique0 qualities are ignored.
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/display_logic.sv:127: vvp.tgt sorry: Case unique/unique0 qualities are ignored.
+/home/byron/.local/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.icarus:68: Using MODULE is deprecated, please use COCOTB_TEST_MODULES instead.
+rm -f results.xml
+COCOTB_TEST_MODULES=test_display_logic COCOTB_TESTCASE=  COCOTB_TOPLEVEL=display_logic TOPLEVEL_LANG=verilog       \
+	 /usr/bin/vvp -m /home/byron/.local/lib/python3.12/site-packages/cocotb/libs/libcocotbvpi_icarus.so   sim_build_display_logic/sim.vvp   
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:242  in gpi_load_users                  Loaded entry library: '/usr/lib/x86_64-linux-gnu/libpython3.12.so.1.0'
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/home/byron/.local/lib/python3.12/site-packages/cocotb/simulator.cpython-312-x86_64-linux-gnu.so'
+     -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.12.12 interpreter at /usr/bin/python3
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+     0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1795473845
+     0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /home/byron/.local/lib/python3.12/site-packages/cocotb
+     0.00ns INFO     cocotb.initialize                  Running on Icarus Verilog version 12.0 (stable)
+     0.00ns INFO     cocotb.regression                  Running tests
+     0.00ns INFO     cocotb.regression                  running test_display_logic.test_menu00_immediate (1/4)
+     3.00ns INFO     cocotb.regression                  test_display_logic.test_menu00_immediate passed
+     3.00ns INFO     cocotb.regression                  running test_display_logic.test_menu01_register_display (2/4)
+     5.00ns INFO     cocotb.regression                  test_display_logic.test_menu01_register_display passed
+     5.00ns INFO     cocotb.regression                  running test_display_logic.test_menu10_opcode_display (3/4)
+     9.00ns INFO     cocotb.regression                  test_display_logic.test_menu10_opcode_display passed
+     9.00ns INFO     cocotb.regression                  running test_display_logic.test_menu11_alu_res (4/4)
+    12.00ns INFO     cocotb.regression                  test_display_logic.test_menu11_alu_res passed
+    12.00ns INFO     cocotb.regression                  *********************************************************************************************************
+                                                        ** TEST                                             STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        *********************************************************************************************************
+                                                        ** test_display_logic.test_menu00_immediate          PASS           3.00           0.00       3091.97  **
+                                                        ** test_display_logic.test_menu01_register_display   PASS           2.00           0.00       9716.71  **
+                                                        ** test_display_logic.test_menu10_opcode_display     PASS           4.00           0.00      15223.48  **
+                                                        ** test_display_logic.test_menu11_alu_res            PASS           3.00           0.00      10321.44  **
+                                                        *********************************************************************************************************
+                                                        ** TESTS=4 PASS=4 FAIL=0 SKIP=0                                    12.00           0.00       4876.54  **
+                                                        *********************************************************************************************************
+make[1]: Leaving directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb'
+make top_level
+make[1]: Entering directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb'
+rm -f results.xml
+/usr/bin/iverilog -o sim_build_top_level/sim.vvp -s top_level -g2012 -f sim_build_top_level/cmds.f  /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../../sprint1/src/alu_types_pkg.sv /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../../sprint1/src/alu_param.sv /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../../sprint1/src/seven_segment_adapter.sv /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../../sprint1/src/n_bit_absolute_value.sv /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../../sprint1/src/decoder_4x16.sv /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/toggle.sv /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/binary_to_bcd_converter.sv /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/exec_fsm.sv /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/input_fsm.sv /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/key_sync.sv /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/register_bank.sv /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/display_logic.sv /mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/top_level.sv
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../../sprint1/src/alu_param.sv:12: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../../sprint1/src/alu_param.sv:12: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../../sprint1/src/alu_param.sv:12: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../../sprint1/src/alu_param.sv:12: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../../sprint1/src/alu_param.sv:12: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../../sprint1/src/n_bit_absolute_value.sv:8: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/binary_to_bcd_converter.sv:10: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/binary_to_bcd_converter.sv:10: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/binary_to_bcd_converter.sv:10: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/binary_to_bcd_converter.sv:10: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/binary_to_bcd_converter.sv:10: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/binary_to_bcd_converter.sv:10: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/display_logic.sv:111: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/display_logic.sv:111: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/input_fsm.sv:25: vvp.tgt sorry: Case unique/unique0 qualities are ignored.
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/exec_fsm.sv:29: vvp.tgt sorry: Case unique/unique0 qualities are ignored.
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../../sprint1/src/alu_param.sv:22: vvp.tgt sorry: Case unique/unique0 qualities are ignored.
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../../sprint1/src/n_bit_absolute_value.sv:9: vvp.tgt sorry: Case unique/unique0 qualities are ignored.
+/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb/../../src/display_logic.sv:127: vvp.tgt sorry: Case unique/unique0 qualities are ignored.
+/home/byron/.local/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.icarus:68: Using MODULE is deprecated, please use COCOTB_TEST_MODULES instead.
+rm -f results.xml
+COCOTB_TEST_MODULES=test_top_level COCOTB_TESTCASE=  COCOTB_TOPLEVEL=top_level TOPLEVEL_LANG=verilog       \
+	 /usr/bin/vvp -m /home/byron/.local/lib/python3.12/site-packages/cocotb/libs/libcocotbvpi_icarus.so   sim_build_top_level/sim.vvp   
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:242  in gpi_load_users                  Loaded entry library: '/usr/lib/x86_64-linux-gnu/libpython3.12.so.1.0'
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/home/byron/.local/lib/python3.12/site-packages/cocotb/simulator.cpython-312-x86_64-linux-gnu.so'
+     -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.12.12 interpreter at /usr/bin/python3
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
+     0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1795473846
+     0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /home/byron/.local/lib/python3.12/site-packages/cocotb
+     0.00ns INFO     cocotb.initialize                  Running on Icarus Verilog version 12.0 (stable)
+     0.00ns INFO     cocotb.regression                  Running tests
+     0.00ns INFO     cocotb.regression                  running test_top_level.test_use_case (1/1)
+  5702.00ns INFO     cocotb.regression                  test_top_level.test_use_case passed
+  5702.00ns INFO     cocotb.regression                  **************************************************************************************
+                                                        ** TEST                          STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        **************************************************************************************
+                                                        ** test_top_level.test_use_case   PASS        5702.00           0.01     561959.81  **
+                                                        **************************************************************************************
+                                                        ** TESTS=1 PASS=1 FAIL=0 SKIP=0               5702.00           0.01     542256.39  **
+                                                        **************************************************************************************
+make[1]: Leaving directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint2/test/cocotb'

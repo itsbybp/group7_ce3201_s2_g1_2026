@@ -12,8 +12,9 @@
 | Mapa MMIO, árbitro, RAM y registros de control | Implementados y verificados (`rv32i_top`) |
 | Testbench end-to-end | Implementado: 64 píxeles e imagen completa (16384), con y sin stalls |
 | Top de placa (`top_level`) con vJTAG | Implementado; compila en Quartus (Fitter Successful) |
-| Modo paso a paso (Epic 1) | Implementado en `top_level`; sin simular ni probar en la placa |
-| SignalTap | Pendiente |
+| Modo paso a paso (Epic 1) | Implementado en `top_level` y probado en la placa (22 nov) |
+| Carga por vJTAG y ejecución en la placa | Probada: histograma e imagen exactos con umbrales 0, 64, 128 y 255 |
+| SignalTap | Capturas de inicio y fin a 50 MHz (23 nov, `results.md` sección 8) |
 
 ---
 
@@ -263,7 +264,7 @@ La CPU corre con `cpu_enable = start && !done`, donde `start` es CTRL[0] (`soft_
 
 ### Señales para SignalTap
 
-`top_level` marca con `(* keep *)` `tap_imem_valid`, `tap_imem_ready`, `tap_cpu_valid`, `tap_cpu_ready` y `tap_handshake_instr`, junto con `cpu_state`, el PC, la instrucción y `done`. SignalTap está apagado en el `.qsf` actual.
+`top_level` marca con `(* keep *)` `tap_imem_valid`, `tap_imem_ready`, `tap_cpu_valid`, `tap_cpu_ready` y `tap_handshake_instr`, junto con `cpu_state`, el PC, la instrucción y `done`. El `.qsf` de la entrega final tiene SignalTap encendido (`ENABLE_SIGNALTAP ON`, instancia `stp_rv32i.stp`: 8K muestras, 76 bits, `CLOCK_50`); para el bitstream de uso normal puede apagarse y el diseño baja de 2 173 a 1 609 ALMs (`results.md`, sección 6).
 
 ---
 
@@ -310,8 +311,8 @@ xxd -e -c4 firmware.bin | awk '{print $2}' > firmware.hex
 
 ---
 
-## 13. Próximos pasos
+## 13. Estado final y pendientes
 
-1. Programar la DE10-Standard y probar la carga por vJTAG (`jtag_server.tcl` y `pixel_image_app.py`).
-2. Probar el modo paso a paso en la placa y revisar la orientación de los dígitos HEX.
-3. Captura en SignalTap de la FSM, PC, instrucción, `valid`/`ready` y `done`.
+Hecho: CPU verificada con el repo del profesor (29/29 y programas 2/2), sistema completo en simulación (64 y 16384 píxeles) y en la placa con carga por vJTAG, modo paso a paso y SignalTap. Los resultados están en `results.md` y el plan en `testplan.md`.
+
+Pendiente: enlace de GitHub Actions en verde, waves de simulación y confirmar con el profesor el criterio de arbitraje (el bus de instrucciones es independiente y solo el de datos pasa por el árbitro, sección 6).
