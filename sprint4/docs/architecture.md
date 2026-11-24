@@ -12,7 +12,8 @@
 | Mapa MMIO, árbitro, RAM y registros de control | Implementados y verificados (`rv32i_top`) |
 | Testbench end-to-end | Implementado: 64 píxeles e imagen completa (16384), con y sin stalls |
 | Top de placa (`top_level`) con vJTAG | Implementado; compila en Quartus (Fitter Successful) |
-| Modo paso a paso (Epic 1) | Implementado en `top_level` y probado en la placa (22 nov) |
+| Modo paso a paso (Epic 1) | Implementado en `top_level` y probado en la placa (22 nov; repetido con fotos el 24 nov, `results.md` sección 7.1) |
+| Modo libre y reset (KEY[0]) en la placa | Fotografiados el 24 nov (`results.md`, secciones 7.2 y 7.3) |
 | Carga por vJTAG y ejecución en la placa | Probada: histograma e imagen exactos con umbrales 0, 64, 128 y 255 |
 | SignalTap | Capturas de inicio y fin a 50 MHz (23 nov, `results.md` sección 8) |
 
@@ -253,6 +254,12 @@ La CPU corre con `cpu_enable = start && !done`, donde `start` es CTRL[0] (`soft_
 - Implementación: `cpu_hold = step_mode & ~(step_active_q & (cpu_state == step_ref_q))`. Al pulsar KEY[1] se activa `step_active_q` y se guarda el estado actual en `step_ref_q`; cuando `cpu_state` cambia, `step_active_q` se limpia y la CPU vuelve a congelarse. `step_active_q` también se limpia si `busy` vale 0.
 - `rv32i_top` recibe `cpu_hold` y lo combina como `enable(cpu_enable && !cpu_hold)`. Sin conectar, `cpu_hold` vale 0, por lo que el testbench de simulación no cambia.
 
+**Verificación en la placa (24 nov).** Con SW[0] = 1 y SW[2:1] = 01, cada pulsación de KEY[1] avanzó un estado de la FSM. Para `lui s0, 0x10` (`0x00010437`) se fotografió DECODE (1), EXECUTE_I (8), ALU_WB (7) y FETCH (0) de la siguiente instrucción, con el PC en `0x04` durante toda la instrucción (se incrementa en FETCH). Es el camino de `lui` del diagrama de la sección 2. Detalle y las 10 fotos en `results.md`, sección 7.1.
+
+| DECODE (1), PC `0x04` | EXECUTE_I (8) | ALU_WB (7) | FETCH (0), PC `0x04` |
+|---|---|---|---|
+| <img src="evidencia/paso_a_paso/02_instr1_decode_pc.jpeg" width="260" alt="DECODE"> | <img src="evidencia/paso_a_paso/05_instr1_execute_i_estado8.jpeg" width="260" alt="EXECUTE_I"> | <img src="evidencia/paso_a_paso/06_instr1_alu_wb_estado7.jpeg" width="260" alt="ALU_WB"> | <img src="evidencia/paso_a_paso/07_instr2_fetch_estado0_pc4.jpeg" width="260" alt="FETCH"> |
+
 ### Vistas de depuración (SW[2:1])
 
 | SW[2:1] | HEX | LEDR |
@@ -261,6 +268,18 @@ La CPU corre con `cpu_enable = start && !done`, donde `start` es CTRL[0] (`soft_
 | 01 | PC[23:0] | `{step_mode, done, busy, illegal, 2'b00, cpu_state}` |
 | 10 | Instrucción[23:0] | igual que arriba |
 | 11 | Instrucción[31:8] | igual que arriba |
+
+En modo libre, al terminar la ejecución, las vistas muestran el estado final: PC `0x84`, instrucción `0x005A2223` (`sw t0, 4(s4)` a STATUS), LEDR[8] (`done`) encendido y, en la vista 00, HEX = `0x4000`. Las fotos están en `results.md`, sección 7.2.
+
+| Vista 00 | Vista 01 | Vista 10 | Vista 11 |
+|---|---|---|---|
+| <img src="evidencia/modo_normal/normal_01_vista00_registro_hex.png" width="260" alt="Vista 00"> | <img src="evidencia/modo_normal/normal_02_vista01_pc.png" width="260" alt="Vista 01"> | <img src="evidencia/modo_normal/normal_03_vista10_instr_23_0.png" width="260" alt="Vista 10"> | <img src="evidencia/modo_normal/normal_04_vista11_instr_31_8.png" width="260" alt="Vista 11"> |
+
+### Reset (KEY[0])
+
+`key_sync` activa `rst_n` de forma asíncrona y lo libera de forma síncrona. Con `rst_n = 0` se reinician la FSM (a FETCH), el PC (a 0), los registros de control (`start`, `done`, THRESHOLD, LEDR y HEX), el banco de registros, los registros del datapath y la lógica del paso a paso. `busy = start && !done` pasa a 0 y la CPU deja de pedir buses. Las memorias (`ram.sv`) no se reinician: el firmware y las imágenes siguen cargados (deducido del RTL, no verificado en la placa). En las vistas de depuración LEDR[9] (`step_mode`) sigue reflejando SW[0] porque el reset solo reinicia su sincronizador y este vuelve a leer el interruptor. En la placa, al pulsar KEY[0], HEX y LEDR pasan a 0 (`results.md`, sección 7.3; foto en paso a paso: `evidencia/paso_a_paso/01_reset_key0_todo_en_cero.jpeg`).
+
+<img src="evidencia/modo_normal/normal_00_reset_todo_en_cero.png" width="300" alt="Reset con KEY[0]">
 
 ### Señales para SignalTap
 
@@ -309,10 +328,14 @@ xxd -e -c4 firmware.bin | awk '{print $2}' > firmware.hex
 - **`lui` (AC 2).** Se ejecuta en EXECUTE_I con el operando A en 0 y el inmediato tipo U (`{instruction[31:12], 12'b0}`); `firmware.s` lo usa (directamente o por `li`) para cargar las bases del mapa MMIO.
 - **Latencia de las M10K.** La lectura sincrónica tarda un ciclo, por eso `ready` de lectura sube un ciclo después de `valid`, y el bus de instrucciones entrega una instrucción cada 2 ciclos (`imem_ready` alterna 1, 0, 1, 0). La FSM mantiene `valid` hasta recibir `ready`.
 
+La captura A de SignalTap lo muestra en hardware: cada `lui`/`addi` ocupa 5 muestras de 20 ns, porque FETCH (estado 0) dura 2 ciclos y los estados 1, 8 y 7 un ciclo cada uno (`results.md`, secciones 8 y 9.8).
+
+![SignalTap, captura A con zoom: FETCH de 2 ciclos y estados 1, 8, 7](evidencia/signaltap_inicio_zoom.png)
+
 ---
 
 ## 13. Estado final y pendientes
 
 Hecho: CPU verificada con el repo del profesor (29/29 y programas 2/2), sistema completo en simulación (64 y 16384 píxeles) y en la placa con carga por vJTAG, modo paso a paso y SignalTap. Los resultados están en `results.md` y el plan en `testplan.md`.
 
-Pendiente: enlace de GitHub Actions en verde, waves de simulación y confirmar con el profesor el criterio de arbitraje (el bus de instrucciones es independiente y solo el de datos pasa por el árbitro, sección 6).
+Actions en verde en el PR #82 (https://github.com/itsbybp/group7_ce3201_s2_g1_2026/actions/runs/45310486302). Pendiente: waves de simulación y confirmar con el profesor el criterio de arbitraje (el bus de instrucciones es independiente y solo el de datos pasa por el árbitro, sección 6).

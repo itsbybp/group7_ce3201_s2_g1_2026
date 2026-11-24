@@ -1,11 +1,11 @@
 # Resultados de Verificación: Sprint 4 (Entrega final)
 
 **Proyecto:** CE3201 Taller de Diseño Digital, Grupo 7
-**Fecha:** 20 al 23 nov 2026
+**Fecha:** 20 al 24 nov 2026
 **Entrega:** final, tag `v1.0.0-proj` (30 nov 2026). El Avance 3 es `v0.1.0-proj` y el Avance 2 `v0.0.2-proj` (15 nov 2026)
 **Arquitectura:** ver `docs/architecture.md`
 **Plan de pruebas:** ver `docs/testplan.md`
-**Entorno de simulación:** Verilator 5.053 (devel), cocotb 2.1.0, Python 3.12, WSL. Las secciones 2 a 4 son de la corrida completa del 23 nov 2026 desde la raíz del repo (logs en `docs/evidencia/final/`, sección 3.1). La síntesis final (sección 6) es del 23 nov 2026 (Quartus 25.1std.0 Build 1129, con SignalTap). Las pruebas en la placa (sección 7) y las capturas SignalTap (sección 8) son del 22 y 23 nov 2026.
+**Entorno de simulación:** Verilator 5.053 (devel), cocotb 2.1.0, Python 3.12, WSL. Las secciones 2 a 4 son de la corrida completa del 23 nov 2026 desde la raíz del repo (logs en `docs/evidencia/final/`, sección 3.1). La síntesis final (sección 6) es del 23 nov 2026 (Quartus 25.1std.0 Build 1129, con SignalTap). Las pruebas en la placa (sección 7) son del 22 al 24 nov 2026 (las fotos del 24 nov están en las secciones 7.1 a 7.3) y las capturas SignalTap (sección 8) son del 23 nov 2026.
 
 ---
 
@@ -23,7 +23,9 @@
 | Sprints 0 a 2 (cocotb, repetidos desde la raíz) | Cocotb | 0: 2/2; 1: 6/6 y 5/6 (1 SKIP esperado); 2: 6/6, 6/6, 5/5, 6/6, 7/7, 4/4, 1/1. La prueba 3.2 de Sprint 1 no corre (sección 3.1) | Ejecutadas el 23 nov |
 | Síntesis del top de placa (`top_level`) con SignalTap | Quartus Prime 25.1 Lite | Fitter Successful, 2173 ALMs, Fmax 63,53 MHz | Ejecutada el 23 nov |
 | Carga por vJTAG y ejecución en la placa (TP-16) | DE10-Standard | Histograma e imagen exactos con umbrales 0, 64, 128 y 255 | Ejecutada el 22 y 23 nov |
-| Modo paso a paso y vistas SW[2:1] (TP-11) | DE10-Standard | Funciona; secuencias de estados observadas | Ejecutada el 22 nov |
+| Modo paso a paso y vistas SW[2:1] (TP-11) | DE10-Standard | Funciona; secuencias de estados observadas y fotografiadas (sección 7.1) | Ejecutada el 22 nov y repetida con fotos el 24 nov |
+| Modo libre en la placa con evidencia fotográfica (TP-19) | DE10-Standard | La CPU llega a `done`: PC `0x84`, instrucción `0x005A2223`, HEX = `0x4000` (sección 7.2) | Ejecutada el 24 nov |
+| Reset con KEY[0] (TP-20) | DE10-Standard | HEX y LEDR en 0 (sección 7.3) | Ejecutada el 24 nov |
 | Mapa de memoria y permisos (Tabla 2) en la placa | DE10-Standard | Cumple | Ejecutada el 22 nov |
 | Captura en hardware (TP-15) | SignalTap, 50 MHz | Capturas A (inicio) y B (fin) | Ejecutada el 23 nov |
 
@@ -261,14 +263,15 @@ Flujo: se programa la FPGA, se abre `jtag_server.tcl` en Windows (`quartus_stp`,
 
 | # | Prueba | Resultado |
 |---|---|---|
-| 1 | Reset (KEY[0]) | Se usó en cada re-arranque; no se registró una prueba aparte con evidencia |
+| 1 | Reset (KEY[0]) | Se usó en cada re-arranque. Prueba aislada el 24 nov: HEX y LEDR pasan a 0 (sección 7.3) |
 | 2 | Corrida completa, umbral 128 | `Programa: 34/34`; `Imagen: 16384/16384 en 30.6 s`; `CPU iniciado (umbral=128)`; `Imagen de salida: 16384/16384 en 38.6 s`; `Histograma: 256/256 en 0.8 s`; `OK: histograma e imagen binarizada coinciden con lo esperado.` |
 | 3 | Umbrales extremos y otro valor | 0, 255 y 64: los tres `OK` |
 | 4 | Re-arranque sin reprogramar | OK |
-| 5 | Modo paso a paso y regreso a modo libre | OK |
+| 5 | Modo paso a paso y regreso a modo libre | OK (22 nov). Repetido el 24 nov con fotos de cada paso (sección 7.1) |
 | 6 | Mapa de memoria y permisos del Host (Tabla 2) por consola `jtag_fpga.py` | Cumple: RAM de instrucciones y de entrada R/W; RAM de salida, histograma y STATUS solo lectura; LEDR, HEX, CTRL y THRESHOLD R/W; fuera de mapa RAZ/WI |
 | 7 | Lectura de la RAM de entrada tras la corrida (muestras de píxeles) | 0x11F28 = 249, 0x12EBC = 249, 0x13E50 = 172, 0x15D78 = 246, 0x16D0C = 139, 0x17CA0 = 188, 0x18C34 = 219, 0x19BC8 = 213, 0x1FFFC = 0: todas coinciden con la imagen enviada |
-| 8 | Vistas SW[2:1] | Ver abajo |
+| 8 | Vistas SW[2:1] | Ver abajo y secciones 7.1 y 7.2 (fotos de las cuatro vistas) |
+| 9 | Modo libre con fotos del estado final (24 nov) | Sección 7.2: PC `0x84`, `done` encendido, HEX = `0x4000` |
 
 - **Tiempos.** La carga de la imagen por vJTAG tardó 30,6 s en la corrida documentada (entre 11,8 s y 51,4 s en otras corridas) y la lectura de la imagen de salida 38,6 s: es una palabra de 32 bits por transacción JTAG. El CPU tarda ~1 363 840 ciclos (~27,3 ms a 50 MHz, calculado de la simulación, no medido en la placa), así que el tiempo de la prueba lo domina el Host.
 - **Fallo recurrente del servidor.** Dos veces el servidor respondió `JTAG server rejected write: ERROR`; se resolvió reiniciando `jtag_server.tcl`.
@@ -276,6 +279,80 @@ Flujo: se programa la FPGA, se abre `jtag_server.tcl` en Windows (`quartus_stp`,
 - **Vistas 01, 10 y 11.** HEX muestra PC[23:0], instrucción[23:0] o instrucción[31:8]; LEDR muestra `{step_mode, done, busy, illegal, 2'b00, cpu_state}`. Al terminar: PC 0x84 y LEDR[8] = `done` encendido.
 - **Modo paso a paso (TP-11).** SW[0] = 1 y cada pulsación de KEY[1] deja correr la FSM hasta que `cpu_state` cambia. Las secuencias observadas para `lui`/`addi` fueron 0 → 1 → 8 → 7 (cuatro estados por instrucción; a 50 MHz son 5 ciclos porque FETCH dura 2, sección 8) y para `sw` 0 → 1 → 2 → 5. El PC mostrado ya está incrementado (se actualiza en FETCH), por eso va una instrucción adelantado respecto de la instrucción mostrada. `lui` y `addi` pasan por EXECUTE_I (estado 8), no por EXECUTE_R (6).
 - **Estado al terminar.** Con `done = 1` la condición `cpu_enable = start && !done` congela el CPU: `pc = 0x84` e instrucción `005A2223h` (`sw` a STATUS). El `j halt` de 0x84 nunca se busca.
+
+### 7.1 Modo paso a paso con fotos (24 nov 2026)
+
+**Procedimiento.**
+
+1. Con el servidor `jtag_server.tcl` abierto, se ejecutó `pixel_image_app.py` con la imagen `Kingsoul.jpg`. El script escribe `CTRL = 0`, carga `firmware.hex`, lo lee de vuelta y lo compara palabra por palabra (si no coincide aborta), carga la imagen y el umbral, escribe `CTRL = 1` (`start`) y espera `STATUS.done`.
+2. Con SW[0] = 1 la CPU queda congelada (`cpu_hold = 1`) hasta que se pulsa KEY[1] (suposición: SW[0] ya estaba en 1 mientras corría el script; la CPU esperó en el PC 0 hasta la primera pulsación y el script terminó por tiempo agotado, lo que concuerda con que la salida guardada de ese día no incluya la línea `OK`). Se usó SW[2:1] = 01 (HEX = PC y LEDR = `{step_mode, done, busy, illegal, 2'b00, cpu_state}`), 10 (HEX = instrucción[23:0]) y 11 (HEX = instrucción[31:8]).
+3. Se pulsó KEY[1] una vez por estado y se fotografió la placa después de cada pulsación (y las tres vistas en el estado DECODE de cada instrucción). La primera foto, antes de avanzar, es el reset con KEY[0] (sección 7.3).
+
+**Lectura de los LEDR.** LEDR[9] = `step_mode`, LEDR[8] = `done`, LEDR[7] = `busy`, LEDR[6] = `illegal`, LEDR[5:4] = 0 y LEDR[3:0] = `cpu_state`. En las fotos 02 a 10 están encendidos LEDR[9] (SW[0] = 1) y LEDR[7] (`busy`, porque `start = 1` y `done = 0`); LEDR[8] y LEDR[6] siguen apagados, es decir, `done = 0` e `illegal = 0`. Los estados se leen de los cuatro LEDR de la derecha (las fotos son de un teléfono con poca luz, por lo que los LEDR se identifican por su posición en la fila).
+
+| N.º | Foto | Lectura (HEX y LEDR) | Interpretación |
+|---|---|---|---|
+| 01 | <img src="evidencia/paso_a_paso/01_reset_key0_todo_en_cero.jpeg" width="340" alt="Paso a paso, foto 1: reset con KEY[0], HEX 000000"> | HEX = `000000` tras pulsar KEY[0] (según lo observado, LEDR[9] queda encendido por SW[0] = 1; el resto de LEDR en 0) | Reset con KEY[0] en paso a paso (sección 7.3): HEX y LEDR en 0, salvo `step_mode` |
+| 02 | <img src="evidencia/paso_a_paso/02_instr1_decode_pc.jpeg" width="340" alt="Paso a paso, foto 2: PC 000004, estado 1"> | SW[2:1] = 01: HEX = `000004`; LEDR[9], LEDR[7] y LEDR[0] encendidos (estado `0001`) | Estado 1, DECODE, de la primera instrucción. El PC ya vale 4 porque FETCH lo incrementó: apunta a la siguiente instrucción |
+| 03 | <img src="evidencia/paso_a_paso/03_instr1_decode_instr_23_0.jpeg" width="340" alt="Paso a paso, foto 3: instrucción[23:0] = 010437"> | SW[2:1] = 10: HEX = `010437`; mismos LEDR (estado 1) | Instrucción[23:0] de la primera instrucción: `0x00010437` |
+| 04 | <img src="evidencia/paso_a_paso/04_instr1_decode_instr_31_8.jpeg" width="340" alt="Paso a paso, foto 4: instrucción[31:8] = 000104"> | SW[2:1] = 11: HEX = `000104`; mismos LEDR (estado 1) | Instrucción[31:8] de la misma instrucción |
+| 05 | <img src="evidencia/paso_a_paso/05_instr1_execute_i_estado8.jpeg" width="340" alt="Paso a paso, foto 5: PC 000004, estado 8"> | SW[2:1] = 01: HEX = `000004`; LEDR[9], LEDR[7] y LEDR[3] (estado `1000`) | Estado 8, EXECUTE_I: `lui` usa la ALU con el operando A en 0 y el inmediato tipo U |
+| 06 | <img src="evidencia/paso_a_paso/06_instr1_alu_wb_estado7.jpeg" width="340" alt="Paso a paso, foto 6: PC 000004, estado 7"> | HEX = `000004`; LEDR[9], LEDR[7] y LEDR[2:0] (estado `0111`) | Estado 7, ALU_WB: se escribe el resultado en `rd` |
+| 07 | <img src="evidencia/paso_a_paso/07_instr2_fetch_estado0_pc4.jpeg" width="340" alt="Paso a paso, foto 7: PC 000004, estado 0"> | HEX = `000004`; solo LEDR[9] y LEDR[7] (estado `0000`) | Estado 0, FETCH, de la segunda instrucción: el PC ya apunta a 0x04, la dirección que se va a buscar |
+| 08 | <img src="evidencia/paso_a_paso/08_instr2_decode_pc.jpeg" width="340" alt="Paso a paso, foto 8: PC 000008, estado 1"> | HEX = `000008`; LEDR[9], LEDR[7] y LEDR[0] (estado `0001`) | Estado 1, DECODE, de la segunda instrucción; el FETCH terminó y el PC pasó a 8 |
+| 09 | <img src="evidencia/paso_a_paso/09_instr2_decode_instr_23_0.jpeg" width="340" alt="Paso a paso, foto 9: instrucción[23:0] = 0204B7"> | SW[2:1] = 10: HEX = `0204B7`; mismos LEDR (estado 1) | Instrucción[23:0] de la segunda instrucción: `0x000204B7` |
+| 10 | <img src="evidencia/paso_a_paso/10_instr2_decode_instr_31_8.jpeg" width="340" alt="Paso a paso, foto 10: instrucción[31:8] = 000204"> | SW[2:1] = 11: HEX = `000204`; mismos LEDR (estado 1) | Instrucción[31:8] de la segunda instrucción |
+
+**Decodificación manual de las instrucciones fotografiadas.**
+
+| Instrucción | Opcode | Campos | Significado |
+|---|---|---|---|
+| `0x00010437` | `0110111` (LUI) | `rd = 8` (s0), `imm[31:12] = 0x00010` | `lui s0, 0x10`: s0 = `0x10000`, la base de la RAM de entrada |
+| `0x000204B7` | `0110111` (LUI) | `rd = 9` (s1), `imm[31:12] = 0x00020` | `lui s1, 0x20`: s1 = `0x20000`, la base de la RAM de salida |
+
+Las dos coinciden con las dos primeras instrucciones de `firmware.hex` que muestra la captura A de SignalTap (sección 8): son las bases de la imagen de entrada y de salida que el firmware carga primero.
+
+**Consistencia interna de las fotos.** La instrucción[31:8] y la instrucción[23:0] de cada instrucción comparten los bits [23:8]: `0x0104` en `000104` y `010437`, y `0x0204` en `000204` y `0204B7`. Las tres vistas se leen de la misma instrucción y no se contradicen.
+
+**Secuencia de estados observada.** Primera instrucción: 1 → 8 → 7 → 0, y a continuación la segunda en 1 (fotos 02, 05, 06, 07 y 08). Es el camino de `lui` del diagrama de la FSM (`architecture.md`, sección 2): DECODE → EXECUTE_I → ALU_WB → FETCH → DECODE. No pasa por EXECUTE_R (6), porque `lui` se ejecuta en EXECUTE_I con el operando A en 0.
+
+**Qué muestra el PC.** El PC vale 4 en las fotos 02 a 07 (desde el DECODE de la instrucción de 0x00 hasta el FETCH de la instrucción de 0x04) y 8 en la foto 08. El PC se incrementa en el handshake de FETCH, por eso en DECODE ya apunta a la instrucción siguiente. La foto 07 lo confirma: en FETCH el PC ya vale 4 antes de que llegue la instrucción de esa dirección.
+
+### 7.2 Modo libre con fotos (24 nov 2026)
+
+**Procedimiento.**
+
+1. Con SW[0] = 0 (la CPU corre a 50 MHz), se pulsó KEY[0] para empezar limpio y se fotografió la placa.
+2. Se ejecutó `pixel_image_app.py` (misma imagen) con el servidor abierto.
+3. Con la CPU ya detenida se fotografió cada vista de SW[2:1] (00, 01, 10 y 11). La CPU tarda ~27 ms en terminar (cálculo de la sección 4.1), por lo que no es posible fotografiar el avance durante la corrida; solo se fotografía el estado final.
+
+| N.º | Foto | Lectura (HEX y LEDR) | Interpretación |
+|---|---|---|---|
+| normal_00 | <img src="evidencia/modo_normal/normal_00_reset_todo_en_cero.png" width="340" alt="Modo libre: reset con KEY[0], HEX 000000 y LEDR apagados"> | HEX = `000000`; LEDR apagados | Estado tras el reset con KEY[0], antes de la corrida (sección 7.3) |
+| normal_01 | <img src="evidencia/modo_normal/normal_01_vista00_registro_hex.png" width="340" alt="Modo libre, vista 00: HEX 004000"> | SW[2:1] = 00: HEX = `004000`; LEDR apagados | Registro HEX (0x40004) = 0x4000 = 16384 = N: el firmware escribe ahí el número de píxeles procesados. LEDR (registro 0x40000) en 0 porque el firmware nunca lo escribe |
+| normal_02 | <img src="evidencia/modo_normal/normal_02_vista01_pc.png" width="340" alt="Modo libre, vista 01: PC 000084 y done encendido"> | SW[2:1] = 01: HEX = `000084`; LEDR[8] (`done`) encendido | PC = 0x84 y `done = 1`; LEDR[9] (`step_mode`) y LEDR[7] (`busy`) apagados, y LEDR[3:0] apagados (estado 0) |
+| normal_03 | <img src="evidencia/modo_normal/normal_03_vista10_instr_23_0.png" width="340" alt="Modo libre, vista 10: instrucción[23:0] = 5A2223"> | SW[2:1] = 10: HEX = `5A2223`; LEDR[8] encendido | Instrucción[23:0] = `0x5A2223` |
+| normal_04 | <img src="evidencia/modo_normal/normal_04_vista11_instr_31_8.png" width="340" alt="Modo libre, vista 11: instrucción[31:8] = 005A22"> | SW[2:1] = 11: HEX = `005A22`; LEDR[8] encendido | Instrucción[31:8] = `0x005A22`; junto con la foto anterior: instrucción completa `0x005A2223` (los bits [23:8] = `0x5A22` coinciden en ambas) |
+
+**Decodificación manual de `0x005A2223`.** Opcode `0100011` (S, `sw`), funct3 = `010` (palabra), `rs1 = 20` (s4), `rs2 = 5` (t0) e inmediato 4: `sw t0, 4(s4)`. s4 contiene la base de CTRL (0x50000), así que la dirección es STATUS (0x50004), y t0 vale 2 (`addi t0, zero, 2` = `0x00200293`, que aparece en la captura B de SignalTap): el firmware escribe `STATUS = 0b10`, es decir, `done`.
+
+**Qué demuestran las fotos.**
+
+- **La CPU terminó en la placa sin ayuda del Host.** `done = 1` (LEDR[8]), `busy = 0` (LEDR[7] apagado) y la última instrucción es la escritura a STATUS.
+- **La CPU quedó congelada.** El PC se queda en 0x84 (la instrucción de 0x80 más 4) y no avanza a 0x88: la fotografía se tomó segundos después de terminar y sigue en el mismo valor, igual que en la captura B de SignalTap. Es la condición `cpu_enable = start && !done` en acción; el `j halt` nunca se busca.
+- **Se procesaron los 16384 píxeles.** HEX = `0x4000` = 16384. En la simulación la prueba exige `HEX = N` (sección 4); en la placa es el mismo valor para la imagen de 128×128.
+- **Estado de la FSM al terminar.** LEDR[3:0] apagados: la FSM quedó en FETCH (estado 0). El `sw` a STATUS pasa por MEM_WRITE, el handshake lleva la FSM a FETCH y en ese mismo flanco `done` sube y apaga la CPU, de modo que se congela ya en FETCH (deducido del RTL).
+
+### 7.3 Reset con KEY[0] (24 nov 2026)
+
+- **Observado en la placa.** Con la CPU en paso a paso (SW[0] = 1), al pulsar KEY[0] los HEX y los LEDR pasaron a 0, salvo LEDR[9] (`step_mode`), que quedó encendido. La foto de ese reset es la `01_reset_key0_todo_en_cero` de la sección 7.1 (HEX = `000000`). La foto del reset en modo libre (SW[0] = 0) es `normal_00` de la sección 7.2: HEX = `000000` y LEDR apagados.
+
+<img src="evidencia/paso_a_paso/01_reset_key0_todo_en_cero.jpeg" width="420" alt="Reset con KEY[0] en paso a paso: HEX 000000"> <img src="evidencia/modo_normal/normal_00_reset_todo_en_cero.png" width="420" alt="Reset con KEY[0]: HEX 000000 y LEDR apagados">
+
+- **Por qué LEDR[9] no se apaga.** LEDR[9] en las vistas de depuración es `step_mode`, que es SW[0] pasado por un sincronizador de 2 etapas; el reset lo pone en 0 y a los dos ciclos de soltar KEY[0] vuelve a copiar la posición del interruptor. No indica que el reset falló.
+- **Qué reinicia según el RTL.** `key_sync` activa `rst_n` de forma asíncrona y lo libera de forma síncrona. Con `rst_n = 0` se reinician: la FSM (a FETCH), el PC (a 0), los registros de control (`start`, `done`, THRESHOLD, LEDR y HEX), el banco de registros, los registros del datapath y la lógica del paso a paso. Por eso `busy = start && !done` pasa a 0, la CPU deja de pedir buses y los displays muestran 0 en la vista 00. En las vistas de depuración se vería PC = 0 y estado 0.
+- **Qué no reinicia según el RTL.** Las memorias (`ram.sv`) no tienen reset sobre sus arreglos: el firmware, la imagen, el histograma y la imagen de salida siguen en la RAM. Esto se deduce del código y no se verificó en la placa.
+- **No se verificó.** No se leyó `CTRL` por vJTAG después del reset para confirmar `start = 0`, ni se leyó la RAM para confirmar que el firmware sigue cargado.
 
 ---
 
@@ -290,12 +367,29 @@ Instancia `sprint4/quartus/stp_rv32i.stp` (`ENABLE_SIGNALTAP ON` en el `.qsf`): 
 
 Datos de los CSV (período de 20 ns por muestra): 8193 filas por captura. En la captura A solo hay datos válidos desde t = 143 380 ns (1025 muestras): las 7168 anteriores salen como `X` porque la captura se llena después del disparo y la parte anterior de este buffer no se capturó. La captura B tiene datos válidos en todas las filas.
 
+### Capturas (imágenes)
+
+**A, arranque (disparo en `busy`, Rising Edge).** Vista completa de la captura:
+
+![SignalTap, captura A: arranque de la ejecución](evidencia/signaltap_inicio.png)
+
+Zoom de 0 a 28 muestras: se ven los estados 0, 1, 8 y 7 repetidos, el PC avanzando de 4 en 4 y las instrucciones `00010437h` a `00100293h`:
+
+![SignalTap, captura A con zoom: estados 0, 1, 8, 7 y PC](evidencia/signaltap_inicio_zoom.png)
+
+**B, fin (disparo en `done`, Rising Edge).** Alrededor del `sw` a STATUS: PC 0x78 → 0x80 → 0x84, `done` sube, `busy` baja y todo queda plano:
+
+![SignalTap, captura B: fin de la ejecución](evidencia/signaltap_fin.png)
+
 ### Qué demuestran
 
 - **FSM:** la secuencia 0 → 1 → 8 → 7 de las instrucciones inmediatas y 0 → 1 → 2 → 5 de `sw`, tal como en la FSM de `architecture.md` y en el modo paso a paso.
 - **Bus PC e instrucción decodificada:** cada PC coincide con la instrucción de `firmware.hex` de esa dirección.
 - **valid/ready:** el bus de instrucciones entrega una instrucción cada 2 ciclos (`ready` alterna), por la latencia de 1 ciclo de las M10K.
 - **`done`:** sube al ejecutarse el `sw` a STATUS y el CPU se congela (sección 7).
+- **Disparo de A (`busy` en Rising Edge).** `busy = start && !done` sube cuando el Host escribe `CTRL = 1`. La primera muestra válida de A (t = 143 380 ns) es justo esa: PC = 0 y estado 0. Es decir, la CPU arranca en FETCH desde la dirección 0 en el mismo instante en que `busy` sube, como exige AC 7, y la captura contiene el comienzo exacto de la ejecución (las muestras anteriores salen como `X`, sección 8).
+- **Disparo de B (`done` en Rising Edge).** Se dispara en el momento en que el firmware escribe `STATUS = 0b10`. Con ~12 % de las 8192 muestras después del disparo (unas mil muestras, ~20 µs; suposición, según la posición de disparo de la configuración), el PC, la instrucción y el estado no cambian (todo queda "plano"): la CPU permanece congelada y no hay más peticiones. Ese resultado no depende del `j halt`, que no aparece.
+- **Por qué dos disparos distintos.** Con 8192 muestras a 50 MHz el buffer cubre solo ~164 µs. La ejecución completa dura unos 27 ms (~1,36 millones de ciclos), así que una sola captura no puede mostrar el inicio y el final; por eso hay una captura en cada extremo.
 
 ### Limitaciones
 
@@ -358,7 +452,11 @@ Con `enable = 0` los 29 casos terminan en timeout a 300 ciclos y ninguna instruc
 - **Tiempos.** Cargar 16384 píxeles tomó 30,6 s (~1,9 ms por palabra) y leerlos 38,6 s (~2,4 ms por palabra), unas 1100 veces más que lo que tarda la CPU (27,3 ms). El cuello de botella es el JTAG (una palabra de 32 bits por transacción, más el cliente en WSL y el servidor en Windows) y no el procesador. La variación entre 11,8 y 51,4 s es del transporte (suposición: carga del equipo y de la red WSL, no medida).
 - **LEDR en la vista 00.** El firmware nunca escribe LEDR, así que se queda en 0; no es un fallo. HEX termina en `4000` porque el firmware escribe ahí su resultado final. Las demás vistas sí muestran la FSM, el PC y la instrucción.
 - **PC adelantado.** El PC mostrado va una instrucción adelante porque se incrementa en FETCH; coincide con la captura SignalTap, donde el PC ya vale 4 cuando la instrucción es la de 0x0.
-- **Reset (KEY[0]).** Se usó en cada re-arranque pero no hay una prueba aislada con evidencia; es una limitación documentada.
+- **Reset (KEY[0], sección 7.3).** Con KEY[0] los HEX y los LEDR pasan a 0 y LEDR[9] sigue reflejando SW[0], que es lo que se espera: el reset reinicia FSM, PC y registros de control, pero el modo paso a paso se vuelve a leer del interruptor. La prueba confirma el estado visible tras el reset (PC 0, estado 0, `start = 0`, `busy = 0`, `done = 0` implican HEX y LEDR en 0 en la vista 00). Lo que no confirma es que las memorias conserven el firmware (se deduce del RTL, sin verificación en la placa) ni que `CTRL` valga 0 al leerlo por vJTAG. El reset tiene foto en paso a paso (`01_reset_key0_todo_en_cero`) y en modo libre (`normal_00`).
+- **Paso a paso con fotos (sección 7.1).** La secuencia 1 → 8 → 7 → 0 → 1, con los LEDR fotografiados en cada estado, coincide con el camino de `lui` en el diagrama de la FSM y con la secuencia que muestra SignalTap (9.8). El PC vale 4 durante toda la primera instrucción porque se incrementa en FETCH, y pasa a 8 al terminar el FETCH de la segunda. Que cada pulsación de KEY[1] avance exactamente un estado, y no uno más ni uno menos, comprueba el diseño de `cpu_hold`: el paso deja correr la FSM hasta que `cpu_state` cambia, no un solo ciclo, porque un ciclo no basta para completar un FETCH (que dura 2 ciclos, 9.8). Las tres vistas (PC, instrucción[23:0] e instrucción[31:8]) son coherentes entre sí (comparten los bits [23:8]) y las dos instrucciones decodificadas a mano (`lui s0, 0x10` y `lui s1, 0x20`) son las bases de la RAM de entrada y de salida, las que el firmware carga primero. `illegal` (LEDR[6]) permaneció apagado y `busy` (LEDR[7]) encendido en todos los pasos.
+- **Lo que el paso a paso no demuestra.** Solo se fotografiaron las dos primeras instrucciones (ambas `lui`); las secuencias de `sw` (0 → 1 → 2 → 5) y de `lw` con espera de `ready` se observaron el 22 nov sin fotos en el repositorio. Tampoco prueba la velocidad: en paso a paso un estado de 2 ciclos (FETCH) cuesta una pulsación igual que uno de 1 ciclo. Las fotos son de un teléfono con poca luz y los estados se leen por la posición de los LEDR.
+- **Modo libre con fotos (sección 7.2).** `done = 1`, `busy = 0`, PC = 0x84 e instrucción `0x005A2223` (`sw t0, 4(s4)` a STATUS) son la huella de una ejecución completa con el firmware real: el PC no avanza más allá del `sw`, la CPU quedó congelada, y HEX = `0x4000` = 16384 confirma que el firmware recorrió todos los píxeles. Los tres métodos coinciden en el final: la simulación (`STATUS = 0b10` y `HEX = N`, sección 4), SignalTap (captura B) y las fotos. La foto no prueba por sí sola que el histograma y la imagen sean correctos: eso lo comprueba la comparación del script contra el modelo Python (filas 2 y 3 de la tabla de la sección 7, 22 y 23 nov).
+- **Límite de la evidencia del 24 nov.** No se guardó la salida completa de `pixel_image_app.py` de ese día; de la corrida solo se conservan las fotos de la placa y el final de la salida (histograma de 256 contadores leído). Que la CPU terminó se prueba por el estado de la placa (`done` y PC 0x84), no por el mensaje `OK` del script.
 - **Fallo del servidor.** Dos errores `JTAG server rejected write: ERROR` se resolvieron reiniciando `jtag_server.tcl`. No se investigó la causa; no afectó a ningún resultado (cada corrida se repitió completa).
 
 ### 9.8 SignalTap (sección 8)
@@ -367,6 +465,17 @@ Con `enable = 0` los 29 casos terminan en timeout a 300 ciclos y ninguna instruc
 - **PC e instrucción.** El PC pasa de 0 a 4 al terminar el primer FETCH y la instrucción `00010437h` (`lui s0, 0x10`) aparece en el mismo ciclo; la siguiente (`000204B7h`, `lui s1, 0x20`) sigue el mismo patrón. Las instrucciones capturadas coinciden con las de `firmware.hex` en esas direcciones.
 - **Final de la ejecución.** En la captura B el PC llega a 0x84 con la instrucción `005A2223h` (`sw` a STATUS) en estado 5 (MEM_WRITE); `done` sube, `busy` baja y todo se queda plano. Que el PC no avance a 0x88 ni se vea el `j halt` confirma que la CPU se congela con `cpu_enable = start && !done` y no por el bucle del firmware.
 - **Qué no se vio.** No hay captura de una colisión con el Host (cpu `valid` = 1 con `ready` = 0 por arbitraje), porque el vJTAG no está en el `.stp`; la colisión se verifica solo por simulación (9.5). Tampoco hay captura de una instrucción ilegal ni de una falla inyectada (sección 9.10).
+- **Disparos y por qué se eligieron (sección 8).** A usa `busy` en Rising Edge, que marca el arranque exacto de la ejecución; B usa `done` en Rising Edge, que marca el fin. Con 8192 muestras (~164 µs) y una ejecución de ~27 ms, ninguna captura abarca la corrida completa: cada una enfoca un extremo. La primera muestra válida de A (PC 0, estado 0) coincide con el instante del disparo y confirma que la CPU arranca en FETCH desde la dirección 0 cuando `busy` sube.
+- **Qué aportan frente a las fotos.** SignalTap resuelve ciclo a ciclo (20 ns) lo que el paso a paso muestra estado a estado: los 2 ciclos del FETCH no se distinguen en las fotos (una pulsación por estado) pero sí en la captura. Las fotos, en cambio, solo necesitan la placa y no el analizador lógico. Son evidencias complementarias de las mismas instrucciones.
+- **Tres métodos, mismos eventos.**
+
+| Evento | Simulación | SignalTap | Fotos de la placa |
+|---|---|---|---|
+| Primera instrucción: `0x00010437` (`lui s0, 0x10`), PC pasa a 4 | Traza de búsquedas 0x0, 0x4, … (sección 4) | Captura A: estados 0, 1, 8, 7 y PC 4 | Fotos 02 a 04 (7.1): estado 1, PC `000004`, instrucción `010437` y `000104` |
+| Segunda instrucción: `0x000204B7` (`lui s1, 0x20`), PC pasa a 8 | Idem | Captura A: PC 8 | Fotos 08 a 10 (7.1): PC `000008`, instrucción `0204B7` y `000204` |
+| Camino de `lui`: DECODE, EXECUTE_I, ALU_WB, FETCH | Diagrama de la FSM | Captura A: 1, 8, 7, 0 | Fotos 05 a 07 (7.1): estados 8, 7 y 0 |
+| Última instrucción: `0x005A2223` (`sw` a STATUS) en PC 0x84, `done` sube y la CPU se congela | `STATUS = 0b10`, `HEX = N` (sección 4) | Captura B | Fotos `normal_02` a `normal_04` (7.2): PC `000084`, `5A2223`, `005A22`, LEDR[8] encendido |
+
 - **Calidad de la captura.** En A las primeras 7168 filas son `X` porque se capturó con el disparo cerca del final del buffer; no afecta la interpretación, que usa las 1025 muestras válidas.
 
 ### 9.9 Suites de sprints anteriores (sección 3.1)
@@ -383,6 +492,7 @@ Con `enable = 0` los 29 casos terminan en timeout a 300 ciclos y ninguna instruc
 | AC 1, solo `lw` y `sw` por palabra | Cumple | Firmware y pruebas de sistema; píxel por palabra |
 | AC 2, `lui` | Cumple | Cinco inmediatos en `run_lui`; firmware lo usa para las bases MMIO |
 | AC 3, dos buses independientes | Cumple por construcción y por prueba (`test_host_and_cpu_instr_ports_coexist`) | El bus de instrucciones no pasa por el árbitro; el criterio de arbitraje del profesor sigue por confirmar (9.11) |
+| AC 4, modo paso a paso | Cumple en la placa | Sección 7.1 (fotos de cada estado) y TP-11; no hay prueba automática que ejercite `cpu_hold` (suposición: el testbench de `rv32i_top` lo deja sin conectar, como indica `architecture.md`, sección 9) |
 | AC 5 y Tabla 2, permisos y RAZ/WI | Cumple | `mmio_decoder` 7/7, TP-18, consola en la placa |
 | AC 7, arranque y fin | Cumple | `start`, `done` y apagado de peticiones, en simulación y en la placa |
 | AC 10, pruebas del profesor | Cumple | 29/29 y 2/2 |
@@ -398,11 +508,12 @@ Con `enable = 0` los 29 casos terminan en timeout a 300 ciclos y ninguna instruc
 - **Arbitraje.** El profesor señaló que el diseño no cumplía el criterio de arbitraje. El diseño arbitra solo el bus de datos (Host con prioridad) y deja el de instrucciones independiente por el AC 3; si el criterio exige arbitrar también las instrucciones, habría que cambiar la arquitectura. Queda por confirmar con el profesor.
 - **Cobertura de pruebas.** No hay prueba automática del congelamiento a media transacción (`read_data_reg`), del valor de enlace de `jal`/`jalr`, ni de que la CPU no pueda escribir CTRL/THRESHOLD en la placa; quedan cubiertas por análisis y por el resultado correcto de la ejecución completa.
 - **Comparación con Sprint 3.** Se asume que el reporte de Sprint 3 es de una compilación sin SignalTap (suposición); la comparación de velocidad no se hizo.
+- **Evidencia fotográfica.** Las fotos del 24 nov son de un teléfono con poca luz; los estados se leen por la posición de los LEDR y en la foto 01 (reset en paso a paso) el estado de LEDR[9] se toma de lo observado en la placa, porque con esa luz no se distingue bien. Solo se fotografiaron dos instrucciones en paso a paso y el estado final en modo libre. No se guardó la salida completa de `pixel_image_app.py` del 24 nov.
 - **Waves.** No se generaron archivos de formas de onda en esta entrega; se generarán con las pruebas SystemVerilog en Questa, que correrá un compañero del grupo en una máquina con Questa.
 
 ### 9.12 Conclusión
 
-El procesador RV32I multiciclo cumple los criterios verificables: pasa las 29 pruebas y los 2 programas del profesor, las pruebas unitarias y de sistema (con la imagen completa y con colisiones), y produce el histograma y la imagen binarizada exactos en la placa con cuatro umbrales. Cuesta 54 % más ALMs y 18 % menos Fmax que el acelerador de Sprint 3, pero cumple los 50 MHz con 27 % de margen y permite cambiar el algoritmo sin resintetizar; su límite de velocidad en la práctica es el JTAG del Host y no la CPU. SignalTap confirma en hardware la secuencia de estados, el PC, las instrucciones, la latencia de 2 ciclos del FETCH y el apagado de la CPU al marcar `done`. Los puntos abiertos (criterio de arbitraje, captura de una falla inyectada, waves, prueba 3.2 de Sprint 1) están en la sección 10.
+El procesador RV32I multiciclo cumple los criterios verificables: pasa las 29 pruebas y los 2 programas del profesor, las pruebas unitarias y de sistema (con la imagen completa y con colisiones), y produce el histograma y la imagen binarizada exactos en la placa con cuatro umbrales. Cuesta 54 % más ALMs y 18 % menos Fmax que el acelerador de Sprint 3, pero cumple los 50 MHz con 27 % de margen y permite cambiar el algoritmo sin resintetizar; su límite de velocidad en la práctica es el JTAG del Host y no la CPU. SignalTap confirma en hardware la secuencia de estados, el PC, las instrucciones, la latencia de 2 ciclos del FETCH y el apagado de la CPU al marcar `done`. Las fotos de la placa del 24 nov (paso a paso, modo libre y reset) coinciden con esas mismas instrucciones, estados y valores finales, de modo que simulación, SignalTap y placa cuentan la misma historia. Los puntos abiertos (criterio de arbitraje, captura de una falla inyectada, waves, prueba 3.2 de Sprint 1) están en la sección 10.
 
 ---
 
@@ -410,12 +521,13 @@ El procesador RV32I multiciclo cumple los criterios verificables: pasa las 29 pr
 
 | Pendiente | Detalle |
 |---|---|
-| Ejecución de GitHub Actions en verde | Poner el enlace de la corrida al abrir el PR a `dev` y antes de etiquetar `v1.0.0-proj` |
+| Ejecución de GitHub Actions en verde | Hecho para el PR #82 a `dev` (4 checks en verde: detect-changes, open-source-verification, repo-artifact-validation y style-check): https://github.com/itsbybp/group7_ce3201_s2_g1_2026/actions/runs/45310486302. Repetir y actualizar el enlace si se suben commits nuevos antes de etiquetar `v1.0.0-proj` |
 | Waves de simulación | No generadas (`WAVES=1 make sim TEST=top`) |
 | Pruebas Questa (`test/sv`) | No se pueden correr en WSL; se usa la evidencia local de cada sprint |
 | Sprint 1, prueba 3.2 | Rota por `cocotb.binary` en cocotb 2.1.0 (sección 3.1) |
 | Sprint 3, log cocotb | Sin línea `TESTS=` |
 | Criterio de arbitraje | Confirmar con el profesor |
-| Reset (KEY[0]) | Sin prueba aparte con evidencia |
+| Reset (KEY[0]) | Hecho el 24 nov (sección 7.3); pendiente, si se quiere cerrar del todo, leer `CTRL` y la RAM después del reset |
+| Log de `pixel_image_app.py` del 24 nov | No se guardó; repetir la corrida y guardar la salida completa en `docs/evidencia/` si se necesita |
 | Falla inyectada y captura SignalTap | No realizada (`features.md` 15.2); prepararla para la defensa |
 | Defensa (2 al 5 dic) | Diagnóstico individual con SignalTap |
