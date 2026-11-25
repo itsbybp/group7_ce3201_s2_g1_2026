@@ -1,0 +1,117 @@
+----------------
+; Command Info ;
+----------------
+Report Timing: Found 1 hold paths (0 violated).  Worst case slack is 0.317 
+
+Tcl Command:
+    report_timing -hold -file C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/docs/evidencia/final/cp_hold_peor.rpt -to_clock [get_clocks {clk}] -npaths 1 -detail full_path
+
+Options:
+    -to_clock [get_clocks {clk}] 
+    -hold 
+    -npaths 1 
+    -detail full_path 
+    -file {C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/docs/evidencia/final/cp_hold_peor.rpt} 
+
+Delay Model:
+    Slow 1100mV 85C Model
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Summary of Paths                                                                                                                                                                                                                                                                                                                                                ;
++-------+-----------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------+--------------+-------------+--------------+------------+------------+
+; Slack ; From Node                                                                                                                               ; To Node                                                                                                                                 ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++-------+-----------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------+--------------+-------------+--------------+------------+------------+
+; 0.317 ; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|acq_data_in_pipe_reg[0][43] ; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|acq_data_in_pipe_reg[1][43] ; clk          ; clk         ; 0.000        ; 0.073      ; 0.390      ;
++-------+-----------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------+--------------+-------------+--------------+------------+------------+
+
+Path #1: Hold slack is 0.317 
+===============================================================================
++--------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Path Summary                                                                                                                                                 ;
++--------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
+; Property           ; Value                                                                                                                                   ;
++--------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
+; From Node          ; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|acq_data_in_pipe_reg[0][43] ;
+; To Node            ; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|acq_data_in_pipe_reg[1][43] ;
+; Launch Clock       ; clk                                                                                                                                     ;
+; Latch Clock        ; clk                                                                                                                                     ;
+; Data Arrival Time  ; 3.688                                                                                                                                   ;
+; Data Required Time ; 3.371                                                                                                                                   ;
+; Slack              ; 0.317                                                                                                                                   ;
++--------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
+
++-----------------------------------------------------------------------------------+
+; Statistics                                                                        ;
++------------------------+-------+-------+-------------+------------+-------+-------+
+; Property               ; Value ; Count ; Total Delay ; % of Total ; Min   ; Max   ;
++------------------------+-------+-------+-------------+------------+-------+-------+
+; Hold Relationship      ; 0.000 ;       ;             ;            ;       ;       ;
+; Clock Skew             ; 0.073 ;       ;             ;            ;       ;       ;
+; Data Delay             ; 0.390 ;       ;             ;            ;       ;       ;
+; Number of Logic Levels ;       ; 1     ;             ;            ;       ;       ;
+; Physical Delays        ;       ;       ;             ;            ;       ;       ;
+;  Arrival Path          ;       ;       ;             ;            ;       ;       ;
+;   Clock                ;       ;       ;             ;            ;       ;       ;
+;    IC                  ;       ; 3     ; 1.979       ; 60         ; 0.000 ; 1.651 ;
+;    Cell                ;       ; 3     ; 1.319       ; 40         ; 0.252 ; 0.661 ;
+;   Data                 ;       ;       ;             ;            ;       ;       ;
+;    IC                  ;       ; 2     ; 0.288       ; 74         ; 0.000 ; 0.288 ;
+;    Cell                ;       ; 3     ; 0.102       ; 26         ; 0.000 ; 0.057 ;
+;    uTco                ;       ; 1     ; 0.000       ; 0          ; 0.000 ; 0.000 ;
+;  Required Path         ;       ;       ;             ;            ;       ;       ;
+;   Clock                ;       ;       ;             ;            ;       ;       ;
+;    IC                  ;       ; 3     ; 2.366       ; 63         ; 0.000 ; 2.019 ;
+;    Cell                ;       ; 3     ; 1.388       ; 37         ; 0.273 ; 0.661 ;
++------------------------+-------+-------+-------------+------------+-------+-------+
+Note: Negative delays are omitted from totals when calculating percentages
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Arrival Path                                                                                                                                                                                      ;
++---------+---------+----+------+--------+---------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
+; Total   ; Incr    ; RF ; Type ; Fanout ; Location            ; Element                                                                                                                                 ;
++---------+---------+----+------+--------+---------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
+; 0.000   ; 0.000   ;    ;      ;        ;                     ; launch edge time                                                                                                                        ;
+; 3.298   ; 3.298   ;    ;      ;        ;                     ; clock path                                                                                                                              ;
+;   0.000 ;   0.000 ;    ;      ;        ;                     ; source latency                                                                                                                          ;
+;   0.000 ;   0.000 ;    ;      ; 1      ; PIN_AF14            ; CLOCK_50                                                                                                                                ;
+;   0.000 ;   0.000 ; RR ; IC   ; 1      ; IOIBUF_X32_Y0_N1    ; CLOCK_50~input|i                                                                                                                        ;
+;   0.661 ;   0.661 ; RR ; CELL ; 1      ; IOIBUF_X32_Y0_N1    ; CLOCK_50~input|o                                                                                                                        ;
+;   0.989 ;   0.328 ; RR ; IC   ; 1      ; CLKCTRL_G6          ; CLOCK_50~inputCLKENA0|inclk                                                                                                             ;
+;   1.241 ;   0.252 ; RR ; CELL ; 2659   ; CLKCTRL_G6          ; CLOCK_50~inputCLKENA0|outclk                                                                                                            ;
+;   2.892 ;   1.651 ; RR ; IC   ; 1      ; FF_X22_Y32_N22      ; auto_signaltap_0|sld_signaltap_body|sld_signaltap_body|acq_data_in_pipe_reg[0][43]|clk                                                  ;
+;   3.298 ;   0.406 ; RR ; CELL ; 1      ; FF_X22_Y32_N22      ; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|acq_data_in_pipe_reg[0][43] ;
+; 3.688   ; 0.390   ;    ;      ;        ;                     ; data path                                                                                                                               ;
+;   3.298 ;   0.000 ;    ; uTco ; 1      ; FF_X22_Y32_N22      ; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|acq_data_in_pipe_reg[0][43] ;
+;   3.298 ;   0.000 ; FF ; CELL ; 1      ; FF_X22_Y32_N22      ; auto_signaltap_0|sld_signaltap_body|sld_signaltap_body|acq_data_in_pipe_reg[0][43]|q                                                    ;
+;   3.586 ;   0.288 ; FF ; IC   ; 1      ; LABCELL_X22_Y32_N54 ; auto_signaltap_0|sld_signaltap_body|sld_signaltap_body|acq_data_in_pipe_reg[1][43]~feeder|dataf                                         ;
+;   3.631 ;   0.045 ; FF ; CELL ; 1      ; LABCELL_X22_Y32_N54 ; auto_signaltap_0|sld_signaltap_body|sld_signaltap_body|acq_data_in_pipe_reg[1][43]~feeder|combout                                       ;
+;   3.631 ;   0.000 ; FF ; IC   ; 1      ; FF_X22_Y32_N56      ; auto_signaltap_0|sld_signaltap_body|sld_signaltap_body|acq_data_in_pipe_reg[1][43]|d                                                    ;
+;   3.688 ;   0.057 ; FF ; CELL ; 1      ; FF_X22_Y32_N56      ; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|acq_data_in_pipe_reg[1][43] ;
++---------+---------+----+------+--------+---------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Required Path                                                                                                                                                                                   ;
++---------+----------+----+------+--------+------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
+; Total   ; Incr     ; RF ; Type ; Fanout ; Location         ; Element                                                                                                                                 ;
++---------+----------+----+------+--------+------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
+; 0.000   ; 0.000    ;    ;      ;        ;                  ; latch edge time                                                                                                                         ;
+; 3.371   ; 3.371    ;    ;      ;        ;                  ; clock path                                                                                                                              ;
+;   0.000 ;   0.000  ;    ;      ;        ;                  ; source latency                                                                                                                          ;
+;   0.000 ;   0.000  ;    ;      ; 1      ; PIN_AF14         ; CLOCK_50                                                                                                                                ;
+;   0.000 ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X32_Y0_N1 ; CLOCK_50~input|i                                                                                                                        ;
+;   0.661 ;   0.661  ; RR ; CELL ; 1      ; IOIBUF_X32_Y0_N1 ; CLOCK_50~input|o                                                                                                                        ;
+;   1.008 ;   0.347  ; RR ; IC   ; 1      ; CLKCTRL_G6       ; CLOCK_50~inputCLKENA0|inclk                                                                                                             ;
+;   1.281 ;   0.273  ; RR ; CELL ; 2659   ; CLKCTRL_G6       ; CLOCK_50~inputCLKENA0|outclk                                                                                                            ;
+;   3.300 ;   2.019  ; RR ; IC   ; 1      ; FF_X22_Y32_N56   ; auto_signaltap_0|sld_signaltap_body|sld_signaltap_body|acq_data_in_pipe_reg[1][43]|clk                                                  ;
+;   3.754 ;   0.454  ; RR ; CELL ; 1      ; FF_X22_Y32_N56   ; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|acq_data_in_pipe_reg[1][43] ;
+;   3.371 ;   -0.383 ;    ;      ;        ;                  ; clock pessimism removed                                                                                                                 ;
+; 3.371   ; 0.000    ;    ;      ;        ;                  ; clock uncertainty                                                                                                                       ;
+; 3.371   ; 0.000    ;    ; uTh  ; 1      ; FF_X22_Y32_N56   ; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|acq_data_in_pipe_reg[1][43] ;
++---------+----------+----+------+--------+------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
+
+----------------------------
+; Extra Fitter Information ;
+----------------------------
+HTML report is unavailable in plain text report export.
+
+
