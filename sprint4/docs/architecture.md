@@ -24,42 +24,7 @@
 
 Diagrama de estados de la Control FSM, elaborado a partir del RTL (`multicycle_rv_control_fsm.sv`). Incluye las esperas por `ready` (FETCH, MEM_READ y MEM_WRITE se mantienen en su estado hasta que ocurre el handshake) y los estados que usan bne, blt, bge (estado BEQ, la condición se resuelve en la unidad de control), lui (EXECUTE_I con operando A = 0) y jalr (estado JAL con rs1 reenviado desde el banco de registros).
 
-```mermaid
-stateDiagram-v2
-    state "S0: FETCH" as FETCH
-    state "S1: DECODE" as DECODE
-    state "S2: MEM_ADR" as MEM_ADR
-    state "S3: MEM_READ" as MEM_READ
-    state "S4: MEM_WB" as MEM_WB
-    state "S5: MEM_WRITE" as MEM_WRITE
-    state "S6: EXECUTE_R" as EXECUTE_R
-    state "S7: ALU_WB" as ALU_WB
-    state "S8: EXECUTE_I" as EXECUTE_I
-    state "S9: JAL" as JAL
-    state "S10: BEQ" as BEQ
-
-    [*] --> FETCH
-    FETCH --> FETCH: sin handshake imem (valid = 1, ready = 0)
-    FETCH --> DECODE: handshake imem
-    DECODE --> EXECUTE_R: R
-    DECODE --> EXECUTE_I: I (ALU) o lui
-    DECODE --> MEM_ADR: lw o sw
-    DECODE --> BEQ: beq, bne, blt, bge
-    DECODE --> JAL: jal o jalr
-    DECODE --> FETCH: instrucción ilegal (illegal = 1)
-    MEM_ADR --> MEM_READ: lw
-    MEM_ADR --> MEM_WRITE: sw
-    MEM_READ --> MEM_READ: sin handshake dmem
-    MEM_READ --> MEM_WB: handshake dmem
-    MEM_WRITE --> MEM_WRITE: sin handshake dmem
-    MEM_WRITE --> FETCH: handshake dmem
-    EXECUTE_R --> ALU_WB
-    EXECUTE_I --> ALU_WB
-    JAL --> ALU_WB
-    MEM_WB --> FETCH
-    ALU_WB --> FETCH
-    BEQ --> FETCH
-```
+![Diagrama de estados de la Control FSM](fsm_states_diagram.png)
 
 El número de cada estado (S0 a S10) es el valor de `state_num[3:0]` y lo que muestran los LEDR[3:0] en el modo paso a paso. Si `enable = 0` la FSM no cambia de estado en ninguno de los casos anteriores; si `soft_reset_n = 0` (CTRL[0] = 0) vuelve a FETCH.
 
@@ -415,6 +380,6 @@ Cada fila da la decisión (y la alternativa descartada), el fundamento de diseñ
 
 Hecho: CPU verificada con el repo del profesor (29/29 y programas 2/2), sistema completo en simulación (64 y 16384 píxeles) y en la placa con carga por vJTAG, modo paso a paso y SignalTap. Los resultados están en `results.md` y el plan en `testplan.md`.
 
-Actions en verde en el PR #82 (https://github.com/itsbybp/group7_ce3201_s2_g1_2026/actions/runs/45310486302). El bus de instrucciones es independiente y solo el de datos pasa por el árbitro (sección 6).
+Actions en verde en el PR #82 (https://github.com/itsbybp/group7_ce3201_s2_g1_2026/pull/82/checks). El bus de instrucciones es independiente y solo el de datos pasa por el árbitro (sección 6).
 
 Limitaciones conocidas: ninguna prueba verifica el valor de enlace (`rd = pc + 4`) de `jal` y `jalr`; ninguna prueba automática congela la CPU a mitad de un `lw` (el arreglo de `read_data_reg` solo se ejerce en la placa); el camino crítico de tiempo (instrucción → ALU → decodificador MMIO → write enable de una M10K, 15,908 ns) es estructural y el funcionamiento no lo activa; el siguiente camino es el de `pc` (condición de salto, 4,677 ns de holgura, 65,26 MHz), y con dos excepciones de análisis el peor camino restante es `instruction` → `pc` (4,989 ns, 66,62 MHz), que tampoco se activa. El límite real de la CPU no se midió: el reporte da 63,53 MHz y, con esas excepciones, se acota en ≥ 66,83 MHz (suposición); `assign address_data_memory = alu_result_reg;` eliminaría el primero (la Fmax reportada subiría a unos 65,26 MHz, suposición) y no se aplicó para no recompilar ni repetir las pruebas antes de la entrega (`evidencia_atributos.md`, sección 1.5).

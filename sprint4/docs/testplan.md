@@ -52,7 +52,7 @@ Ningún nivel basta por sí solo. TP-10 sirve de control negativo: con `enable =
 
 Se usó Claude (Anthropic) en chats de claude.ai como apoyo en la sintaxis y/o razonamiento de firmware, consola, módulos de Epic 2, pruebas cocotb y documentación; el CPU lo escribió Esteban Campos. La IA no hizo commits ni ejecutó el simulador del CPU real, Quartus, SignalTap ni la placa: lo ejecutó el equipo (la IA solo corrió modelos propios en Python y el análisis de los CSV y reportes). Reglas aplicadas (R1 a R8 de `evidencia_atributos.md`, sección 3.2): ninguna cifra sin fuente, todo supuesto marcado, la IA declara lo que no pudo ejecutar, no valida su propio trabajo y el humano hace los commits.
 
-Control humano, con tres de las once salidas corregidas o rechazadas (`evidencia_atributos.md`, 3.4):
+Control humano, con tres de las nueve salidas corregidas o rechazadas (`evidencia_atributos.md`, 3.4):
 
 - Un plan de 4 commits para `firmware.s` que la IA propuso fue descartado por Byron: quedaron 2 commits (`24ccc76` y `134213d`).
 - Una revisión estática del CPU no vio que JALR dejaba el bit 0 sin limpiar: lo detectó el caso `jalr` del profesor y se corrigió con `pc <= {wb_mux[31:1], 1'b0}`.
@@ -223,4 +223,4 @@ Fotos de la placa del 24 nov: `docs/evidencia/paso_a_paso/` (10 fotos, `01_` a `
 
 ## 8. Estado final
 
-Corrida de GitHub Actions del PR #82 en verde (4 checks): https://github.com/itsbybp/group7_ce3201_s2_g1_2026/actions/runs/45310486302. La falla inyectada la aplica el profesor en la defensa (enunciado, secciones 7 y 8; `features.md` 15.2) y no es parte del AC 12.
+Corrida de GitHub Actions del PR #82 en verde (4 checks): https://github.com/itsbybp/group7_ce3201_s2_g1_2026/pull/82/checks. La falla inyectada la aplica el profesor en la defensa (enunciado, secciones 7 y 8; `features.md` 15.2) y no es parte del AC 12.
