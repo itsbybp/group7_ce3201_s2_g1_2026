@@ -5,7 +5,7 @@
 **Entrega:** final, tag `v1.0.0-proj` (30 nov 2026). El Avance 3 es `v0.1.0-proj` y el Avance 2 `v0.0.2-proj` (15 nov 2026)
 **Arquitectura:** ver `docs/architecture.md`
 **Plan de pruebas:** ver `docs/testplan.md`
-**Entorno de simulación:** Verilator 5.053 (devel), cocotb 2.1.0, Python 3.12, WSL. Las secciones 2 a 4 son de la corrida completa del 23 nov 2026 desde la raíz del repo (logs en `docs/evidencia/final/`, sección 3.1). La síntesis final (sección 6) es del 23 nov 2026 (Quartus 25.1std.0 Build 1129, con SignalTap). Las pruebas en la placa (sección 7) son del 22 al 24 nov 2026 (las fotos del 24 nov están en las secciones 7.1 a 7.3) y las capturas SignalTap (sección 8) son del 23 nov 2026.
+**Entorno de simulación:** Verilator 5.053 (devel), cocotb 2.1.0, Python 3.12, WSL. Las secciones 2 a 4 son de la corrida completa del 23 nov 2026 desde la raíz del repo (logs en `docs/evidencia/final/`, sección 3.1). La síntesis final (sección 6) es del 23 nov 2026 (Quartus 25.1std.0 Build 1129, con SignalTap). Las pruebas en la placa (sección 7) son del 22 al 24 nov 2026 (las fotos del 24 nov están en las secciones 7.1 a 7.3) y las capturas SignalTap (sección 8) son del 23 nov 2026 y su análisis cuantitativo (secciones 8.1 y 8.2) del 24 nov 2026.
 
 ---
 
@@ -21,13 +21,15 @@
 | Sistema `rv32i_top`, 64 píxeles | Cocotb | 4/4 PASS | Ejecutada el 23 nov |
 | Sistema `rv32i_top`, imagen completa (16384 píxeles, `FULL_IMAGE=1`) | Cocotb | 4/4 PASS | Ejecutada el 23 nov |
 | Sprints 0 a 2 (cocotb, repetidos desde la raíz) | Cocotb | 0: 2/2; 1: 6/6 y 5/6 (1 SKIP esperado); 2: 6/6, 6/6, 5/5, 6/6, 7/7, 4/4, 1/1. La prueba 3.2 de Sprint 1 no corre (sección 3.1) | Ejecutadas el 23 nov |
-| Síntesis del top de placa (`top_level`) con SignalTap | Quartus Prime 25.1 Lite | Fitter Successful, 2173 ALMs, Fmax 63,53 MHz | Ejecutada el 23 nov |
+| Síntesis del top de placa (`top_level`) con SignalTap | Quartus Prime 25.1 Lite | Fitter Successful, 2173 ALMs, Fmax 63,53 MHz (sin SignalTap, 19 nov: 1609 ALMs, 67,33 MHz) | Ejecutada el 23 nov (19 nov sin SignalTap) |
 | Carga por vJTAG y ejecución en la placa (TP-16) | DE10-Standard | Histograma e imagen exactos con umbrales 0, 64, 128 y 255 | Ejecutada el 22 y 23 nov |
 | Modo paso a paso y vistas SW[2:1] (TP-11) | DE10-Standard | Funciona; secuencias de estados observadas y fotografiadas (sección 7.1) | Ejecutada el 22 nov y repetida con fotos el 24 nov |
 | Modo libre en la placa con evidencia fotográfica (TP-19) | DE10-Standard | La CPU llega a `done`: PC `0x84`, instrucción `0x005A2223`, HEX = `0x4000` (sección 7.2) | Ejecutada el 24 nov |
 | Reset con KEY[0] (TP-20) | DE10-Standard | HEX y LEDR en 0 (sección 7.3) | Ejecutada el 24 nov |
 | Mapa de memoria y permisos (Tabla 2) en la placa | DE10-Standard | Cumple | Ejecutada el 22 nov |
 | Captura en hardware (TP-15) | SignalTap, 50 MHz | Capturas A (inicio) y B (fin) | Ejecutada el 23 nov |
+| Ciclos por instrucción contra el modelo de la FSM (TP-21, sección 8.2) | CSV de SignalTap + script | 1 499 de 1 499 instrucciones con los ciclos teóricos (4, 5, 6 y 8) | Analizada el 24 nov |
+| Modelo de ciclos `T(N) = 3 920 + 83·N` contra cocotb (TP-22, secciones 4, 4.1 y 8.2) | Cocotb + SignalTap | 9 232 y 1 363 792 ciclos; los ~9 280 y ~1 363 840 observados son esos valores redondeados al múltiplo de 64 del sondeo | Analizada el 24 nov |
 
 
 ---
@@ -158,8 +160,8 @@ Comando: `make top` (en `sprint4/test/cocotb`), 64 píxeles. Corrida del 23 nov 
 ### Qué se observó
 
 - **Orden de búsqueda.** La traza de `test_fetch_secuencial` fue `0x0, 0x4, 0x8, 0xc, 0x10, 0x14, 0x18, 0x1c, 0x20, 0x24, 0x28, 0x2c, 0x24, 0x28`. Las primeras 10 son las que verifica la prueba. Después de `0x2c` (el `bne` del bucle `clear` de `firmware.s`) vuelve a `0x24`, que es lo esperado del salto hacia atrás.
-- **Costo de los stalls.** Con el Host leyendo al azar, el firmware tardó ~9792 ciclos contra ~9280 sin ruido (~5,5 % más). Los ciclos se miden revisando `done` cada 64 ciclos, por lo que son aproximados (±64).
-- **Velocidad.** ~9280 ciclos para 64 píxeles incluyen la limpieza del histograma, que es un costo fijo. Con la imagen completa el costo por píxel es menor (sección 4.1).
+- **Costo de los stalls.** Con el Host leyendo al azar, el firmware tardó ~9792 ciclos contra ~9280 sin ruido (~5,5 % más). Los ciclos se miden revisando `done` cada 64 ciclos, por lo que son aproximados (±64): el modelo exacto de la sección 8.2 da 9 232 ciclos sin ruido, y 9 280 es ese valor redondeado hacia arriba al múltiplo de 64 (⌈9 232 / 64⌉ × 64).
+- **Velocidad.** Los ~9280 ciclos de 64 píxeles (modelo: 9 232) incluyen 3 920 ciclos fijos (arranque y limpieza del histograma) y 83 por píxel (sección 8.2). Con la imagen completa el término fijo pesa solo el 0,29 % (3 920 de 1 363 792).
 
 ### Cómo se redujo la imagen
 
@@ -187,7 +189,7 @@ Comando (en `sprint4/test/cocotb`): `FULL_IMAGE=1 make top`. Corre `firmware.hex
 | `test_firmware_with_bus_stalls` | PASS: 220 363 lecturas del Host | ~1 440 192 |
 | `test_fetch_fuera_de_rango_lee_cero` | PASS (misma prueba que con 64 píxeles) | n/a |
 
-- ~1 363 840 ciclos son ~83 ciclos por píxel. A 50 MHz serían ~27,3 ms (cálculo a partir de los ciclos simulados, no una medición en la placa).
+- El modelo exacto de la sección 8.2 da 3 920 + 83 · 16 384 = 1 363 792 ciclos; ~1 363 840 es ese valor redondeado al múltiplo de 64 del sondeo. A 50 MHz son 27,276 ms (1 363 792 × 20 ns; cálculo a partir de los ciclos simulados, no una medición en la placa).
 - Con el Host leyendo al azar el firmware tardó ~5,6 % más (1 440 192 contra 1 363 840 ciclos).
 - Los ciclos se miden revisando `done` cada 64 ciclos (±64).
 
@@ -233,7 +235,7 @@ Después de las dos primeras correcciones se repitieron las 29 pruebas del profe
 
 Proyecto: `sprint4/quartus/top_level.qpf`, entidad top `top_level`, dispositivo 5CSXFC6D6F31C6, SDC `sprint3/sdc/timing_constraints.sdc` (reloj de 20 ns). Quartus 25.1std.0 Build 1129 10/21/2025 SC Lite Edition. Se compararon dos compilaciones completas, sin errores:
 
-| Métrica | Sin SignalTap (19 nov) | Con SignalTap (23 nov, versión final) |
+| Métrica | Sin SignalTap (19 nov; repetida el 21 nov con los mismos totales y Fmax) | Con SignalTap (23 nov, versión final) |
 |---|---|---|
 | Fitter Status | Successful | Successful (23 nov 16:00:19) |
 | ALMs | 1 609 / 41 910 (4 %) | 2 173 / 41 910 (5 %) |
@@ -251,9 +253,9 @@ Los Fmax de la columna del 23 nov salen de la tabla "Fmax Summary" de `top_level
 
 Timing del 23 nov (todos los TNS en 0,000): setup `clk` 4,260 (85 °C), 4,468 (0 °C), 10,441 y 11,474 (modelos Fast); hold `clk` 0,317 (85 °C) y 0,297 (0 °C); `altera_reserved_tck` setup 8,316 y 8,586, hold 0,369 y 0,389. El reloj de 50 MHz de la placa cumple timing con margen en ambos casos.
 
-La diferencia entre las dos columnas (+564 ALMs, +1 483 registros, +76 M10K, +622 592 bits) es la instancia de SignalTap (`auto_signaltap_0`, 8K muestras × 76 bits); en el Avance 3 la compilación del 19 nov tenía SignalTap apagado. Otros datos del fitter (23 nov): 389 de 4 191 LABs (9 %), 2 386 ALUT de lógica más 1 008 ALUT de enrutamiento, uso medio de interconexión 4,6 % (pico 43,1 %) y 2 242 560 bits de M10K ocupados (los 1 810 432 de la tabla son los bits usados). Advertencias: en el fitter solo `LogicLock` requiere licencia de pago (no se usa); en la síntesis, latch inferido sobre `i` en `rv_register_file.sv`, `tap_handshake_instr` asignado y nunca leído, y un aviso de conectividad de jerarquías. El Timing Analyzer no reporta advertencias. Flujo completo en 2 min 12 s (síntesis 29 s, fitter 1 min 26 s). El `top_level.sof` se generó el 23 nov 2026 16:00:29 (usercode/checksum `0x05610DE4`); los dos núcleos de SignalTap aparecen como `Licensed` en el reporte del ensamblador. La comparación con Sprint 3 y la elección de herramientas están en `docs/evidencia_atributos.md`.
+La diferencia entre las dos columnas (+564 ALMs, +1 483 registros, +76 M10K, +622 592 bits) se reparte así: la instancia de SignalTap (`sld_signaltap`, 439,8 ALMs y 1 420 registros, más el crecimiento de `sld_hub`, +29,6 ALMs y +34 registros) explica 469,4 de los 564 ALMs y 1 454 de los 1 483 registros, y toda la diferencia de M10K y de bits (8K muestras × 76 bits = 622 592 bits = 76 bloques); los 94,6 ALMs y 29 registros restantes son variación del resto del diseño entre las dos compilaciones (RTL del 19 al 23 nov y empaquetado del fitter; ver `evidencia_atributos.md`, secciones 1.4.4 y 1.4.5). Los 3 256 registros del ajuste contra los 3 100 de la síntesis son 156 registros que el fitter duplica por enrutabilidad (123 en el banco de registros), igual al número de nodos "Duplicated" de la tabla "Fitter Netlist Optimizations" del `.fit.rpt`. Otros datos del fitter (23 nov): 389 de 4 191 LABs (9 %), 2 386 ALUT de lógica más 1 008 ALUT de enrutamiento, uso medio de interconexión 4,6 % (pico 43,1 %) y 2 242 560 bits de M10K ocupados (los 1 810 432 de la tabla son los bits usados). Advertencias: en el fitter solo `LogicLock` requiere licencia de pago (no se usa); en la síntesis, latch inferido sobre `i` en `rv_register_file.sv`, `tap_handshake_instr` asignado y nunca leído, y un aviso de conectividad de jerarquías. El Timing Analyzer no reporta advertencias. Flujo completo en 2 min 12 s (síntesis 29 s, fitter 1 min 26 s). El `top_level.sof` se generó el 23 nov 2026 16:00:29 (usercode/checksum `0x05610DE4`); los dos núcleos de SignalTap aparecen como `Licensed` en el reporte del ensamblador. La comparación con Sprint 3 y la elección de herramientas están en `docs/evidencia_atributos.md`.
 
-Archivos de la compilación del 23 nov en `sprint4/quartus/output_files/`: `top_level.fit.summary`, `.map.summary`, `.sta.summary`, `.fit.rpt`, `.map.rpt`, `.sta.rpt`, `.flow.rpt`, `.asm.rpt`, `.pin`, `.jdi` y `.sof`; copiar los `.summary` y `.sta.rpt` a `docs/evidencia/final/`.
+Archivos de la compilación del 23 nov en `docs/evidencia/final/`: `top_level.fit.rpt`, `.map.rpt`, `.flow.rpt`, `.sta.rpt`, `.fit.summary`, `.map.summary` y `.sta.summary`. Las tablas por módulo, la correlación con el RTL, el camino crítico (`cp_peor_camino.rpt`, `cp_20_peores.rpt`, `cp_hold_peor.rpt`, `cp_fmax.rpt`, los `cp_real_*.rpt` por grupo y los `cp_exc_*.rpt` con excepciones, del 24 nov, de la misma base de datos) y la comparación con las dos compilaciones de Sprint 3 están en `docs/evidencia_atributos.md`.
 
 ---
 
@@ -273,7 +275,7 @@ Flujo: se programa la FPGA, se abre `jtag_server.tcl` en Windows (`quartus_stp`,
 | 8 | Vistas SW[2:1] | Ver abajo y secciones 7.1 y 7.2 (fotos de las cuatro vistas) |
 | 9 | Modo libre con fotos del estado final (24 nov) | Sección 7.2: PC `0x84`, `done` encendido, HEX = `0x4000` |
 
-- **Tiempos.** La carga de la imagen por vJTAG tardó 30,6 s en la corrida documentada (entre 11,8 s y 51,4 s en otras corridas) y la lectura de la imagen de salida 38,6 s: es una palabra de 32 bits por transacción JTAG. El CPU tarda ~1 363 840 ciclos (~27,3 ms a 50 MHz, calculado de la simulación, no medido en la placa), así que el tiempo de la prueba lo domina el Host.
+- **Tiempos.** La carga de la imagen por vJTAG tardó 30,6 s en la corrida documentada (entre 11,8 s y 51,4 s en otras corridas) y la lectura de la imagen de salida 38,6 s: es una palabra de 32 bits por transacción JTAG. El CPU tarda 1 363 792 ciclos según el modelo de la sección 8.2 (27,276 ms a 50 MHz, calculado de la simulación, no medido en la placa), así que el tiempo de la prueba lo domina el Host.
 - **Fallo recurrente del servidor.** Dos veces el servidor respondió `JTAG server rejected write: ERROR`; se resolvió reiniciando `jtag_server.tcl`.
 - **Vista SW[2:1] = 00.** HEX muestra el registro 0x40004 (termina en `4000`, valor que escribe el firmware) y LEDR el registro 0x40000. El firmware nunca escribe LEDR, por eso queda en 0: los LEDR en esta vista no muestran el avance de la corrida.
 - **Vistas 01, 10 y 11.** HEX muestra PC[23:0], instrucción[23:0] o instrucción[31:8]; LEDR muestra `{step_mode, done, busy, illegal, 2'b00, cpu_state}`. Al terminar: PC 0x84 y LEDR[8] = `done` encendido.
@@ -381,12 +383,85 @@ Zoom de 0 a 28 muestras: se ven los estados 0, 1, 8 y 7 repetidos, el PC avanzan
 
 ![SignalTap, captura B: fin de la ejecución](evidencia/signaltap_fin.png)
 
+### 8.1 Lectura de las capturas a partir de los CSV
+
+`signaltap_inicio.csv` y `signaltap_fin.csv` se analizaron con un script de Python local que no se versiona. Todos los valores salen de las columnas de los CSV (no hay valores escritos a mano): la instrucción se desensambla de la columna `instruction`, cada muestra es de 20 ns (`CLOCK_50`) y las filas con `X` (captura A antes del disparo) se descartan. El PC es el valor del registro, que ya está incrementado (dirección de la instrucción + 4). El conteo se puede repetir en una hoja de cálculo: una instrucción completa dura las muestras desde el inicio de un FETCH (estado 0) hasta el inicio del siguiente, y la última, parcial, se omite.
+
+**Captura A: arranque (disparo en `busy`, Rising Edge).** La primera muestra válida es t = 143 380 ns de la columna de tiempo del CSV.
+
+- Cinco `lui` y `li t0,1`: seis instrucciones de 5 ciclos (FETCH 2, DECODE, EXECUTE_I, ALU_WB). `imem_valid` dura los dos ciclos de FETCH e `imem_ready` solo el segundo; ese segundo ciclo es el handshake (`handshake_instr`).
+- `sw t0,4(s4)` y `sw zero,0(t0)` duran 6 ciclos (estados 0, 0, 1, 2, 5, 5). Solo en ellas se levanta `cpu_valid` (2 ciclos) y `cpu_ready` aparece en el segundo.
+- Entre ellas están `mv t0,s2` y `addi t1,s2,1024` (5 ciclos cada una), que preparan la limpieza del histograma, y la primera iteración de la limpieza (`sw zero,0(t0)`, `addi t0,t0,4` y `bne t0,t1`: 6 + 5 + 4 = 15 ciclos), que se repite 256 veces.
+
+**Captura B: una iteración del bucle por píxel.** La iteración analizada empieza en t = 71 780 ns del CSV de la captura B.
+
+- Las 15 instrucciones del bucle suman 83 ciclos (tabla de 8.2): dos `lw` de 8 ciclos, tres `sw` de 6, nueve instrucciones ALU de 5 y un `bne` de 4 (16 + 18 + 45 + 4 = 83).
+- En cada `lw`, `cpu_valid` dura 3 ciclos y `cpu_ready` sube en el tercero; en cada `sw`, `cpu_valid` dura 2 y `cpu_ready` sube en el segundo. Es la latencia de la lectura de la RAM más la concesión del bus de datos.
+- `busy` está en 1 y `done` en 0 durante toda la iteración.
+
+**Captura B: fin de la ejecución (disparo en `done`, Rising Edge).**
+
+- Se ven el último `bne t0,s1` (no tomado, 4 ciclos), `li t0,2` y `sw t0,4(s4)`, que escribe `STATUS = 0b10`.
+- El handshake de datos del `sw` ocurre en la muestra 46 (`cpu_valid` = 1 y `cpu_ready` = 1); en la muestra 47 (t = 143 380 ns, el disparo) `done` sube y `busy` baja. Desde ahí el estado queda en 0 (FETCH) con `imem_valid` y `cpu_valid` en 0 y el PC en 0x84: no hay más peticiones y el `j halt` (0x84) no se busca. La CPU se detiene por `cpu_enable = start && !done` y no por el bucle del firmware.
+
+### 8.2 Ciclos por instrucción: teoría contra observación (TP-21 y TP-22)
+
+**Fundamento.** La FSM de `architecture.md` (sección 4) recorre los estados de la tabla siguiente. FETCH dura 2 ciclos porque la RAM de instrucciones genera `imem_ready <= imem_valid && !imem_ready` (`ram.sv`): `ready` llega un ciclo después de `valid`. En el bus de datos, MEM_WRITE dura 2 ciclos (concesión registrada del árbitro más `ready`) y MEM_READ 3 (concesión, latencia de 1 ciclo de la M10K y `ready`).
+
+| Clase | Instrucciones observadas | Estados observados | Ciclos teóricos | Ciclos observados | Instrucciones en A + B | Coincidencias |
+|---|---|---|---|---|---|---|
+| ALU, `lui`, `li`, `mv` | `add`, `addi`, `andi`, `slli`, `slt`, `lui`, `li`, `mv` | 0-0-1-8-7 (inmediatas) y 0-0-1-6-7 (`add`, `slt`) | FETCH 2 + DECODE 1 + EXECUTE 1 + ALU_WB 1 = 5 | 5 | 73 + 776 = 849 | 849 / 849 |
+| Salto condicional | `bne` | 0-0-1-10 | 2 + 1 + BEQ 1 = 4 | 4 | 65 + 87 = 152 | 152 / 152 |
+| Almacenamiento | `sw` | 0-0-1-2-5-5 | 2 + 1 + MEM_ADR 1 + MEM_WRITE 2 = 6 | 6 | 66 + 260 = 326 | 326 / 326 |
+| Carga | `lw` | 0-0-1-2-3-3-3-4 | 2 + 1 + MEM_ADR 1 + MEM_READ 3 + MEM_WB 1 = 8 | 8 | 0 + 172 = 172 | 172 / 172 |
+| `jal`, `jalr` | ninguna (el firmware solo tiene `j halt`, que nunca se busca) | 0-0-1-9-7 (deducido del RTL) | 2 + 1 + JAL 1 + ALU_WB 1 = 5 | no observado | 0 | n/a |
+| **Total** | | | | | **1 499** | **1 499 / 1 499** |
+
+El conteo por clase y por captura está en la columna "Instrucciones en A + B" de la tabla anterior. Las 1 499 son las instrucciones completas de ambas capturas (204 en A y 1 295 en B). No hubo ninguna instrucción con una duración distinta de la teórica.
+
+**Ciclos de una iteración del bucle por píxel.**
+
+| Tramo | Instrucciones | Ciclos |
+|---|---|---|
+| Histograma | `lw` (píxel) 8, `slli` 5, `add` 5, `lw` (contador) 8, `addi` 5, `sw` 6 | 37 |
+| Binarización | `slt` 5, `addi` 5, `andi` 5, `sw` (píxel de salida) 6 | 21 |
+| Avance y HEX | 3 × `addi` 15, `sw` (HEX) 6, `bne` 4 | 25 |
+| **Iteración** | 15 instrucciones | **83** |
+
+En la captura B se completan 87 `bne` del bucle y los 86 intervalos entre `bne` consecutivos valen exactamente 83 ciclos; entre los 86 `lw t3,0(t0)` completos, los 85 intervalos también valen 83. En la captura A se completan 65 iteraciones de la limpieza del histograma y los 64 intervalos entre ellas valen exactamente 15 ciclos (`sw` 6 + `addi` 5 + `bne` 4).
+
+**Modelo de ciclos de toda la ejecución** (de `busy` ↑ a `done` ↑), con los ciclos de la tabla anterior:
+
+| Tramo | Instrucciones | Ciclos |
+|---|---|---|
+| Prólogo | 5 `lui` (25), `addi` (5), `sw` (6) | 36 |
+| Preparación de la limpieza | `mv`, `addi` | 10 |
+| Limpieza del histograma | 256 × 15 | 3 840 |
+| Umbral y preparación del bucle | `lw` (8), 3 `mv` (15) | 23 |
+| Bucle por píxel | N × 83 | 83 · N |
+| Cierre | `addi` (5), `sw` a STATUS (6) | 11 |
+| **Total** | | **3 920 + 83 · N** |
+
+| Prueba | N | Modelo (ciclos) | Observado (sondeo de `done` cada 64 ciclos) | Consistencia |
+|---|---|---|---|---|
+| `test_firmware_end_to_end` | 64 | 9 232 | ~9 280 | 9 280 = ⌈9 232 / 64⌉ × 64 |
+| `test_firmware_end_to_end` | 16 384 | 1 363 792 | ~1 363 840 | 1 363 840 = ⌈1 363 792 / 64⌉ × 64 |
+| `test_firmware_with_bus_stalls` | 64 | 9 232 + extra | ~9 792 | extra entre 497 y 560 (observado 512 ±64) |
+| `test_firmware_with_bus_stalls` | 16 384 | 1 363 792 + extra | ~1 440 192 | extra entre 76 337 y 76 400 (observado 76 352 ±64) |
+
+Las cuatro filas son consistentes con el modelo dentro de la resolución del sondeo (64 ciclos). En el Avance 3 este documento ajustaba el término fijo como 3 968; ese valor es 3 920 redondeado al múltiplo de 64 del sondeo (⌈3 920 / 64⌉ × 64), y el valor exacto es 3 920.
+
+**Otras cifras que salen del modelo.** Para N = 16 384 el firmware ejecuta 246 543 instrucciones (9 + 768 + 4 + 15 · 16 384 + 2) en 1 363 792 ciclos: CPI = 5,532; el bucle solo da 83 / 15 = 5,533. A 50 MHz son 27,276 ms (calculado, no medido en la placa). El CPI de 5,5 es el costo en ciclos de la decisión multiciclo; su justificación está en `architecture.md`.
+
+**Costo de las colisiones con el Host.** Con el Host leyendo al azar el firmware tarda 76 352 ciclos más en 16 384 píxeles (+5,60 %; 220 363 lecturas) y 512 más en 64 píxeles (+5,52 %; 1 507 lecturas). Son 0,3465 y 0,3397 ciclos extra por lectura del Host (±0,04 en 64 píxeles por el sondeo). Orden de magnitud esperado (suposición del modelo): la CPU pide el bus de datos 12 ciclos de cada 83 (2 `lw` × 3 + 3 `sw` × 2), y si una lectura del Host coincide, la CPU espera como máximo unos 3 ciclos, de modo que el costo por lectura no supera 12 / 83 × 3 ≈ 0,43 ciclos; el valor medido (0,34) es del mismo orden y queda por debajo de esa cota, y es casi igual con 64 y con 16 384 píxeles.
+
 ### Qué demuestran
 
 - **FSM:** la secuencia 0 → 1 → 8 → 7 de las instrucciones inmediatas y 0 → 1 → 2 → 5 de `sw`, tal como en la FSM de `architecture.md` y en el modo paso a paso.
 - **Bus PC e instrucción decodificada:** cada PC coincide con la instrucción de `firmware.hex` de esa dirección.
 - **valid/ready:** el bus de instrucciones entrega una instrucción cada 2 ciclos (`ready` alterna), por la latencia de 1 ciclo de las M10K.
 - **`done`:** sube al ejecutarse el `sw` a STATUS y el CPU se congela (sección 7).
+- **Ciclos (sección 8.2):** 1 499 de 1 499 instrucciones duran los ciclos teóricos de la FSM y el bucle por píxel dura exactamente 83 ciclos en 86 intervalos consecutivos.
 - **Disparo de A (`busy` en Rising Edge).** `busy = start && !done` sube cuando el Host escribe `CTRL = 1`. La primera muestra válida de A (t = 143 380 ns) es justo esa: PC = 0 y estado 0. Es decir, la CPU arranca en FETCH desde la dirección 0 en el mismo instante en que `busy` sube, como exige AC 7, y la captura contiene el comienzo exacto de la ejecución (las muestras anteriores salen como `X`, sección 8).
 - **Disparo de B (`done` en Rising Edge).** Se dispara en el momento en que el firmware escribe `STATUS = 0b10`. Con ~12 % de las 8192 muestras después del disparo (unas mil muestras, ~20 µs; suposición, según la posición de disparo de la configuración), el PC, la instrucción y el estado no cambian (todo queda "plano"): la CPU permanece congelada y no hay más peticiones. Ese resultado no depende del `j halt`, que no aparece.
 - **Por qué dos disparos distintos.** Con 8192 muestras a 50 MHz el buffer cubre solo ~164 µs. La ejecución completa dura unos 27 ms (~1,36 millones de ciclos), así que una sola captura no puede mostrar el inicio y el final; por eso hay una captura en cada extremo.
@@ -395,7 +470,7 @@ Zoom de 0 a 28 muestras: se ven los estados 0, 1, 8 y 7 repetidos, el PC avanzan
 
 - Condiciones de disparo: la captura A (inicio) usó `busy` con Rising Edge y la captura B (fin) usó `done` con Rising Edge. El calificador de almacenamiento quedó en modo continuo.
 - No hay captura de un stall real por colisión con el Host: para eso habría que agregar `valid`/`ready` del vJTAG al `.stp` y recompilar. La espera por el bus se verificó en simulación con `test_firmware_with_bus_stalls` (TP-12). Una captura con `cpu_valid = 1` y `cpu_ready = 0` solo mostraría el ciclo normal de espera de 1 ciclo de la lectura y no aporta.
-- Los archivos Wave de simulación (`WAVES=1`) no se generaron en esta entrega.
+- Cada captura cubre 8 192 muestras (163,84 µs). La sección 8.2 analiza 1 499 de las 246 543 instrucciones de la corrida completa (0,6 %); la regularidad del bucle (86 intervalos idénticos de 83 ciclos) sustenta que las demás iteraciones son iguales (suposición: no se capturaron).
 
 ---
 
@@ -433,17 +508,18 @@ Con `enable = 0` los 29 casos terminan en timeout a 300 ciclos y ninguna instruc
 
 ### 9.5 Rendimiento (secciones 4 y 4.1)
 
-- **Modelo lineal.** Con ~9280 ciclos para 64 píxeles y ~1 363 840 para 16384, los datos se ajustan a 3968 + 83·N ciclos: 3968 + 83·64 = 9280 y 3968 + 83·16384 = 1 363 840. El término fijo es la limpieza de los 256 contadores del histograma (~15,5 ciclos por contador, aproximado) y las instrucciones de inicio y fin; los 83 ciclos por píxel son el costo del bucle del histograma más el de binarización (el reparto entre ambas etapas no se midió). A 50 MHz son ~27,3 ms (cálculo, no medición). La medición cada 64 ciclos hace que las cifras tengan ±64.
-- **Costo de las colisiones con el Host.** Con el Host leyendo al azar el firmware tarda 5,5 % más con 64 píxeles (+512 ciclos con 1507 lecturas) y 5,6 % más con 16384 (+76 352 ciclos con 220 363 lecturas). En ambos casos son ~0,34 ciclos extra por lectura del Host, y el Host lee a ~0,15 lecturas por ciclo. Que la proporción sea igual con 64 y 16384 píxeles indica que el costo escala linealmente con la presión del Host y que la CPU no se degrada de forma no lineal. Es la evidencia de que el handshake `valid`/`ready` retiene la transacción: el resultado fue exacto en todos los casos.
-- **Arquitectura multiciclo.** A 5 ciclos por instrucción simple y más para las de memoria, el procesador es lento frente a un acelerador dedicado; se aceptó a cambio de reprogramabilidad (sección 9.6). No se midió el tiempo equivalente del acelerador de Sprint 3, por lo que no se afirma una comparación de velocidad.
+- **Modelo exacto.** El rendimiento sigue `T(N) = 3 920 + 83·N` ciclos (sección 8.2), deducido contando los ciclos de cada instrucción del firmware con la tabla observada en SignalTap (4, 5, 6 y 8 ciclos). Para N = 64 da 9 232 y para N = 16 384 da 1 363 792, que cocotb reporta como ~9 280 y ~1 363 840 porque revisa `done` cada 64 ciclos. Del total, 3 840 ciclos son la limpieza del histograma (256 iteraciones de 15), 80 son arranque y cierre y 83 por píxel son el bucle (37 del histograma, 21 de la binarización y 25 de avance y HEX). A 50 MHz son 27,276 ms (cálculo, no medición).
+- **Costo de las colisiones con el Host.** Con el Host leyendo al azar el firmware tarda 5,5 % más con 64 píxeles (+512 ciclos con 1507 lecturas) y 5,6 % más con 16384 (+76 352 ciclos con 220 363 lecturas), ambos ±64 por el sondeo. Son 0,34 y 0,35 ciclos extra por lectura del Host (el Host lee a ~0,15 lecturas por ciclo), por debajo de la cota de ≈ 0,43 (la CPU usa el bus de datos 12 de cada 83 ciclos; suposición de la cota, sección 8.2). Que la proporción sea igual con 64 y 16384 píxeles indica que el costo escala linealmente con la presión del Host. Es la evidencia de que el handshake `valid`/`ready` retiene la transacción: el resultado fue exacto en todos los casos.
+- **Arquitectura multiciclo.** La FSM gasta 4 a 8 ciclos por instrucción (CPI medio de 5,53 en el firmware) y el procesador es lento frente a un acelerador dedicado; se aceptó a cambio de reprogramabilidad (sección 9.6). Para Sprint 3 solo se puede acotar: `fsm.sv` recorre 6 estados por píxel, así que necesita al menos 6 ciclos por píxel, y los 83 de Sprint 4 son como máximo 13,8 veces más (83 / 6; cota teórica, el tiempo de Sprint 3 no se midió). Con un firmware que solo binarizara, el cálculo da 43 ciclos por píxel (8 + 21 + 10 + 4), como máximo 7,2 veces la cota (suposición: no se ejecutó ese firmware).
 
 ### 9.6 Síntesis y timing (sección 6 y `evidencia_atributos.md`)
 
-- **Procesador contra acelerador (sin SignalTap).** +565 ALMs (+54 %), +15 M10K, +68 registros (+4 %) y -14,70 MHz de Fmax (-18 %) respecto de Sprint 3 (1 044 ALMs, 128 M10K, 82,03 MHz). El costo está en la lógica del procesador (banco de registros, ALU, FSM, árbitro, decodificador); casi no cambian los registros porque los datos grandes viven en memoria. Los bits de memoria cuadran exactamente: 2 × 524 288 (entrada y salida) + 2 × 65 536 + 8 192 (histograma) = 1 187 840, lo que indica que la RAM de instrucciones ocupa el doble de bits que su tamaño (suposición: una copia por puerto de lectura, que explica los M10K extra).
-- **Margen de reloj.** Con 63,53 MHz de Fmax contra los 50 MHz de la placa hay 27 % de margen (4,260 ns de slack en 20 ns). Todos los TNS son 0,000 y el hold mínimo es +0,160 ns (modelo Fast), así que no hay violaciones en ninguno de los cuatro modelos. El peor camino es el de `clk` a 85 °C, como es normal.
-- **Costo de SignalTap.** +564 ALMs, +1 483 registros, +76 M10K y +622 592 bits. El número de M10K y de bits coincide con la memoria de la instancia: 8192 muestras × 76 bits = 622 592 bits = 76 bloques de 8 192 bits, lo que confirma que el costo adicional de memoria es solo la instancia. Fmax baja 3,80 MHz (-5,6 %). El reloj `altera_reserved_tck` baja de 106,21 a 59,88 MHz porque la lógica de SignalTap cuelga del dominio JTAG; sigue por encima de la frecuencia a la que el USB-Blaster maneja el JTAG (suposición, no medido).
+- **Procesador contra acelerador (sin SignalTap).** Las cuatro compilaciones disponibles son S3-a (25 oct, sin SignalTap), S3-b (26 oct, con SignalTap), S4-a (19 nov, sin) y S4-b (23 nov, con). Sin SignalTap, S3-a → S4-a: +565 ALMs (1 044 → 1 609, +54,1 %), +68 registros (+4,0 %), +15 M10K (128 → 143) y Fmax 81,34 → 67,33 MHz (−14,01 MHz, −17,2 %); con SignalTap, S3-b → S4-b: +608 ALMs (+38,8 %) y 82,03 → 63,53 MHz (−18,50 MHz, −22,6 %). Tres bloques explican el aumento: banco de registros (+511,1 ALMs), ALU (+278,3) y datapath/control (+242,6); el decodificador baja 223,5 porque en Sprint 3 contenía el mux de lectura del banco de registros MMIO. Los bits de memoria cuadran exactamente: 2 × 524 288 (entrada y salida) + 2 × 65 536 (RAM de instrucciones, dos copias) + 8 192 (histograma) = 1 187 840. Detalle, teoría y camino crítico medido en `evidencia_atributos.md`.
+- **Corrección respecto del Avance 3.** Los 1 044 ALMs de Sprint 3 son del `fit.summary` del 25 oct (sin SignalTap) y los 82,03 MHz son del `sta.rpt` del 26 oct (con SignalTap): son dos compilaciones distintas, y comparar el área de una con la Fmax de la otra daba −14,70 MHz (−18 %) en lugar de −14,01 MHz (−17,2 %). La retroalimentación de Sprint 3 ya había señalado que los reportes versionados no coincidían entre sí. Por eso la comparación se hace por parejas con y sin SignalTap.
+- **Margen de reloj.** Con 63,53 MHz (con SignalTap) o 67,33 MHz (sin) contra los 50 MHz de la placa hay 27 % o 34,7 % de margen (4,260 o 5,148 ns de slack en 20 ns). Todos los TNS son 0,000 y el hold mínimo de `clk` es positivo en los cuatro modelos de cada compilación: +0,160 ns (modelo Fast, 0 °C) en la final con SignalTap y +0,158 ns en la del 19 nov sin SignalTap, así que no hay violaciones. El peor camino es el de `clk` a 85 °C, como es normal. El camino crítico se midió el 24 nov con `scripts/critical_path.tcl` (`docs/evidencia/final/cp_*.rpt`): nace en `instruction[3]`, atraviesa la ALU y el decodificador MMIO y termina en el write enable de una M10K de `mem_out` (15,908 ns de datos en 12 niveles de LUT, 58 % de ruteo, holgura 4,260 ns). Es un camino que el funcionamiento no activa (la dirección de un `sw` sale de `alu_result_reg`). Para ver qué hay debajo, el mismo script mide la peor holgura por grupo: CPU hacia `pc` 4,677 ns (65,26 MHz; ruta estructural por la lectura directa del banco), CPU hacia la M10K 4,501 ns (64,52 MHz; misma familia estructural) y host hacia la M10K 9,851 ns (98,53 MHz; único camino funcional del grupo). Con dos excepciones de ruta falsa solo de análisis (ALU hacia fuera de la CPU y lectura directa del banco hacia `pc`; no están en el SDC) la peor holgura es 4,989 ns (66,62 MHz) y es `instruction[3]` → `pc[9]` en 12 niveles (14,724 ns), un camino que tampoco se activa porque `instruction` solo cambia al entrar a DECODE, donde `pc_write` vale 0. El límite real de la CPU no se midió: el reporte da 63,53 MHz y, con esas excepciones y ese argumento, se acota en ≥ 66,83 MHz (suposición); en ambos casos queda por encima de los 50 MHz de la placa (`evidencia_atributos.md`, sección 1.5).
+- **Costo de SignalTap.** En S4: +469,4 ALMs y +1 454 registros directamente atribuibles a `sld_signaltap` y `sld_hub`, +76 M10K y +622 592 bits (8192 muestras × 76 bits = 622 592 bits = 76 bloques de 8 192 bits, que confirma que el costo de memoria es solo la instancia); la diferencia con el total (+564 ALMs, +1 483 registros) es variación del resto del diseño. La Fmax baja 3,80 MHz (−5,6 %) entre S4-a y S4-b, pero esa diferencia no es solo de SignalTap: el arreglo de LUI, posterior a S4-a, añadió al camino crítico un nivel de 0,802 ns de los 0,888 ns de diferencia de periodo (`evidencia_atributos.md`, sección 1.5; suposición: no hay una compilación del RTL final sin SignalTap para separarlos). El reloj `altera_reserved_tck` baja de 106,21 a 59,88 MHz porque la lógica de SignalTap cuelga del dominio JTAG; sigue por encima de la frecuencia a la que el USB-Blaster maneja el JTAG (suposición, no medido).
 - **Advertencias.** El latch inferido sobre `i` en `rv_register_file.sv` es una variable de bucle y no almacena estado funcional (suposición, no verificada en el RTL); la asignación sin uso de `tap_handshake_instr` es esperada porque solo existe para SignalTap. Quedan documentadas y no afectan los resultados de simulación ni de placa.
-- **Dos compilaciones.** Se reportan las dos porque la del 19 nov es la comparable con Sprint 3 (sin instrumentación) y la del 23 nov es la que realmente se programó para las capturas. El bitstream de uso normal (sin SignalTap) no se recompiló después del 19 nov; su RTL pudo cambiar entre ambas fechas (suposición: el arreglo de LUI y el filtro de `rv32i_top` son posteriores al 19 nov), por lo que los valores de la columna del 19 nov son del RTL anterior a esos cambios.
+- **Compilaciones del procesador.** S4-a es la comparable con Sprint 3 (sin instrumentación) y S4-b la que se programó para las capturas. Entre los reportes entregados no hay una compilación sin SignalTap con el RTL final: el arreglo de LUI (`0089c94`) y el filtro de búsqueda de `rv32i_top` (`0782064`), ambos del 21 nov a las 22:54, son posteriores a S4-a, por lo que S4-a es del RTL anterior a esos cambios; la diferencia residual de 94,6 ALMs entre S4-a y S4-b incluye ese efecto y la variación del fitter (hasta ±10 % por módulo, `evidencia_atributos.md` 1.4.4).
 
 ### 9.7 Pruebas en la placa (sección 7)
 
@@ -461,10 +537,10 @@ Con `enable = 0` los 29 casos terminan en timeout a 300 ciclos y ninguna instruc
 
 ### 9.8 SignalTap (sección 8)
 
-- **5 ciclos por instrucción simple.** En la captura A, cada `lui`/`addi` ocupa 5 muestras de 20 ns (100 ns): el estado 0 (FETCH) dura 2 ciclos y los estados 1, 8 y 7 un ciclo cada uno. Los 2 ciclos de FETCH son la latencia de la M10K: `imem_ready` alterna, por lo que la instrucción llega un ciclo después de `valid`. Esto explica que en el modo paso a paso se vean cuatro estados por instrucción y a 50 MHz sean cinco ciclos.
+- **Ciclos por instrucción (sección 8.2).** Las 1 499 instrucciones completas de ambas capturas duran 4 (`bne`), 5 (ALU, `lui`, `li`, `mv`), 6 (`sw`) u 8 ciclos (`lw`), exactamente los que da la FSM; no hay excepciones. FETCH dura 2 ciclos porque la M10K entrega la instrucción un ciclo después de `valid` (`imem_ready` alterna). Por eso en el paso a paso se ven cuatro estados por instrucción simple y a 50 MHz son cinco ciclos. Teoría y observación coinciden en todas las clases.
 - **PC e instrucción.** El PC pasa de 0 a 4 al terminar el primer FETCH y la instrucción `00010437h` (`lui s0, 0x10`) aparece en el mismo ciclo; la siguiente (`000204B7h`, `lui s1, 0x20`) sigue el mismo patrón. Las instrucciones capturadas coinciden con las de `firmware.hex` en esas direcciones.
 - **Final de la ejecución.** En la captura B el PC llega a 0x84 con la instrucción `005A2223h` (`sw` a STATUS) en estado 5 (MEM_WRITE); `done` sube, `busy` baja y todo se queda plano. Que el PC no avance a 0x88 ni se vea el `j halt` confirma que la CPU se congela con `cpu_enable = start && !done` y no por el bucle del firmware.
-- **Qué no se vio.** No hay captura de una colisión con el Host (cpu `valid` = 1 con `ready` = 0 por arbitraje), porque el vJTAG no está en el `.stp`; la colisión se verifica solo por simulación (9.5). Tampoco hay captura de una instrucción ilegal ni de una falla inyectada (sección 9.10).
+- **Qué no se vio.** No hay captura de una colisión con el Host (cpu `valid` = 1 con `ready` = 0 por arbitraje), porque el vJTAG no está en el `.stp`; la colisión se verifica solo por simulación (9.5). Tampoco hay captura de una instrucción ilegal. La falla inyectada del diagnóstico la aplica el profesor en la defensa (enunciado, secciones 7 y 8) y no forma parte del AC 12 (sección 9.10).
 - **Disparos y por qué se eligieron (sección 8).** A usa `busy` en Rising Edge, que marca el arranque exacto de la ejecución; B usa `done` en Rising Edge, que marca el fin. Con 8192 muestras (~164 µs) y una ejecución de ~27 ms, ninguna captura abarca la corrida completa: cada una enfoca un extremo. La primera muestra válida de A (PC 0, estado 0) coincide con el instante del disparo y confirma que la CPU arranca en FETCH desde la dirección 0 cuando `busy` sube.
 - **Qué aportan frente a las fotos.** SignalTap resuelve ciclo a ciclo (20 ns) lo que el paso a paso muestra estado a estado: los 2 ciclos del FETCH no se distinguen en las fotos (una pulsación por estado) pero sí en la captura. Las fotos, en cambio, solo necesitan la placa y no el analizador lógico. Son evidencias complementarias de las mismas instrucciones.
 - **Tres métodos, mismos eventos.**
@@ -489,45 +565,45 @@ Con `enable = 0` los 29 casos terminan en timeout a 300 ciclos y ninguna instruc
 
 | Criterio | Resultado | Evidencia |
 |---|---|---|
-| AC 1, solo `lw` y `sw` por palabra | Cumple | Firmware y pruebas de sistema; píxel por palabra |
-| AC 2, `lui` | Cumple | Cinco inmediatos en `run_lui`; firmware lo usa para las bases MMIO |
-| AC 3, dos buses independientes | Cumple por construcción y por prueba (`test_host_and_cpu_instr_ports_coexist`) | El bus de instrucciones no pasa por el árbitro; el criterio de arbitraje del profesor sigue por confirmar (9.11) |
+| AC 1, subconjunto de 28 instrucciones (Tabla 1) y `lw`/`sw` por palabra | Cumple | Testbench del profesor 29/29 y 29/29 bins de cobertura (las 28 instrucciones de la Tabla 1 más `illegal`, sección 9.1); el firmware accede a los píxeles solo con `lw`/`sw` de palabra |
+| AC 2, `lui` y pseudoinstrucciones | Cumple | Cinco inmediatos en `run_lui` y firmware que lo usa para las cinco bases del mapa MMIO; las pseudoinstrucciones `li`, `mv` y `j` del firmware se ensamblan a `addi` y `jal` (instrucciones nativas) |
+| AC 3, dos buses independientes | Cumple por construcción y por prueba (`test_host_and_cpu_instr_ports_coexist`) | El bus de instrucciones no pasa por el árbitro |
 | AC 4, modo paso a paso | Cumple en la placa | Sección 7.1 (fotos de cada estado) y TP-11; no hay prueba automática que ejercite `cpu_hold` (suposición: el testbench de `rv32i_top` lo deja sin conectar, como indica `architecture.md`, sección 9) |
-| AC 5 y Tabla 2, permisos y RAZ/WI | Cumple | `mmio_decoder` 7/7, TP-18, consola en la placa |
-| AC 7, arranque y fin | Cumple | `start`, `done` y apagado de peticiones, en simulación y en la placa |
+| AC 5, RAM de instrucciones: Host R/W, CPU solo lectura (WI) | Cumple | `mmio_decoder` 7/7 (permisos por maestro) y consola en la placa (el Host lee y escribe la RAM de instrucciones); la escritura prohibida de la CPU no se probó en la placa (9.7) |
+| AC 6, partición de datos y RAZ/WI | Cumple | `mmio_decoder` 7/7, TP-18 y mapa de la Tabla 2 en la placa (sección 7, fila 6) |
+| AC 7, arranque y fin | Cumple | `start`, `done` y apagado de peticiones, en simulación, en la placa y en SignalTap (captura B) |
+| AC 8, firmware ASM | Cumple | `firmware.s` (34 palabras, un píxel por palabra, solo `lw`/`sw`) calcula el histograma y la binarización exactos (secciones 4 y 7) |
+| AC 9, Python vía vJTAG | Cumple | `pixel_image_app.py` sobre `jtag_server.tcl` carga el firmware (`Programa: 34/34`) y la imagen, arranca, espera `done`, descarga la salida y el histograma, los compara con el modelo y los muestra con matplotlib (sección 7) |
 | AC 10, pruebas del profesor | Cumple | 29/29 y 2/2 |
-| AC 11, extremo a extremo | Cumple en simulación (64 y 16384 píxeles, con y sin stalls) y en la placa | Secciones 4 y 7; waves no generadas |
-| AC 12, SignalTap a 50 MHz | Cumple parcialmente | FSM, PC, instrucción, `valid`/`ready` y `done` capturados; falta una falla inyectada (15.2 de `features.md`) |
+| AC 11, extremo a extremo | Cumple en simulación (64 y 16384 píxeles, con y sin stalls) y en la placa | Secciones 4 y 7 |
+| AC 12, SignalTap a 50 MHz | Cumple | `cpu_state`, PC, instrucción, `valid`/`ready` de ambos buses y `done` capturados a 50 MHz (secciones 8, 8.1 y 8.2). El diagnóstico de una falla inyectada lo aplica el profesor en la defensa y no es parte del AC 12 |
 | AC 13, evidencia de atributos | Cumple | `evidencia_atributos.md` (DI y HI) |
 
 ### 9.11 Limitaciones y amenazas a la validez
 
 - **Imagen de simulación.** Es aleatoria con semilla fija y un único umbral (100); en la placa se usó una imagen real de 128×128 con cuatro umbrales, de modo que la cobertura se complementa. No se probó una imagen de otro tamaño ni otra distribución de histograma (por ejemplo todos los píxeles iguales).
 - **Una sola placa y una sola sesión.** Los resultados en hardware son de una DE10-Standard y no se repitieron en otra; la Fmax es del modelo de timing de Quartus, no una medición a distintas temperaturas.
-- **Mediciones de ciclos.** Se obtienen revisando `done` cada 64 ciclos (±64), y la velocidad en la placa es un cálculo a partir de la simulación; no se midió con un contador de hardware.
-- **Arbitraje.** El profesor señaló que el diseño no cumplía el criterio de arbitraje. El diseño arbitra solo el bus de datos (Host con prioridad) y deja el de instrucciones independiente por el AC 3; si el criterio exige arbitrar también las instrucciones, habría que cambiar la arquitectura. Queda por confirmar con el profesor.
+- **Mediciones de ciclos.** Se obtienen revisando `done` cada 64 ciclos (±64), y la velocidad en la placa es un cálculo a partir de la simulación; no se midió con un contador de hardware. El modelo exacto de la sección 8.2 se validó contra SignalTap en 1 499 instrucciones, no contra la duración total en la placa.
+- **Ruta de tiempo agotado.** `pixel_image_app.py` rellena de blanco los píxeles sin procesar si se agota el tiempo (commit e828fc3); esta entrega no tiene una corrida de la placa que ejercite esa ruta.
 - **Cobertura de pruebas.** No hay prueba automática del congelamiento a media transacción (`read_data_reg`), del valor de enlace de `jal`/`jalr`, ni de que la CPU no pueda escribir CTRL/THRESHOLD en la placa; quedan cubiertas por análisis y por el resultado correcto de la ejecución completa.
-- **Comparación con Sprint 3.** Se asume que el reporte de Sprint 3 es de una compilación sin SignalTap (suposición); la comparación de velocidad no se hizo.
+- **Comparación con Sprint 3.** La procedencia de los reportes de Sprint 3 se resolvió con sus fechas internas y con `git log`: son dos compilaciones (25 oct sin SignalTap, 26 oct con SignalTap) y se comparan por parejas (9.6). El tiempo de Sprint 3 no se midió: solo hay una cota teórica de 6 ciclos por píxel (9.5).
 - **Evidencia fotográfica.** Las fotos del 24 nov son de un teléfono con poca luz; los estados se leen por la posición de los LEDR y en la foto 01 (reset en paso a paso) el estado de LEDR[9] se toma de lo observado en la placa, porque con esa luz no se distingue bien. Solo se fotografiaron dos instrucciones en paso a paso y el estado final en modo libre. La salida de la sesión de las fotos no se guardó; hay un log de una corrida posterior en modo libre (9.7).
-- **Waves.** No se generaron archivos de formas de onda en esta entrega; se generarán con las pruebas SystemVerilog en Questa, que correrá un compañero del grupo en una máquina con Questa.
 
 ### 9.12 Conclusión
 
-El procesador RV32I multiciclo cumple los criterios verificables: pasa las 29 pruebas y los 2 programas del profesor, las pruebas unitarias y de sistema (con la imagen completa y con colisiones), y produce el histograma y la imagen binarizada exactos en la placa con cuatro umbrales. Cuesta 54 % más ALMs y 18 % menos Fmax que el acelerador de Sprint 3, pero cumple los 50 MHz con 27 % de margen y permite cambiar el algoritmo sin resintetizar; su límite de velocidad en la práctica es el JTAG del Host y no la CPU. SignalTap confirma en hardware la secuencia de estados, el PC, las instrucciones, la latencia de 2 ciclos del FETCH y el apagado de la CPU al marcar `done`. Las fotos de la placa del 24 nov (paso a paso, modo libre y reset) coinciden con esas mismas instrucciones, estados y valores finales, de modo que simulación, SignalTap y placa cuentan la misma historia. Los puntos abiertos (criterio de arbitraje, captura de una falla inyectada, waves, prueba 3.2 de Sprint 1) están en la sección 10.
+El procesador RV32I multiciclo cumple los criterios verificables: pasa las 29 pruebas y los 2 programas del profesor, las pruebas unitarias y de sistema (con la imagen completa y con colisiones), y produce el histograma y la imagen binarizada exactos en la placa con cuatro umbrales. Cuesta 54,1 % más ALMs y 17,2 % menos Fmax que el acelerador de Sprint 3 (compilaciones sin SignalTap), pero cumple los 50 MHz con 34,7 % de margen (27 % con SignalTap) y permite cambiar el algoritmo sin resintetizar; su límite de velocidad en la práctica es el JTAG del Host y no la CPU. SignalTap confirma en hardware la secuencia de estados, el PC, las instrucciones, la latencia de 2 ciclos del FETCH, los 4, 5, 6 y 8 ciclos de las 1 499 instrucciones capturadas (todas iguales a la teoría), los 83 ciclos por píxel y el apagado de la CPU al marcar `done`. Las fotos de la placa del 24 nov (paso a paso, modo libre y reset) coinciden con esas mismas instrucciones, estados y valores finales, de modo que simulación, SignalTap y placa cuentan la misma historia. Las limitaciones y amenazas a la validez están en 9.11 y en la sección 10.
 
 ---
 
-## 10. Pendientes y limitaciones
+## 10. Limitaciones y alcance
 
-| Pendiente | Detalle |
+| Tema | Detalle |
 |---|---|
-| Ejecución de GitHub Actions en verde | Hecho para el PR #82 a `dev` (4 checks en verde: detect-changes, open-source-verification, repo-artifact-validation y style-check): https://github.com/itsbybp/group7_ce3201_s2_g1_2026/actions/runs/45310486302. Repetir y actualizar el enlace si se suben commits nuevos antes de etiquetar `v1.0.0-proj` |
-| Waves de simulación | No generadas (`WAVES=1 make sim TEST=top`) |
+| Ejecución de GitHub Actions en verde | Hecho para el PR #82 a `dev` (4 checks en verde: detect-changes, open-source-verification, repo-artifact-validation y style-check): https://github.com/itsbybp/group7_ce3201_s2_g1_2026/actions/runs/45310486302 |
 | Pruebas Questa (`test/sv`) | No se pueden correr en WSL; se usa la evidencia local de cada sprint |
 | Sprint 1, prueba 3.2 | Rota por `cocotb.binary` en cocotb 2.1.0 (sección 3.1) |
 | Sprint 3, log cocotb | Sin línea `TESTS=` |
-| Criterio de arbitraje | Confirmar con el profesor |
-| Reset (KEY[0]) | Hecho el 24 nov (sección 7.3); pendiente, si se quiere cerrar del todo, leer `CTRL` y la RAM después del reset |
+| Reset (KEY[0]) | Hecho el 24 nov (sección 7.3) |
 | Log de `pixel_image_app.py` del 24 nov | Hecho: `docs/evidencia/pixel_image_app_24nov.log` (corrida en modo libre, termina con `OK`) |
-| Falla inyectada y captura SignalTap | No realizada (`features.md` 15.2); prepararla para la defensa |
+| Falla inyectada y captura SignalTap | No se hizo ensayo propio. La falla la inyecta el profesor en la defensa (enunciado, secciones 7 y 8) y no es un entregable; para diagnosticarla se cuenta con las capturas A y B, la tabla de ciclos por instrucción (8.2) y el modo paso a paso (7.1) |
 | Defensa (2 al 5 dic) | Diagnóstico individual con SignalTap |
