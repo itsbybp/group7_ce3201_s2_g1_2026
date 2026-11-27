@@ -17,15 +17,21 @@ https://github.com/rgarciatec/rv32i_cocotb_template
   - The pulse is a signal that is at 0 by default and is synchronously set to 1 for a single cycle at any moment.
   - It usually stays at 0 for many cycles between activations because it is ultimately driven by a button on the FPGA.
     - Driving this signal is not part of this requirement. This is implemented in the top module later on.
+  - Final implementation (justified deviation, `architecture.md` section 14, row 3): the processor itself only has `enable`; the step logic is in `top_level` (`cpu_hold`). A pulse of KEY[1] does not advance one clock cycle but lets the FSM run until `cpu_state` changes, because one cycle cannot complete a FETCH (2 cycles) or a data handshake (2 or 3 cycles).
+
+- 1.3 Only word accesses: `lw` and `sw` (AC 1). `lb`, `lh`, `sb` and `sh` are out of scope.
+- 1.4 `lui` (AC 2): executed in EXECUTE_I with operand A = 0 and the U-type immediate; used to load the upper 20 bits of the MMIO base addresses.
+- 1.5 M10K latency: reads are synchronous and take one cycle, so `ready` of a read rises one cycle after `valid` (the instruction bus delivers one instruction every 2 cycles). The FSM keeps `valid` until it receives `ready`; no asynchronous reads are inferred.
 
 # Epic 2
 
 2. Create an enabler for the processor.
-  - When disabled (`enabler == 1'b0`), the FSM can't change its state, and the `ready out` and `valid out` signals of both the instruction and data buses (4 signals) are 0.
-    - They each connect to an AND gate with the enabler before exiting the processor.
+  - When disabled (`enabler == 1'b0`), the FSM can't change its state, and the `valid` outputs of both the instruction and data buses are 0; since each handshake is `ready && valid`, no handshake can happen either (4 signals gated in total: 2 `valid` and 2 handshakes).
+    - Each `valid` output is an AND of the enabler with the state decode (`valid_out = enable && soft_reset_n && state`) before exiting the processor.
 
-  - Connect the enable directly to the first bit of CTRL.
-    - (This is just a possible implementation)
+  - `start` (CTRL[0], AC 7) is what starts the processor, and the PC must be initialized to 0x0000_0000 when it starts.
+    - Implemented as a level used as the CPU `soft_reset_n`: while `start = 0` the PC stays at 0 and the FSM stays in FETCH; when it rises the CPU runs from address 0. (suposición: the specs call it a pulse; the level has the same effect on the PC)
+    - The enabler is not wired directly to CTRL[0]: `cpu_enable = start && !done`, so setting `done` also disables the processor (see 4.2).
 
   - In stepping mode, if the processor is disabled during a ready valid transaction, the transaction could be lost,
   but this is only possible if the user disables the processor few clock cycles after manually pressing the step button,
@@ -55,7 +61,7 @@ This is particularly straightforward. Look at sections 1.2 and 5.1 in the origin
 
   - 4.1 The program also writes `STATUS = 0b10` at the end, i.e. 'done' (bit 1). Bit 0 is busy, read-only, computed in hardware as `start && !done`.
   - 4.2 This change must lead to the processor being disabled: `cpu_enable = start && !done` drops, the FSM stops and both `valid` outputs are 0 (AC 7). The firmware ends in an infinite loop (`j halt`) but the CPU no longer issues requests.
-  - 4.3 Only the processor can write to `STATUS`, so the first thing in the program must be `STATUS[1] = 0`.
+  - 4.3 Only the processor can write to `STATUS`, so the program clears `STATUS[1]` early. Final implementation (justified deviation, `architecture.md` section 14, row 5): after loading the five base addresses with `lui`, the first store is `STATUS = 1` (bit 1 = 0); bit 0 is ignored because `busy` is computed in hardware, and `done` is already cleared while `start = 0`.
   - 4.4 Pixels are accessed only with `lw` and `sw` (one pixel per 32-bit word); `lui` loads the upper 20 bits of the MMIO base addresses (AC 1 and AC 2).
   - 4.5 `firmware.hex` is generated with `riscv64-unknown-elf-as -march=rv32i -mabi=ilp32`, `objcopy -O binary -j .text` and `xxd` (see `architecture.md`, section 11).
 
@@ -101,7 +107,7 @@ This is particularly straightforward. Look at sections 1.2 and 5.1 in the origin
 11. End-to-end tb acceptance criteria:
 - 11.1 Memory-collision scenarios are documented in the testplan and validated with Questa and Cocotb.
 - 11.2 Stalls: when either bus reports ready = 0, the processor freezes until the transaction completes.
-- 11.3 Enabler: with enable = 0, the FSM does not change state and the four valid/ready signals are 0.
+- 11.3 Enabler: with enable = 0, the FSM does not change state, both `valid` outputs are 0 (so no handshake occurs) and no instruction completes (TP-10).
 - 11.4 Read-As-Zero: reads from unmapped addresses return 0.
 - 11.5 Write-Ignored: writes to instruction memory from the CPU and out-of-range writes are discarded.
 - 11.6 The testbenches run with no lint warnings in Verilator and Cocotb.
@@ -122,7 +128,18 @@ This is particularly straightforward. Look at sections 1.2 and 5.1 in the origin
 
 15. Demo and defense preparation:
   - 15.1 Be able to explain the execution logic in hardware.
-  - 15.2 Map an injected fault to its observed behavior using SignalTap.
+  - 15.2 Map an injected fault to its observed behavior using SignalTap. The fault is injected by the professor at the defense (enunciado, sections 7 and 8) and is not a deliverable of AC 12, so no own rehearsal was done. What is prepared for it: captures A and B, the per-instruction cycle table and the 83-cycle loop (`results.md`, sections 8.1 and 8.2) and the step mode (`results.md`, section 7.1).
+
+# Infrastructure plan
+
+17. Infrastructure
+- 17.1 Firmware tool: `firmware.hex` is generated from `firmware.s` with the `gcc-riscv64-unknown-elf` toolchain (`as -march=rv32i -mabi=ilp32`, `objcopy -O binary -j .text`, `xxd`) inside `sprint4/firmware/`. Only `firmware.s` and `firmware.hex` are versioned, so the CI does not need the toolchain.
+- 17.2 CI changes (`gatekeeper.yml` and `Dockerfile`):
+  - Run `make -C sprint4/test/cocotb` (team unit and system tbs) on every PR that touches `sprint4`.
+  - Also run the professor's tbs in `sprint4/test/rv32i_cocotb`: `make test_cpu` and `make test_programs`, both with `SV_FILELIST=files.f TOPLEVEL=rv32i_cpu` (without them the Makefile builds the professor's mock instead of our CPU).
+  - The `Dockerfile` must install `pytest-html` (the `test_cpu` dashboard uses `--html`).
+  - A failure in any `make` of the loop must fail the job (accumulate the exit status).
+- 17.3 Structure of `sprint4/`: `src/` (RTL), `test/cocotb/` (unit and system tbs), `test/rv32i_cocotb/` (professor's repo plus the `rv32i_cpu*.sv` wrappers), `firmware/`, `scripts/`, `quartus/` and `docs/`. Any change is documented in `README.md`.
 
 # Git and GitHub
 
@@ -162,3 +179,36 @@ Clasificación de módulos reutilizables (detalle y cambios en `architecture.md`
   - `mmio_decoder.sv`: modified (Tabla 2 addresses, per-manager permissions, RAZ/WI, 1-cycle read ready)
   - `control_registers.sv`: modified (LEDR, HEX, CTRL, STATUS, THRESHOLD; outputs `start`, `cpu_enable`, `busy`, `done`)
   - `ram.sv`: modified (four memories and a second read port for the instruction bus)
+
+---
+
+## Trazabilidad final (estado al 24 nov 2026)
+
+Cada ítem de este documento con su estado y su evidencia. "Cumple" indica que la evidencia está en `results.md`; "Desviación" remite a `architecture.md`, sección 14.
+
+| Ítem | AC | Estado | Implementación y evidencia |
+|---|---|---|---|
+| 1, 1.3, 1.4 | 1, 2 | Cumple | 28 instrucciones y `lui` en `multicycle_rv32i`; TP-02 29/29 y TP-17 2/2 (`results.md`, 2 y 9.1) |
+| 1.1, 1.5 | 3 | Cumple | `valid`/`ready` en FETCH, MEM_READ y MEM_WRITE; TP-12 y TP-21 (`results.md`, 4 y 8.2) |
+| 1.2 | 4 | Desviación (fila 3) | `cpu_hold` en `top_level`; fotos de `results.md`, 7.1 |
+| 2 (enabler y `start`) | 7 | Cumple; `start` por nivel (fila 2) | `cpu_enable = start && !done`; TP-08, TP-10 y TP-13 |
+| 3 | 5, 6 | Cumple | `mmio_decoder` con permisos por maestro, RAZ y WI; TP-06 7/7 y TP-18 |
+| 4, 4.1, 4.2, 4.4 | 7, 8 | Cumple | `firmware.s` (34 palabras); `STATUS = 0b10` y CPU detenida: `results.md`, 4 y 8.1 |
+| 4.3 | 8 | Desviación (fila 5) | Primera escritura `STATUS = 1` |
+| 4.5, 17.1 | 8 | Cumple | `firmware.hex` generado con la cadena de `architecture.md`, sección 11 |
+| 5.1 a 5.4 | 9 | Cumple | `pixel_image_app.py`: binariza, consulta STATUS, descarga histograma y carga firmware e imagen; TP-16 `OK` con 4 umbrales |
+| 6, 8.1 a 8.4, 9.1 | 10 | Cumple | `arbiter` 8/8, `mmio_decoder` 7/7, `ram` 8/8, `control_registers` 10/10, banco del profesor 29/29 |
+| 7, 10, 10.1 a 10.3 | 11 | Cumple | `tb_top.py`: 64 y 16 384 píxeles, con y sin stalls; histograma e imagen exactos (`results.md`, 4 y 4.1) |
+| 9.2 | 3 | Desviación (fila 4) | Descartado |
+| 11.1 | 10 | Parcial | Colisiones validadas con cocotb y Verilator; sin Questa en Sprint 4 (fila 7) |
+| 11.2 a 11.6 | 3, 5, 6 | Cumple | TP-12, TP-10, TP-18, TP-06 y lint de Verilator limpio |
+| 12, 12.1, 12.2 | 12 | Cumple | `stp_rv32i.stp`; capturas A y B y su análisis en `results.md`, 8, 8.1 y 8.2 |
+| 13 | 10 | Cumple | `testplan.md` |
+| 14, 14.1 a 14.3 | 13 | Cumple | `evidencia_atributos.md`; métricas de `.map.rpt`, `.fit.rpt` y `.sta.rpt` |
+| 15.1 | defensa | Documentado | `architecture.md`, secciones 4 y 13 |
+| 15.2 | defensa | Desviación (fila 6) | Falla inyectada por el profesor en la defensa |
+| 16.1 a 16.3, 16.5 | gobernanza | Cumple | Ramas `feature/sprint4-*` hacia `dev`; Actions con 4 checks en verde en el PR #82 |
+| 16.6 | gobernanza | Parcial (fila 7) | Los `.do` de Questa existen desde Sprint 3; en Sprint 4 no se ejecutó Questa |
+| 16.4 | gobernanza | Cumple | 37 commits tocan `sprint4/` hasta `0f772ce` |
+| 16.7 | gobernanza | Parcial | Existen `v0.0.0-proj`, `v0.0.1-proj`, `v0.0.2-proj` y `v0.1.0-proj`; `v1.0.0-proj` es la etiqueta de la entrega (30 nov) |
+| 16.8 a 16.10, 17.2, 17.3 | gobernanza | Cumple | `README.md`, gatekeeper y estructura de `sprint4/` (`architecture.md`, sección 11) |

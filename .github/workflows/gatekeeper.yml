@@ -56,13 +56,26 @@ jobs:
           CHANGED_SPRINTS: ${{ needs.detect-changes.outputs.sprints }}
         with:
           runCmd: |
+            status=0
+
             for sprint in $CHANGED_SPRINTS
             do
+              # Pruebas propias del equipo (unitarias y de sistema)
               if [ -d "${sprint}/test/cocotb" ]
               then
-                make -C "${sprint}/test/cocotb"
+                make -C "${sprint}/test/cocotb" || status=1
+              fi
+
+              # Pruebas del profesor sobre el CPU del equipo (rv32i_cpu).
+              # SV_FILELIST y TOPLEVEL son obligatorios: sin ellos el Makefile compila el mock del profesor.
+              if [ -d "${sprint}/test/rv32i_cocotb" ]
+              then
+                make -C "${sprint}/test/rv32i_cocotb" test_cpu SV_FILELIST=files.f TOPLEVEL=rv32i_cpu || status=1
+                make -C "${sprint}/test/rv32i_cocotb" test_programs SV_FILELIST=files.f TOPLEVEL=rv32i_cpu || status=1
               fi
             done
+
+            exit $status
 
   repo-artifact-validation:
     runs-on: ubuntu-latest

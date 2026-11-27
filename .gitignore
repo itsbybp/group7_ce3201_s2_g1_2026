@@ -6,7 +6,7 @@
 *~
 
 # Python
-pycache/
+__pycache__/
 .pytest_cache/
 *.py[cod]
 .coverage
@@ -72,7 +72,10 @@ sprint3/scripts/venv/
 # Sprint 4: artefactos generados
 sprint4/test/rv32i_cocotb/results/
 sprint4/test/rv32i_cocotb/sim_build/
-sprint4/test/sv/
+sprint4/test/sv/work/
+sprint4/test/sv/transcript*
+sprint4/test/sv/*.ucdb
+sprint4/test/sv/modelsim.ini
 sprint4/quartus/db/
 sprint4/quartus/incremental_db/
 sprint4/quartus/output_files/

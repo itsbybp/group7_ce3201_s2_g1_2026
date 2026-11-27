@@ -1,0 +1,60 @@
+# Questa Altera Starter FPGA Edition-64 vmap 2025.2 Lib Mapping Utility 2025.05 May 31 2025
+# vmap work work 
+# ** Note: (vmap-220) 'modelsim.ini' is used as the ini file.
+# Modifying modelsim.ini
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 14:45:44 on Nov 26,2026
+# vlog -reportprogress 300 -sv ../../src/mmio_decoder.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling module mmio_decoder
+# 
+# Top level modules:
+# 	mmio_decoder
+# End time: 14:45:44 on Nov 26,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 14:45:44 on Nov 26,2026
+# vlog -reportprogress 300 -sv tb_mmio_decoder.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling module tb_mmio_decoder
+# 
+# Top level modules:
+# 	tb_mmio_decoder
+# End time: 14:45:44 on Nov 26,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# ** Note: (vsim-220) 'modelsim.ini' is used as the ini file.
+# vsim -voptargs="+acc" -suppress 10908 work.tb_mmio_decoder 
+# Start time: 14:45:44 on Nov 26,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Note: (vopt-220) 'modelsim.ini' is used as the ini file.
+# Loading sv_std.std
+# Loading work.tb_mmio_decoder(fast)
+# Loading work.mmio_decoder(fast)
+# 
+# === 1. Reset ===
+# 
+# === 2. Escrituras permitidas al Host ===
+# 
+# === 3. Escrituras permitidas a la CPU ===
+# 
+# === 4. Escrituras denegadas ===
+# 
+# === 5. Lecturas de RAM ===
+# 
+# === 6. Lectura de registro MMIO ===
+# 
+# === 7. Lectura sostenida ===
+# 
+# === 8. Direccion no mapeada ===
+# 
+# ----------------------------------------
+# TB: tb_mmio_decoder
+# TOTAL_CHECKS=32
+# ERRORS=0
+# WARNINGS=0
+# ALL_TESTS_PASSED
+# ----------------------------------------
+# ** Note: $finish    : tb_mmio_decoder.sv(277)
+#    Time: 552 ns  Iteration: 0  Instance: /tb_mmio_decoder
+# End time: 14:45:55 on Nov 26,2026, Elapsed time: 0:00:11
+# Errors: 0, Warnings: 0, Suppressed Warnings: 1

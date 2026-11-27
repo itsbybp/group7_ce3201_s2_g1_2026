@@ -1,0 +1,8 @@
+rm -f results.xml
+/home/byron/.local/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.verilator:73: Using MODULE is deprecated, please use COCOTB_TEST_MODULES instead.
+rm -f results.xml
+COCOTB_TEST_MODULES=tb_arbiter COCOTB_TESTCASE=  COCOTB_TOPLEVEL=arbiter TOPLEVEL_LANG=verilog       \
+         sim_build_arbiter/Vtop     
+sim_build_arbiter/Vtop: error while loading shared libraries: libcocotbvpi_verilator.so: cannot open shared object file: No such file or directory
+make: [/home/byron/.local/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.verilator:73: results.xml] Error 127 (ignored)
+make: *** [/home/byron/.local/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.verilator:74: results.xml] Error 1

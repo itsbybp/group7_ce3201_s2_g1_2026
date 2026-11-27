@@ -1,0 +1,164 @@
+# Questa Altera Starter FPGA Edition-64 vmap 2025.2 Lib Mapping Utility 2025.05 May 31 2025
+# vmap work work 
+# ** Note: (vmap-220) 'modelsim.ini' is used as the ini file.
+# Modifying modelsim.ini
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 23:49:01 on Nov 25,2026
+# vlog -reportprogress 300 -sv ../../../sprint1/src/alu_types_pkg.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling package alu_types_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 23:49:01 on Nov 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 23:49:01 on Nov 25,2026
+# vlog -reportprogress 300 -sv ../../src/multicycle_rv_opcodes_pkg.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling package multicycle_rv_opcodes_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 23:49:01 on Nov 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 23:49:01 on Nov 25,2026
+# vlog -reportprogress 300 -sv ../../src/multicycle_rv_immediate_types_pkg.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling package multicycle_rv_instruction_formats_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 23:49:01 on Nov 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 23:49:01 on Nov 25,2026
+# vlog -reportprogress 300 -sv ../../src/multicycle_rv_control_fsm.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling package multicycle_rv_control_fsm_states_pkg
+# -- Compiling package multicycle_rv_control_fsm_sv_unit
+# -- Importing package multicycle_rv_opcodes_pkg
+# -- Compiling module multicycle_rv_control_fsm
+# -- Importing package multicycle_rv_control_fsm_states_pkg
+# 
+# Top level modules:
+# 	multicycle_rv_control_fsm
+# End time: 23:49:01 on Nov 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 23:49:02 on Nov 25,2026
+# vlog -reportprogress 300 -sv ../../src/alu_decoder.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling package alu_decoder_sv_unit
+# -- Importing package alu_types_pkg
+# -- Compiling module alu_decoder
+# 
+# Top level modules:
+# 	alu_decoder
+# End time: 23:49:02 on Nov 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 23:49:02 on Nov 25,2026
+# vlog -reportprogress 300 -sv ../../src/immediate_decoder.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling package immediate_decoder_sv_unit
+# -- Importing package multicycle_rv_instruction_formats_pkg
+# -- Importing package multicycle_rv_opcodes_pkg
+# -- Compiling module immediate_decoder
+# 
+# Top level modules:
+# 	immediate_decoder
+# End time: 23:49:02 on Nov 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 23:49:02 on Nov 25,2026
+# vlog -reportprogress 300 -sv ../../src/multicycle_rv_control_unit.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# ** Warning: ../../src/multicycle_rv_control_unit.sv(14): (vlog-13314) Defaulting port 'alu_flags' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+# -- Compiling package multicycle_rv_control_unit_sv_unit
+# -- Importing package alu_types_pkg
+# -- Importing package multicycle_rv_instruction_formats_pkg
+# -- Compiling module multicycle_rv_control_unit
+# ** Warning: ../../src/multicycle_rv_control_unit.sv(14): (vlog-13314) Defaulting port 'alu_flags' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+# -- Importing package multicycle_rv_opcodes_pkg
+# 
+# Top level modules:
+# 	multicycle_rv_control_unit
+# End time: 23:49:02 on Nov 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 2
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 23:49:02 on Nov 25,2026
+# vlog -reportprogress 300 -sv ../../../sprint1/src/alu_param.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling module alu_param
+# -- Importing package alu_types_pkg
+# 
+# Top level modules:
+# 	alu_param
+# End time: 23:49:02 on Nov 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 23:49:03 on Nov 25,2026
+# vlog -reportprogress 300 -sv ../../src/rv_register_file.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling module rv_register_file
+# 
+# Top level modules:
+# 	rv_register_file
+# End time: 23:49:03 on Nov 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 23:49:03 on Nov 25,2026
+# vlog -reportprogress 300 -sv ../../src/multicycle_rv32i.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling module multicycle_rv32i
+# -- Importing package alu_types_pkg
+# -- Importing package multicycle_rv_opcodes_pkg
+# -- Importing package multicycle_rv_instruction_formats_pkg
+# 
+# Top level modules:
+# 	multicycle_rv32i
+# End time: 23:49:03 on Nov 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 23:49:03 on Nov 25,2026
+# vlog -reportprogress 300 -sv tb_multicycle_rv32i_firmware.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling module tb_multicycle_rv32i_firmware
+# 
+# Top level modules:
+# 	tb_multicycle_rv32i_firmware
+# End time: 23:49:03 on Nov 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# ../../firmware/firmware.hex
+# ** Note: (vsim-220) 'modelsim.ini' is used as the ini file.
+# vsim -voptargs="+acc" work.tb_multicycle_rv32i_firmware -GFIRMWARE_HEX=../../firmware/firmware.hex 
+# Start time: 23:49:03 on Nov 25,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: (vopt-10908) Some optimizations are turned off because the +acc switch is in effect.
+# ** Note: (vopt-220) 'modelsim.ini' is used as the ini file.
+# ** Note: (vopt-143) Recognized 1 FSM in module "multicycle_rv_control_fsm(fast)".
+# ** Warning: ../../src/multicycle_rv_control_unit.sv(14): (vopt-13314) Defaulting port 'alu_flags' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=2.
+# Loading sv_std.std
+# Loading work.tb_multicycle_rv32i_firmware(fast)
+# Loading work.multicycle_rv_instruction_formats_pkg(fast)
+# Loading work.multicycle_rv_opcodes_pkg(fast)
+# Loading work.alu_types_pkg(fast)
+# Loading work.multicycle_rv32i(fast)
+# Loading work.multicycle_rv_control_unit_sv_unit(fast)
+# Loading work.multicycle_rv_control_unit(fast)
+# Loading work.multicycle_rv_control_fsm_states_pkg(fast)
+# Loading work.multicycle_rv_control_fsm_sv_unit(fast)
+# Loading work.multicycle_rv_control_fsm(fast)
+# Loading work.alu_decoder_sv_unit(fast)
+# Loading work.alu_decoder(fast)
+# Loading work.immediate_decoder_sv_unit(fast)
+# Loading work.immediate_decoder(fast)
+# Loading work.rv_register_file(fast)
+# Loading work.alu_param(fast)
+# ** Note: $finish    : tb_multicycle_rv32i_firmware.sv(116)
+#    Time: 40025 ns  Iteration: 1  Instance: /tb_multicycle_rv32i_firmware
+# End time: 23:49:16 on Nov 25,2026, Elapsed time: 0:00:13
+# Errors: 0, Warnings: 2

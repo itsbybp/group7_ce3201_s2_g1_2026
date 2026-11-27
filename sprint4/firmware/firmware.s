@@ -52,4 +52,3 @@ loop:
         sw    t0, 4(s4)         # STATUS: busy=0, done=1
 halt:
         j     halt
-        

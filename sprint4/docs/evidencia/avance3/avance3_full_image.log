@@ -1,3 +1,5 @@
+make sim TEST=top
+make[1]: Entering directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/cocotb'
 rm -f results_top.xml
 /home/byron/.local/lib/python3.12/site-packages/cocotb_tools/makefiles/simulators/Makefile.verilator:73: Using MODULE is deprecated, please use COCOTB_TEST_MODULES instead.
 rm -f results_top.xml
@@ -7,29 +9,35 @@ COCOTB_TEST_MODULES=tb_top COCOTB_TESTCASE=  COCOTB_TOPLEVEL=rv32i_top TOPLEVEL_
      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:233  in gpi_load_users                  Running entry func 'initialize' from loaded library '/home/byron/.local/lib/python3.12/site-packages/cocotb/simulator.cpython-312-x86_64-linux-gnu.so'
      -.--ns INFO     pygpi                              ..ib/pygpi/embed.cpp:114  in initialize                      Using Python 3.12.12 interpreter at /usr/bin/python3
      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:74   in gpi_print_registered_impl       GPI: VPI support registered
-     0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1795195370
+     0.00ns INFO     cocotb.initialize                  Seeding Python random module with 1795312905
      0.00ns INFO     cocotb.initialize                  Initialized cocotb v2.1.0 from /home/byron/.local/lib/python3.12/site-packages/cocotb
      0.00ns INFO     cocotb.initialize                  Running on Verilator version 5.053 devel
      0.00ns INFO     cocotb.regression                  Running tests
-     0.00ns INFO     cocotb.regression                  running tb_top.test_fetch_secuencial (1/3)
+     0.00ns INFO     cocotb.regression                  running tb_top.test_fetch_secuencial (1/4)
                                                             Diagnostico: cada instruccion se busca una sola vez y en orden (0x0, 0x4, 0x8, ...).
 662880.00ns INFO     cocotb.rv32i_top                   Busquedas de instruccion: ['0x0', '0x4', '0x8', '0xc', '0x10', '0x14', '0x18', '0x1c', '0x20', '0x24', '0x28', '0x2c', '0x24', '0x28']
 662880.00ns INFO     cocotb.regression                  tb_top.test_fetch_secuencial passed
-662880.00ns INFO     cocotb.regression                  running tb_top.test_firmware_end_to_end (2/3)
+662880.00ns INFO     cocotb.regression                  running tb_top.test_firmware_end_to_end (2/4)
                                                             TP-13: firmware.hex + imagen reducida -> histograma e imagen de salida exactos.
 29262241.00ns INFO     cocotb.rv32i_top                   OK: 16384 pixeles, ~1363840 ciclos hasta done
 29262241.00ns INFO     cocotb.regression                  tb_top.test_firmware_end_to_end passed
-29262241.00ns INFO     cocotb.regression                  running tb_top.test_firmware_with_bus_stalls (3/3)
+29262241.00ns INFO     cocotb.regression                  running tb_top.test_firmware_with_bus_stalls (3/4)
                                                             Mismo firmware con el Host leyendo al azar: el CPU espera por el bus y no pierde datos.
 59388682.00ns INFO     cocotb.rv32i_top                   OK con stalls: 220363 lecturas del Host, ~1440192 ciclos hasta done
 59388682.00ns INFO     cocotb.regression                  tb_top.test_firmware_with_bus_stalls passed
-59388682.00ns INFO     cocotb.regression                  **********************************************************************************************
-                                                        ** TEST                                  STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
-                                                        **********************************************************************************************
-                                                        ** tb_top.test_fetch_secuencial           PASS      662880.00           1.38     480977.44  **
-                                                        ** tb_top.test_firmware_end_to_end        PASS    28599361.00          14.75    1938895.32  **
-                                                        ** tb_top.test_firmware_with_bus_stalls   PASS    30126441.00          14.26    2113075.44  **
-                                                        **********************************************************************************************
-                                                        ** TESTS=3 PASS=3 FAIL=0 SKIP=0                   59388682.00          30.39    1954323.30  **
-                                                        **********************************************************************************************
+59388682.00ns INFO     cocotb.regression                  running tb_top.test_fetch_fuera_de_rango_lee_cero (4/4)
+                                                            Fetch fuera de la RAM de instrucciones (Tabla 2): instruccion = 0 (RAZ) y no bloquea.
+59391822.00ns INFO     cocotb.rv32i_top                   Busquedas: ['0x0', '0x2000', '0x2004', '0x2008', '0x200c', '0x2010', '0x2014', '0x2018']
+59391822.00ns INFO     cocotb.regression                  tb_top.test_fetch_fuera_de_rango_lee_cero passed
+59391822.00ns INFO     cocotb.regression                  ***************************************************************************************************
+                                                        ** TEST                                       STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        ***************************************************************************************************
+                                                        ** tb_top.test_fetch_secuencial                PASS      662880.00           0.36    1816790.40  **
+                                                        ** tb_top.test_firmware_end_to_end             PASS    28599361.00           5.27    5430208.98  **
+                                                        ** tb_top.test_firmware_with_bus_stalls        PASS    30126441.00          12.16    2477628.67  **
+                                                        ** tb_top.test_fetch_fuera_de_rango_lee_cero   PASS        3140.00           0.00    1563875.87  **
+                                                        ***************************************************************************************************
+                                                        ** TESTS=4 PASS=4 FAIL=0 SKIP=0                        59391822.00          17.79    3337758.47  **
+                                                        ***************************************************************************************************
 - :0: Verilog $finish
+make[1]: Leaving directory '/mnt/c/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/test/cocotb'

@@ -339,11 +339,20 @@ async def test_jump(dut, operation: str) -> None:
 
 
 async def run_lui(dut) -> None:
-    value = 0xABCDE000
-    program = program_map([((0xABCDE << 12) | (3 << 7) | 0x37), encode_s(0x100, 3, 0)])
-    address, actual = await check_store(dut, program)
-    assert address == RESULT_ADDRESS
-    assert actual == value, f"FAIL: LUI expected 0x{value:08x}, got 0x{actual:08x}"
+    # Los bits [14:12] y [30] del inmediato no deben afectar a LUI
+    # (0x12345 -> SRL, 0x0F0F1 -> SLL, 0xFFFFF -> SRA/SUB). Un solo programa con varios LUI.
+    uppers = (0xABCDE, 0x12345, 0x0F0F1, 0xFFFFF, 0x40001)
+    words = [(upper << 12) | ((index + 1) << 7) | 0x37 for index, upper in enumerate(uppers)]
+    words += [encode_s(RESULT_ADDRESS + 4 * index, index + 1, 0) for index in range(len(uppers))]
+    model = BusModel(program_map(words))
+    await start_cpu(dut, model)
+    expected = [(RESULT_ADDRESS + 4 * index, upper << 12) for index, upper in enumerate(uppers)]
+    await wait_for(
+        dut,
+        model,
+        lambda: all(pair in model.dmem_writes for pair in expected),
+        f"LUI no escribio los valores esperados: {[(hex(a), hex(v)) for a, v in expected]}",
+    )
 
 
 async def run_lw(dut) -> None:

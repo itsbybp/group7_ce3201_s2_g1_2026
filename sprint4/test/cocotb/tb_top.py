@@ -270,3 +270,21 @@ async def test_firmware_with_bus_stalls(dut):
     await check_results(dut, pixels)
     assert not flag["illegal"], "el CPU marco una instruccion ilegal"
     dut._log.info(f"OK con stalls: {ctl['reads']} lecturas del Host, ~{cycles} ciclos hasta done")
+
+
+@cocotb.test()
+async def test_fetch_fuera_de_rango_lee_cero(dut):
+    """Fetch fuera de la RAM de instrucciones (Tabla 2): instruccion = 0 (RAZ) y no bloquea."""
+    await init(dut)
+    await host_write(dut, INSTR_BASE, 0x0000206F)    # jal x0, 0x2000: salta fuera de rango
+    flag = {"illegal": False}
+    cocotb.start_soon(watch_illegal(dut, flag))
+    fetches = []
+    cocotb.start_soon(collect_fetches(dut, fetches, 200))
+    await host_write(dut, CTRL_ADDR, 1)
+    await ClockCycles(dut.clk, 150)
+    dut._log.info(f"Busquedas: {[hex(p) for p in fetches[:8]]}")
+    assert 0x2000 in fetches, "la CPU debia saltar a 0x2000"
+    assert flag["illegal"], "una instruccion leida como 0 debe decodificar como ilegal"
+    assert int(dut.instruction.value) == 0, "fuera de rango debe leer 0 (RAZ)"
+    assert 0x2004 in fetches, "la CPU no debe bloquearse tras leer fuera de rango"

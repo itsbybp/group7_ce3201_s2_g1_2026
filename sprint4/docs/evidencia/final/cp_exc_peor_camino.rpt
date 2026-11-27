@@ -1,0 +1,153 @@
+----------------
+; Command Info ;
+----------------
+Report Timing: Found 1 setup paths (0 violated).  Worst case slack is 4.989 
+
+Tcl Command:
+    report_timing -setup -file C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/docs/evidencia/final/cp_exc_peor_camino.rpt -to_clock [get_clocks {clk}] -npaths 1 -detail full_path
+
+Options:
+    -to_clock [get_clocks {clk}] 
+    -setup 
+    -npaths 1 
+    -detail full_path 
+    -file {C:/ByronBP/SemAct/Proyecto-Taller/group7_ce3201_s2_g1_2026/sprint4/docs/evidencia/final/cp_exc_peor_camino.rpt} 
+
+Delay Model:
+    Slow 1100mV 85C Model
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Summary of Paths                                                                                                                                                                           ;
++-------+-----------------------------------------------------------+--------------------------------------------------+--------------+-------------+--------------+------------+------------+
+; Slack ; From Node                                                 ; To Node                                          ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++-------+-----------------------------------------------------------+--------------------------------------------------+--------------+-------------+--------------+------------+------------+
+; 4.989 ; rv32i_top:u_rv32i_top|multicycle_rv32i:cpu|instruction[3] ; rv32i_top:u_rv32i_top|multicycle_rv32i:cpu|pc[9] ; clk          ; clk         ; 20.000       ; -0.117     ; 14.724     ;
++-------+-----------------------------------------------------------+--------------------------------------------------+--------------+-------------+--------------+------------+------------+
+
+Path #1: Setup slack is 4.989 
+===============================================================================
++--------------------------------------------------------------------------------+
+; Path Summary                                                                   ;
++--------------------+-----------------------------------------------------------+
+; Property           ; Value                                                     ;
++--------------------+-----------------------------------------------------------+
+; From Node          ; rv32i_top:u_rv32i_top|multicycle_rv32i:cpu|instruction[3] ;
+; To Node            ; rv32i_top:u_rv32i_top|multicycle_rv32i:cpu|pc[9]          ;
+; Launch Clock       ; clk                                                       ;
+; Latch Clock        ; clk                                                       ;
+; Data Arrival Time  ; 18.529                                                    ;
+; Data Required Time ; 23.518                                                    ;
+; Slack              ; 4.989                                                     ;
++--------------------+-----------------------------------------------------------+
+
++------------------------------------------------------------------------------------+
+; Statistics                                                                         ;
++------------------------+--------+-------+-------------+------------+-------+-------+
+; Property               ; Value  ; Count ; Total Delay ; % of Total ; Min   ; Max   ;
++------------------------+--------+-------+-------------+------------+-------+-------+
+; Setup Relationship     ; 20.000 ;       ;             ;            ;       ;       ;
+; Clock Skew             ; -0.117 ;       ;             ;            ;       ;       ;
+; Data Delay             ; 14.724 ;       ;             ;            ;       ;       ;
+; Number of Logic Levels ;        ; 12    ;             ;            ;       ;       ;
+; Physical Delays        ;        ;       ;             ;            ;       ;       ;
+;  Arrival Path          ;        ;       ;             ;            ;       ;       ;
+;   Clock                ;        ;       ;             ;            ;       ;       ;
+;    IC                  ;        ; 3     ; 2.406       ; 63         ; 0.000 ; 2.059 ;
+;    Cell                ;        ; 3     ; 1.399       ; 37         ; 0.273 ; 0.661 ;
+;   Data                 ;        ;       ;             ;            ;       ;       ;
+;    IC                  ;        ; 20    ; 9.377       ; 64         ; 0.000 ; 1.266 ;
+;    Cell                ;        ; 21    ; 5.347       ; 36         ; 0.000 ; 0.723 ;
+;    uTco                ;        ; 1     ; 0.000       ; 0          ; 0.000 ; 0.000 ;
+;  Required Path         ;        ;       ;             ;            ;       ;       ;
+;   Clock                ;        ;       ;             ;            ;       ;       ;
+;    IC                  ;        ; 3     ; 2.009       ; 60         ; 0.000 ; 1.681 ;
+;    Cell                ;        ; 3     ; 1.315       ; 40         ; 0.252 ; 0.661 ;
++------------------------+--------+-------+-------------+------------+-------+-------+
+Note: Negative delays are omitted from totals when calculating percentages
+
++-------------------------------------------------------------------------------------------------------------------------------+
+; Data Arrival Path                                                                                                             ;
++----------+---------+----+------+--------+----------------------+--------------------------------------------------------------+
+; Total    ; Incr    ; RF ; Type ; Fanout ; Location             ; Element                                                      ;
++----------+---------+----+------+--------+----------------------+--------------------------------------------------------------+
+; 0.000    ; 0.000   ;    ;      ;        ;                      ; launch edge time                                             ;
+; 3.805    ; 3.805   ;    ;      ;        ;                      ; clock path                                                   ;
+;   0.000  ;   0.000 ;    ;      ;        ;                      ; source latency                                               ;
+;   0.000  ;   0.000 ;    ;      ; 1      ; PIN_AF14             ; CLOCK_50                                                     ;
+;   0.000  ;   0.000 ; RR ; IC   ; 1      ; IOIBUF_X32_Y0_N1     ; CLOCK_50~input|i                                             ;
+;   0.661  ;   0.661 ; RR ; CELL ; 1      ; IOIBUF_X32_Y0_N1     ; CLOCK_50~input|o                                             ;
+;   1.008  ;   0.347 ; RR ; IC   ; 1      ; CLKCTRL_G6           ; CLOCK_50~inputCLKENA0|inclk                                  ;
+;   1.281  ;   0.273 ; RR ; CELL ; 2659   ; CLKCTRL_G6           ; CLOCK_50~inputCLKENA0|outclk                                 ;
+;   3.340  ;   2.059 ; RR ; IC   ; 1      ; FF_X46_Y15_N14       ; u_rv32i_top|cpu|instruction[3]|clk                           ;
+;   3.805  ;   0.465 ; RR ; CELL ; 1      ; FF_X46_Y15_N14       ; rv32i_top:u_rv32i_top|multicycle_rv32i:cpu|instruction[3]    ;
+; 18.529   ; 14.724  ;    ;      ;        ;                      ; data path                                                    ;
+;   3.805  ;   0.000 ;    ; uTco ; 1      ; FF_X46_Y15_N14       ; rv32i_top:u_rv32i_top|multicycle_rv32i:cpu|instruction[3]    ;
+;   3.805  ;   0.000 ; RR ; CELL ; 9      ; FF_X46_Y15_N14       ; u_rv32i_top|cpu|instruction[3]|q                             ;
+;   4.114  ;   0.309 ; RR ; IC   ; 1      ; LABCELL_X46_Y15_N30  ; u_rv32i_top|cpu|control_unit|Equal0~2|datab                  ;
+;   4.587  ;   0.473 ; RF ; CELL ; 5      ; LABCELL_X46_Y15_N30  ; u_rv32i_top|cpu|control_unit|Equal0~2|combout                ;
+;   5.228  ;   0.641 ; FF ; IC   ; 1      ; LABCELL_X48_Y15_N36  ; u_rv32i_top|cpu|control_unit|control_fsm|Selector1~2|datac   ;
+;   5.673  ;   0.445 ; FF ; CELL ; 16     ; LABCELL_X48_Y15_N36  ; u_rv32i_top|cpu|control_unit|control_fsm|Selector1~2|combout ;
+;   6.593  ;   0.920 ; FF ; IC   ; 1      ; LABCELL_X53_Y14_N42  ; u_rv32i_top|cpu|Mux27~1|dataa                                ;
+;   7.073  ;   0.480 ; FF ; CELL ; 3      ; LABCELL_X53_Y14_N42  ; u_rv32i_top|cpu|Mux27~1|combout                              ;
+;   8.339  ;   1.266 ; FF ; IC   ; 1      ; LABCELL_X56_Y18_N21  ; u_rv32i_top|cpu|Mux27~2|datae                                ;
+;   8.595  ;   0.256 ; FF ; CELL ; 9      ; LABCELL_X56_Y18_N21  ; u_rv32i_top|cpu|Mux27~2|combout                              ;
+;   9.715  ;   1.120 ; FF ; IC   ; 3      ; LABCELL_X50_Y19_N42  ; u_rv32i_top|cpu|rv32i_alu|_~129|datac                        ;
+;   10.438 ;   0.723 ; FR ; CELL ; 1      ; LABCELL_X50_Y19_N42  ; u_rv32i_top|cpu|rv32i_alu|_~129|cout                         ;
+;   10.438 ;   0.000 ; RR ; IC   ; 2      ; LABCELL_X50_Y19_N45  ; u_rv32i_top|cpu|rv32i_alu|_~125|cin                          ;
+;   10.438 ;   0.000 ; RR ; CELL ; 1      ; LABCELL_X50_Y19_N45  ; u_rv32i_top|cpu|rv32i_alu|_~125|cout                         ;
+;   10.438 ;   0.000 ; RR ; IC   ; 2      ; LABCELL_X50_Y19_N48  ; u_rv32i_top|cpu|rv32i_alu|_~121|cin                          ;
+;   10.483 ;   0.045 ; RR ; CELL ; 1      ; LABCELL_X50_Y19_N48  ; u_rv32i_top|cpu|rv32i_alu|_~121|cout                         ;
+;   10.483 ;   0.000 ; RR ; IC   ; 2      ; LABCELL_X50_Y19_N51  ; u_rv32i_top|cpu|rv32i_alu|_~117|cin                          ;
+;   10.483 ;   0.000 ; RR ; CELL ; 1      ; LABCELL_X50_Y19_N51  ; u_rv32i_top|cpu|rv32i_alu|_~117|cout                         ;
+;   10.483 ;   0.000 ; RR ; IC   ; 2      ; LABCELL_X50_Y19_N54  ; u_rv32i_top|cpu|rv32i_alu|_~113|cin                          ;
+;   10.526 ;   0.043 ; RR ; CELL ; 1      ; LABCELL_X50_Y19_N54  ; u_rv32i_top|cpu|rv32i_alu|_~113|cout                         ;
+;   10.526 ;   0.000 ; RR ; IC   ; 2      ; LABCELL_X50_Y19_N57  ; u_rv32i_top|cpu|rv32i_alu|_~73|cin                           ;
+;   10.526 ;   0.000 ; RR ; CELL ; 1      ; LABCELL_X50_Y19_N57  ; u_rv32i_top|cpu|rv32i_alu|_~73|cout                          ;
+;   10.526 ;   0.000 ; RR ; IC   ; 2      ; LABCELL_X50_Y18_N0   ; u_rv32i_top|cpu|rv32i_alu|_~77|cin                           ;
+;   10.624 ;   0.098 ; RR ; CELL ; 1      ; LABCELL_X50_Y18_N0   ; u_rv32i_top|cpu|rv32i_alu|_~77|cout                          ;
+;   10.624 ;   0.000 ; RR ; IC   ; 2      ; LABCELL_X50_Y18_N3   ; u_rv32i_top|cpu|rv32i_alu|_~85|cin                           ;
+;   10.777 ;   0.153 ; RF ; CELL ; 1      ; LABCELL_X50_Y18_N3   ; u_rv32i_top|cpu|rv32i_alu|_~85|sumout                        ;
+;   11.713 ;   0.936 ; FF ; IC   ; 1      ; LABCELL_X48_Y15_N33  ; u_rv32i_top|cpu|rv32i_alu|Selector20~1|datae                 ;
+;   11.969 ;   0.256 ; FF ; CELL ; 3      ; LABCELL_X48_Y15_N33  ; u_rv32i_top|cpu|rv32i_alu|Selector20~1|combout               ;
+;   12.953 ;   0.984 ; FF ; IC   ; 1      ; LABCELL_X51_Y18_N36  ; u_rv32i_top|cpu|rv32i_alu|Equal10~3|dataa                    ;
+;   13.436 ;   0.483 ; FR ; CELL ; 1      ; LABCELL_X51_Y18_N36  ; u_rv32i_top|cpu|rv32i_alu|Equal10~3|combout                  ;
+;   14.024 ;   0.588 ; RR ; IC   ; 1      ; MLABCELL_X52_Y19_N42 ; u_rv32i_top|cpu|rv32i_alu|Equal10~4|datac                    ;
+;   14.394 ;   0.370 ; RR ; CELL ; 1      ; MLABCELL_X52_Y19_N42 ; u_rv32i_top|cpu|rv32i_alu|Equal10~4|combout                  ;
+;   14.594 ;   0.200 ; RR ; IC   ; 1      ; MLABCELL_X52_Y19_N30 ; u_rv32i_top|cpu|control_unit|Mux0~3|dataf                    ;
+;   14.672 ;   0.078 ; RR ; CELL ; 1      ; MLABCELL_X52_Y19_N30 ; u_rv32i_top|cpu|control_unit|Mux0~3|combout                  ;
+;   14.881 ;   0.209 ; RR ; IC   ; 1      ; MLABCELL_X52_Y19_N39 ; u_rv32i_top|cpu|control_unit|Mux0~4|datac                    ;
+;   15.237 ;   0.356 ; RR ; CELL ; 1      ; MLABCELL_X52_Y19_N39 ; u_rv32i_top|cpu|control_unit|Mux0~4|combout                  ;
+;   15.452 ;   0.215 ; RR ; IC   ; 1      ; MLABCELL_X52_Y19_N24 ; u_rv32i_top|cpu|control_unit|Mux0~1|dataf                    ;
+;   15.535 ;   0.083 ; RF ; CELL ; 1      ; MLABCELL_X52_Y19_N24 ; u_rv32i_top|cpu|control_unit|Mux0~1|combout                  ;
+;   16.343 ;   0.808 ; FF ; IC   ; 1      ; MLABCELL_X52_Y15_N18 ; u_rv32i_top|cpu|pc[20]~1|datad                               ;
+;   16.784 ;   0.441 ; FF ; CELL ; 31     ; MLABCELL_X52_Y15_N18 ; u_rv32i_top|cpu|pc[20]~1|combout                             ;
+;   17.965 ;   1.181 ; FF ; IC   ; 1      ; FF_X55_Y16_N44       ; u_rv32i_top|cpu|pc[9]|ena                                    ;
+;   18.529 ;   0.564 ; FF ; CELL ; 1      ; FF_X55_Y16_N44       ; rv32i_top:u_rv32i_top|multicycle_rv32i:cpu|pc[9]             ;
++----------+---------+----+------+--------+----------------------+--------------------------------------------------------------+
+
++---------------------------------------------------------------------------------------------------------------+
+; Data Required Path                                                                                            ;
++----------+---------+----+------+--------+------------------+--------------------------------------------------+
+; Total    ; Incr    ; RF ; Type ; Fanout ; Location         ; Element                                          ;
++----------+---------+----+------+--------+------------------+--------------------------------------------------+
+; 20.000   ; 20.000  ;    ;      ;        ;                  ; latch edge time                                  ;
+; 23.688   ; 3.688   ;    ;      ;        ;                  ; clock path                                       ;
+;   20.000 ;   0.000 ;    ;      ;        ;                  ; source latency                                   ;
+;   20.000 ;   0.000 ;    ;      ; 1      ; PIN_AF14         ; CLOCK_50                                         ;
+;   20.000 ;   0.000 ; RR ; IC   ; 1      ; IOIBUF_X32_Y0_N1 ; CLOCK_50~input|i                                 ;
+;   20.661 ;   0.661 ; RR ; CELL ; 1      ; IOIBUF_X32_Y0_N1 ; CLOCK_50~input|o                                 ;
+;   20.989 ;   0.328 ; RR ; IC   ; 1      ; CLKCTRL_G6       ; CLOCK_50~inputCLKENA0|inclk                      ;
+;   21.241 ;   0.252 ; RR ; CELL ; 2659   ; CLKCTRL_G6       ; CLOCK_50~inputCLKENA0|outclk                     ;
+;   22.922 ;   1.681 ; RR ; IC   ; 1      ; FF_X55_Y16_N44   ; u_rv32i_top|cpu|pc[9]|clk                        ;
+;   23.324 ;   0.402 ; RR ; CELL ; 1      ; FF_X55_Y16_N44   ; rv32i_top:u_rv32i_top|multicycle_rv32i:cpu|pc[9] ;
+;   23.688 ;   0.364 ;    ;      ;        ;                  ; clock pessimism removed                          ;
+; 23.518   ; -0.170  ;    ;      ;        ;                  ; clock uncertainty                                ;
+; 23.518   ; 0.000   ;    ; uTsu ; 1      ; FF_X55_Y16_N44   ; rv32i_top:u_rv32i_top|multicycle_rv32i:cpu|pc[9] ;
++----------+---------+----+------+--------+------------------+--------------------------------------------------+
+
+----------------------------
+; Extra Fitter Information ;
+----------------------------
+HTML report is unavailable in plain text report export.
+
+
