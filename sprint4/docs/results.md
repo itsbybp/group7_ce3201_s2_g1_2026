@@ -239,7 +239,7 @@ La prueba de sistema encontró dos errores de la CPU que las 29 pruebas del prof
 | Error | Síntoma observado | Causa | Corrección |
 |---|---|---|---|
 | En FETCH el ALU sumaba 4 a `old_pc` en lugar de `pc` | En la primera corrida de `make top` (3 pruebas en FAIL) cada instrucción se buscaba dos veces y el firmware no marcó `done` | `alu_src_a` caía en el `default` del `case` (01 = `old_pc`) en FETCH | `multicycle_rv_control_fsm.sv`: `FETCH: alu_src_a = 2'b00` (pc) |
-| JALR no limpiaba el bit 0 del destino | Al corregir el error anterior, `test_rv32i.jalr` falló en la corrida del 15 nov: `JALR did not fetch expected PC 0x00000020` (la prueba salta con rs1 = 0x21) | El PC se escribía con `wb_mux` completo; el ISA exige `(rs1 + imm) & ~1` | `multicycle_rv32i.sv`: `pc <= {wb_mux[31:1], 1'b0}` |
+| JALR no limpiaba el bit 0 del destino y usaba el registro de la instrucción anterior | Al corregir el error anterior, `test_rv32i.jalr` falló en la corrida del 15 nov: `JALR did not fetch expected PC 0x00000020` (la prueba salta con rs1 = 0x21) | JALR usaba un registro de una operación diferente que aún no había cambiado. El PC se escribía con `wb_mux` completo; el ISA exige `(rs1 + imm) & ~1` | Se añadió la señal forward_rs1 para adelantar el registro 1 directo del reg file a la ALU. Además se aplicó la máscara `multicycle_rv32i.sv`: `pc <= {wb_mux[31:1], 1'b0}` |
 
 Un tercer error apareció al preparar el modo paso a paso (Avance 3), no por una prueba que fallara sino al revisar el diseño:
 

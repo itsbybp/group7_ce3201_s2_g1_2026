@@ -277,7 +277,7 @@ Lección: ningún nivel basta. Las pruebas por instrucción no ven la secuencia 
 
 ### 3.1 Declaración
 
-Se usó **Claude (Anthropic)**, por Byron Bolaños, en chats de claude.ai dentro del proyecto "Taller de Diseño Digital" ("Proyecto: explicación breve", ≈ 4–12 nov; "Cocotb test setup debugging", ≈ 11–12 nov; y los chats posteriores del 15 al 24 nov). Alcance, con su evidencia en el repositorio:
+Se usó **Claude (Anthropic)**, por Byron Bolaños, en chats de claude.ai dentro del proyecto "Taller de Diseño Digital" ("Proyecto: explicación breve", ≈ 4–12 nov; "Cocotb test setup debugging", ≈ 11–12 nov; y los chats posteriores del 15 al 24 nov). Además se usó **ChatGPT**, por Esteban Campos, para revisar sintaxis y errores lógicos del procesador (5 nov). Alcance, con su evidencia en el repositorio:
 
 | Producto | Autoría con IA | Commits |
 |---|---|---|
@@ -289,7 +289,7 @@ Se usó **Claude (Anthropic)**, por Byron Bolaños, en chats de claude.ai dentro
 | `architecture.md`, `testplan.md`, `results.md`, `features.md`, `evidencia_atributos.md` | Redactados con Claude a partir de logs, reportes y capturas aportados por el equipo | a95a2bf (20 nov), 4642c63 (23 nov), fa6d15f (24 nov) y el commit de esta entrega |
 | Análisis de los CSV de SignalTap (script local de Python, no versionado); tablas de Quartus; script `critical_path.tcl` y análisis de los `cp_*.rpt` | Analizados y confirmados con ayuda de Claude, a partir de los CSV y los reportes de Quartus del equipo; Byron ejecutó `quartus_sta` y aportó los reportes | commit de esta entrega |
 
-El CPU (`multicycle_rv32i`, FSM, unidad de control, decodificadores, banco de registros) lo escribió Esteban Campos (commits `EstebanACamposA`). No hay evidencia en el repositorio de uso de IA en esos commits. La IA no hizo commits, ramas ni PR (los hizo el equipo; los commits con autor "Your Name" salieron de una máquina sin nombre configurado en git, suposición: la de Byron) y no ejecutó Quartus, Questa, la placa ni el simulador del CPU real.
+El CPU (`multicycle_rv32i`, FSM, unidad de control, decodificadores, banco de registros) lo escribió Esteban Campos (commits `EstebanACamposA`). Sobre esos archivos, la IA se usó para: revisión de sintaxis y errores lógicos menores con ChatGPT (5 nov); la revisión estática con Claude que originó las correcciones de la tabla 3.3 (dddbba4, f9e43d1, 207bcff); y cambios propuestos por la IA que Esteban revisó y aprobó (`alu_src_a` en FETCH, bitácora del 15 nov). El error de JALR lo corrigió Esteban: la IA propuso limpiar el bit 0 del destino, pero la causa principal era la señal `forward_rs1` en la FSM de control. La IA no hizo commits, ramas ni PR (los hizo el equipo; los commits con autor "Your Name" salieron de una máquina sin nombre configurado en git, suposición: la de Byron) y no ejecutó Quartus, Questa, la placa ni el simulador del CPU real.
 
 ### 3.2 Reglas aplicadas
 
@@ -318,6 +318,13 @@ El CPU (`multicycle_rv32i`, FSM, unidad de control, decodificadores, banco de re
 | ≈ 12–15 nov | (resumen) pruebas cocotb de los cuatro módulos y de la integración | 33 pruebas unitarias y una prueba de sistema que la IA no pudo ejecutar | ce91c2e, f9e43d1 | La primera corrida de `make top` dio 3 FAIL (error de FETCH), corregido el 15 nov |
 | 20–23 nov | (resumen) documentar los avances con los logs reales | `architecture.md`, `testplan.md`, `results.md`, `evidencia_atributos.md` | a95a2bf, 4642c63, fa6d15f | Cada cifra se contrastó con el log; ver 3.4 |
 | 24 nov | (texto) "Tomate tu tiempo, ayudame con el analisis de SignalTap, dime si crees que algo no es coherente" | Análisis de los CSV de SignalTap, modelo exacto de ciclos, tablas por módulo de Quartus, camino crítico y esta revisión | Commit de esta entrega | 1 499 de 1 499 instrucciones con los ciclos teóricos; 156 registros duplicados = 3 256 − 3 100 |
+| 5 nov | (resumen) revisar sintaxis y errores lógicos del procesador con ChatGPT | Varios errores de sintaxis y un error lógico (falta un `else` tras el reset asíncrono en un `always_ff`) | — (corregidos por Esteban) | Bitácora, 5 nov (L65-67) |
+| 6 nov | (resumen) integrar el repositorio de pruebas provisto por el profesor en el repositorio de trabajo | Apoyo de la IA en la integración | — | Bitácora, 6 nov (L69) |
+| 23 nov | (resumen) convertir un cocotb a SystemVerilog con IA o descartarlo | Código de los tb de Questa escrito por la IA a partir de un diseño propio y explícito (plan de pruebas de la bitácora, L151-184) | — | Bitácora, 23 nov (L189) y 25 nov (L199-200) |
+| 25 nov | (resumen) generar `tb_multicycle_rv_control_fsm.sv` | Claude lo generó; Esteban pidió seguir su diseño exactamente y revisó la forma de onda en Questa | — | Bitácora, 25 nov (L247-250) |
+| 25 nov | (resumen) generar `tb_arbiter.sv` y `tb_mmio_decoder.sv` | Generados con Claude; Esteban revisó la forma de onda de cada uno | — | Bitácora, 25 nov (L252, L254) |
+| 25 nov | (texto, L218-237) programa de SystemVerilog que ejecuta `firmware.hex` y produce el waveform del procesador con las señales indicadas | Diseño de las señales y del comportamiento por Esteban; la IA escribió el tb, sin verificaciones adicionales (L256-257) | — | Bitácora, 25 nov (L218-237, L256-257) |
+| 26 nov | (texto, L272-343) instrucciones para editar la documentación y mantener la coherencia entre las tablas de testplan, results, architecture y evidencia | Ediciones de los documentos y la consulta de qué docs editar (L335) | — | Bitácora, 26 nov (L272-343) |
 
 ### 3.4 Salidas de la IA rechazadas o corregidas (control humano)
 
@@ -326,7 +333,7 @@ El CPU (`multicycle_rv32i`, FSM, unidad de control, decodificadores, banco de re
 | 1 | Plan de 4 commits para `firmware.s`, cortando el archivo por etapas con `sed` (propuesto a pedido de Byron) | Byron lo descartó: "no primero eliminesmos los dos bin y o, luego un commit para s y otro para hex" | 2 commits (`firmware.s` y `firmware.hex`); `firmware.o` y `firmware.bin` no se versionan | 24ccc76, 134213d |
 | 2 | Comandos de bash (`rm -f`, rutas relativas) para una terminal PowerShell | Byron los ejecutó y pegó los errores ("parameter name 'f' is ambiguous", "pathspec did not match") | La IA los rehízo con `Remove-Item` y rutas desde la raíz del repo | Chat "Proyecto: explicación breve" |
 | 3 | "Sprint 3: una FSM [...] hecha para hacer solo una cosa: histograma + binarización" (explicación inicial del proyecto) | Contraste con `sprint3/src/fsm.sv`, que solo binariza (el histograma no existe en Sprint 3) | Este documento parte de "solo binarización" (sección 1 y tabla 1.6) | `sprint3/src/fsm.sv` (estados `S_FETCH_REQ` a `S_NEXT`, sin acceso a un histograma) |
-| 4 | Revisión estática del CPU que no vio que JALR no limpiaba el bit 0 | El caso `jalr` del profesor falló al ejecutarlo (15 nov): `JALR did not fetch expected PC 0x00000020` | `pc <= {wb_mux[31:1], 1'b0}` | f9e43d1, `results.md` sección 5 |
+| 4 | Revisión estática del CPU que propuso limpiar el bit 0 de JALR como única corrección | El caso `jalr` del profesor falló al ejecutarlo (15 nov): `JALR did not fetch expected PC 0x00000020` | Esteban añadió `forward_rs1` en la FSM de control; la máscara `pc <= {wb_mux[31:1], 1'b0}` propuesta por la IA no bastaba sola | Bitácora 15 nov; `results.md` sección 5 (suposición: esa sección aún describe solo la máscara) |
 | 5 | Borrador de `results.md` con "4 a 5 ciclos por instrucción" | La captura A de SignalTap muestra 5 ciclos para ALU/`lui`/`addi` y 2 ciclos de FETCH | Tabla de ciclos de 4 a 8 con 1 499 de 1 499 coincidencias | `results.md` sección 8.2 |
 | 6 | Modelo "3 968 + 83·N" en `results.md` | Conteo instrucción por instrucción del firmware contra el modelo | 3 920 + 83·N exacto; 3 968 es 3 920 redondeado al múltiplo de 64 del sondeo (⌈3 920 / 64⌉ × 64) | `results.md` sección 9.5 |
 | 7 | Comparación DI con Sprint 3 que mezclaba el `fit.summary` del 25 oct con el Fmax del 26 oct | Fechas internas de los reportes, `git log` y la retroalimentación de Sprint 3 | Cuatro compilaciones separadas (sección 1.1) | Sección 1.1 |
