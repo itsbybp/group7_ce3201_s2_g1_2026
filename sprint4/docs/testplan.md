@@ -18,7 +18,7 @@ Estrategia: cada prueba tiene un criterio de aceptación cuantitativo que sale d
 | Cocotb 2.1.0 + Verilator 5.053 (devel) | Repo del profesor (`rv32i_cocotb_template`) | Ejecutada (pasan 29/29) |
 | Cocotb + Verilator | Validación con el mock CPU del profesor | Ejecutado |
 | Cocotb + Verilator | Pruebas unitarias y de sistema de Sprint 4 (`sprint4/test/cocotb`) | Ejecutadas |
-| Questa (`.do`) | Pruebas unitarias de Sprint 3 | No se re-ejecuta en Sprint 4 (no corre en WSL); se conserva la evidencia de Sprint 3 |
+| Questa (`.do`) | Pruebas unitarias de Sprint 3; demostraciones TP-23 a TP-26 | Las de Sprint 3 no se re-ejecutan (no corren en WSL); las demostraciones se ejecutaron el 25 nov |
 | Quartus Prime 25.1 Lite | Síntesis, reportes `.map.rpt`, `.fit.summary` y `.sta.rpt` | Ejecutada el 19 y el 23 nov |
 | SignalTap | Captura de FSM y bus en hardware | Ejecutada el 23 nov (capturas A y B) |
 | DE10-Standard + `jtag_server.tcl` + `pixel_image_app.py` | Pruebas en la placa | Ejecutadas el 22, 23 y 24 nov (fotos del 24 nov) |
@@ -67,12 +67,8 @@ La correlación entre prompts, salidas de la IA, commits y resultados está en `
 | TP-01 | Prueba del repo | Mock CPU del profesor | Cocotb + Verilator | `make test_cpu` | 29/29 PASS | Ejecutada en Avance 1: 29/29 |
 | TP-02 | Validación con el repo | `rv32i_cpu` (diseño del equipo) | Cocotb + Verilator | `make test_cpu SV_FILELIST=files.f TOPLEVEL=rv32i_cpu` | 29/29 PASS | Ejecutada el 23 nov: 29/29 (el caso `lui` prueba cinco inmediatos) |
 | TP-03 | Árbitro | `arbiter` | Cocotb | `make arbiter` | Prioridad del Host, backpressure y CPU conserva el bus | Ejecutada el 23 nov: 8/8 |
-| TP-04 | Contador | `counter` | Questa | `run_counter.do` | ERRORS=0, WARNINGS=0 | No se re-ejecuta en Sprint 4 (ejecutada en Sprint 3) |
-| TP-05 | FSM de Sprint 3 | `fsm` | Questa | `run_fsm.do` | ERRORS=0, WARNINGS=0 | No se re-ejecuta en Sprint 4 (ejecutada en Sprint 3) |
 | TP-06 | Decodificador MMIO | `mmio_decoder` | Cocotb | `make mmio_decoder` | Chip selects según Tabla 2, RAZ/WI | Ejecutada el 23 nov: 7/7 |
 | TP-07 | RAM | `ram` | Cocotb | `make ram` | Lectura de 1 ciclo y puertos independientes | Ejecutada el 23 nov: 8/8 |
-| TP-08 | Registros de control | `control_registers` | Cocotb | `make control_registers` | Escritura y lectura de CTRL, STATUS, LEDR, HEX, THRESHOLD; sin `we` no modifica | Ejecutada el 23 nov: 10/10 |
-| TP-09 | Banco de registros x0–x31 | `rv_register_file` (reemplaza a `memory_mapped_register_file`; `architecture.md`, sección 14, fila 1) | Cocotb, de forma indirecta | `make test_cpu` y `make test_programs` con `SV_FILELIST=files.f TOPLEVEL=rv32i_cpu` | x0 siempre 0; dos lecturas y una escritura por ciclo | Cubierto de forma indirecta por TP-02 y TP-17 (sin prueba unitaria propia). La prueba Questa de Sprint 3 es del módulo anterior y no se re-ejecuta |
 | TP-10 | Enabler | `rv32i_cpu` con `enable = 0` | Cocotb | `make test_cpu SV_FILELIST=files_enable.f TOPLEVEL=rv32i_cpu_enable` | Con `enable = 0` ninguna instrucción se completa (todas las pruebas terminan por timeout) | Ejecutada el 20 nov: 29/29 casos con timeout a 300 ciclos (pytest 30 failed), 0 instrucciones completadas |
 | TP-11 | Modo pulse | `rv32i_cpu` con pulse | Hardware (DE10-Standard) | SW[0] y KEY[1] | Cada pulsación de KEY[1] avanza la FSM hasta el siguiente estado | Ejecutada el 22 nov en la placa: OK. Secuencias 0 → 1 → 8 → 7 (`lui`/`addi`) y 0 → 1 → 2 → 5 (`sw`); paso a paso → modo libre OK (`results.md`, sección 7). Repetida el 24 nov con fotos de cada estado: 1 → 8 → 7 → 0 → 1 en las dos primeras instrucciones (`lui`), con PC `0x04` y `0x08` (`results.md`, sección 7.1) |
 | TP-12 | Stalls de bus | `rv32i_top` con el Host leyendo al azar | Cocotb | `make top` (`test_firmware_with_bus_stalls`) | La CPU espera y no pierde datos; el resultado es exacto y el costo extra es ≤ 0,43 ciclos por lectura del Host (suposición, sección 3.2) | Ejecutada el 23 nov: PASS con 64 píxeles (1507 lecturas, ~9792 ciclos) y con 16384 píxeles (220 363 lecturas, ~1 440 192 ciclos) |
@@ -86,6 +82,10 @@ La correlación entre prompts, salidas de la IA, commits y resultados está en `
 | TP-20 | Reset con KEY[0] | `top_level` | Hardware (DE10-Standard) | Pulsar KEY[0] con la CPU detenida o en paso a paso | HEX y LEDR en 0; LEDR[9] solo refleja SW[0] | Ejecutada el 24 nov: OK; fotos `normal_00` (modo libre) y `01_reset_key0_todo_en_cero` (paso a paso) (`results.md`, sección 7.3) |
 | TP-21 | Ciclos por instrucción en hardware | FSM del CPU en la placa | SignalTap + análisis de los CSV | Contar, en los CSV de TP-15, las muestras entre dos inicios de FETCH consecutivos (20 ns por muestra) | Cada instrucción completa dura los ciclos que da la FSM: tipo I y R 5, `bne` 4, `sw` 6, `lw` 8 (sección 3.2) | Ejecutada el 24 nov: 1 499 de 1 499 coinciden (`results.md`, 8.2) |
 | TP-22 | Modelo de rendimiento del firmware | `firmware.hex` sobre `rv32i_top` | Cocotb (`make top`) y SignalTap | TP-13 y TP-21 | Ciclos de `busy` a `done` = 3 920 + 83·N dentro de la resolución del sondeo (64 ciclos); el bucle por píxel dura exactamente 83 | Ejecutada el 24 nov: 9 232 (observado ~9 280) y 1 363 792 (~1 363 840); 86 intervalos consecutivos de 83 ciclos (`results.md`, 8.2) |
+| TP-23 | Demostración de funcionalidades | `multicycle_rv_control_fsm` | Questa | `run_multicycle_rv_control_fsm.do` | Generación de waveform acorde al funcionamiento esperado real. ERRORS=0 en .log | Ejecutada el 25 nov |
+| TP-24 | Demostración de funcionalidades | `arbiter` | Questa | `run_arbiter.do` | Generación de waveform acorde al funcionamiento esperado real. ERRORS=0 en .log | Ejecutada el 25 nov |
+| TP-25 | Demostración de funcionalidades | `mmio_decoder` | Questa | `run_mmio_decoder.do` | Generación de waveform acorde al funcionamiento esperado real. ERRORS=0 en .log | Ejecutada el 25 nov |
+| TP-26 | Demostración de funcionalidades | `multicycle_rv32i` y firmware | Questa | `run_multicycle_rv32i_firmware.do` | Generación de waveform de los primeros 6000 ciclos para visualización. No verifica el RV32I, solo muestra | Ejecutada el 25 nov |
 
 ### 3.1 Trazabilidad AC → pruebas
 
@@ -95,7 +95,7 @@ La correlación entre prompts, salidas de la IA, commits y resultados está en `
 | 3 | TP-12, TP-18, TP-21 |
 | 4 | TP-11 |
 | 5, 6 | TP-06, TP-07, TP-16, TP-18 |
-| 7 | TP-08, TP-10, TP-13, TP-15 |
+| 7 | TP-10, TP-13, TP-15 |
 | 8, 9 | TP-13, TP-16, TP-22 |
 | 10 | TP-01, TP-02, TP-17 |
 | 11 | TP-12, TP-13, TP-18 |

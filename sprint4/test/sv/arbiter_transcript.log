@@ -1,0 +1,61 @@
+# Questa Altera Starter FPGA Edition-64 vmap 2025.2 Lib Mapping Utility 2025.05 May 31 2025
+# vmap work work 
+# ** Note: (vmap-220) 'modelsim.ini' is used as the ini file.
+# Modifying modelsim.ini
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 14:44:29 on Nov 26,2026
+# vlog -reportprogress 300 -sv ../../src/arbiter.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling module arbiter
+# 
+# Top level modules:
+# 	arbiter
+# End time: 14:44:29 on Nov 26,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+# Start time: 14:44:30 on Nov 26,2026
+# vlog -reportprogress 300 -sv tb_arbiter.sv 
+# ** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+# -- Compiling module tb_arbiter
+# 
+# Top level modules:
+# 	tb_arbiter
+# End time: 14:44:30 on Nov 26,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# ** Note: (vsim-220) 'modelsim.ini' is used as the ini file.
+# vsim -voptargs="+acc" -suppress 10908 work.tb_arbiter 
+# Start time: 14:44:30 on Nov 26,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Note: (vopt-220) 'modelsim.ini' is used as the ini file.
+# ** Note: (vopt-143) Recognized 1 FSM in module "arbiter(fast)".
+# Loading sv_std.std
+# Loading work.tb_arbiter(fast)
+# Loading work.arbiter(fast)
+# 
+# === 1. Reset ===
+# 
+# === 2. vJTAG solo: escritura ===
+# 
+# === 3. CPU sola: lectura ===
+# 
+# === 4. Ambos piden: gana vJTAG ===
+# 
+# === 5. Backpressure de vJTAG ===
+# 
+# === 6. CPU conserva el bus mientras vJTAG pide ===
+# 
+# === 7. CPU suelta el bus cuando fsm_valid baja ===
+# 
+# === 8. Reset en medio de un acceso ===
+# 
+# ----------------------------------------
+# TB: tb_arbiter
+# TOTAL_CHECKS=69
+# ERRORS=0
+# WARNINGS=0
+# ALL_TESTS_PASSED
+# ----------------------------------------
+# ** Note: $finish    : tb_arbiter.sv(306)
+#    Time: 442 ns  Iteration: 0  Instance: /tb_arbiter
+# End time: 14:44:43 on Nov 26,2026, Elapsed time: 0:00:13
+# Errors: 0, Warnings: 0, Suppressed Warnings: 1
