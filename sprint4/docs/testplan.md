@@ -85,7 +85,7 @@ La correlación entre prompts, salidas de la IA, commits y resultados está en `
 | TP-23 | Demostración de funcionalidades | `multicycle_rv_control_fsm` | Questa | `run_multicycle_rv_control_fsm.do` | Generación de waveform acorde al funcionamiento esperado real. ERRORS=0 en .log | Ejecutada el 25 nov |
 | TP-24 | Demostración de funcionalidades | `arbiter` | Questa | `run_arbiter.do` | Generación de waveform acorde al funcionamiento esperado real. ERRORS=0 en .log | Ejecutada el 25 nov |
 | TP-25 | Demostración de funcionalidades | `mmio_decoder` | Questa | `run_mmio_decoder.do` | Generación de waveform acorde al funcionamiento esperado real. ERRORS=0 en .log | Ejecutada el 25 nov |
-| TP-26 | Demostración de funcionalidades | `multicycle_rv32i` y firmware | Questa | `run_multicycle_rv32i_firmware.do` | Generación de waveform de los primeros 6000 ciclos para visualización. No verifica el RV32I, solo muestra | Ejecutada el 25 nov |
+| TP-26 | Demostración de funcionalidades | `multicycle_rv32i` y firmware | Questa | `run_multicycle_rv32i_firmware.do` | Generación de waveform de los primeros 4000 ciclos para visualización. No verifica el RV32I, solo muestra | Ejecutada el 25 nov |
 
 ### 3.1 Trazabilidad AC → pruebas
 

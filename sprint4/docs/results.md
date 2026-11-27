@@ -29,6 +29,7 @@
 | Mapa de memoria y permisos (Tabla 2) en la placa | DE10-Standard | Cumple | Ejecutada el 22 nov |
 | Captura en hardware (TP-15) | SignalTap, 50 MHz | Capturas A (inicio) y B (fin) | Ejecutada el 23 nov |
 | Ciclos por instrucción contra el modelo de la FSM (TP-21, sección 8.2) | CSV de SignalTap + script | 1 499 de 1 499 instrucciones con los ciclos teóricos (4, 5, 6 y 8) | Analizada el 24 nov |
+| Demostraciones Questa (`sprint4/test/sv`, TP-23 a TP-26) | Questa 2025.2 | 0 errores en las cuatro corridas (sección 3.2) | Ejecutadas el 25 nov |
 | Modelo de ciclos `T(N) = 3 920 + 83·N` contra cocotb (TP-22, secciones 4, 4.1 y 8.2) | Cocotb + SignalTap | 9 232 y 1 363 792 ciclos; los ~9 280 y ~1 363 840 observados son esos valores redondeados al múltiplo de 64 del sondeo | Analizada el 24 nov |
 
 
@@ -136,7 +137,38 @@ Fallos y avisos de la corrida, tal como salieron:
 
 - **Sprint 1, prueba 3.2 (inyección de X, Icarus):** no corre. `test_negative.py` hace `from cocotb.binary import BinaryValue` y cocotb 2.1.0 ya no tiene ese módulo (`ModuleNotFoundError: No module named 'cocotb.binary'`). Es incompatibilidad del test de Sprint 1 con la versión instalada de cocotb; no afecta al diseño de Sprint 4. No se corrigió en esta entrega. La evidencia de Sprint 1 es la de su propia entrega.
 - **Primer intento del `arbiter` (`make all`):** `libcocotbvpi_verilator.so: cannot open shared object file` (Error 127, ignorado por el Makefile). El mismo `make` reconstruyó y la corrida siguiente pasó 8/8.
-- **Pruebas de Questa (`sprint*/test/sv`):** no se pueden correr en WSL. Se conserva la evidencia local de cada sprint (`questa_test_summary.log`), que valida el gatekeeper.
+- **Pruebas de Questa (`sprint*/test/sv`):** no se pueden correr en WSL. Las de Sprint 4 (demostraciones TP-23 a TP-26) se corrieron en Questa el 25 nov (sección 3.2). Las de sprints anteriores se conservan como evidencia local (`questa_test_summary.log`), que valida el gatekeeper.
+
+
+### 3.2 Demostraciones en Questa (`sprint4/test/sv`, 25 nov 2026)
+
+Se corrieron cuatro scripts `.do` en Questa 2025.2 desde `sprint4/test/sv`. Cada corrida genera un waveform `.wlf` y un transcript `.log`; `parse_logs.py` resume los transcripts en `questa_test_summary.log`, que es la evidencia que revisa el gatekeeper. Las cuatro terminaron con `Errors: 0`.
+
+| TP | Módulo | Script | Waveform | Transcript | Errores | Warnings |
+|---|---|---|---|---|---|---|
+| TP-23 | `multicycle_rv_control_fsm` | `run_multicycle_rv_control_fsm.do` | `multicycle_rv_control_fsm.wlf` | `multicycle_rv_control_fsm_transcript.log` | 0 | 1 |
+| TP-24 | `arbiter` | `run_arbiter.do` | `arbiter.wlf` | `arbiter_transcript.log` | 0 | 1 |
+| TP-25 | `mmio_decoder` | `run_mmio_decoder.do` | `mmio_decoder.wlf` | `mmio_decoder_transcript.log` | 0 | 1 |
+| TP-26 | `multicycle_rv32i` con `firmware.hex` | `run_multicycle_rv32i_firmware.do` | `run_multicycle_rv32i_firmware.wlf` | `multicycle_rv32i_firmware_transcript.log` | 0 | 2 |
+
+- Los warnings de TP-23, TP-24 y TP-25 son `vopt-10908`, que aparece porque el `vsim` usa `+acc`. Los dos de TP-26 son `vlog-13314` (puerto `alu_flags` con `-svinputport=relaxed`). Son avisos de herramienta, no fallos de las pruebas.
+- TP-26 muestra los primeros 4000 ciclos del firmware (`RUN_CYCLES = 4000`) para visualizarlos; no verifica el RV32I. TP-23 a TP-25 son demostraciones: el criterio es que la forma de onda sea la esperada y que no haya errores en el log.
+
+**Waveforms vistas en Questa**
+
+![FSM de control en Questa](questa_waveforms_screenshots/multicycle_rv_control_fsm.png)
+Waveform 1: FSM de control en Questa. Se muestra el momento en que un stall termina hasta que sucede el handshake de data memory.
+
+![árbitro en Questa](questa_waveforms_screenshots/arbiter.png)
+Waveform 2: árbitro en Questa. Se muestra el momento en que la FSM del árbitro pasa a Idle después de un handshake de mux_valid y subordinate_ready.
+
+![decodificador MMIO en Questa](questa_waveforms_screenshots/mmio_decoder.png)
+Waveform 3: decodificador MMIO en Questa. Se muestra el comportamiento de los chip selects (señales we, write enable) según la dirección actual. La primera en encenderse es la de instruction memory puesto que esta memoria incluye el inicio del rango de memoria mmio (la dirección 0.)
+
+![firmware en Questa, primeros 4000 ciclos](questa_waveforms_screenshots/run_multicycle_rv32i_firmware.png)
+Waveform 4: firmware en Questa. Se muestra el programa firmware en un ciclo en PC == {0x24, 0x28, 0x2C}.
+Los estados mostrados 0 (FETCH) y 5 (Memory Write) tienen stall hasta que ocurren los handshakes de instruction_memory y data_memory, respectivamente.
+
 
 ---
 
@@ -600,7 +632,7 @@ El procesador RV32I multiciclo cumple los criterios verificables: pasa las 29 pr
 | Tema | Detalle |
 |---|---|
 | Ejecución de GitHub Actions en verde | Hecho para el PR #82 a `dev` (4 checks en verde: detect-changes, open-source-verification, repo-artifact-validation y style-check): https://github.com/itsbybp/group7_ce3201_s2_g1_2026/actions/runs/45310486302 |
-| Pruebas Questa (`test/sv`) | No se pueden correr en WSL; se usa la evidencia local de cada sprint |
+| Pruebas Questa (`test/sv`) | Demostraciones de Sprint 4 corridas el 25 nov, con 0 errores (sección 3.2); las de sprints anteriores, por evidencia local |
 | Sprint 1, prueba 3.2 | Rota por `cocotb.binary` en cocotb 2.1.0 (sección 3.1) |
 | Sprint 3, log cocotb | Sin línea `TESTS=` |
 | Reset (KEY[0]) | Hecho el 24 nov (sección 7.3) |
